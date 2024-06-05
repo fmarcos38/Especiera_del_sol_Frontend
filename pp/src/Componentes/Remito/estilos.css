@@ -1,0 +1,52 @@
+.cont-gralRemito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-remito{
+    width: 60%;
+    height: auto;
+    margin-top: 20px;
+}
+/* estilos contenedor sup */
+.cont-remito-sup{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.cont-remito-sup-izq{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(19, 230, 230);
+}
+.cont-remito-sup-logo{
+    width: 15%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: blue;
+}
+.logo-remito{
+    width: 60px;
+    height: 60px;
+}
+.cont-remito-sup-info-empresa{
+    width: 70%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blueviolet;
+}
+.cont-remito-sup-info-X{
+    width: 15%;
+}
+/* estilos cont sup der */
+.cont-remito-sup-derecho{
+    width: 40%;
+    background-color: blueviolet;
+}
