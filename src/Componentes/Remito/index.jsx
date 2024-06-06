@@ -1,13 +1,31 @@
 import React from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
 
-
 function Remito() {
+
+    /* mejor opcion */
+    const handleSavePDF = () => {
+        const input = document.getElementById('pdf-content');
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('remito.pdf');
+        });
+    };
+
+    
+
     return (
         <div className='cont-gralRemito'>
-            <div className='cont-remito'>
-                {/* cont info superiro */}
+            <div className='cont-remito' id='pdf-content'>
+                {/* cont info superior */}
                 <div className='cont-remito-sup'>
                     <div className='cont-remito-sup-izq'>                        
                         {/* cont info empresa */}
@@ -16,8 +34,7 @@ function Remito() {
                             <div className='cont-remito-sup-logo'>
                                 <img src={logoRemito} alt='' className='logo-remito'/>
                                 <h1>ESPECIERA DEL SOL</h1>
-                            </div>
-                            
+                            </div>                            
                             <p>ESPECIAS - FRUTAS SECAS</p>
                             <p>11 4199 7200</p>
                             <p>11 5951 0493</p>
@@ -27,13 +44,11 @@ function Remito() {
                         </div>
                         {/* cont X */}
                         <div className='cont-remito-sup-info-X'>
-                            <h1>X</h1>
-                            <br></br>
-                            <br></br>
-                            <p>Documento</p>
-                            <p>No Válido</p>
-                            <p>como</p>
-                            <p>Factura</p>
+                            <h2 className='letra-X'>X</h2>
+                            <p className='p-cont-X'>Documento</p>
+                            <p className='p-cont-X'>No Válido</p>
+                            <p className='p-cont-X'>como</p>
+                            <p className='p-cont-X'>Factura</p>
                         </div>
                     </div>
                     
@@ -42,7 +57,7 @@ function Remito() {
                         <div className='cont-remito-derecho-SUP'>
                             <h2 className='cont-remito-derecho-SUP-titulo'>REMITO</h2>
                             <p className='num-remito'>N° 0001</p>
-                            <p className='fecha-remito'>Fecha: {Date.now}</p>
+                            <p className='fecha-remito'>Fecha: {new Date().toLocaleDateString()}</p>
                         </div>
                         <div className='cont-remito-derecho-INF'>
                             <div className='cont-remito-derecho-INF-izq'>
@@ -100,27 +115,130 @@ function Remito() {
                     <table className='pedido-tabla'>
                         <thead>
                             <tr>
-                                <th className="encabezado">Cantidad</th>
-                                <th className="encabezado">Detalle</th>
-                                <th className="encabezado">P. Unitario</th>
-                                <th className="encabezado">Importe</th>
+                                <th className="encabezado-cantidad">Cantidad</th>
+                                <th className="encabezado-detalle">Detalle</th>
+                                <th className="encabezado-unitario">P. Unitario</th>
+                                <th className="encabezado-importe">Importe</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <input type='text' id='item-1' className='input-item-remito-1'/>
+                                </td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
                             <tr>
                                 <td>10</td>
                                 <td>almendras</td>
                                 <td>10000</td>
                                 <td>100000</td>
                             </tr>
-                            <tr className="total-row">
-                                <td colSpan="3">TOTAL</td>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
                                 <td>100000</td>
                             </tr>
+                            {/*<tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr> */}
                         </tbody>
+                        <tfoot className='celda-total-cifra'>
+                            <tr className="total-row">
+                                <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
+                                <td className='celda-total-cifra'>100000</td>
+                            </tr>
+                        </tfoot>    
                     </table>
                 </div>
             </div>
+
+            {/* botón imprimir */}
+            <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
         </div>
     )
 }
