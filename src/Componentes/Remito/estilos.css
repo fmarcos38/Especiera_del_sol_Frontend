@@ -1,0 +1,168 @@
+.cont-gralRemito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-remito{
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border: 2px solid brown;
+}
+/* estilos contenedor sup */
+.cont-remito-sup{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.cont-remito-sup-izq{
+    width: 60%;
+    display: flex;
+    background-color: rgba(132, 73, 73, 0.718);
+}
+.cont-remito-sup-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-remito{
+    width: 60px;
+    height: 60px;
+}
+/*  */
+.cont-remito-sup-info-empresa{
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.cont-remito-sup-info-empresa h1, p{
+    margin: 0;    
+}
+.cont-remito-sup-info-X{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid white; 
+    border-right: 2px solid white;
+    color: #fff;
+}
+/* estilos cont datos Remito + fecha + data empresa */
+/* estilos cont sup der */
+.cont-remito-derecho{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.cont-remito-derecho-SUP, 
+.cont-remito-derecho-INF {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    color: brown;
+}
+.cont-remito-derecho-SUP-titulo,
+.num-remito,
+.fecha-remito {
+    margin: 10px 0 0 10px;
+}
+.cont-remito-derecho-INF{
+    display: flex;
+    flex-direction: row;
+}
+.cont-remito-derecho-INF-izq {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.datos-empresa-afip-IZQ{
+    margin-left: 10px;
+}
+.cont-remito-derecho-INF-der{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: end;
+}
+.datos-empresa-afip-DER {
+    margin-right: 10px;
+}
+
+/* estilos cont info CLIENTE */
+.cont-remito-datos-cliente{
+    width: 90%;
+    color: brown;
+}
+.cont-remito-datos-cliente-Item-Localidad-Telef,
+.cont-remito-datos-cliente-Item-AFIP {
+    display: flex;
+    flex-direction: row;
+}
+.cont-remito-datos-cliente-Item-Nombre,
+.cont-remito-datos-cliente-Item-Direccion,
+.cont-remito-datos-cliente-Item-Localidad-Telef,
+.cont-remito-datos-cliente-Item-AFIP,
+.cont-remito-datos-cliente-Item-CondicionPago {
+    margin-top: 10px;
+}
+.lable-remito{
+    margin-right: 5px;
+}
+.input-remito-nombre,
+.input-remito-domicilio,
+.input-remito-localidad,
+.input-remito-telefono,
+.input-remito-iva,
+.input-remito-cuit {
+    width: 90%;
+    border: none; 
+    border-bottom: 2px solid brown; 
+}
+.cont-localidad{
+    width: 60%;
+}
+.input-remito-localidad{
+    width: 80%;
+}
+.cont-telefono{
+    width: 40%;
+}
+.input-remito-telefono{
+    width: 90%;
+}
+.cont-IVA{
+    width: 65%;
+}
+.cont-CUIT{
+    width: 35%;
+}
+.input-remito-cuit{
+    width: 83.5%;
+}
+.cont-remito-datos-cliente-Item-CondicionPago{
+    display: flex;
+    justify-content: start;
+    margin-bottom: 10px;
+}
+.lable-remito-condicion{
+    padding: 3px 10px;
+    color: #fff;    
+    background-color: rgba(132, 73, 73, 0.718);
+
+}
+.input-remito-condicionPago{
+    width: 78%;
+    padding: 3px 10px;
+}
