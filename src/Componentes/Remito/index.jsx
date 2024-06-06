@@ -96,10 +96,53 @@ function Remito() {
                 </div>
 
                 {/* cont info items */}
-                <div className='cont-remito-items'></div>
+                <div className='cont-remito-items'>
+                    <table className='pedido-tabla'>
+                        <thead>
+                            <tr>
+                                <th className="encabezado">Cantidad</th>
+                                <th className="encabezado">Detalle</th>
+                                <th className="encabezado">P. Unitario</th>
+                                <th className="encabezado">Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
+                            </tr>
+                            <tr className="total-row">
+                                <td colSpan="3">TOTAL</td>
+                                <td>100000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )
 }
 
-export default Remito
+export default Remito;
+
+
+/*
+
+<tbody>
+        {items.map((item, index) => (
+          <tr key={index}>
+            <td>{item.cantidad}</td>
+            <td>{item.detalle}</td>
+            <td>{item.pUnitario.toFixed(2)}</td>
+            <td>{(item.cantidad * item.pUnitario).toFixed(2)}</td>
+          </tr>
+        ))}
+        <tr className="total-row">
+          <td colSpan="3">TOTAL</td>
+          <td>{total.toFixed(2)}</td>
+        </tr>
+      </tbody>
+
+*/
