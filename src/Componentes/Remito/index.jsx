@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
@@ -6,7 +6,18 @@ import './estilos.css';
 
 function Remito() {
 
-    /* mejor opcion */
+    //estado arreglo pedido
+    const [pedido, setPedido] = useState([]);
+    //estado item
+    const [item1, setItem1] = useState({cantidad: "", detalle: "", unitario: "", importe: ""});
+    const [item2, setItem2] = useState({cantidad: "", detalle: "", unitario: "", importe: ""});
+
+    /* funcion para OnChange de c/input */
+    const handleOnChange = (e) => {
+        
+    };
+
+    /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
         const input = document.getElementById('pdf-content');
         html2canvas(input).then((canvas) => {
@@ -19,8 +30,6 @@ function Remito() {
             pdf.save('remito.pdf');
         });
     };
-
-    
 
     return (
         <div className='cont-gralRemito'>
@@ -124,17 +133,31 @@ function Remito() {
                         <tbody>
                             <tr>
                                 <td>
-                                    <input type='text' id='item-1' className='input-item-remito-1'/>
+                                    <input type='text' id='item-1-cantidad' value={item1.cantidad} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
                                 </td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
+                                <td>
+                                    <input type='text' id='item-1-detalle' value={item1.detalle} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
+                                </td>
+                                <td>
+                                    <input type='text' id='item-1-unitario' value={item1.unitario} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
+                                </td>
+                                <td>
+                                    <input type='text' id='item-1-importe' value={item1.importe} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
+                                </td>
                             </tr>
                             <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
+                                <td>
+                                    <input type='text' id='item-2-cantidad' value={item2.cantidad} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
+                                </td>
+                                <td>
+                                    <input type='text' id='item-2-detalle' value={item2.detalle} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
+                                </td>
+                                <td>
+                                    <input type='text' id='item-2-unitario' value={item2.unitario} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
+                                </td>
+                                <td>
+                                    <input type='text' id='item-2-importe' value={item2.importe} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
+                                </td>
                             </tr>
                             <tr>
                                 <td>10</td>
