@@ -7,8 +7,9 @@ function FormPedido() {
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]); console.log("pedido:", pedido);
     //estado item
-    const [item, setItem] = useState({cantidad: "", detalle: "", unitario: "", importe: ""}); console.log("item:", item);
-    
+    const [item, setItem] = useState({cantidad: "", detalle: "", unitario: "", importe: ""}); 
+    console.log("tipoItem: ", typeof(item.importe));
+
     const handleOnChange = (e) => {
         setItem({...item, [e.target.id]: e.target.value});
     };
@@ -25,8 +26,16 @@ function FormPedido() {
             setPedido([...pedido, item]);
         }
     };
-
-
+    //funcion calc tot del pedido
+    const calculaTotPedido = () => {
+        let tot = 0;
+        for(let i=0; i<pedido.length; i++){
+            let imp = parseInt(pedido[i].importe, 10); console.log("imp:", imp)
+            tot = tot + imp;
+        }
+        return tot;
+    }; 
+    
 
     return (
         <div className='cont-pedido'>
@@ -56,19 +65,41 @@ function FormPedido() {
 
             {/* muestra pedido */}
             <div>
-                {
-                    pedido?.map(item => {
-                        return(
-                            <div key={item.nombre} className='cont-item-agregado'>
-                                <p>{item.cant}</p>
-                                <p>{item.detalle}</p>
-                                <p>{item.unitario}</p>
-                                <p>{item.importe}</p>
-                            </div>
-                        )
-                    })
-                }
+                <table className="client-table">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Detalle</th>
+                            <th>P.Unitario</th>
+                            <th>Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            pedido?.map(item => {
+                                return (
+                                    <tr key={item.nombre}>
+                                        <td>{item.cantidad}</td>
+                                        <td>{item.detalle}</td>
+                                        <td>{item.unitario}</td>
+                                        <td>{item.importe}</td>
+                                    </tr>
+                                )
+                            }
+                            )
+                        }
+                    </tbody>
+                    <tfoot>
+                        <td>TOTAL</td>
+                        <td></td>
+                        <td></td>
+                        <td>{calculaTotPedido()}</td>
+                    </tfoot>
+                </table>
             </div>
+
+            {/* botón crea pedido/remito */}
+            <button>Crear Pedido/Remito</button>
         </div>
     )
 }
