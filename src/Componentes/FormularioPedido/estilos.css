@@ -1,0 +1,114 @@
+.cont-pedido{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(120, 119, 119);
+}
+.formulario{
+    display:flex;
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    border-radius: 30px;
+    border: 2px solid #080808;
+    background-color: brown;
+}
+.cont-items-form{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+.cont-item-cantidad,
+.cont-item-producto,
+.cont-item-unitario,
+.cont-item-importe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.cont-item-cantidad{
+    width: 10%;
+}
+.cont-item-producto {
+    width: 40%;
+}
+.cont-item-unitario {
+    width: 20%;
+}
+.cont-item-importe{
+    width: 10%;
+}
+.label-formulario {
+    font-size: x-large;
+    font-weight: 600;
+    color: #fff;
+}
+.input-cant-formulario,
+.input-producto-formulario,
+.input-unitario-formulario,
+.input-importe-formulario {
+    border-radius: 5px;
+    height: 25px;
+    border: none;
+    width: 90%;
+}
+.btn-cargarProd{
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #080808;
+    margin-bottom: 10px;
+}
+/* estilos pedido agregado */
+.cont-item-agregado{
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: aquamarine;
+}
+/* responsive */
+@media screen and (max-width:1100px){
+    .label-formulario {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width:900px){
+    .label-formulario {
+        font-size: 16px;
+    }
+}
+@media screen and (max-width:700px) {
+    .cont-items-form {
+        flex-direction: column;
+    }
+
+    .label-formulario {
+        font-size: 16px;
+    }
+
+    .cont-item-cantidad,
+    .cont-item-producto,
+    .cont-item-unitario,
+    .cont-item-importe {
+        width: 80%;
+    }
+
+    .input-cant-formulario,
+    .input-producto-formulario,
+    .input-unitario-formulario,
+    .input-importe-formulario {
+        width: 100%;
+    }
+}

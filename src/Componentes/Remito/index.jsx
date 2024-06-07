@@ -6,17 +6,6 @@ import './estilos.css';
 
 function Remito() {
 
-    //estado arreglo pedido
-    const [pedido, setPedido] = useState([]);
-    //estado item
-    const [item1, setItem1] = useState({cantidad: "", detalle: "", unitario: "", importe: ""});
-    const [item2, setItem2] = useState({cantidad: "", detalle: "", unitario: "", importe: ""});
-
-    /* funcion para OnChange de c/input */
-    const handleOnChange = (e) => {
-        
-    };
-
     /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
         const input = document.getElementById('pdf-content');
@@ -132,32 +121,10 @@ function Remito() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <input type='text' id='item-1-cantidad' value={item1.cantidad} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
-                                </td>
-                                <td>
-                                    <input type='text' id='item-1-detalle' value={item1.detalle} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
-                                </td>
-                                <td>
-                                    <input type='text' id='item-1-unitario' value={item1.unitario} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
-                                </td>
-                                <td>
-                                    <input type='text' id='item-1-importe' value={item1.importe} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type='text' id='item-2-cantidad' value={item2.cantidad} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
-                                </td>
-                                <td>
-                                    <input type='text' id='item-2-detalle' value={item2.detalle} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
-                                </td>
-                                <td>
-                                    <input type='text' id='item-2-unitario' value={item2.unitario} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
-                                </td>
-                                <td>
-                                    <input type='text' id='item-2-importe' value={item2.importe} onChange={(e) => handleOnChange(e)} className='input-item-1-cantidad' />
-                                </td>
+                                <td>10</td>
+                                <td>almendras</td>
+                                <td>10000</td>
+                                <td>100000</td>
                             </tr>
                             <tr>
                                 <td>10</td>

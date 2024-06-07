@@ -5,6 +5,7 @@ import Navbar from './Componentes/Navbar';
 import ListaClientes from './Componentes/ListaProductos';
 import Home from './Pages/Home';
 import Remito from './Componentes/Remito';
+import FormPedido from './Componentes/FormularioPedido';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/clientes' element={<ListaClientes/>} />
+            <Route path='/pedido' element={<FormPedido/>} />
 
             {/* rutas para el desarrollador */}
             <Route path='/remito' element={<Remito/>} />
