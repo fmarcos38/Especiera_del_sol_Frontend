@@ -30,7 +30,7 @@ function FormPedido() {
     const calculaTotPedido = () => {
         let tot = 0;
         for(let i=0; i<pedido.length; i++){
-            let imp = parseInt(pedido[i].importe, 10); console.log("imp:", imp)
+            let imp = parseInt(pedido[i].importe, 10); 
             tot = tot + imp;
         }
         return tot;

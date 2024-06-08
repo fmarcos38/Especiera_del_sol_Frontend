@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllClientes } from '../../Redux/Actions';
+import { getAllClientes, getAllProds } from '../../Redux/Actions';
 
 
 function Home() {
@@ -9,6 +9,7 @@ function Home() {
 
     useEffect(() => {
         dispatch(getAllClientes());
+        dispatch(getAllProds());
     }, [dispatch]);
 
 

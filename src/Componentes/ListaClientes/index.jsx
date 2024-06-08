@@ -4,32 +4,42 @@ import './estilos.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-function ListaProductos() {
+function ListaClientes() {
 
-    const allP = useSelector(state => state.productos); 
+    const allC = useSelector(state => state.clientes); 
 
 
     return (
         <div className='cont-lista-clientes'>
             {
-                allP ?
+                allC ?
                 <table className="client-table">
                 <thead>
                     <tr>
-                        <th>Descripción</th>
-                        <th>Precio (x Kg)</th>
-                        <th>Envase (kg.)</th>                        
+                        <th>Nombre</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Ciudad</th>                        
+                        <th>Dirección</th>
+                        <th>Remitos</th>
                         <th style={{ width: 'auto' }}>Editar/Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        allP?.map((p) => (
-                            <tr key={p.nombre}>
-                                <td>{p.nombre}</td>
-                                <td className="centered">{p.precioKg}</td>
-                                <td className="centered">{p.envase}</td>                                
-                                <td className="centered">
+                        allC?.map((c) => (
+                            <tr key={c.nombre}>
+                                <td>{c.nombre} {c.apellido}</td>
+                                <td>{c.telefono}</td>
+                                <td>{c.email}</td>
+                                <td>{c.ciudad}</td>
+                                <td>{c.direccion}</td>
+                                <td>
+                                    <button>
+                                        REMITOS
+                                    </button>
+                                </td>                                
+                                <td>
                                     <button className='btn-edit-prods'>
                                         <EditIcon />
                                     </button>
@@ -50,4 +60,4 @@ function ListaProductos() {
     )
 }
 
-export default ListaProductos;
+export default ListaClientes;

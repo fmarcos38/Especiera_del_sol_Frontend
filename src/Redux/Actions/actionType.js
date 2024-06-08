@@ -1,1 +1,2 @@
 export const GET_ALL_CLIENTES = "GET_ALL_CLIENTES";
+export const GET_ALL_PRODUCTOS = "GET_ALL_PRODUCTOS";
