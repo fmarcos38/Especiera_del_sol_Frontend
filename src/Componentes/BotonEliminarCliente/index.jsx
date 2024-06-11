@@ -2,7 +2,7 @@ import React from 'react';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch } from 'react-redux';
 import { eliminaCliente } from '../../Redux/Actions';
-
+import './estilos.css';
 
 function BotonEliminarCliente({_id}) {
 
@@ -14,7 +14,7 @@ function BotonEliminarCliente({_id}) {
 
     return (        
         <button 
-            className='btn-elim-prods'
+            className='btn-elim-cliente'
             onClick={() => {handleOnClick()}}
         >
             <DeleteForeverIcon />

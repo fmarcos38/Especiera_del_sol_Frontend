@@ -38,6 +38,8 @@ const FormCliente = () => {
         if (!formData.nombre) newErrors.nombre = 'Nombre es requerido';
         if (!formData.apellido) newErrors.apellido = 'Apellido es requerido';
         if (!formData.razonSocial) newErrors.razonSocial = 'Razón Social es requerida';
+        if (!formData.telefono) newErrors.telefono = 'Telefono es requerido';
+        if (!formData.email) newErrors.email = 'Email es requerido';
         if (!formData.ciudad) newErrors.ciudad = 'Ciudad es requerida';
         if (!formData.direccion) newErrors.direccion = 'Dirección es requerida';
         if (!formData.iva) newErrors.iva = 'IVA es requerido';
@@ -200,7 +202,7 @@ const FormCliente = () => {
             </div>
             {/* botón */}
             <div className='cont-btn-enviar-formCliente'>
-                <button type="submit">Enviar</button>
+                <button type="submit" className='btn-enviar-form-cliente'>Enviar</button>
             </div>
         </form>
     );

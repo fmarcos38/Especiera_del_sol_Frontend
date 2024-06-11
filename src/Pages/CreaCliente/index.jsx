@@ -6,7 +6,7 @@ import './estilos.css';
 function CreaCliente() {
     return (
         <div className='cont-page-creaCliente'>
-            <h1>Formulario de creación de nuevo Cliente</h1>
+            <h1 className='h1-form-cliente'>Formulario de creación de nuevo Cliente</h1>
             <FormCliente />
         </div>
     )

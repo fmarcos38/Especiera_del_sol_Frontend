@@ -10,10 +10,12 @@ import ListaProductos from './Componentes/ListaProductos';
 import ListaClientes from './Componentes/ListaClientes';
 import CreaCliente from './Pages/CreaCliente';
 import ListaClientesPage from './Pages/ListaClientes';
+import { AppProvider } from './Contexto';
 
 function App() {
   return (
-    <div className="App">
+    <AppProvider>
+      <div className="App">
       {/* navbar */}
       <header className="App-header">
         <Navbar />
@@ -33,6 +35,7 @@ function App() {
         </Routes>
       
     </div>
+    </AppProvider>
   );
 }
 

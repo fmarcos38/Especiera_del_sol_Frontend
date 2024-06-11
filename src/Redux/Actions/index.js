@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, ELIMINA_CLIENTE, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS } from './actionType';
+import { BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, ELIMINA_CLIENTE, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, MODIFICA_CLIENTE } from './actionType';
 import { local } from '../../URLs';
 
 //--CLIENTES------------------------------------------------------
@@ -32,7 +32,13 @@ export function eliminaCliente(_id){
         dispatch({type:ELIMINA_CLIENTE, payload:resp.data});
     }
 };
-
+//editar cliente
+export function editaCliente(_id, data){
+    return async function(dispatch){
+        const resp = await axios.put(`${local}/clientes/modificaCliente/${_id}`, data);
+        dispatch({type:MODIFICA_CLIENTE, payload:resp.data});
+    }
+}
 //--PRODUCTOS-------------------------------------------------------
 //trae prods
 export function getAllProds(){

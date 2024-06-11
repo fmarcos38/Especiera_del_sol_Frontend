@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './estilos.css';
-import EditIcon from '@mui/icons-material/Edit';
 import BotonEliminarCliente from '../BotonEliminarCliente';
 import { getAllClientes } from '../../Redux/Actions';
+import BotonEditaCliente from '../BotonEditarCliente';
+import ModalEdicionCliente from '../ModalEdicionCliente';
+import { AppContexto } from '../../Contexto';
 
 function ListaClientes() {
 
     const allC = useSelector(state => state.clientes); 
     const dispatch = useDispatch();
+    const contexto = useContext(AppContexto); console.log("contexto:", contexto.modalClienteOpen);
 
     useEffect(() => {
         dispatch(getAllClientes());
@@ -39,16 +42,14 @@ function ListaClientes() {
                                 <td>{c.email}</td>
                                 <td>{c.ciudad}</td>
                                 <td>{c.direccion}</td>
-                                <td>
+                                <td style={{width: '50px'}}>
                                     <button>
                                         REMITOS
                                     </button>
                                 </td>                                
-                                <td>
-                                    <button className='btn-edit-prods'>
-                                        <EditIcon />
-                                    </button>
-                                    <BotonEliminarCliente _id={c._id}/>
+                                <td style={{width: '50px'}}>
+                                    <BotonEditaCliente />
+                                    <BotonEliminarCliente _id={c._id} />
                                 </td>
                             </tr>
                         ))}
@@ -56,8 +57,16 @@ function ListaClientes() {
             </table>
             :
             <div style={{color: 'black'}}>
-                No hay prods pa mostrar papu!!
+                No hay Clientes pa mostrar papu!!
             </div>
+            }
+
+            {/* Modal edición cliente */}
+            {
+                contexto.modalClienteOpen && 
+                <div>
+                    <ModalEdicionCliente/>
+                </div>
             }
         </div>
     )
