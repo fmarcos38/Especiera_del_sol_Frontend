@@ -1,13 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './estilos.css';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import BotonEliminarCliente from '../BotonEliminarCliente';
+import { getAllClientes } from '../../Redux/Actions';
 
 function ListaClientes() {
 
     const allC = useSelector(state => state.clientes); 
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getAllClientes());
+    }, [dispatch, allC]);
 
     return (
         <div className='cont-lista-clientes'>
@@ -43,9 +48,7 @@ function ListaClientes() {
                                     <button className='btn-edit-prods'>
                                         <EditIcon />
                                     </button>
-                                    <button className='btn-elim-prods'>
-                                        <DeleteForeverIcon />
-                                    </button>
+                                    <BotonEliminarCliente _id={c._id}/>
                                 </td>
                             </tr>
                         ))}

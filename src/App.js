@@ -8,6 +8,8 @@ import Remito from './Componentes/Remito';
 import FormPedido from './Componentes/FormularioPedido';
 import ListaProductos from './Componentes/ListaProductos';
 import ListaClientes from './Componentes/ListaClientes';
+import CreaCliente from './Pages/CreaCliente';
+import ListaClientesPage from './Pages/ListaClientes';
 
 function App() {
   return (
@@ -20,11 +22,14 @@ function App() {
         {/* rutas */}
         <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path='/clientes' element={<ListaClientes/>} />
-            <Route path='/pedido' element={<FormPedido/>} />
-            <Route path='/productos' element={<ListaProductos/>} />
+            <Route path='/clientes' element={<ListaClientesPage/>} />
+            <Route path='/creaCliente' element={<CreaCliente/>} />
+            
             {/* rutas para el desarrollador */}
+            <Route path='/clientes' element={<ListaClientes/>} />
+            <Route path='/productos' element={<ListaProductos/>} />
             <Route path='/remito' element={<Remito/>} />
+            <Route path='/pedido' element={<FormPedido/>} />
         </Routes>
       
     </div>

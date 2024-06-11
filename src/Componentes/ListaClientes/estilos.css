@@ -30,7 +30,4 @@
 .client-table tbody tr:hover {
     background-color: #9a9595;
 }
-.btn-edit-prods,
-.btn-elim-prods {
-    cursor: pointer;
-}
+

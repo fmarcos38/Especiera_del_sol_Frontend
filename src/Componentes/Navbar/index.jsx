@@ -1,35 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './estilos.css';
 import logo from '../../Imagenes/logo.png';
 import textLogo from '../../Imagenes/texto-logo.png';
 import { Link } from 'react-router-dom';
 
 
+const Navbar = () => {
+    const [showClientsMenu, setShowClientsMenu] = useState(false);
 
-function Navbar() {
+    const handleMouseEnter = () => {
+        setShowClientsMenu(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowClientsMenu(false);
+    };
+
     return (
-        <div className='cont-head'>
+        <nav className="navbar">
+            {/* logo */}
             <div className='cont-izq'>
                 <Link to='/' className='cont-izq'>
                     <img src={logo} alt='' className='logo'/>
                     <img src={textLogo} alt='' className='texto-logo'/>
                 </Link>
             </div>
-            <div className='cont-der'>
-                <ul>
-                    <Link to='/clientes' className='link-menu'>
-                        <li>Clientes</li>
-                    </Link>
-                    <Link to='/productos' className='link-menu'>
-                        <li>Productos</li>
-                    </Link>
-                    <Link to='/remitos' className='link-menu'>
-                        <li>Remitos</li>
-                    </Link>
-                </ul>
-            </div>
-        </div>
-    )
-}
+            <ul className="navbar-menu">
+                <li
+                    className="navbar-item"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    Clientes
+                    {
+                        showClientsMenu && (
+                            <ul className="dropdown-menu">
+                                <Link to="/creaCliente" className='link-menu'>
+                                    <li className="dropdown-item">Crear Cliente</li>
+                                </Link>                                
+                                <Link to='/clientes' className='link-menu'>
+                                    <li className="dropdown-item">Listar Clientes</li>
+                                </Link>                                
+                            </ul>
+                        )
+                    }
+                </li>
+                <li className="navbar-item">Proveedores</li>
+            </ul>
+        </nav>
+    );
+};
 
-export default Navbar
+export default Navbar;

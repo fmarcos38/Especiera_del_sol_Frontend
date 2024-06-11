@@ -1,0 +1,8 @@
+.cont-page-creaCliente{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    background-color: rgb(133, 106, 66);
+}
