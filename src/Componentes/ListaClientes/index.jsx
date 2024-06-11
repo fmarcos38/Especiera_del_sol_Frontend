@@ -4,15 +4,22 @@ import './estilos.css';
 import BotonEliminarCliente from '../BotonEliminarCliente';
 import { getAllClientes } from '../../Redux/Actions';
 import BotonEditaCliente from '../BotonEditarCliente';
+import ModalEdicionCliente from '../ModalEdicionCliente';
 
 function ListaClientes() {
 
     const allC = useSelector(state => state.clientes); 
     const dispatch = useDispatch();
+    const [editingClient, setEditingClient] = React.useState(null);
+
+    const handleEditClick = (client) => {
+        setEditingClient(client);
+    };
 
     useEffect(() => {
         dispatch(getAllClientes());
     }, [dispatch]);
+    
 
     return (
         <div className='cont-lista-clientes'>
@@ -45,8 +52,10 @@ function ListaClientes() {
                                     </button>
                                 </td>                                
                                 <td style={{width: '50px'}}>
-                                    <div style={{display: 'flex'}}>
-                                        <BotonEditaCliente _id={c._id} />
+                                    <div style={{display: 'flex'}} key={c._id}>
+                                        {/* <BotonEditaCliente c={c} /> */}
+                                        <button onClick={() => handleEditClick(c)}>Edit</button>
+
                                         <BotonEliminarCliente _id={c._id} nombre={c.nombre} apellido={c.apellido} />
                                     </div>
                                 </td>
@@ -59,6 +68,10 @@ function ListaClientes() {
                 No hay Clientes pa mostrar papu!!
             </div>
             }
+            {
+                editingClient && <ModalEdicionCliente c={editingClient} setEditingClient={setEditingClient} />
+            }
+           
         </div>
     )
 }

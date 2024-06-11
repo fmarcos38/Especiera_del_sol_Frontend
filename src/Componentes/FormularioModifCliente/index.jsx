@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import './estilos.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch,  } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getAllClientes, getClienteByID, resetCliente } from '../../Redux/Actions';
+import { getAllClientes, } from '../../Redux/Actions';
 
-const FormModificaCliente = ({_id}) => {
-
-    const cliente = useSelector(state => state.cliente); console.log("client:", cliente)
-    const [formData, setFormData] = useState({
-        nombre: "",
-        apellido: cliente.apellido,
-        razonSocial: cliente.razonSocial,
-        telefono: cliente.telefono,
-        email: cliente.email,
-        ciudad: cliente.ciudad,
-        direccion: cliente.direccion,
-        iva: cliente.iva,
-        cuit: cliente.cuit, 
-    });   
+const FormModificaCliente = ({c, setEditingClient }) => {
+    console.log("client: ", c)
+    const [formData, setFormData] = useState(c);   
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
@@ -33,14 +22,9 @@ const FormModificaCliente = ({_id}) => {
             icon: "success"
         });
         dispatch(getAllClientes());
+        setEditingClient(null);
     };
 
-    useEffect(()=>{
-        dispatch(getClienteByID(_id));
-
-        return () => {dispatch(resetCliente());}
-
-    },[_id, dispatch]);
     
     return (
         <form className="client-form" onSubmit={handleSubmit}>
@@ -51,7 +35,7 @@ const FormModificaCliente = ({_id}) => {
                     <input
                         type="text"
                         name="nombre"
-                        value={cliente.nombre}
+                        value={formData.nombre}
                         onChange={handleChange}
                     />
                 </div>
@@ -109,6 +93,7 @@ const FormModificaCliente = ({_id}) => {
                     />
                 </div>
             </div>
+
             {/* razon social y cuit*/}
             <div className='cont-dos-items'>
                 <div className="form-group">
@@ -141,6 +126,7 @@ const FormModificaCliente = ({_id}) => {
                     onChange={handleChange}
                 />
             </div>
+
             {/* botón */}
             <div className='cont-btn-enviar-formCliente'>
                 <button type="submit" className='btn-enviar-form-cliente'>Enviar</button>

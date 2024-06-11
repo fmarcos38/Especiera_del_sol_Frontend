@@ -17,6 +17,7 @@ export function getAllClientes(){
 //trae cliete por ID
 export function getClienteByID(_id){
     return async function(dispatch){
+        console.log("_id:", _id)
         const resp = await axios.get(`${local}/clientes/${_id}`);
         dispatch({type:GET_CLIENTE, payload:resp.data});
     }
