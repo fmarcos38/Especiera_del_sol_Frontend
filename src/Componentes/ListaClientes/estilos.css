@@ -30,4 +30,7 @@
 .client-table tbody tr:hover {
     background-color: #9a9595;
 }
-
+.cont-tabla-botones{
+    width: 60px;
+    display: flex;
+}

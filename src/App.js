@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './Componentes/Navbar';
-
 import Home from './Pages/Home';
 import Remito from './Componentes/Remito';
 import FormPedido from './Componentes/FormularioPedido';
@@ -13,6 +12,7 @@ import ListaClientesPage from './Pages/ListaClientes';
 import { AppProvider } from './Contexto';
 
 function App() {
+
   return (
     <AppProvider>
       <div className="App">

@@ -1,21 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './estilos.css';
 import BotonEliminarCliente from '../BotonEliminarCliente';
 import { getAllClientes } from '../../Redux/Actions';
 import BotonEditaCliente from '../BotonEditarCliente';
-import ModalEdicionCliente from '../ModalEdicionCliente';
-import { AppContexto } from '../../Contexto';
 
 function ListaClientes() {
 
     const allC = useSelector(state => state.clientes); 
     const dispatch = useDispatch();
-    const contexto = useContext(AppContexto); console.log("contexto:", contexto.modalClienteOpen);
 
     useEffect(() => {
         dispatch(getAllClientes());
-    }, [dispatch, allC]);
+    }, [dispatch]);
 
     return (
         <div className='cont-lista-clientes'>
@@ -48,8 +45,10 @@ function ListaClientes() {
                                     </button>
                                 </td>                                
                                 <td style={{width: '50px'}}>
-                                    <BotonEditaCliente />
-                                    <BotonEliminarCliente _id={c._id} />
+                                    <div style={{display: 'flex'}}>
+                                        <BotonEditaCliente _id={c._id} />
+                                        <BotonEliminarCliente _id={c._id} nombre={c.nombre} apellido={c.apellido} />
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -59,14 +58,6 @@ function ListaClientes() {
             <div style={{color: 'black'}}>
                 No hay Clientes pa mostrar papu!!
             </div>
-            }
-
-            {/* Modal edición cliente */}
-            {
-                contexto.modalClienteOpen && 
-                <div>
-                    <ModalEdicionCliente/>
-                </div>
             }
         </div>
     )

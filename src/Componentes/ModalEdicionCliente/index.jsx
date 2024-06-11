@@ -1,15 +1,17 @@
 import React, { useContext } from 'react'
-import FormCliente from '../FormularioCliente'
 import { AppContexto } from '../../Contexto'
+import './estilos.css';
+import FormModificaCliente from '../FormularioModifCliente';
 
-function ModalEdicionCliente({estado}) {
+
+function ModalEdicionCliente({_id}) {
 
     const contexto = useContext(AppContexto);
 
     return (
-        <div>
+        <div className='cont-modal-Cliente'>
             <button onClick={() => {contexto.setModalClienteOpen(false)}}>X</button>
-            <FormCliente/>
+            <FormModificaCliente _id={_id}/>
         </div>
     )
 }
