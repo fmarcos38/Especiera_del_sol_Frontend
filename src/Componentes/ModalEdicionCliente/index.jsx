@@ -3,10 +3,10 @@ import { AppContexto } from '../../Contexto'
 import './estilos.css';
 import FormModificaCliente from '../FormularioModifCliente';
 
-function ModalEdicionCliente({c}) {
+function ModalEdicionCliente({c, setClienteAeditar}) {
 
     const contexto = useContext(AppContexto);
-    
+
 
     return (
         <div className='cont-modal-Cliente'>
@@ -16,7 +16,7 @@ function ModalEdicionCliente({c}) {
             >
                 X
             </button>
-            <FormModificaCliente c={c}/>
+            <FormModificaCliente c={c} setClienteAeditar={setClienteAeditar}/>
         </div>
     )
 }

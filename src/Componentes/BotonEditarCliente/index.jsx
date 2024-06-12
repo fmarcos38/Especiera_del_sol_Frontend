@@ -1,29 +1,24 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { AppContexto } from '../../Contexto'
-import { getClienteByID, resetCliente } from '../../Redux/Actions';
+import { AppContexto } from '../../Contexto';
 import ModalEdicionCliente from '../ModalEdicionCliente';
-import { useDispatch } from 'react-redux';
 import './estilos.css';
 
 function BotonEditaCliente({c}) {
 
+    const [clienteAeditar, setClienteAeditar] = useState(null);
     const contexto = useContext(AppContexto);
-    const dispatch = useDispatch();
-
-    useEffect(()=>{
-        dispatch(getClienteByID(c._id));
-
-        return () => {dispatch(resetCliente());}
-
-    },[c._id, dispatch]);
-
+    
+    const handleEditClick = () => {
+        setClienteAeditar(c);
+        contexto.setModalClienteOpen(true);
+    };
 
     return (  
         <div>
             <button 
             className='btn-edita-cliente'
-            onClick={() => {contexto.setModalClienteOpen(true)}}
+            onClick={() => {handleEditClick()}}
         >
             <EditIcon />
         </button>
@@ -32,7 +27,7 @@ function BotonEditaCliente({c}) {
             {
                 contexto.modalClienteOpen && 
                 <div className='cont-modal-lista-clientes'>
-                    <ModalEdicionCliente c={c}/>
+                    <ModalEdicionCliente c={clienteAeditar} setClienteAeditar={setClienteAeditar}/>
                 </div>
             }
         </div>                

@@ -2,10 +2,10 @@ import React, {  useState } from 'react';
 import './estilos.css';
 import { useDispatch,  } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getAllClientes, } from '../../Redux/Actions';
+import { editaCliente, getAllClientes, } from '../../Redux/Actions';
 
-const FormModificaCliente = ({c, setEditingClient }) => {
-    console.log("client: ", c)
+const FormModificaCliente = ({c, setClienteAeditar }) => {
+    
     const [formData, setFormData] = useState(c);   
     const dispatch = useDispatch();
 
@@ -17,12 +17,26 @@ const FormModificaCliente = ({c, setEditingClient }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         Swal.fire({
-            title: "The Internet?",
-            text: "That thing is still around?",
-            icon: "success"
-        });
-        dispatch(getAllClientes());
-        setEditingClient(null);
+            title: "Está segur@ de realizar los cambios?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "SI",
+            cancelButtonText: "NO"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "OK!",
+                    text: "Cambios realizados!!",
+                    icon: "success"
+                });
+                dispatch(editaCliente(formData));
+                dispatch(getAllClientes());
+                setClienteAeditar(null);
+            }
+            window.location.reload();
+        });        
     };
 
     

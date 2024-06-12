@@ -7,7 +7,7 @@ export const AppContexto = createContext();
 export const AppProvider = ({children}) => {
 
     //estado modal cliente
-    const [modalClienteOpen, setModalClienteOpen] = useState(false);
+    const [modalClienteOpen, setModalClienteOpen] = useState(false); 
 
     return(
         <AppContexto.Provider 

@@ -50,9 +50,9 @@ export function eliminaCliente(_id){
     }
 };
 //editar cliente
-export function editaCliente(_id, data){
+export function editaCliente(data){
     return async function(dispatch){
-        const resp = await axios.put(`${local}/clientes/modificaCliente/${_id}`, data);
+        const resp = await axios.put(`${local}/clientes/modificaCliente/${data._id}`, data);
         dispatch({type:MODIFICA_CLIENTE, payload:resp.data});
     }
 }

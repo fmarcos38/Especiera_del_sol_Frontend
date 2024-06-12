@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './estilos.css';
 import BotonEliminarCliente from '../BotonEliminarCliente';
 import { getAllClientes } from '../../Redux/Actions';
-import BotonEditaCliente from '../BotonEditarCliente';
+import EditIcon from '@mui/icons-material/Edit';
 import ModalEdicionCliente from '../ModalEdicionCliente';
+import { AppContexto } from '../../Contexto';
 
 function ListaClientes() {
 
+    const [clienteAeditar, setClienteAeditar] = useState(null);
     const allC = useSelector(state => state.clientes); 
     const dispatch = useDispatch();
-    const [editingClient, setEditingClient] = React.useState(null);
+    const contexto = useContext(AppContexto);
+    
 
-    const handleEditClick = (client) => {
-        setEditingClient(client);
+    const handleEditClick = (cliente) => {
+        setClienteAeditar(cliente);
+        contexto.setModalClienteOpen(true);
     };
 
     useEffect(() => {
@@ -54,7 +58,12 @@ function ListaClientes() {
                                 <td style={{width: '50px'}}>
                                     <div style={{display: 'flex'}} key={c._id}>
                                         {/* <BotonEditaCliente c={c} /> */}
-                                        <button onClick={() => handleEditClick(c)}>Edit</button>
+                                        <button 
+                                            onClick={() => handleEditClick(c)}
+                                            className='btn-edita-cliente'
+                                        >
+                                            <EditIcon/>
+                                        </button>
 
                                         <BotonEliminarCliente _id={c._id} nombre={c.nombre} apellido={c.apellido} />
                                     </div>
@@ -69,9 +78,11 @@ function ListaClientes() {
             </div>
             }
             {
-                editingClient && <ModalEdicionCliente c={editingClient} setEditingClient={setEditingClient} />
+                contexto.modalClienteOpen && 
+                <div className='cont-modal-lista-clientes'>
+                    <ModalEdicionCliente c={clienteAeditar} setClienteAeditar={setClienteAeditar} />
+                </div>
             }
-           
         </div>
     )
 }
