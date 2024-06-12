@@ -7,10 +7,10 @@ function Home() {
 
     const dispatch = useDispatch();
 
-    /* useEffect(() => {
+    useEffect(() => {
         dispatch(getAllClientes());
         dispatch(getAllProds());
-    }, [dispatch]); */
+    }, [dispatch]);
 
 
     return (

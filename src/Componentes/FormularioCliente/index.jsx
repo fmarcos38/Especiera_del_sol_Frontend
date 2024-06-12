@@ -11,12 +11,12 @@ const FormCliente = () => {
         nombre: '',
         apellido: '',
         razonSocial: '',
-        telefono: '',
+        telefono: 0,
         email: '',
         ciudad: '',
         direccion: '',
         iva:'',
-        cuit: '',
+        cuit: 0,
     }); 
     const [errors, setErrors] = useState({});
     const allClientes = useSelector(state => state.clientes);

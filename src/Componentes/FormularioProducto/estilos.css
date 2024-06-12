@@ -1,0 +1,8 @@
+.cont-imagen-prod{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.label-img{
+    margin-bottom: 5px;
+}
