@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { createCliente, getAllClientes } from '../../Redux/Actions';
+import FormularioAlta from '../FormularioAlta';
+
 
 const FormCliente = () => {
+
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
@@ -15,7 +17,7 @@ const FormCliente = () => {
         direccion: '',
         iva:'',
         cuit: '',
-    });
+    }); 
     const [errors, setErrors] = useState({});
     const allClientes = useSelector(state => state.clientes);
     const dispatch = useDispatch();
@@ -32,6 +34,15 @@ const FormCliente = () => {
         }
     };
 
+    //funcion verifica si ya existe un cliente con mismo CUIT
+    const verifCliente = () => {
+        let buscoCliente = {};
+        buscoCliente = allClientes.find(c => c.cuit === formData.cuit);
+        if(buscoCliente){ return buscoCliente; }
+        return buscoCliente = {nombre: ""};
+    };
+
+    //funcion valida inputs
     const validate = () => {
         const newErrors = {};
 
@@ -50,17 +61,9 @@ const FormCliente = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    //funcion verifica si ya existe un cliente con mismo CUIT
-    const verifCliente = () => {
-        let buscoCliente = {};
-        buscoCliente = allClientes.find(c => c.cuit === formData.cuit);
-        if(buscoCliente){ return buscoCliente; }
-        return buscoCliente = {nombre: ""};
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        let existeCliente = verifCliente(); console.log("existeC: ", existeCliente)
+        let existeCliente = verifCliente(); 
         if(existeCliente.nombre === ""){
             if (validate()) {
                 dispatch(createCliente(formData));
@@ -93,118 +96,14 @@ const FormCliente = () => {
 
     
     return (
-        <form className="client-form" onSubmit={handleSubmit}>
-            {/* nombre y apellido */}
-            <div className='cont-dos-items'>
-                <div className="form-group">
-                    <label>Nombre</label>
-                    <input
-                        type="text"
-                        name="nombre"
-                        value={formData.nombre}
-                        onChange={handleChange}
-                    />
-                    {errors.nombre && <span className="error">{errors.nombre}</span>}
-                </div>
-                <div className="form-group">
-                    <label>Apellido</label>
-                    <input
-                        type="text"
-                        name="apellido"
-                        value={formData.apellido}
-                        onChange={handleChange}
-                    />
-                    {errors.apellido && <span className="error">{errors.apellido}</span>}
-                </div>
-            </div>
-            
-            {/* tel e email */}
-            <div className='cont-dos-items'>
-                <div className="form-group">
-                    <label>Teléfono</label>
-                    <input
-                        type="number"
-                        name="telefono"
-                        value={formData.telefono}
-                        onChange={handleChange}
-                    />
-                    {errors.telefono && <span className="error">{errors.telefono}</span>}
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    {errors.email && <span className="error">{errors.email}</span>}
-                </div>
-            </div>
-            
-            {/* cuidad y direcc */}
-            <div className='cont-dos-items'>
-                <div className="form-group">
-                    <label>Ciudad</label>
-                    <input
-                        type="text"
-                        name="ciudad"
-                        value={formData.ciudad}
-                        onChange={handleChange}
-                    />
-                    {errors.ciudad && <span className="error">{errors.ciudad}</span>}
-                </div>
-                <div className="form-group">
-                    <label>Dirección</label>
-                    <input
-                        type="text"
-                        name="direccion"
-                        value={formData.direccion}
-                        onChange={handleChange}
-                    />
-                    {errors.direccion && <span className="error">{errors.direccion}</span>}
-                </div>
-            </div>
-            {/* razon social y cuit*/}
-            <div className='cont-dos-items'>
-                <div className="form-group">
-                    <label>Razón Social</label>
-                    <input
-                        type="text"
-                        name="razonSocial"
-                        value={formData.razonSocial}
-                        onChange={handleChange}
-                    />
-                    {errors.razonSocial && <span className="error">{errors.razonSocial}</span>}
-                </div>
-                <div className="form-group">
-                    <label>CUIT</label>
-                    <input
-                        type="text"
-                        name="cuit"
-                        value={formData.cuit}
-                        onChange={handleChange}
-                    />
-                    {errors.cuit && <span className="error">{errors.cuit}</span>}
-                </div>
-            </div>            
-
-            {/* iva y condicion de pago */}            
-            <div className="form-group-iva">
-                <label>I.V.A</label>
-                <input
-                    type="text"
-                    name="iva"
-                    value={formData.iva}
-                    onChange={handleChange}
-                />
-                {errors.iva && <span className="error">{errors.iva}</span>}
-            </div>
-            {/* botón */}
-            <div className='cont-btn-enviar-formCliente'>
-                <button type="submit" className='btn-enviar-form-cliente'>Enviar</button>
-            </div>
-        </form>
+        <FormularioAlta 
+            formData={formData}
+            setFormData={setFormData}
+            errors={errors}
+            setErrors={setErrors}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+        />
     );
 };
 

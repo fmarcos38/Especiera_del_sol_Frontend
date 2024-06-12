@@ -57,7 +57,6 @@ function ListaClientes() {
                                 </td>                                
                                 <td style={{width: '50px'}}>
                                     <div style={{display: 'flex'}} key={c._id}>
-                                        {/* <BotonEditaCliente c={c} /> */}
                                         <button 
                                             onClick={() => handleEditClick(c)}
                                             className='btn-edita-cliente'
