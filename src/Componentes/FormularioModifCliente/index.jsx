@@ -36,6 +36,7 @@ const FormModificaCliente = ({c, setClienteAeditar }) => {
                 dispatch(editaCliente(formData));
                 dispatch(getAllClientes());
                 setClienteAeditar(null);
+                setErrors({});
             }
             window.location.reload();
         });        

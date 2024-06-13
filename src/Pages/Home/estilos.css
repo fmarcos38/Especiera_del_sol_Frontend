@@ -1,4 +1,9 @@
 .cont-home{
-    color: black;
-    background-color: aqua;
+    height: 89.9vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(10, 188, 232);
+    background-image: url('../../Imagenes/frutos2.jpg');
 }

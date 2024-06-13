@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { 
-    BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, ELIMINA_CLIENTE, GET_ALL_CLIENTES, 
+    BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
     GET_ALL_PRODUCTOS, GET_CLIENTE, MODIFICA_CLIENTE, 
     RESET_CLIENTE
 } from './actionType';
@@ -62,5 +62,14 @@ export function getAllProds(){
     return async function(dispatch){
         const resp = await axios.get(`${local}/productos`);
         dispatch({type: GET_ALL_PRODUCTOS, payload: resp.data});
+    }
+}
+
+
+//elimina prod
+export function eliminaProducto(_id){
+    return async function(dispatch){
+        const resp = await axios.delete(`${local}/productos/${_id}`);
+        dispatch({type: ELIMINA_PRODUCTO, payload: resp.data});
     }
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllClientes, getAllProds } from '../../Redux/Actions';
-
+import './estilos.css';
 
 function Home() {
 
@@ -14,7 +14,10 @@ function Home() {
 
 
     return (
-        <div className='cont-home'>Bienvenido a Especiera del Sol</div>
+        <div className='cont-home'>
+            <h1>Bienvenido a Especiera del Sol</h1>
+            <h2>Especias + Frutas Secas</h2>
+        </div>
     )
 }
 
