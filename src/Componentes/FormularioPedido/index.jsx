@@ -5,7 +5,7 @@ import './estilos.css';
 function FormPedido() {
 
     //estado arreglo pedido
-    const [pedido, setPedido] = useState([]); console.log("pedido:", pedido);
+    const [pedido, setPedido] = useState([]); 
     //estado item
     const [item, setItem] = useState({cantidad: "", detalle: "", unitario: "", importe: ""}); 
     console.log("tipoItem: ", typeof(item.importe));

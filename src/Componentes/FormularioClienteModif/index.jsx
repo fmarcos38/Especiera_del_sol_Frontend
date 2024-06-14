@@ -3,7 +3,7 @@ import './estilos.css';
 import { useDispatch,  } from 'react-redux';
 import Swal from 'sweetalert2';
 import { editaCliente, getAllClientes, } from '../../Redux/Actions';
-import FormularioAlta from '../FormularioAlta';
+import FormularioAlta from '../FormularioCliente';
 
 const FormModificaCliente = ({c, setClienteAeditar }) => {
     

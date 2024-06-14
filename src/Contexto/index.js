@@ -10,6 +10,8 @@ export const AppProvider = ({children}) => {
     const [modalClienteOpen, setModalClienteOpen] = useState(false); 
     const [modalProductoOpen, setModalProductoOpen] = useState(false);
     const [modalImgOpen, setModalImgOpen] = useState(false);
+
+    
     return(
         <AppContexto.Provider 
             value={{

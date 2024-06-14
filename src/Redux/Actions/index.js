@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { 
-    BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
-    GET_ALL_PRODUCTOS, GET_CLIENTE, MODIFICA_CLIENTE, 
+    BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, CREA_PROVEEDOR, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
+    GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, 
     RESET_CLIENTE
 } from './actionType';
 import { local } from '../../URLs';
@@ -56,6 +56,7 @@ export function editaCliente(data){
         dispatch({type:MODIFICA_CLIENTE, payload:resp.data});
     }
 }
+
 //--PRODUCTOS-------------------------------------------------------
 //trae prods
 export function getAllProds(){
@@ -65,7 +66,6 @@ export function getAllProds(){
     }
 }
 
-
 //elimina prod
 export function eliminaProducto(_id){
     return async function(dispatch){
@@ -73,3 +73,22 @@ export function eliminaProducto(_id){
         dispatch({type: ELIMINA_PRODUCTO, payload: resp.data});
     }
 }
+
+//--proveedores-----------------------------------------------------
+//trae proveedores
+export function getAllProveedores() {
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/proveedores`);
+        dispatch({type: GET_ALL_PROVEEDORES, payload:resp.data});
+    }
+}
+
+//crea prov
+export function creaProveedor(data){
+    return async function(dispatch){
+        const resp = await axios.post(`${local}/proveedores`, data);
+        dispatch({type:CREA_PROVEEDOR, payload:resp.data});
+    }
+}
+
+

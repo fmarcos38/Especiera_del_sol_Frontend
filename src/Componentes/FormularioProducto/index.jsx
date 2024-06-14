@@ -53,7 +53,7 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
 
                 {/* muestra foto */}
                 <div>
-                    <img src={previewSource} alt="Sin cargar" className="imagen-prod" />
+                    <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
                 </div>
 
                 {/* para el form modificar muestra la img q ya tiene */}

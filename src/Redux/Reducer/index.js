@@ -1,9 +1,10 @@
-import { GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_CLIENTE, RESET_CLIENTE } from "../Actions/actionType";
+import { GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, RESET_CLIENTE } from "../Actions/actionType";
 
 const initialState = {
     productos: [],
     clientes: [],
     cliente: {},
+    proveedores: [],
 };
 
 export default function rootReducer(state = initialState, action){
@@ -27,6 +28,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 productos: action.payload
+            }
+        case GET_ALL_PROVEEDORES:
+            return{
+                ...state,
+                proveedores: action.payload
             }
         default:
             return state;

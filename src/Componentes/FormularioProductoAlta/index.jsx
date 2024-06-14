@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-function FormularioAltaProducto() {
+function FormularioProductoAlta() {
 
     const [input, setInput] = useState({
         nombre: "",
@@ -118,4 +118,4 @@ function FormularioAltaProducto() {
     )
 }
 
-export default FormularioAltaProducto;
+export default FormularioProductoAlta;

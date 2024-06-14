@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AppContexto } from '../../Contexto'
 import './estilos.css';
-import FormModificaCliente from '../FormularioModifCliente';
+import FormModificaCliente from '../FormularioClienteModif';
 
 function ModalEdicionCliente({c, setClienteAeditar}) {
 
