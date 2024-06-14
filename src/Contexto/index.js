@@ -10,6 +10,7 @@ export const AppProvider = ({children}) => {
     const [modalClienteOpen, setModalClienteOpen] = useState(false); 
     const [modalProductoOpen, setModalProductoOpen] = useState(false);
     const [modalImgOpen, setModalImgOpen] = useState(false);
+    const [modalProveedorOpen, setModalProveedorOpen] = useState(false);
 
     
     return(
@@ -21,6 +22,8 @@ export const AppProvider = ({children}) => {
                 setModalProductoOpen,
                 modalImgOpen,
                 setModalImgOpen,
+                modalProveedorOpen,
+                setModalProveedorOpen
             }}
         >
             {children}

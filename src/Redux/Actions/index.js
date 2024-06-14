@@ -76,7 +76,7 @@ export function eliminaProducto(_id){
 
 //--proveedores-----------------------------------------------------
 //trae proveedores
-export function getAllProveedores() {
+export function getAllProveedores() { 
     return async function(dispatch){
         const resp = await axios.get(`${local}/proveedores`);
         dispatch({type: GET_ALL_PROVEEDORES, payload:resp.data});
@@ -91,4 +91,10 @@ export function creaProveedor(data){
     }
 }
 
+//modifica proveedor
+export function modificaProveedor(data){
+    return async function(dispatch){
+        await axios.put(`${local}/proveedores/modificaProveedor/${data._id}`, data);
+    }
+}
 

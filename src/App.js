@@ -11,6 +11,7 @@ import ListaClientesPage from './Pages/ListaClientes';
 import CreaProducto from './Pages/CreaProducto';
 import ListaProductosPage from './Pages/ListaProductos';
 import CreaProveedor from './Pages/CreaProveedor';
+import ListaProveedores from './Componentes/ListaProveedores';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path='/creaProducto' element={<CreaProducto/>} />
             <Route path='/productos' element={<ListaProductosPage/>} />
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
+            <Route path='/proveedores' element={<ListaProveedores/>} />
             
             {/* rutas para el desarrollador */}
             
