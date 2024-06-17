@@ -7,10 +7,15 @@ import { getAllProds } from '../../Redux/Actions';
 import { AppContexto } from '../../Contexto';
 import ModalEdicionProducto from '../ModalEdicionProducto';
 import ModalImgProducto from '../ModalImgProducto';
-
 function ListaProductos() {
 
     const allP = useSelector(state => state.productos);
+    let productos = allP;
+    //estado prods filtrados
+    const [filteredProductos, setFilteredProductos] = useState(productos);
+    //estado search
+    const [search, setSearch] = useState('');    
+
     const contexto = useContext(AppContexto); 
     const dispatch = useDispatch();
     //estado para almacenar el prod a modif
@@ -18,6 +23,10 @@ function ListaProductos() {
     //estado para la img q se verá en grande
     const [imgGrande, setImgGrande] = useState("");
 
+    //change para search
+    const handleOnChange = (e) => {        
+        setSearch(e.target.value);
+    };
     const handleClikEditar = (prod) => {
         contexto.setModalProductoOpen(true);
         setProdAmodif(prod);
@@ -33,13 +42,25 @@ function ListaProductos() {
 
     useEffect(()=>{
         dispatch(getAllProds());
-    },[dispatch]);
+        
+        setFilteredProductos(
+            productos.filter(producto =>
+                producto.nombre.includes(search)
+            )
+        );
+    },[dispatch, productos, search]);
 
 
     return (
         <div className='cont-lista-clientes'>
+            <div className='cont-searchP'>
+            <form>
+                <label className='label-searchP'>Busca un Producto</label>
+                <input type='text' onChange={(e) => {handleOnChange(e)}} />
+            </form>
+            </div>
             {
-                allP ?
+                filteredProductos ?
                 <table className="client-table">
                 <thead>
                     <tr>
@@ -52,7 +73,7 @@ function ListaProductos() {
                 </thead>
                 <tbody>
                     {
-                        allP?.map((p) => (
+                        filteredProductos?.map((p) => (
                             <tr key={p._id}>
                                 <td className="centered">
                                     <img src={p.imagen} alt='' style={{width:'70px', height:'50px'}} onMouseEnter={()=>{handleMouseEnter(p.imagen)}} onMouseLeave={hadleMouseLeave}/>

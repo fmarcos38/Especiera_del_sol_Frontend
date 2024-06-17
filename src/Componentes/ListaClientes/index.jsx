@@ -6,6 +6,7 @@ import { getAllClientes } from '../../Redux/Actions';
 import EditIcon from '@mui/icons-material/Edit';
 import ModalEdicionCliente from '../ModalEdicionCliente';
 import { AppContexto } from '../../Contexto';
+import SearchBar from '../SearchBar';
 
 function ListaClientes() {
 
@@ -27,6 +28,7 @@ function ListaClientes() {
 
     return (
         <div className='cont-lista-clientes'>
+            <SearchBar tipo={"cliente"}/>
             {
                 allC ?
                 <table className="client-table">

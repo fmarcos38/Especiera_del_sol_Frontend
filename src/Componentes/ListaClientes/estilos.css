@@ -1,6 +1,8 @@
 .cont-lista-clientes{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 .client-table {
     width: 90%;

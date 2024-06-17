@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { 
     BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, CREA_PROVEEDOR, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
-    GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, 
-    RESET_CLIENTE
+    GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
+    RESET_CLIENTE,
+    BUSCA_PRODUCTO_POR_NOMBRE
 } from './actionType';
 import { local } from '../../URLs';
 
@@ -17,7 +18,6 @@ export function getAllClientes(){
 //trae cliete por ID
 export function getClienteByID(_id){
     return async function(dispatch){
-        console.log("_id:", _id)
         const resp = await axios.get(`${local}/clientes/${_id}`);
         dispatch({type:GET_CLIENTE, payload:resp.data});
     }
@@ -66,6 +66,13 @@ export function getAllProds(){
     }
 }
 
+//busca por nombre
+export function buscaProdPorNombre(nombre) {
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/productos?nombre=${nombre}`);
+        dispatch({type: BUSCA_PRODUCTO_POR_NOMBRE, payload: resp.data});
+    }
+}
 //elimina prod
 export function eliminaProducto(_id){
     return async function(dispatch){
@@ -83,6 +90,14 @@ export function getAllProveedores() {
     }
 }
 
+//busca x ID
+export function buscaProveedor(data) {
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/proveedores/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
+        dispatch({type: BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, payload: resp.data});
+    }
+} 
+
 //crea prov
 export function creaProveedor(data){
     return async function(dispatch){
@@ -96,5 +111,12 @@ export function modificaProveedor(data){
     return async function(dispatch){
         await axios.put(`${local}/proveedores/modificaProveedor/${data._id}`, data);
     }
+}
+
+//elimina
+export function eliminaProveedor(_id){
+    return async function(dispatch){
+        await axios.delete(`${local}/proveedores/${_id}`);
+    }    
 }
 
