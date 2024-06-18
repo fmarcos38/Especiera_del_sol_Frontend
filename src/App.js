@@ -12,6 +12,7 @@ import CreaProducto from './Pages/CreaProducto';
 import ListaProductosPage from './Pages/ListaProductos';
 import CreaProveedor from './Pages/CreaProveedor';
 import ListaProveedores from './Componentes/ListaProveedores';
+import LoginPage from './Pages/Login';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         {/* rutas */}
         <Routes>
             <Route path='/' element={<Home/>} />
+            <Route path='/login' element={<LoginPage/>} />
             <Route path='/creaCliente' element={<CreaCliente/>} />
             <Route path='/clientes' element={<ListaClientesPage/>} />            
             <Route path='/creaProducto' element={<CreaProducto/>} />

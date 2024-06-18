@@ -1,3 +1,5 @@
+export const LOGIN = "LOGIN";
+
 export const GET_ALL_CLIENTES = "GET_ALL_CLIENTES";
 export const GET_CLIENTE = "GET_CLIENTE";
 export const RESET_CLIENTE = "RESET_CLIENTE";

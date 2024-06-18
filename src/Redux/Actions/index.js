@@ -7,6 +7,15 @@ import {
 } from './actionType';
 import { local } from '../../URLs';
 
+//---LOGIN--------------------------------------------------------
+export function login(data){
+    return async function(){
+        const resp = await axios.post(`${local}/auth/login`, data);
+        //asigno data del user al localStorage
+        localStorage.setItem("userData", JSON.stringify(resp.data));
+    }
+}
+
 //--CLIENTES------------------------------------------------------
 //trae clientes
 export function getAllClientes(){
