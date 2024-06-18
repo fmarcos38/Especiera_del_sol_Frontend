@@ -13,6 +13,7 @@ const Navbar = () => {
     const [muestraMenuClientes, setMuestraMenuClientes] = useState(false); //estado menú cliente
     const [muestraMenuProductos, setMuestraMenuProductos] = useState(false); //estado menú prod
     const [muestraMenuProveedor, setMuestraMenuProveedor] = useState(false); //estado menú proveedor
+    const [muestraMenuRemitos, setMuestraMenuRemitos] = useState(false); //estado menú remitos
     const contexto = useContext(AppContexto);
 
     const handleMouseEnterCliente = () => {
@@ -33,6 +34,12 @@ const Navbar = () => {
     const handleMouseLeaveProveedor = () => {
         setMuestraMenuProveedor(false);
     };
+    const handleMouseEnterRemito = () => {
+        setMuestraMenuRemitos(true);
+    };
+    const handleMouseLeaveRemito = () => {
+        setMuestraMenuRemitos(false);
+    };
     const handleLogOut = () => {
         logout();
         contexto.setUserLog(null);
@@ -50,6 +57,7 @@ const Navbar = () => {
             {
                 contexto.userLog ? (
                     <ul className="navbar-menu">
+                        {/* clientes */}
                         <li
                             className="navbar-item"
                             onMouseEnter={handleMouseEnterCliente}
@@ -104,6 +112,32 @@ const Navbar = () => {
                                         </Link>
                                         <Link to='/proveedores' className='link-menu'>
                                             <li className="dropdown-item">Listar Proveedores</li>
+                                        </Link>
+                                    </ul>
+                                )
+                            }
+                        </li>
+                        {/* remitos */}
+                        <li
+                            className="navbar-item"
+                            onMouseEnter={handleMouseEnterRemito}
+                            onMouseLeave={handleMouseLeaveRemito}
+                        >
+                            Clientes
+                            {
+                                muestraMenuRemitos && (
+                                    <ul className="dropdown-menu">
+                                        <Link to="/creaRemitoVenta" className='link-menu'>
+                                            <li className="dropdown-item">Crear remito Venta</li>
+                                        </Link>
+                                        <Link to='/creoRemitoCompra' className='link-menu'>
+                                            <li className="dropdown-item">Crear remito Compra</li>
+                                        </Link>
+                                        <Link to="/listaRemitosVenta" className='link-menu'>
+                                            <li className="dropdown-item">Crear remito Venta</li>
+                                        </Link>
+                                        <Link to='/listaRemitosCompra' className='link-menu'>
+                                            <li className="dropdown-item">Crear remito Compra</li>
                                         </Link>
                                     </ul>
                                 )

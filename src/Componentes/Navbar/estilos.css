@@ -76,15 +76,11 @@
     align-items: center;
     background-color: rgb(111, 201, 201);
 }
-.nombre-userLog{
-
-}
 .btn-logout{
     margin-left: 5px;
     border: none;
     background-color: rgb(111, 201, 201);
 }
-
 
 /* responsive */
 @media screen and (max-width: 1100px) {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
 
-function Remito() {
+function Remito({items, total}) {
 
     /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
@@ -119,108 +119,25 @@ function Remito() {
                                 <th className="encabezado-importe">Importe</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            {/*<tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>almendras</td>
-                                <td>10000</td>
-                                <td>100000</td>
-                            </tr> */}
+                        <tbody>                            
+                            {
+                                items?.map(item => {
+                                    return(
+                                        <tr key={item.detalle}>
+                                            <td>{item.cantidad}</td>
+                                            <td>{item.detalle}</td>
+                                            <td>{item.unitario}</td>
+                                            <td>{item.importe}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                            
                         </tbody>
                         <tfoot className='celda-total-cifra'>
                             <tr className="total-row">
                                 <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
-                                <td className='celda-total-cifra'>100000</td>
+                                <td className='celda-total-cifra'>{total}</td>
                             </tr>
                         </tfoot>    
                     </table>

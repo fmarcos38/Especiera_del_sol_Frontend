@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import swal from 'sweetalert2';
 import './estilos.css';
+import Remito from '../Remito';
 
 function FormPedido() {
 
@@ -8,8 +9,7 @@ function FormPedido() {
     const [pedido, setPedido] = useState([]); 
     //estado item
     const [item, setItem] = useState({cantidad: "", detalle: "", unitario: "", importe: ""}); 
-    console.log("tipoItem: ", typeof(item.importe));
-
+    
     const handleOnChange = (e) => {
         setItem({...item, [e.target.id]: e.target.value});
     };
@@ -39,6 +39,7 @@ function FormPedido() {
 
     return (
         <div className='cont-pedido'>
+            <h2>Creación de pedido</h2>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
                     <div className='cont-item-cantidad'>
@@ -63,8 +64,9 @@ function FormPedido() {
                 </div>
             </form>
 
+            <h2>Items pedido</h2>
             {/* muestra pedido */}
-            <div>
+            <div className='cont-tabla-items-pedido'>
                 <table className="client-table">
                     <thead>
                         <tr>
@@ -78,7 +80,7 @@ function FormPedido() {
                         {
                             pedido?.map(item => {
                                 return (
-                                    <tr key={item.nombre}>
+                                    <tr key={item.detalle}>
                                         <td>{item.cantidad}</td>
                                         <td>{item.detalle}</td>
                                         <td>{item.unitario}</td>
@@ -100,6 +102,11 @@ function FormPedido() {
 
             {/* botón crea pedido/remito */}
             <button>Crear Pedido/Remito</button>
+
+            {/* Remito */}
+            <div className='cont-remito-pedido'>
+                <Remito items={pedido} total={calculaTotPedido()}/>
+            </div>
         </div>
     )
 }
