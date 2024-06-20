@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { userLogData } from "../LocalStorage";
 
 //--creo contexto---
 export const AppContexto = createContext();
@@ -8,7 +9,7 @@ export const AppProvider = ({children}) => {
 
     //const userLogueado = userLog();
     //estado user logeado
-    const [userLog, setUserLog] = useState(null); console.log("data", userLog)
+    const [userLog, setUserLog] = useState(null); 
     //estado modal cliente
     const [modalClienteOpen, setModalClienteOpen] = useState(false); 
     //estado modal producto
@@ -18,6 +19,12 @@ export const AppProvider = ({children}) => {
     //estadfo modal provee
     const [modalProveedorOpen, setModalProveedorOpen] = useState(false);
 
+    useEffect(()=>{
+        const userLogin = userLogData();
+        if(userLogin){
+            setUserLog(userLogin);
+        }
+    }, []);
     
     return(
         <AppContexto.Provider 

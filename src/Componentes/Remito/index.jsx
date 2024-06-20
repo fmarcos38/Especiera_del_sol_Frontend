@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
 
-function Remito({items, total}) {
+function Remito({cliente, items, total}) {
 
     /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
@@ -74,9 +74,18 @@ function Remito({items, total}) {
 
                 {/* cont info cliente */}
                 <div className='cont-remito-datos-cliente'>
-                    <div className='cont-remito-datos-cliente-Item-Nombre'>
-                        <label className='lable-remito'>Señor(es):</label>
-                        <input className='input-remito-nombre' />
+                    <div className='cont-remito-datos-cliente-Item-NombreYApe'>
+                        <div className='cont-remito-datos-cliente-Item-Nombre'>
+                            <label className='lable-remito'>Nombre:</label>
+                            <input
+                                type='text'
+                                value={cliente?.nombre}
+                                className='input-remito-nombre' />
+                        </div>
+                        <div className='cont-remito-datos-cliente-Item-Nombre'>
+                            <label className='lable-remito'>Apellido:</label>
+                            <input className='input-remito-nombre' />
+                        </div>
                     </div>
                     <div className='cont-remito-datos-cliente-Item-Direccion'>
                         <label className='lable-remito'>Domicilio:</label>

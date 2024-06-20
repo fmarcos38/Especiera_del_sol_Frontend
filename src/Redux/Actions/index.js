@@ -3,7 +3,10 @@ import {
     BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, CREA_PROVEEDOR, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE,
-    BUSCA_PRODUCTO_POR_NOMBRE
+    BUSCA_PRODUCTO_POR_NOMBRE,
+    GET_ALL_REMITOS,
+    CREA_REMITO,
+    BUSCA_CLIENTE_POR_CUIT
 } from './actionType';
 import { local } from '../../URLs';
 
@@ -44,6 +47,13 @@ export function buscaClientePorNombre(data){
         dispatch({type: BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, payload:resp.data});
     }
 };
+//trae cliente por CUIT
+export function buscaClientePorCuit(cuit){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/clientes/cuit?cuit=${cuit}`);
+        dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data});
+    }
+}
 //crea cliente
 export function createCliente(data){
     return async function(dispatch){
@@ -74,7 +84,6 @@ export function getAllProds(){
         dispatch({type: GET_ALL_PRODUCTOS, payload: resp.data});
     }
 }
-
 //busca por nombre
 export function buscaProdPorNombre(nombre) {
     return async function(dispatch){
@@ -98,7 +107,6 @@ export function getAllProveedores() {
         dispatch({type: GET_ALL_PROVEEDORES, payload:resp.data});
     }
 }
-
 //busca x ID
 export function buscaProveedor(data) {
     return async function(dispatch){
@@ -106,7 +114,6 @@ export function buscaProveedor(data) {
         dispatch({type: BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, payload: resp.data});
     }
 } 
-
 //crea prov
 export function creaProveedor(data){
     return async function(dispatch){
@@ -114,14 +121,12 @@ export function creaProveedor(data){
         dispatch({type:CREA_PROVEEDOR, payload:resp.data});
     }
 }
-
 //modifica proveedor
 export function modificaProveedor(data){
     return async function(dispatch){
         await axios.put(`${local}/proveedores/modificaProveedor/${data._id}`, data);
     }
 }
-
 //elimina
 export function eliminaProveedor(_id){
     return async function(dispatch){
@@ -129,3 +134,18 @@ export function eliminaProveedor(_id){
     }    
 }
 
+//--remitos-----------------------------------------------------
+//trae remitos
+export function getAllRemitos(){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/remitos`);
+        dispatch({type: GET_ALL_REMITOS, payload: resp.data})
+    }
+}
+//crea remito
+export function creaRemito(data){
+    return async function(dispatch){
+        const resp = await axios.post(`${local}/remitos`, data);
+        dispatch({type: CREA_REMITO, payload: resp.data});
+    }
+}

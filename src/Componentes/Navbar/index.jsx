@@ -44,6 +44,7 @@ const Navbar = () => {
         logout();
         contexto.setUserLog(null);
     };
+
     return (
         <nav className="navbar">
             {/* logo */}
@@ -123,21 +124,21 @@ const Navbar = () => {
                             onMouseEnter={handleMouseEnterRemito}
                             onMouseLeave={handleMouseLeaveRemito}
                         >
-                            Clientes
+                            Remitos
                             {
                                 muestraMenuRemitos && (
                                     <ul className="dropdown-menu">
-                                        <Link to="/creaRemitoVenta" className='link-menu'>
+                                        <Link to="/creaVenta" className='link-menu'>
                                             <li className="dropdown-item">Crear remito Venta</li>
                                         </Link>
                                         <Link to='/creoRemitoCompra' className='link-menu'>
                                             <li className="dropdown-item">Crear remito Compra</li>
                                         </Link>
                                         <Link to="/listaRemitosVenta" className='link-menu'>
-                                            <li className="dropdown-item">Crear remito Venta</li>
+                                            <li className="dropdown-item">Lista remitos Venta</li>
                                         </Link>
                                         <Link to='/listaRemitosCompra' className='link-menu'>
-                                            <li className="dropdown-item">Crear remito Compra</li>
+                                            <li className="dropdown-item">Lista remitos Compra</li>
                                         </Link>
                                     </ul>
                                 )

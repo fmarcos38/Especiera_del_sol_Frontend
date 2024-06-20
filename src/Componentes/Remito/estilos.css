@@ -119,12 +119,19 @@
     display: flex;
     flex-direction: row;
 }
-.cont-remito-datos-cliente-Item-Nombre,
+.cont-remito-datos-cliente-Item-NombreYApe,
 .cont-remito-datos-cliente-Item-Direccion,
 .cont-remito-datos-cliente-Item-Localidad-Telef,
 .cont-remito-datos-cliente-Item-AFIP,
 .cont-remito-datos-cliente-Item-CondicionPago {
     margin-top: 10px;
+}
+.cont-remito-datos-cliente-Item-NombreYApe{
+    display: flex;
+}
+.cont-remito-datos-cliente-Item-Nombre{
+    display: flex;
+    width: 50%;
 }
 .lable-remito{
     margin-right: 5px;

@@ -5,7 +5,6 @@ import './App.css';
 import Navbar from './Componentes/Navbar';
 import Home from './Pages/Home';
 import Remito from './Componentes/Remito';
-import FormPedido from './Componentes/FormularioPedido';
 import CreaCliente from './Pages/CreaCliente';
 import ListaClientesPage from './Pages/ListaClientes';
 import CreaProducto from './Pages/CreaProducto';
@@ -13,6 +12,7 @@ import ListaProductosPage from './Pages/ListaProductos';
 import CreaProveedor from './Pages/CreaProveedor';
 import ListaProveedores from './Componentes/ListaProveedores';
 import LoginPage from './Pages/Login';
+import CreaRemitoVentaPage from './Pages/CreaRemitoVenta';
 
 
 function App() {
@@ -35,11 +35,10 @@ function App() {
             <Route path='/productos' element={<ListaProductosPage/>} />
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
             <Route path='/proveedores' element={<ListaProveedores/>} />
-            
+            <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />
             {/* rutas para el desarrollador */}
             
             <Route path='/remito' element={<Remito/>} />
-            <Route path='/pedido' element={<FormPedido/>} />
         </Routes>
       
     </div>

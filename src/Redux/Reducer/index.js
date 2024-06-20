@@ -1,4 +1,4 @@
-import { BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, RESET_CLIENTE } from "../Actions/actionType";
+import { BUSCA_CLIENTE_POR_CUIT, BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_CLIENTE, RESET_CLIENTE } from "../Actions/actionType";
 
 const initialState = {
     productos: [],
@@ -7,6 +7,7 @@ const initialState = {
     cliente: {},
     proveedores: [],
     proveedor: {},
+    remitos: [],
     load: false,
 };
 
@@ -26,6 +27,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 clientes: [action.payload]
+            }
+        case BUSCA_CLIENTE_POR_CUIT:
+            return{
+                ...state,
+                cliente: action.payload
             }
         case RESET_CLIENTE:
             return{
@@ -51,6 +57,11 @@ export default function rootReducer(state = initialState, action){
             return {
                 ...state,
                 proveedores: [action.payload]
+            }
+        case GET_ALL_REMITOS:
+            return{
+                ...state,
+                remitos: action.payload
             }
         default:
             return state;

@@ -15,7 +15,7 @@
     height: auto;
     border-radius: 30px;
     border: 2px solid #080808;
-    background-color: brown;
+    background-color: rgb(216, 79, 79);
 }
 .cont-items-form{
     width: 100%;
@@ -66,9 +66,16 @@
     border: none;
     width: 90%;
 }
+.input-producto-formulario{
+    width: 90%;
+}
+.input-unitario-formulario{
+    width: 68%;
+}
 .btn-cargarProd{
+    width: 50%;
     font-size: 20px;
-    padding: 8px;
+    padding: 5px 10px;
     border-radius: 10px;
     color: #fff;
     background-color: #080808;
@@ -87,7 +94,13 @@
 .cont-remito-pedido{
     width: 100%;
 }
-
+.btn-elimina-item-pedido{
+    border: none;
+    border-radius: 50px;
+}
+.icono-elimina-item{
+    color: red;
+}
 
 
 /* responsive */
