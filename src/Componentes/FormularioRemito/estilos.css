@@ -6,6 +6,28 @@
     justify-content: center;
     align-items: center;
 }
+.dato-cliente-cuit{
+    display:flex;    
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 60px;
+    border-radius: 30px;
+    border: 2px solid #080808;
+    background-color: rgb(216, 79, 79);
+}
+.btn-carga-data-cliente-remito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    font-size: large;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #080808;
+}
 .formulario{
     display:flex;
     flex-direction: column;    
@@ -52,11 +74,16 @@
 .cont-item-importe{
     width: 10%;
 }
+.label-cuit-remito,
 .label-formulario {
     font-size: x-large;
     font-weight: 600;
     color: #fff;
 }
+.label-cuit-remito{
+    margin-right: 5px;
+}
+.input-cuit-remito,
 .input-cant-formulario,
 .input-producto-formulario,
 .input-unitario-formulario,
@@ -65,6 +92,12 @@
     height: 25px;
     border: none;
     width: 90%;
+    padding: 5px;
+}
+.input-cuit-remito{
+    width: 250px;
+    margin-right: 5px;
+    
 }
 .input-producto-formulario{
     width: 90%;

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './estilos.css';
 import Remito from '../Remito';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorCuit, getAllProds, } from '../../Redux/Actions';
+import { buscaClientePorCuit, getAllProds, resetCliente, } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -11,8 +11,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function FormRemito({tipo}) {
 
     //estado dato cliente - CUIT
-    const [cuit, setCuit] = useState(); console.log("cuit:", cuit);
-    let traeCliente = useSelector(state => state.cliente);
+    const [cuit, setCuit] = useState(); 
+    let traeCliente = useSelector(state => state.cliente); console.log("trae:", traeCliente)
+
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
     //estado item
@@ -27,9 +28,10 @@ function FormRemito({tipo}) {
         setCuit(e.target.value);
     };
     const handleClickCargaClienteRemito = (e) => {
-        dispatch(buscaClientePorCuit(cuit));
-
+        if(!cuit){ alert("Ingrese un CUIT !!"); }
+        dispatch(buscaClientePorCuit(cuit));     
     };
+        
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
         setCantidad(cant);
@@ -107,19 +109,16 @@ function FormRemito({tipo}) {
 
     useEffect(()=>{
         dispatch(getAllProds());
-    },[ dispatch, cuit]);
+    },[dispatch, cuit, traeCliente]);
 
     return (
         <div className='cont-pedido'>
             <h1>VENTA</h1>
             <h2>Datos del cliente</h2>
             <div className='dato-cliente-cuit'>
-                <label>CUIT: </label>
-                <input type='number' id='cuit' value={cuit} onChange={(e) => {handleOnChangeCuit(e)}}/>
-                <button onClick={(e) => {handleClickCargaClienteRemito(e)}}>Cargar datos del Clienta al Remito</button>
-                {
-                    traeCliente && <p>{traeCliente.nombre}</p>
-                }
+                <label className='label-cuit-remito'>CUIT: </label>
+                <input type='number' id='cuit' value={cuit} onChange={(e) => {handleOnChangeCuit(e)}} className='input-cuit-remito'/>
+                <button onClick={(e) => {handleClickCargaClienteRemito(e)}} className='btn-carga-data-cliente-remito'>Cargar datos del Clienta al Remito</button>
             </div>
 
             <h2>Carga de items para la {tipo} y creación del Remito</h2>
@@ -226,7 +225,7 @@ function FormRemito({tipo}) {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <Remito cliente={traeCliente} items={pedido} total={calculaTotPedido()}/>
+                <Remito cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
             </div>
         </div>
     )

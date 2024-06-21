@@ -9,6 +9,8 @@ import {
     BUSCA_CLIENTE_POR_CUIT
 } from './actionType';
 import { local } from '../../URLs';
+import Swal from 'sweetalert2';
+
 
 //---LOGIN--------------------------------------------------------
 export function login(data){
@@ -44,14 +46,27 @@ export function resetCliente(){
 export function buscaClientePorNombre(data){
     return async function(dispatch){
         const resp = await axios.get(`${local}/clientes/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
-        dispatch({type: BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, payload:resp.data});
+        dispatch({type: BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, payload:resp.data}); 
     }
 };
 //trae cliente por CUIT
 export function buscaClientePorCuit(cuit){
     return async function(dispatch){
         const resp = await axios.get(`${local}/clientes/cuit?cuit=${cuit}`);
-        dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data});
+        dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); console.log("resp.data:", resp.data);
+            if(resp.data?.nombre){            
+                Swal.fire({
+                    title: "Datos cargados!!",                
+                    icon: "success"
+                });
+            }
+            if(resp.data === "El cliente no existe"){                            
+                    Swal.fire({
+                        title: "Cliente no encontrado!!",                
+                        icon: "error"
+                    });
+                dispatch({type:resetCliente});
+            }
     }
 }
 //crea cliente

@@ -5,6 +5,13 @@
     justify-content: center;
     align-items: center;
 }
+.cont-form-remito{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .cont-remito{
     width: 60%;
     height: auto;
@@ -172,6 +179,10 @@
     justify-content: start;
     margin-bottom: 10px;
 }
+.cont-condicion-pago{
+    display: flex;
+    width: 60%;
+}
 .lable-remito-condicion{
     padding: 3px 10px;
     color: #fff;    
@@ -179,7 +190,7 @@
 
 }
 .input-remito-condicionPago{
-    width: 77.7%;
+    width: 50%;
     padding: 3px 10px;
 }
 
