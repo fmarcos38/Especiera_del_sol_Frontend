@@ -5,10 +5,13 @@ import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
 import { useDispatch } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
+import Swal from 'sweetalert2';
 
 
-function Remito({cliente, items, totPedido}) { 
-console.log("clientR:", cliente)
+function Remito({numUltimoRemito, cliente, items, totPedido}) { 
+
+    const nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
+
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
@@ -39,9 +42,14 @@ console.log("clientR:", cliente)
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if(!data.condicion_pago || !data.estado){
-            alert("Faltan datos en el remito")
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Cond.venta y Estado",
+                icon: 'error'
+            });
         }else{
             const dataBack = {
+                numRemito: nuevoNumeroRemito,
                 items,
                 totPedido,
                 cuit: cliente.cuit,
@@ -91,7 +99,7 @@ console.log("clientR:", cliente)
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
                                 <h2 className='cont-remito-derecho-SUP-titulo'>REMITO</h2>
-                                <p className='num-remito'>N° 0001</p>
+                                <p className='num-remito'>N° {nuevoNumeroRemito}</p>
                                 <p className='fecha-remito'>Fecha: {data.fecha_compra}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
@@ -225,7 +233,7 @@ console.log("clientR:", cliente)
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
-                                    <td className='celda-total-cifra'>{data.totPedido}</td>
+                                    <td className='celda-total-cifra'>{totPedido}</td>
                                 </tr>
                             </tfoot>
                         </table>

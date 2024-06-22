@@ -6,7 +6,8 @@ import {
     BUSCA_PRODUCTO_POR_NOMBRE,
     GET_ALL_REMITOS,
     CREA_REMITO,
-    BUSCA_CLIENTE_POR_CUIT
+    BUSCA_CLIENTE_POR_CUIT,
+    ULTIMO_REMITO
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -53,7 +54,7 @@ export function buscaClientePorNombre(data){
 export function buscaClientePorCuit(cuit){
     return async function(dispatch){
         const resp = await axios.get(`${local}/clientes/cuit?cuit=${cuit}`);
-        dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); console.log("resp.data:", resp.data);
+        dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); 
             if(resp.data?.nombre){            
                 Swal.fire({
                     title: "Datos cargados!!",                
@@ -62,7 +63,8 @@ export function buscaClientePorCuit(cuit){
             }
             if(resp.data === "El cliente no existe"){                            
                     Swal.fire({
-                        title: "Cliente no encontrado!!",                
+                        title: "Cliente no encontrado!!",
+                        text: "Se debe dar de alta el Cliente!!",                
                         icon: "error"
                     });
                 dispatch({type:resetCliente});
@@ -157,10 +159,28 @@ export function getAllRemitos(){
         dispatch({type: GET_ALL_REMITOS, payload: resp.data})
     }
 }
+//trae último remito ppara obt su num
+export function traeUltimoRemito(){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/remitos/ultimoRemito`);
+        dispatch({type: ULTIMO_REMITO, payload: resp.data});
+    }
+}
 //crea remito
 export function creaRemito(data){
     return async function(dispatch){
-        const resp = await axios.post(`${local}/remitos`, data);
+        const resp = await axios.post(`${local}/remitos`, data); 
         dispatch({type: CREA_REMITO, payload: resp.data});
+        if(resp.data.numRemito){
+            Swal.fire({
+                title: 'Creado con exito !!',
+                icon: 'success'
+            })
+        }else{
+            Swal.fire({
+                title: 'Algo salió mal !!',
+                icon: 'error'
+            })
+        }
     }
 }

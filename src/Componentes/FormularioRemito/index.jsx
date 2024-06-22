@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './estilos.css';
 import Remito from '../Remito';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorCuit, getAllProds, resetCliente, } from '../../Redux/Actions';
+import { buscaClientePorCuit, getAllProds, traeUltimoRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -12,7 +12,8 @@ function FormRemito({tipo}) {
 
     //estado dato cliente - CUIT
     const [cuit, setCuit] = useState(); 
-    let traeCliente = useSelector(state => state.cliente); console.log("trae:", traeCliente)
+    const traeCliente = useSelector(state => state.cliente);
+    const numUltimoRemito = useSelector(state => state.ultimoRemito);
 
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
@@ -31,7 +32,6 @@ function FormRemito({tipo}) {
         if(!cuit){ alert("Ingrese un CUIT !!"); }
         dispatch(buscaClientePorCuit(cuit));     
     };
-        
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
         setCantidad(cant);
@@ -109,6 +109,7 @@ function FormRemito({tipo}) {
 
     useEffect(()=>{
         dispatch(getAllProds());
+        dispatch(traeUltimoRemito());        
     },[dispatch, cuit, traeCliente]);
 
     return (
@@ -225,7 +226,7 @@ function FormRemito({tipo}) {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <Remito cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
+                <Remito numUltimoRemito={numUltimoRemito} cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
             </div>
         </div>
     )
