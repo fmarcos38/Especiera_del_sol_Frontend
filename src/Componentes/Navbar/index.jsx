@@ -134,10 +134,10 @@ const Navbar = () => {
                                         <Link to='/creoRemitoCompra' className='link-menu'>
                                             <li className="dropdown-item">Crear remito Compra</li>
                                         </Link>
-                                        <Link to="/listaRemitosVenta" className='link-menu'>
+                                        <Link to="/listaRemitosVentas" className='link-menu'>
                                             <li className="dropdown-item">Lista remitos Venta</li>
                                         </Link>
-                                        <Link to='/listaRemitosCompra' className='link-menu'>
+                                        <Link to='/listaRemitosCompras' className='link-menu'>
                                             <li className="dropdown-item">Lista remitos Compra</li>
                                         </Link>
                                     </ul>

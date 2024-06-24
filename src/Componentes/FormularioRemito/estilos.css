@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #c1bfbf;
 }
 .dato-cliente-cuit{
     display:flex;    

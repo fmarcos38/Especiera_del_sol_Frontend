@@ -10,7 +10,13 @@ import Swal from 'sweetalert2';
 
 function Remito({numUltimoRemito, cliente, items, totPedido}) { 
 
-    const nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
+    let nuevoNumeroRemito = 0;
+    //asigno valor a num reito si es el primero en generse SINO suma 1
+    if(!numUltimoRemito.ultimoRemito){
+        nuevoNumeroRemito = 1;
+    }else{
+        nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
+    }
 
     const [data, setData] = useState({        
         condicion_pago: "",

@@ -13,6 +13,7 @@ import CreaProveedor from './Pages/CreaProveedor';
 import ListaProveedores from './Componentes/ListaProveedores';
 import LoginPage from './Pages/Login';
 import CreaRemitoVentaPage from './Pages/CreaRemitoVenta';
+import ListaRemitosVentas from './Pages/ListaRemitosVentas';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
             <Route path='/proveedores' element={<ListaProveedores/>} />
             <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />
+            <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
             {/* rutas para el desarrollador */}
             
             <Route path='/remito' element={<Remito/>} />
