@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente } from '../../Redux/Actions';
-import { useParams } from 'react-router-dom';
+import { getRemitosCliente, buscaClientePorCuit } from '../../Redux/Actions';
+import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
-import ModalRemito from '../ModalRemito';
+import './estilos.css';
 
 function ListaRemitosCliente() {
-    const remitosCliente = useSelector(state => state.remitosCliente); console.log("remitosCliente:", remitosCliente)
+    const remitosCliente = useSelector(state => state.remitosCliente); 
     const {cuit} = useParams(); 
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
@@ -17,14 +17,15 @@ function ListaRemitosCliente() {
 
     useEffect(()=>{
         dispatch(getRemitosCliente(cuit));
+        dispatch(buscaClientePorCuit(cuit));
     },[cuit, dispatch]);
 
 
     return (
-        <div>
+        <div className='cont-listaRemitosCliente'>
             {
                 remitosCliente ? (
-                    <div>
+                    <div className='cont-segundo'>
                         <table className="client-table">
                             <thead>
                                 <tr>
@@ -47,7 +48,9 @@ function ListaRemitosCliente() {
                                             <td>{r.estado}</td>
                                             <td>
                                                 {
-                                                    <button onClick={() => { handleClick() }}>Detalle</button>
+                                                    <Link to={`/detalleRemito/${r._id}`}>
+                                                        <button onClick={() => { handleClick() }}>Detalle</button>
+                                                    </Link>
                                                 }
                                             </td>
                                         </tr>
@@ -55,18 +58,13 @@ function ListaRemitosCliente() {
                                 }
                             </tbody>
                         </table>
-                        {/* modal remito */}
-                        {
-                            contexto.modalRemito &&
-                            <ModalRemito />
-                        }
                     </div>
                 ) : (
                     <>
                         <h1>No remitos para dicho cliente!!</h1>
                     </>
                 )
-            }
+            }            
         </div>
     )
 }

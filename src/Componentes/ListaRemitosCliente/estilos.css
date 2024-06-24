@@ -1,0 +1,21 @@
+.cont-listaRemitosCliente{
+    width: 100%;
+    min-height: 89.9vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.cont-segundo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.cont-modal-listaRemitosCliente{
+    position: absolute;
+    top: 50;
+    left: 17%;
+    width: 80%;
+    height: auto;
+    z-index: 1;
+}

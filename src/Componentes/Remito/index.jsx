@@ -8,14 +8,16 @@ import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 
 
-function Remito({numUltimoRemito, cliente, items, totPedido}) { 
-
+function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
+console.log("ultimR:", numUltimoRemito.ultimoRemito )
     let nuevoNumeroRemito = 0;
     //asigno valor a num reito si es el primero en generse SINO suma 1
-    if(!numUltimoRemito.ultimoRemito){
+    if(!numUltimoRemito.ultimoRemito && operacion === "venta"){
         nuevoNumeroRemito = 1;
-    }else{
+    }else if(operacion === "venta") {
         nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
+    }else if(operacion === "muestra") {
+        nuevoNumeroRemito = numUltimoRemito.ultimoRemito ;
     }
 
     const [data, setData] = useState({        

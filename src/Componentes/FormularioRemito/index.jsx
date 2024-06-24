@@ -226,7 +226,7 @@ function FormRemito({tipo}) {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <Remito numUltimoRemito={numUltimoRemito} cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
+                <Remito operacion={"venta"} numUltimoRemito={numUltimoRemito} cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
             </div>
         </div>
     )

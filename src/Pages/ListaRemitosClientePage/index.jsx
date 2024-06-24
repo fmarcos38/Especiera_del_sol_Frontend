@@ -3,8 +3,8 @@ import ListaRemitosCliente from '../../Componentes/ListaRemitosCliente'
 
 function ListaRemitosClientePage() {
   return (
-    <div>
-        <ListaRemitosCliente/>
+    <div className='cont-listaRemitosCliente'>
+      <ListaRemitosCliente/>
     </div>
   )
 }

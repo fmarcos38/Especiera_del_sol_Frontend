@@ -2,13 +2,8 @@ import axios from 'axios';
 import { 
     BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, CREA_PROVEEDOR, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
-    RESET_CLIENTE,
-    BUSCA_PRODUCTO_POR_NOMBRE,
-    GET_ALL_REMITOS,
-    CREA_REMITO,
-    BUSCA_CLIENTE_POR_CUIT,
-    ULTIMO_REMITO,
-    GET_REMITOS_CLIENTE
+    RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
+    GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -190,5 +185,12 @@ export function getRemitosCliente(cuit){
     return async function(dispatch){ console.log("cuitAction:", cuit)
         const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}`);
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
+    }
+}
+//tre remito por ID
+export function getRemitoById(_id){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/remitos/${_id}`);
+        dispatch({type: GET_REMITO_BY_ID, payload:resp.data});
     }
 }

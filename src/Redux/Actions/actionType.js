@@ -23,4 +23,5 @@ export const GET_ALL_REMITOS = "GET_ALL_REMITOS";
 export const ULTIMO_REMITO = "ULTIMO_REMITO";
 export const CREA_REMITO = "CREA_REMITO";
 export const GET_REMITOS_CLIENTE = "GET_REMITOS_CLIENTE";
+export const GET_REMITO_BY_ID = "GET_REMITO_BY_ID";
 
