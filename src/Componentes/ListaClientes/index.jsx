@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ModalEdicionCliente from '../ModalEdicionCliente';
 import { AppContexto } from '../../Contexto';
 import SearchBar from '../SearchBar';
+import { Link } from 'react-router-dom';
 
 function ListaClientes() {
 
@@ -35,10 +36,13 @@ function ListaClientes() {
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Razón Social</th>
                         <th>Telefono</th>
                         <th>Email</th>
                         <th>Ciudad</th>                        
                         <th>Dirección</th>
+                        <th>CUIT</th>
+                        <th>IVA</th>
                         <th>Remitos</th>
                         <th style={{ width: 'auto' }}>Editar/Eliminar</th>
                     </tr>
@@ -46,16 +50,19 @@ function ListaClientes() {
                 <tbody>
                     {
                         allC?.map((c) => (
-                            <tr key={c.nombre}>
+                            <tr key={c._id}>
                                 <td>{c.nombre} {c.apellido}</td>
+                                <td>{c.razonSocial}</td>
                                 <td>{c.telefono}</td>
                                 <td>{c.email}</td>
                                 <td>{c.ciudad}</td>
                                 <td>{c.direccion}</td>
+                                <td>{c.cuit}</td>
+                                <td>{c.iva}</td>
                                 <td style={{width: '50px'}}>
-                                    <button>
-                                        REMITOS
-                                    </button>
+                                    <Link to={`/remitosCliente/${c.cuit}`}>
+                                        <button>REMITOS</button> 
+                                    </Link>
                                 </td>                                
                                 <td style={{width: '50px'}}>
                                     <div style={{display: 'flex'}} key={c._id}>

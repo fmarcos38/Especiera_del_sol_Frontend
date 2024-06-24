@@ -53,7 +53,7 @@ function ListaRemitos() {
                     {
                         arrayMovimientos?.map((r,i) => (
                             <tr key={r._id}>
-                                <td>{r.fecha_compra}</td>
+                                <td>{r.fecha}</td>
                                 <td></td>
                                 <td>{r.items[0].cantidad}kg de {r.items[0].detalle}</td>
                                 <td>{r.items[0].unitario}</td>

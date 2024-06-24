@@ -7,7 +7,8 @@ import {
     GET_ALL_REMITOS,
     CREA_REMITO,
     BUSCA_CLIENTE_POR_CUIT,
-    ULTIMO_REMITO
+    ULTIMO_REMITO,
+    GET_REMITOS_CLIENTE
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -182,5 +183,12 @@ export function creaRemito(data){
                 icon: 'error'
             })
         }
+    }
+}
+//trae remitos de un cliente
+export function getRemitosCliente(cuit){
+    return async function(dispatch){ console.log("cuitAction:", cuit)
+        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}`);
+        dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }

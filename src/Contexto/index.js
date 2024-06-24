@@ -18,6 +18,8 @@ export const AppProvider = ({children}) => {
     const [modalImgOpen, setModalImgOpen] = useState(false);
     //estadfo modal provee
     const [modalProveedorOpen, setModalProveedorOpen] = useState(false);
+    //estado modal detalle remito
+    const[modalRemito, setModalRemito] = useState(false);
 
     useEffect(()=>{
         const userLogin = userLogData();
@@ -38,7 +40,9 @@ export const AppProvider = ({children}) => {
                 modalImgOpen,
                 setModalImgOpen,
                 modalProveedorOpen,
-                setModalProveedorOpen
+                setModalProveedorOpen,
+                modalRemito,
+                setModalRemito
             }}
         >
             {children}

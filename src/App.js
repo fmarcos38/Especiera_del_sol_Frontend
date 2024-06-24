@@ -13,7 +13,8 @@ import CreaProveedor from './Pages/CreaProveedor';
 import ListaProveedores from './Componentes/ListaProveedores';
 import LoginPage from './Pages/Login';
 import CreaRemitoVentaPage from './Pages/CreaRemitoVenta';
-import ListaRemitosVentas from './Pages/ListaRemitosVentas';
+import ListaRemitosComprasPage from './Pages/ListaRemitosCompras';
+import ListaRemitosClientePage from './Pages/ListaRemitosClientePage';
 
 
 function App() {
@@ -33,11 +34,12 @@ function App() {
             <Route path='/creaCliente' element={<CreaCliente/>} />
             <Route path='/clientes' element={<ListaClientesPage/>} />            
             <Route path='/creaProducto' element={<CreaProducto/>} />
+            <Route path='/remitosCliente/:cuit' element={<ListaRemitosClientePage/>} />
             <Route path='/productos' element={<ListaProductosPage/>} />
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
             <Route path='/proveedores' element={<ListaProveedores/>} />
             <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />
-            <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
+            <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
             {/* rutas para el desarrollador */}
             
             <Route path='/remito' element={<Remito/>} />
