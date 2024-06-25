@@ -1,9 +1,13 @@
-.cont-listaRemitosCliente{
+.cont-listaRemitosCliente,
+.cont-listaRemitosCliente-opaco{
     width: 100%;
     min-height: 89.9vh;
     display: flex;
     justify-content: center;
     align-items: start;
+}
+.cont-listaRemitosCliente-opaco{
+    opacity: 10%;
 }
 .cont-segundo{
     width: 100%;
@@ -11,11 +15,11 @@
     justify-content: center;
     align-items: start;
 }
-.cont-modal-listaRemitosCliente{
+.cont-modal-modifica-remito{
     position: absolute;
     top: 50;
-    left: 17%;
-    width: 80%;
+    left: 15%;
+    width: 70%;
     height: auto;
     z-index: 1;
 }

@@ -154,23 +154,17 @@
     border: none; 
     border-bottom: 2px solid brown; 
 }
-.cont-localidad{
-    width: 60%;
+.cont-localidad,
+.cont-telefono,
+.cont-IVA,
+.cont-CUIT {
+    width: 50%;
 }
 .input-remito-localidad{
     width: 80%;
 }
-.cont-telefono{
-    width: 40%;
-}
 .input-remito-telefono{
     width: 90%;
-}
-.cont-IVA{
-    width: 65%;
-}
-.cont-CUIT{
-    width: 35%;
 }
 .input-remito-cuit{
     width: 83.5%;

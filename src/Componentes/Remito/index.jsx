@@ -3,27 +3,30 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 
 
 function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
-console.log("ultimR:", numUltimoRemito.ultimoRemito )
-    let nuevoNumeroRemito = 0;
+
+    let nuevoNumeroRemito = 0; 
     //asigno valor a num reito si es el primero en generse SINO suma 1
     if(!numUltimoRemito.ultimoRemito && operacion === "venta"){
         nuevoNumeroRemito = 1;
     }else if(operacion === "venta") {
         nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
-    }else if(operacion === "muestra") {
-        nuevoNumeroRemito = numUltimoRemito.ultimoRemito ;
+    }else if(operacion === "muestra" || operacion === "editar") {
+        nuevoNumeroRemito = numUltimoRemito ;
     }
-
+    
+    //estado para cond venta y estado
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
-    }); 
+    });
+    //me traigo el remito a mostrar - Para la funcionalidad de mostrar un remito
+    const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
     /* funcion para PDF mejor opcion */
@@ -67,6 +70,9 @@ console.log("ultimR:", numUltimoRemito.ultimoRemito )
             dispatch(creaRemito(dataBack));
         }
         
+    };
+    const handleModifica = () => {
+        //dispatch action modificar
     };
     const resetInputs = () => {
         window.location.reload();
@@ -171,6 +177,13 @@ console.log("ultimR:", numUltimoRemito.ultimoRemito )
                             </div>
                         </div>
                         <div className='cont-remito-datos-cliente-Item-AFIP'>
+                            <div className='cont-CUIT'>
+                                <label className='lable-remito'>CUIT:</label>
+                                <input
+                                    type='number'
+                                    value={cliente?.cuit}
+                                    className='input-remito-cuit' />
+                            </div>
                             <div className='cont-IVA'>
                                 <label className='lable-remito'>IVA:</label>
                                 <input
@@ -179,32 +192,38 @@ console.log("ultimR:", numUltimoRemito.ultimoRemito )
                                     className='input-remito-iva'
                                 />
                             </div>
-                            <div className='cont-CUIT'>
-                                <label className='lable-remito'>CUIT:</label>
-                                <input
-                                    type='number'
-                                    value={cliente?.cuit}
-                                    className='input-remito-cuit' />
-                            </div>
                         </div>
 
                         <div className='cont-remito-datos-cliente-Item-CondicionPago'>
+                            {/* cond pago */}
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Condición de pago:</label>
                                 <input
                                     type='text'
                                     id='condicion_pago'
-                                    value={data.condicion_pago}
-                                    onChange={(e) => { handleOnChange(e) }}
+                                    value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
+                                    onChange={operacion === "venta" ? (e) => { handleOnChange(e) } : null}
                                     className='input-remito-condicionPago'
                                 />
                             </div>
+                            {/* Estado */}
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Estado:</label>
                                 <select id='estado' onChange={(e) => { handleOnChange(e) }} className='input-remito-condicionPago'>
-                                    <option>Elija estado remito</option>
-                                    <option value={'debe'}>Deudor</option>
-                                    <option value={'pagado'}>Pagado</option>
+                                    {
+                                        operacion === "venta" ?
+                                            (
+                                                <>
+                                                    <option>Elija estado remito</option>
+                                                    <option value={'debe'}>Deudor</option>
+                                                    <option value={'pagado'}>Pagado</option>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <option>{remitoAmostrar.estado}</option>
+                                                </>
+                                            )
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -248,12 +267,23 @@ console.log("ultimR:", numUltimoRemito.ultimoRemito )
                     </div>
                 </div>
                 {/* btn crea pedido */}
-                <button type='onSubmit'>Crear Pedido</button>
+                {
+                    operacion === "venta" &&
+                    <button type='onSubmit'>Crear Pedido</button>
+                }
+                {/* btn modifica */}
+                {
+                    operacion === "editar" &&
+                    <button onClick={() => {handleModifica()}}>Modificar</button>
+                }
                 {/* botón imprimir */}
                 <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
             </form>
             {/* reset inputs */}
-            <button onClick={() => {resetInputs()}}>Limpiar datos</button>
+            {
+                operacion === "venta" && 
+                <button onClick={() => {resetInputs()}}>Limpiar datos</button>
+            }
         </div>
     )
 }

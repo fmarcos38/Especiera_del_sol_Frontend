@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getRemitosCliente, buscaClientePorCuit } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
+import ModalRemito from '../ModalRemito';
+import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
 
 function ListaRemitosCliente() {
@@ -10,8 +12,11 @@ function ListaRemitosCliente() {
     const {cuit} = useParams(); 
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
-
+    
     const handleClick = () => {
+        contexto.setModalRemito(true);
+    };
+    const handleClickEditar = () => {
         contexto.setModalRemito(true);
     };
 
@@ -22,10 +27,10 @@ function ListaRemitosCliente() {
 
 
     return (
-        <div className='cont-listaRemitosCliente'>
+        <div className="cont-listaRemitosCliente">
             {
                 remitosCliente ? (
-                    <div className='cont-segundo'>
+                    <div className="cont-segundo">
                         <table className="client-table">
                             <thead>
                                 <tr>
@@ -35,6 +40,7 @@ function ListaRemitosCliente() {
                                     <th>Condición Pago</th>
                                     <th>Estado</th>
                                     <th>Detalle</th>
+                                    <th>Edita</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,6 +59,16 @@ function ListaRemitosCliente() {
                                                     </Link>
                                                 }
                                             </td>
+                                            <td style={{ width: '50px' }}>
+                                                <Link to='/editaRemito'>
+                                                    <button
+                                                        onClick={() => handleClickEditar()}
+                                                        className='btn-edita-cliente'
+                                                    >
+                                                        <EditIcon />
+                                                    </button>
+                                                </Link>
+                                            </td>
                                         </tr>
                                     ))
                                 }
@@ -64,7 +80,7 @@ function ListaRemitosCliente() {
                         <h1>No remitos para dicho cliente!!</h1>
                     </>
                 )
-            }            
+            }
         </div>
     )
 }
