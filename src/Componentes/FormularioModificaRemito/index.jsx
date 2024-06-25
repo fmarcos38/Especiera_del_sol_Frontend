@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import Remito from '../Remito';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProds } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import RemitoModifica from '../RemitoModifica';
 
 
 function FormularioModificaRemito() {
@@ -201,7 +200,7 @@ function FormularioModificaRemito() {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <Remito operacion={"editar"} numUltimoRemito={remito.numRemito} cliente={cliente} items={pedido} totPedido={calculaTotPedido()}/>
+                <RemitoModifica cliente={cliente} remito={remito}/>
             </div>
         </div>
     )

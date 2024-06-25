@@ -194,3 +194,9 @@ export function getRemitoById(_id){
         dispatch({type: GET_REMITO_BY_ID, payload:resp.data});
     }
 }
+//modifica remito
+export function modificaRemito(_id, data){
+    return async function(){
+        await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
+    }
+}

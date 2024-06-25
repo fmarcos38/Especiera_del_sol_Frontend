@@ -3,30 +3,18 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { creaRemito } from '../../Redux/Actions';
+import { useDispatch } from 'react-redux';
+import { modificaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 
 
-function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
+function RemitoModifica({ cliente, remito}) { 
 
-    let nuevoNumeroRemito = 0; 
-    //asigno valor a num reito si es el primero en generse SINO suma 1
-    if( operacion === "venta" && !numUltimoRemito.ultimoRemito){
-        nuevoNumeroRemito = 1;
-    }else if(operacion === "venta") {
-        nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
-    }else if(operacion === "muestra") {
-        nuevoNumeroRemito = numUltimoRemito ;
-    }
-    
     //estado para cond venta y estado
     const [data, setData] = useState({        
-        condicion_pago: "",
-        estado: "",
-    });
-    //me traigo el remito a mostrar - Para la funcionalidad de mostrar un remito
-    const remitoAmostrar = useSelector(state => state.remito); 
+        condicion_pago: remito.condicion_pago,
+        estado: remito.estado,
+    }); 
     const dispatch = useDispatch();
 
     /* funcion para PDF mejor opcion */
@@ -58,21 +46,21 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 text: "Ingrese Cond.venta y Estado",
                 icon: 'error'
             });
-        }else{
+        } else {
             const dataBack = {
-                numRemito: nuevoNumeroRemito,
-                items,
-                totPedido,
+                numRemito: remito.numRemito,
+                items: remito.items,
+                totPedido: remito.totPedido,
                 cuit: cliente.cuit,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
             }
-            dispatch(creaRemito(dataBack));
-        }
-        
-    };
-    const resetInputs = () => {
-        window.location.reload();
+            dispatch(modificaRemito(remito._id, dataBack));
+            Swal.fire({
+                title: "Se modificó con exito!!",
+                icon: "success"
+            });
+        }        
     };
 
     return (
@@ -110,7 +98,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
                                 <h2 className='cont-remito-derecho-SUP-titulo'>REMITO</h2>
-                                <p className='num-remito'>N° {nuevoNumeroRemito}</p>
+                                <p className='num-remito'>N° {remito.numRemito}</p>
                                 <p className='fecha-remito'>Fecha: {data.fecha_compra}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
@@ -198,8 +186,8 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                 <input
                                     type='text'
                                     id='condicion_pago'
-                                    value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
-                                    onChange={operacion === "venta" ? (e) => { handleOnChange(e) } : null}
+                                    value={data.condicion_pago }
+                                    onChange={(e) => { handleOnChange(e) }}
                                     className='input-remito-condicionPago'
                                 />
                             </div>
@@ -207,25 +195,12 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Estado:</label>
                                 <select id='estado' onChange={(e) => { handleOnChange(e) }} className='input-remito-condicionPago'>
-                                    {
-                                        operacion === "venta" ?
-                                            (
-                                                <>
-                                                    <option>Elija estado remito</option>
-                                                    <option value={'debe'}>Deudor</option>
-                                                    <option value={'pagado'}>Pagado</option>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <option>{remitoAmostrar.estado}</option>
-                                                </>
-                                            )
-                                    }
+                                    <option>Elija estado remito</option>
+                                    <option value={'debe'}>Deudor</option>
+                                    <option value={'pagado'}>Pagado</option>
                                 </select>
                             </div>
                         </div>
-
-
                     </div>
 
                     {/* cont info items */}
@@ -241,7 +216,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                             </thead>
                             <tbody>
                                 {
-                                    items?.map(item => {
+                                    remito.items?.map(item => {
                                         return (
                                             <tr key={item.detalle}>
                                                 <td>{item.cantidad}</td>
@@ -257,47 +232,20 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
-                                    <td className='celda-total-cifra'>{totPedido}</td>
+                                    <td className='celda-total-cifra'>{remito.totPedido}</td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
-                {/* btn crea pedido */}
-                {
-                    operacion === "venta" &&
-                    <button type='onSubmit'>Crear Pedido</button>
-                }
-                {/* botón imprimir */}
-                <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
+                {/* boton modif */}
+                <button type='onSubmit'>Modificar</button>
             </form>
-            {/* reset inputs */}
-            {
-                operacion === "venta" && 
-                <button onClick={() => {resetInputs()}}>Limpiar datos</button>
-            }
+
+            {/* botón imprimir */}
+            <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
         </div>
     )
 }
 
-export default Remito;
-
-
-/*
-
-<tbody>
-        {items.map((item, index) => (
-          <tr key={index}>
-            <td>{item.cantidad}</td>
-            <td>{item.detalle}</td>
-            <td>{item.pUnitario.toFixed(2)}</td>
-            <td>{(item.cantidad * item.pUnitario).toFixed(2)}</td>
-          </tr>
-        ))}
-        <tr className="total-row">
-          <td colSpan="3">TOTAL</td>
-          <td>{total.toFixed(2)}</td>
-        </tr>
-      </tbody>
-
-*/
+export default RemitoModifica;
