@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRemitoById, resetRemito } from '../../Redux/Actions';
+import { getRemitoById, } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemitoModifica from '../RemitoModifica';
@@ -11,11 +11,12 @@ import { useParams } from 'react-router-dom';
 function FormularioModificaRemito() {
 
     const {_id} = useParams();
-    const remito = useSelector(state => state.remito); console.log("remito:", remito)
+    const remito = useSelector(state => state.remito); 
     const cliente = useSelector(state => state.cliente);    
 
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
+    
     //estado item
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");
@@ -100,12 +101,15 @@ function FormularioModificaRemito() {
     };
 
     useEffect(()=>{
-        dispatch(getRemitoById(_id));
-        setPedido(remito.items);
+        dispatch(getRemitoById(_id));        
+    },[_id, dispatch]);
 
-        /* return ()=>{ dispatch(resetRemito()); } */
-    },[_id, dispatch, remito.items]);
-
+    useEffect(()=>{
+        if(remito.items){
+            setPedido(remito.items);
+        }
+    },[remito.items]);
+    
     return (
         <div className='cont-pedido'>
             <h1>Modificar Remito</h1>

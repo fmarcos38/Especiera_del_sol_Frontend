@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import Remito from '../Remito';
-import { getRemitoById, resetRemito } from '../../Redux/Actions';
+import { getRemitoById, } from '../../Redux/Actions';
 
 
 function DetalleRemito() {
@@ -12,11 +12,7 @@ function DetalleRemito() {
     const cliente = useSelector(state => state.cliente);
 
     useEffect(() => {
-        dispatch(getRemitoById(_id));   
-        
-        /* return ()=>{            
-            dispatch(resetRemito())
-        } */
+        dispatch(getRemitoById(_id));
     }, [_id, dispatch]);
 
 
