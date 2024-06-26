@@ -63,11 +63,14 @@ function ListaRemitosCliente() {
             <button id='pagado' onClick={(e)=>{handleOnClick(e)}}>Pagado</button>
             <button id='fechaMax' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬆️</button>
             <button id='fechaMin' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬇️</button>
+            <p>Buscar por Fecha</p>
             <form>
-                <label>Buscar por Fecha</label>
-                <input type='text' />
+                <label>Desde</label>
+                <input type='date' />
+                <label>Hasta</label>
+                <input type='date' />
             </form>
-            <button id='todos' onClick={(e)=>{handleOnClick(e)}}>Todos</button>
+            <button id='todos' onClick={(e)=>{handleOnClick(e)}}>Resetea Filtros</button>
             </div>
             
             {
