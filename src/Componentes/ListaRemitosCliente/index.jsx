@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente, buscaClientePorCuit } from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import EditIcon from '@mui/icons-material/Edit';
@@ -30,14 +30,14 @@ function ListaRemitosCliente() {
                 dispatch(getRemitosCliente(cuit, estado));
                 break;
                 case 'pagado':
-                    setEstado("Pagado");
+                setEstado("Pagado");
                 dispatch(getRemitosCliente(cuit, estado));
                 break;
             case 'fechaMax':
-                console.log("fechaMax");
+                dispatch(ordenaPorFecha("fechaMax"));
                 break;
             case 'fechaMin':
-                console.log("fechaMin");
+                dispatch(ordenaPorFecha("fechaMin"));
                 break;
             case 'todos':
                 setEstado("todos");

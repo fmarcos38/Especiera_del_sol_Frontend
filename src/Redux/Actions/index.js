@@ -4,6 +4,7 @@ import {
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
+    ORDENA_FECHA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -200,4 +201,9 @@ export function modificaRemito(_id, data){
         await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
     }
 }
-
+//ordena x fecha
+export function ordenaPorFecha(fecha){
+    return function(dispatch){
+        dispatch({type: ORDENA_FECHA, payload: fecha});
+    }
+}
