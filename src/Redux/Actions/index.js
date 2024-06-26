@@ -4,7 +4,6 @@ import {
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
-    RESET_REMITO,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -52,7 +51,7 @@ export function buscaClientePorCuit(cuit){
     return async function(dispatch){
         const resp = await axios.get(`${local}/clientes/cuit?cuit=${cuit}`);
         dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); 
-            if(resp.data?.nombre){            
+            /* if(resp.data?.nombre){            
                 Swal.fire({
                     title: "Datos cargados!!",                
                     icon: "success"
@@ -65,7 +64,7 @@ export function buscaClientePorCuit(cuit){
                         icon: "error"
                     });
                 dispatch({type:resetCliente});
-            }
+            } */
     }
 }
 //crea cliente
@@ -150,9 +149,9 @@ export function eliminaProveedor(_id){
 
 //--remitos-----------------------------------------------------
 //trae remitos
-export function getAllRemitos(){
+export function getAllRemitos(estado){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos`);
+        const resp = await axios.get(`${local}/remitos?estado=${estado}`);
         dispatch({type: GET_ALL_REMITOS, payload: resp.data})
     }
 }
@@ -182,9 +181,9 @@ export function creaRemito(data){
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit){
+export function getRemitosCliente(cuit, estado){
     return async function(dispatch){ 
-        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}`);
+        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}?estado=${estado}`);
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
@@ -195,17 +194,10 @@ export function getRemitoById(_id){
         dispatch({type: GET_REMITO_BY_ID, payload:resp.data});
     }
 }
-//resetea remito
-export function resetRemito(){
-    return function(dispatch){
-        dispatch({type: RESET_REMITO});
-    }
-}
 //modifica remito
 export function modificaRemito(_id, data){
     return async function(){
-        console.log("_id:", _id)
-        console.log("data:", data)
         await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
     }
 }
+

@@ -1,13 +1,16 @@
-.cont-listaRemitosCliente,
-.cont-listaRemitosCliente-opaco{
+.cont-listaRemitosCliente{
     width: 100%;
     min-height: 89.9vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: start;
 }
-.cont-listaRemitosCliente-opaco{
-    opacity: 10%;
+.cont-listaRemitosCliente-filtros{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 .cont-segundo{
     width: 100%;
@@ -22,4 +25,10 @@
     width: 70%;
     height: auto;
     z-index: 1;
+}
+.debe{
+    color: red;
+}
+.pagado{
+    color: green;
 }

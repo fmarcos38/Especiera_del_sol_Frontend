@@ -204,7 +204,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                                 <label className='lable-remito-condicion'>Estado:</label>
                                 <select id='estado' onChange={(e) => { handleOnChange(e) }} className='input-remito-condicionPago'>
                                     <option>{estado}</option>
-                                    <option value={'Deudor'}>Deudor</option>
+                                    <option value={'Debe'}>Debe</option>
                                     <option value={'Pagado'}>Pagado</option>                                    
                                 </select>
                             </div>

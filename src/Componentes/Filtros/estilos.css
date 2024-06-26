@@ -1,0 +1,9 @@
+.cont-filtros{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 8px;
+    border-radius: 10px;
+    border: solid 2px gray;
+}

@@ -1,17 +1,21 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRemitosCliente, buscaClientePorCuit } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
+import { fechaArg } from '../../Helpers';
 
 function ListaRemitosCliente() {
     const remitosCliente = useSelector(state => state.remitosCliente); 
     const {cuit} = useParams(); 
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
-    
+    //estado para el estado del remito
+    const [estado, setEstado] = useState("todos");
+
+
     const handleClick = () => {
         contexto.setModalRemito(true);
     };
@@ -19,14 +23,53 @@ function ListaRemitosCliente() {
         contexto.setModalRemito(true);
     };
 
+    const handleOnClick = (e) => {
+        switch (e.target.id) {
+            case 'debe':
+                setEstado("Debe");
+                dispatch(getRemitosCliente(cuit, estado));
+                break;
+                case 'pagado':
+                    setEstado("Pagado");
+                dispatch(getRemitosCliente(cuit, estado));
+                break;
+            case 'fechaMax':
+                console.log("fechaMax");
+                break;
+            case 'fechaMin':
+                console.log("fechaMin");
+                break;
+            case 'todos':
+                setEstado("todos");
+                dispatch(getRemitosCliente(cuit, estado));
+                break;
+            default:
+                break; 
+            
+        }
+    };
+
     useEffect(()=>{
-        dispatch(getRemitosCliente(cuit));
+        dispatch(getRemitosCliente(cuit, estado));
         dispatch(buscaClientePorCuit(cuit));
-    },[cuit, dispatch]);
+    },[cuit, dispatch, estado]);
 
 
     return (
         <div className="cont-listaRemitosCliente">
+            {/* filtros */}
+            <div className='cont-listaRemitosCliente-filtros'>
+            <button id='debe' onClick={(e)=>{handleOnClick(e)}}>Debe</button>
+            <button id='pagado' onClick={(e)=>{handleOnClick(e)}}>Pagado</button>
+            <button id='fechaMax' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬆️</button>
+            <button id='fechaMin' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬇️</button>
+            <form>
+                <label>Buscar por Fecha</label>
+                <input type='text' />
+            </form>
+            <button id='todos' onClick={(e)=>{handleOnClick(e)}}>Todos</button>
+            </div>
+            
             {
                 remitosCliente ? (
                     <div className="cont-segundo">
@@ -47,10 +90,10 @@ function ListaRemitosCliente() {
                                     remitosCliente?.map(r => (
                                         <tr key={r._id}>
                                             <td>{r.numRemito}</td>
-                                            <td>{r.fecha}</td>
+                                            <td>{fechaArg(r.fecha)}</td>
                                             <td>{r.cuit}</td>
                                             <td>{r.condicion_pago}</td>
-                                            <td>{r.estado}</td>
+                                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                                             <td>
                                                 {
                                                     <Link to={`/detalleRemito/${r._id}`}>
