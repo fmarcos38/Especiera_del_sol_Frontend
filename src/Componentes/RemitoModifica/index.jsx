@@ -23,7 +23,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
     //estado para cond venta y estado
     const [data, setData] = useState({        
         condicion_pago: condPago,
-        estado: estado,
+        estado: "",
     });
     const dispatch = useDispatch();
 
@@ -203,9 +203,9 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Estado:</label>
                                 <select id='estado' onChange={(e) => { handleOnChange(e) }} className='input-remito-condicionPago'>
-                                    <option>{data.estado}</option>
-                                    <option value={'debe'}>Deudor</option>
-                                    <option value={'pagado'}>Pagado</option>                                    
+                                    <option>{estado}</option>
+                                    <option value={'Deudor'}>Deudor</option>
+                                    <option value={'Pagado'}>Pagado</option>                                    
                                 </select>
                             </div>
                         </div>
