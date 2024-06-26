@@ -43,7 +43,7 @@ function App() {
             <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />
             <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
-            <Route path='/editaRemito' element={<EditaRemitoPage/>} />
+            <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
             {/* rutas para el desarrollador */}
             
             <Route path='/remito' element={<Remito/>} />

@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProds } from '../../Redux/Actions';
+import { getRemitoById, resetRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemitoModifica from '../RemitoModifica';
+import { useParams } from 'react-router-dom';
+
 
 
 function FormularioModificaRemito() {
 
-    //estado dato cliente - CUIT
-    const cliente = useSelector(state => state.cliente);
-    const remito = useSelector(state => state.remito);
+    const {_id} = useParams();
+    const remito = useSelector(state => state.remito); console.log("remito:", remito)
+    const cliente = useSelector(state => state.cliente);    
 
     //estado arreglo pedido
-    const [pedido, setPedido] = useState(remito.items); 
+    const [pedido, setPedido] = useState([]); 
     //estado item
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");
@@ -55,13 +57,13 @@ function FormularioModificaRemito() {
     //funcion calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
-        for(let i=0; i<pedido.length; i++){
+        for(let i=0; i<pedido?.length; i++){
             let imp = parseInt(pedido[i].importe, 10); 
             tot = tot + imp;
         }
         return tot;
-    }; 
-    
+    };
+
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -78,9 +80,18 @@ function FormularioModificaRemito() {
                 unitario,
                 importe
             }
-            setPedido([...pedido, newItem]);            
+
+            setPedido([...pedido, newItem]);
+            resetForm();
         }
     };
+
+    const resetForm = () => {
+        setCantidad('');
+        setDetalle('');
+        setUnitario('');
+        setImporte('');
+    }
 
     //elimina item tabla pedido
     const handleElimnimaItem = (_id) => {
@@ -89,14 +100,16 @@ function FormularioModificaRemito() {
     };
 
     useEffect(()=>{
-        dispatch(getAllProds());        
-    },[dispatch, cliente]);
+        dispatch(getRemitoById(_id));
+        setPedido(remito.items);
+
+        /* return ()=>{ dispatch(resetRemito()); } */
+    },[_id, dispatch, remito.items]);
 
     return (
         <div className='cont-pedido'>
-            <h1>Modifica Remito</h1>
-            
-            <h2>Carga de items y creación del Remito</h2>
+            <h1>Modificar Remito</h1>
+            <h2>Carga de items si es que se tienen que modificar</h2>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
                     {/* cantidad */}
@@ -200,7 +213,16 @@ function FormularioModificaRemito() {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <RemitoModifica cliente={cliente} remito={remito}/>
+                <RemitoModifica 
+                    operacion={"editar"}
+                    _id={remito._id} 
+                    numUltimoRemito={remito.numRemito} 
+                    cliente={cliente} 
+                    items={pedido} 
+                    totPedido={calculaTotPedido()}
+                    condPago={remito.condicion_pago}
+                    estado={remito.estado}
+                />
             </div>
         </div>
     )

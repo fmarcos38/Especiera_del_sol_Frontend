@@ -4,6 +4,7 @@ import {
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
+    RESET_REMITO,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -182,7 +183,7 @@ export function creaRemito(data){
 }
 //trae remitos de un cliente
 export function getRemitosCliente(cuit){
-    return async function(dispatch){ console.log("cuitAction:", cuit)
+    return async function(dispatch){ 
         const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}`);
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
@@ -190,13 +191,21 @@ export function getRemitosCliente(cuit){
 //tre remito por ID
 export function getRemitoById(_id){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos/${_id}`);
+        const resp = await axios.get(`${local}/remitos/remitoId/${_id}`);
         dispatch({type: GET_REMITO_BY_ID, payload:resp.data});
+    }
+}
+//resetea remito
+export function resetRemito(){
+    return function(dispatch){
+        dispatch({type: RESET_REMITO});
     }
 }
 //modifica remito
 export function modificaRemito(_id, data){
     return async function(){
+        console.log("_id:", _id)
+        console.log("data:", data)
         await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
     }
 }

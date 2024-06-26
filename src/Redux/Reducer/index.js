@@ -1,4 +1,4 @@
-import { BUSCA_CLIENTE_POR_CUIT, BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_CLIENTE, GET_REMITO_BY_ID, GET_REMITOS_CLIENTE, RESET_CLIENTE, ULTIMO_REMITO } from "../Actions/actionType";
+import { BUSCA_CLIENTE_POR_CUIT, BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_CLIENTE, GET_REMITO_BY_ID, GET_REMITOS_CLIENTE, RESET_CLIENTE, RESET_REMITO, ULTIMO_REMITO } from "../Actions/actionType";
 
 const initialState = {
     productos: [],
@@ -80,6 +80,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 remito: action.payload
+            }
+        case RESET_REMITO: 
+            return{
+                ...state,
+                remito: {}
             }
         default:
             return state;

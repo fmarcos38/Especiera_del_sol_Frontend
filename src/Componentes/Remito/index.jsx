@@ -281,23 +281,3 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
 }
 
 export default Remito;
-
-
-/*
-
-<tbody>
-        {items.map((item, index) => (
-          <tr key={index}>
-            <td>{item.cantidad}</td>
-            <td>{item.detalle}</td>
-            <td>{item.pUnitario.toFixed(2)}</td>
-            <td>{(item.cantidad * item.pUnitario).toFixed(2)}</td>
-          </tr>
-        ))}
-        <tr className="total-row">
-          <td colSpan="3">TOTAL</td>
-          <td>{total.toFixed(2)}</td>
-        </tr>
-      </tbody>
-
-*/

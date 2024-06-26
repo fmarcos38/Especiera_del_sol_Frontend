@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getRemitosCliente, buscaClientePorCuit } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
-import ModalRemito from '../ModalRemito';
 import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
 
@@ -60,7 +59,7 @@ function ListaRemitosCliente() {
                                                 }
                                             </td>
                                             <td style={{ width: '50px' }}>
-                                                <Link to='/editaRemito'>
+                                                <Link to={`/editaRemito/${r._id}`}>
                                                     <button
                                                         onClick={() => handleClickEditar()}
                                                         className='btn-edita-cliente'
