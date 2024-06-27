@@ -6,6 +6,7 @@ import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
+import { fechaArg } from '../../Helpers';
 
 
 function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
@@ -59,9 +60,11 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 icon: 'error'
             });
         }else{
+            let fecha = new Date();             
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
                 items,
+                fecha: fecha,
                 totPedido,
                 cuit: cliente.cuit,
                 condicion_pago: data.condicion_pago,
@@ -212,8 +215,8 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                             (
                                                 <>
                                                     <option>Elija estado remito</option>
-                                                    <option value={'debe'}>Deudor</option>
-                                                    <option value={'pagado'}>Pagado</option>
+                                                    <option value={'Debe'}>Deudor</option>
+                                                    <option value={'Pagado'}>Pagado</option>
                                                 </>
                                             ) : (
                                                 <>

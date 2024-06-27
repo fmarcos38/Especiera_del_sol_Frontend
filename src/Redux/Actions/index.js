@@ -5,6 +5,7 @@ import {
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
     ORDENA_FECHA,
+    FILTRA_FECHAS_REMITOS_CLIENTE,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -184,7 +185,7 @@ export function creaRemito(data){
 //trae remitos de un cliente
 export function getRemitosCliente(cuit, estado){
     return async function(dispatch){ 
-        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}?estado=${estado}`);
+        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}?estado=${estado}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
@@ -201,9 +202,15 @@ export function modificaRemito(_id, data){
         await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
     }
 }
-//ordena x fecha
+//ordena x fecha Mayor a Menor o viceversa
 export function ordenaPorFecha(fecha){
     return function(dispatch){
         dispatch({type: ORDENA_FECHA, payload: fecha});
+    }
+}
+//filtra fechas
+export function filtraFechasRemitosCliente(fechas){
+    return function(dispatch){
+        dispatch({type: FILTRA_FECHAS_REMITOS_CLIENTE, payload: fechas});
     }
 }

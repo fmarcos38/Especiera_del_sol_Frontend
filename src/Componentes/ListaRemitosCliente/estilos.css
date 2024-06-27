@@ -3,14 +3,72 @@
     min-height: 89.9vh;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
 }
 .cont-listaRemitosCliente-filtros{
-    width: 100%;
+    width: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(74, 75, 75);
+}
+.cont-filtros-btns-fecha{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: rgb(111, 201, 201);
+}
+.cont-btns-filtros-btns-fecha{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-btns-debe-pagado{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-filtros-fecha{
+    width: auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.cont-btns-fecha-max-min{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.p-titulo-fecha-filtro{
+    font-size: 20px;
+    font-weight: 500;
+}
+.lable-fecha-filtro,
+.input-fecha-filtro {
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+.input-fecha-filtro{
+    margin-right: 10px;
+}
+.cont-btn-aplicar-fechas{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 .cont-segundo{
     width: 100%;
@@ -26,6 +84,31 @@
     height: auto;
     z-index: 1;
 }
+.cont-btn-resetea{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btn-filtros,
+.btn-aplicar-fechas,
+.btn-resetea-filtros {
+    
+    font-size: large;
+    margin-right: 10px;
+    border-radius: 8px;
+    padding: 5px;
+    width: 100px;
+
+}
+.btn-aplicar-fechas{
+    width: auto;
+    padding: 5px 15px;
+}
+.btn-resetea-filtros{
+    margin-top: 10px;
+    width: 60%;
+}
+
 .debe{
     color: red;
 }

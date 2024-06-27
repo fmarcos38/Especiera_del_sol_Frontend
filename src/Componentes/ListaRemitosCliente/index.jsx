@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha } from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, filtraFechasRemitosCliente } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import EditIcon from '@mui/icons-material/Edit';
+import {fechaArg} from '../../Helpers/index.js';
 import './estilos.css';
-import { fechaArg } from '../../Helpers';
+import Swal from 'sweetalert2';
 
 function ListaRemitosCliente() {
     const remitosCliente = useSelector(state => state.remitosCliente); 
@@ -14,7 +15,9 @@ function ListaRemitosCliente() {
     const dispatch = useDispatch();
     //estado para el estado del remito
     const [estado, setEstado] = useState("todos");
-
+    //estado para las fechas
+    const [fechaDesde, setFechaDesde] = useState(''); 
+    const [fechaHasta, setFechaHasta] = useState(''); 
 
     const handleClick = () => {
         contexto.setModalRemito(true);
@@ -48,6 +51,28 @@ function ListaRemitosCliente() {
             
         }
     };
+    const handleOnChFechaDesde = (e) => {
+        setFechaDesde(e.target.value);
+    };
+    const handleOnChFechaHasta = (e) => {
+        setFechaHasta(e.target.value);        
+    };
+    const handleOnSubFechas = (e) => {
+        e.preventDefault();
+        if(!fechaDesde && !fechaHasta){
+            Swal.fire({
+                text: "Ingrese ambas fechas",
+                icon: "error"
+            });
+        }
+        
+        const fechas = {
+            fechaDesde: fechaDesde, 
+            fechaHasta: fechaHasta
+        }
+        
+        dispatch(filtraFechasRemitosCliente(fechas));
+    };
 
     useEffect(()=>{
         dispatch(getRemitosCliente(cuit, estado));
@@ -59,18 +84,40 @@ function ListaRemitosCliente() {
         <div className="cont-listaRemitosCliente">
             {/* filtros */}
             <div className='cont-listaRemitosCliente-filtros'>
-            <button id='debe' onClick={(e)=>{handleOnClick(e)}}>Debe</button>
-            <button id='pagado' onClick={(e)=>{handleOnClick(e)}}>Pagado</button>
-            <button id='fechaMax' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬆️</button>
-            <button id='fechaMin' onClick={(e)=>{handleOnClick(e)}}>Fecha ⬇️</button>
-            <p>Buscar por Fecha</p>
-            <form>
-                <label>Desde</label>
-                <input type='date' />
-                <label>Hasta</label>
-                <input type='date' />
-            </form>
-            <button id='todos' onClick={(e)=>{handleOnClick(e)}}>Resetea Filtros</button>
+                <div className='cont-filtros-btns-fecha'>
+                    {/* cont btns debe-opagado-fech max min */}
+                    <div className='cont-btns-filtros-btns-fecha'>
+                        {/* botnes estado */}
+                        <div className='cont-btns-debe-pagado'>
+                            <button id='debe' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Debe</button>
+                            <button id='pagado' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Pagado</button>
+                        </div>
+                        {/* btns y fecha Max Min */}
+                        <div className='cont-btns-fecha-max-min'>
+                            <button id='fechaMax' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬆</button>
+                            <button id='fechaMin' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬇</button>
+                        </div>
+                    </div>
+                    {/* filtra por fecha */}
+                    <div className='cont-filtros-fecha'>
+                        <p className='p-titulo-fecha-filtro'>Buscar por Fecha</p>
+                        <form onSubmit={(e) => handleOnSubFechas(e)}>
+                            <div>
+                                <label className='lable-fecha-filtro'>Desde</label>
+                                <input type='date' id='fechaDesde' value={fechaDesde} onChange={(e) => handleOnChFechaDesde(e)} className='input-fecha-filtro' />
+                                <label className='lable-fecha-filtro'>Hasta</label>
+                                <input type='date' id='fechaHasta' value={fechaHasta} onChange={(e) => handleOnChFechaHasta(e)} className='input-fecha-filtro' />
+                            </div>
+                            <div className='cont-btn-aplicar-fechas'>
+                                <button type='submit' className='btn-aplicar-fechas'>Aplicar fechas</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {/* boton resetea */}
+                <div className='cont-btn-resetea'>
+                    <button id='todos' onClick={(e)=>{handleOnClick(e)}} className='btn-resetea-filtros'>Resetea Filtros</button>
+                </div>
             </div>
             
             {

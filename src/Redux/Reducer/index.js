@@ -1,8 +1,9 @@
 import { 
     BUSCA_CLIENTE_POR_CUIT, BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, 
-    BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, 
+    BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, 
     GET_ALL_REMITOS, GET_CLIENTE, GET_REMITO_BY_ID, GET_REMITOS_CLIENTE, ORDENA_FECHA, RESET_CLIENTE, ULTIMO_REMITO 
 } from "../Actions/actionType";
+import {fechaArg} from '../../Helpers/index'; 
 
 const initialState = {
     productos: [],
@@ -102,6 +103,27 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 remitosCliente: remitosOrdenados
+            }
+        case FILTRA_FECHAS_REMITOS_CLIENTE:
+            let remitosFiltrar = [...state.remitosCliente];
+            let fechaDesde = fechaArg(action.payload.fechaDesde);
+            let fechaHasta = fechaArg(action.payload.fechaHasta);
+            fechaDesde = fechaDesde.split('-');
+            let diaFechaDesde = fechaDesde[0]; console.log("diaH", diaFechaDesde)
+            fechaHasta = fechaHasta.split('-'); 
+            let diaFechaHasta = fechaHasta[0]; console.log("diaH", diaFechaHasta)
+
+            remitosFiltrar = remitosFiltrar.filter(r => {
+                let remitoFecha = fechaArg(r.fecha); console.log("remitoF", remitoFecha)
+                remitoFecha = remitoFecha.split('-');
+                let remitoFechaDia = remitoFecha[0]; console.log("remitoFDia", remitoFechaDia)
+
+                return remitoFechaDia >= diaFechaDesde && remitoFechaDia <= diaFechaHasta;
+            });
+
+            return{
+                ...state,
+                remitosCliente: remitosFiltrar
             }
         default:
             return state;
