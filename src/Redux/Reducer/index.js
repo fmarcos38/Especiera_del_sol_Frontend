@@ -106,24 +106,18 @@ export default function rootReducer(state = initialState, action){
             }
         case FILTRA_FECHAS_REMITOS_CLIENTE:
             let remitosFiltrar = [...state.remitosCliente];
-            let fechaDesde = fechaArg(action.payload.fechaDesde);
-            let fechaHasta = fechaArg(action.payload.fechaHasta);
-            fechaDesde = fechaDesde.split('-');
-            let diaFechaDesde = fechaDesde[0]; console.log("diaH", diaFechaDesde)
-            fechaHasta = fechaHasta.split('-'); 
-            let diaFechaHasta = fechaHasta[0]; console.log("diaH", diaFechaHasta)
-
-            remitosFiltrar = remitosFiltrar.filter(r => {
-                let remitoFecha = fechaArg(r.fecha); console.log("remitoF", remitoFecha)
-                remitoFecha = remitoFecha.split('-');
-                let remitoFechaDia = remitoFecha[0]; console.log("remitoFDia", remitoFechaDia)
-
-                return remitoFechaDia >= diaFechaDesde && remitoFechaDia <= diaFechaHasta;
-            });
+            let fechaDesde = new Date(action.payload.fechaDesde);
+            let fechaHasta = new Date(action.payload.fechaHasta);
+            fechaHasta.setUTCHours(23, 59, 59, 999); // Incluir todo el día hasta la fecha final en UTC
+            
+            let remitosFiltrdos = remitosFiltrar.filter(r => {
+                const fechaR = new Date(r.fecha);
+                return fechaR >= fechaDesde && fechaR <= fechaHasta;
+            })
 
             return{
                 ...state,
-                remitosCliente: remitosFiltrar
+                remitosCliente: remitosFiltrdos
             }
         default:
             return state;

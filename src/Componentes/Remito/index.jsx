@@ -6,7 +6,6 @@ import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
-import { fechaArg } from '../../Helpers';
 
 
 function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
