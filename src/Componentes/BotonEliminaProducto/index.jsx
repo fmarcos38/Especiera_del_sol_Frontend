@@ -2,7 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { eliminaProducto, getAllProds } from '../../Redux/Actions';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';;
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import './estilos.css';
 
 function BotonEliminaProducto({_id, nombre}) {
 
@@ -33,10 +34,7 @@ function BotonEliminaProducto({_id, nombre}) {
     };
 
     return (
-        <button
-            className=''
-            onClick={() => {handleClick()}}
-        >
+        <button onClick={() => {handleClick()}} className='btn-elimina-producto'>
             <DeleteForeverIcon />
         </button>
     )

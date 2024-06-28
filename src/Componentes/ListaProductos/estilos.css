@@ -2,6 +2,21 @@
     display: flex;
     justify-content: center;
 }
+.cont-searchP{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid salmon;
+    margin-top: 20px;
+    padding: 15px 20px;
+}
+.label-searchP{
+    font-size: 23px;
+    margin-right: 5px;
+}
+.input-search-producto{
+    font-size: 23px;
+}
 .client-table {
     width: 90%;
     border-collapse: collapse;
@@ -30,7 +45,6 @@
 .client-table tbody tr:hover {
     background-color: #9a9595;
 }
-.btn-edit-prods,
 .btn-elim-prods {
     cursor: pointer;
 }

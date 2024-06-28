@@ -12,7 +12,7 @@
     font-family: 'Arial', sans-serif;
     text-align: left;
 }
-.client-table thead tr {
+.cliente-table thead tr {
     background-color: #009879;
     color: #090909;
     text-align: left;
@@ -44,7 +44,9 @@
     border: none;
     border-radius: 10px;
 }
-
+.client-table tfoot{
+    background-color: #009879;
+}
 /* estilos cont modal */
 .cont-modal-lista-clientes{
     width: 80%;

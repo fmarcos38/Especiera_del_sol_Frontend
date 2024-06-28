@@ -7,6 +7,8 @@ import { getAllProds } from '../../Redux/Actions';
 import { AppContexto } from '../../Contexto';
 import ModalEdicionProducto from '../ModalEdicionProducto';
 import ModalImgProducto from '../ModalImgProducto';
+
+
 function ListaProductos() {
 
     const allP = useSelector(state => state.productos);
@@ -54,51 +56,51 @@ function ListaProductos() {
     return (
         <div className='cont-lista-clientes'>
             <div className='cont-searchP'>
-            <form>
-                <label className='label-searchP'>Busca un Producto</label>
-                <input type='text' onChange={(e) => {handleOnChange(e)}} />
-            </form>
+                <form>
+                    <label className='label-searchP'>Buscar un Producto:</label>
+                    <input type='text' onChange={(e) => { handleOnChange(e) }} className='input-search-producto'/>
+                </form>
             </div>
             {
                 filteredProductos ?
-                <table className="client-table">
-                <thead>
-                    <tr>
-                        <th>Imágen</th>
-                        <th>Descripción</th>
-                        <th>Precio (x Kg)</th>
-                        <th>Envase (kg.)</th>                        
-                        <th style={{ width: 'auto' }}>Editar/Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        filteredProductos?.map((p) => (
-                            <tr key={p._id}>
-                                <td className="centered">
-                                    <img src={p.imagen} alt='' style={{width:'70px', height:'50px'}} onMouseEnter={()=>{handleMouseEnter(p.imagen)}} onMouseLeave={hadleMouseLeave}/>
-                                </td>
-                                <td>{p.nombre}</td>
-                                <td className="centered">{p.precioKg}</td>
-                                <td className="centered">{p.envase}</td>                                
-                                <td className="centered">
-                                    <button 
-                                        className='btn-edit-prods'
-                                        onClick={() => {handleClikEditar(p)}}
-                                    >
-                                        <EditIcon />
-                                    </button>
-                                    <BotonEliminaProducto _id={p._id} nombre={p.nombre}/> 
-                                </td>
+                    <table className="client-table">
+                        <thead>
+                            <tr>
+                                <th>Imágen</th>
+                                <th>Descripción</th>
+                                <th>Precio (x Kg)</th>
+                                <th>Envase (kg.)</th>
+                                <th style={{ width: 'auto' }}>Editar/Eliminar</th>
                             </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-            :
-            <div style={{color: 'black'}}>
-                No hay prods pa mostrar papu!!
-            </div>
+                        </thead>
+                        <tbody>
+                            {
+                                filteredProductos?.map((p) => (
+                                    <tr key={p._id}>
+                                        <td className="centered">
+                                            <img src={p.imagen} alt='' style={{ width: '70px', height: '50px' }} onMouseEnter={() => { handleMouseEnter(p.imagen) }} onMouseLeave={hadleMouseLeave} />
+                                        </td>
+                                        <td>{p.nombre}</td>
+                                        <td className="centered">{p.precioKg}</td>
+                                        <td className="centered">{p.envase}</td>
+                                        <td className="centered">
+                                            <button
+                                                onClick={() => { handleClikEditar(p) }}
+                                                className='btn-edita-cliente'
+                                            >
+                                                <EditIcon />
+                                            </button>
+                                            <BotonEliminaProducto _id={p._id} nombre={p.nombre} />
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                    :
+                    <div style={{ color: 'black' }}>
+                        No hay prods pa mostrar papu!!
+                    </div>
             }
             {/* edicion del producto */}
             {

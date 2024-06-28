@@ -1,0 +1,8 @@
+.btn-elimina-producto {
+    color: red;
+    background-color: #fdfafa;
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}

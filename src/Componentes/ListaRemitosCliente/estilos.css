@@ -91,21 +91,19 @@
 }
 .btn-filtros,
 .btn-aplicar-fechas,
-.btn-resetea-filtros {
-    
+.btn-resetea-filtros {    
     font-size: large;
     margin-right: 10px;
     border-radius: 8px;
     padding: 5px;
     width: 100px;
-
 }
 .btn-aplicar-fechas{
     width: auto;
     padding: 5px 15px;
 }
 .btn-resetea-filtros{
-    margin-top: 10px;
+    margin-top: 20px;
     width: 60%;
 }
 

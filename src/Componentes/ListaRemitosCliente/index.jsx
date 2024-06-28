@@ -73,6 +73,15 @@ function ListaRemitosCliente() {
         
         dispatch(filtraFechasRemitosCliente(fechas));
     };
+    //calcula el total de todos los remitos
+    const totRemitos = () => {
+        let tot = 0;
+        remitosCliente.map(r => {
+            tot = tot + r.totPedido;
+            return tot;
+        });
+        return tot;
+    };
 
     useEffect(()=>{
         dispatch(getRemitosCliente(cuit, estado));
@@ -119,19 +128,20 @@ function ListaRemitosCliente() {
                     <button id='todos' onClick={(e)=>{handleOnClick(e)}} className='btn-resetea-filtros'>Resetea Filtros</button>
                 </div>
             </div>
-            
+            {/* TABLA */}
             {
                 remitosCliente ? (
                     <div className="cont-segundo">
                         <table className="client-table">
                             <thead>
                                 <tr>
-                                    <th>N° Remito</th>
+                                    <th style={{width: '80px'}}>N° Remito</th>
                                     <th>Fecha creación</th>
                                     <th>Cuit</th>
                                     <th>Condición Pago</th>
                                     <th>Estado</th>
                                     <th>Detalle</th>
+                                    <th>Tot. Remito $</th>
                                     <th>Edita</th>
                                 </tr>
                             </thead>
@@ -143,7 +153,7 @@ function ListaRemitosCliente() {
                                             <td>{fechaArg(r.fecha)}</td>
                                             <td>{r.cuit}</td>
                                             <td>{r.condicion_pago}</td>
-                                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
+                                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>                                            
                                             <td>
                                                 {
                                                     <Link to={`/detalleRemito/${r._id}`}>
@@ -151,6 +161,7 @@ function ListaRemitosCliente() {
                                                     </Link>
                                                 }
                                             </td>
+                                            <td>{r.totPedido}</td>
                                             <td style={{ width: '50px' }}>
                                                 <Link to={`/editaRemito/${r._id}`}>
                                                     <button
@@ -165,6 +176,16 @@ function ListaRemitosCliente() {
                                     ))
                                 }
                             </tbody>
+                            <tfoot>
+                                <td>TOTAL</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{totRemitos()}</td>
+                                <td></td>
+                            </tfoot>
                         </table>
                     </div>
                 ) : (

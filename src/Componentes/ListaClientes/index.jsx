@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './estilos.css';
-import BotonEliminarCliente from '../BotonEliminarCliente';
+import { Link } from 'react-router-dom';
 import { getAllClientes } from '../../Redux/Actions';
+import { AppContexto } from '../../Contexto';
+import BotonEliminarCliente from '../BotonEliminarCliente';
 import EditIcon from '@mui/icons-material/Edit';
 import ModalEdicionCliente from '../ModalEdicionCliente';
-import { AppContexto } from '../../Contexto';
 import SearchBar from '../SearchBar';
-import { Link } from 'react-router-dom';
+import './estilos.css';
+
 
 function ListaClientes() {
 

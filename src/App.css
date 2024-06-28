@@ -1,3 +1,5 @@
 :root{
     --background-color-remito: rgba(132, 73, 73, 0.718);
+    --background-color-navBar-claro: rgb(111, 201, 201);
+    --background-color-navBar-oscuro: rgb(74, 75, 75);
 }
