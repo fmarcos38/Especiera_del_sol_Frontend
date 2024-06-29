@@ -20,6 +20,8 @@ export const AppProvider = ({children}) => {
     const [modalProveedorOpen, setModalProveedorOpen] = useState(false);
     //estado modal detalle remito
     const[modalRemito, setModalRemito] = useState(false);
+    //estado para el SEARCH
+    const [search, setSearch] = useState(''); 
 
     useEffect(()=>{
         const userLogin = userLogData();
@@ -42,7 +44,9 @@ export const AppProvider = ({children}) => {
                 modalProveedorOpen,
                 setModalProveedorOpen,
                 modalRemito,
-                setModalRemito
+                setModalRemito,
+                search,
+                setSearch,
             }}
         >
             {children}

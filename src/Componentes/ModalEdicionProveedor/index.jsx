@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
 import { AppContexto } from '../../Contexto'
-
-import FormModificaCliente from '../FormularioClienteModif';
 import FormularioProveedorModif from '../FormularioProveedorModif';
 
 function ModalEdicionProveedor({provAeditar, setProvAeditar}) {

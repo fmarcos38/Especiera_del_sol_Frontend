@@ -12,11 +12,16 @@ import './estilos.css';
 
 function ListaClientes() {
 
-    const [clienteAeditar, setClienteAeditar] = useState(null);
     const allC = useSelector(state => state.clientes); 
+    const [buscaCliente, setBuscaCliente] = useState(allC);
+    const [clienteAeditar, setClienteAeditar] = useState(null);    
     const dispatch = useDispatch();
     const contexto = useContext(AppContexto);
     
+    //onChange para pasarle al comp. hijo searchbar - a pesar q el input está en el hijo
+    const handleOnChangeBuscaCliente = (e) => {
+        contexto.setSearch(e.target.value);
+    };
 
     const handleEditClick = (cliente) => {
         setClienteAeditar(cliente);
@@ -27,10 +32,15 @@ function ListaClientes() {
         dispatch(getAllClientes());
     }, [dispatch]);
     
+    useEffect(() => {
+        setBuscaCliente(
+            allC.filter(c => c.nombre.includes(contexto.search)));
+    },[allC, contexto.search]);
+
 
     return (
         <div className='cont-lista-clientes'>
-            <SearchBar tipo={"cliente"}/>
+            <SearchBar handleOnChange={handleOnChangeBuscaCliente}/>
             {
                 allC ?
                 <table className="client-table">
@@ -50,7 +60,7 @@ function ListaClientes() {
                 </thead>
                 <tbody>
                     {
-                        allC?.map((c) => (
+                        buscaCliente?.map((c) => (
                             <tr key={c._id}>
                                 <td>{c.nombre} {c.apellido}</td>
                                 <td>{c.razonSocial}</td>

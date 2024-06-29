@@ -9,27 +9,40 @@ import SearchBar from '../SearchBar';
 
 function ListaProveedores() {
 
-    const [provAeditar, setProvAeditar] = useState(null);
-    const allP = useSelector(state => state.proveedores); 
+    const allP = useSelector(state => state.proveedores);
+    const [buscoProv, setBuscoProv] = useState(allP); 
+    const [provAeditar, setProvAeditar] = useState(null);    
     const dispatch = useDispatch();
     const contexto = useContext(AppContexto);
     
-
+    //change para search
+    const handleOnChange = (e) => {        
+        contexto.setSearch(e.target.value);
+    };
     const handleEditClick = (prov) => {
         setProvAeditar(prov);
         contexto.setModalProveedorOpen(true);
     };
 
-    useEffect(() => {
+    //separo los useEffect para q no se dispare todo el tiempo geAll (si estuviera en el de abajo- todos juntos)
+    useEffect(()=>{
         dispatch(getAllProveedores());
-    }, [dispatch]);
+    },[dispatch]);
+    
+    useEffect(() => {
+        setBuscoProv(
+            allP.filter(p =>
+                p.nombreApe.includes(contexto.search)
+            )
+        );
+    }, [allP, contexto.search]);
     
 
     return (
         <div className='cont-lista-clientes'>
-            <SearchBar tipo={'proveedor'} listaItems={allP}/>
+            <SearchBar handleOnChange={handleOnChange}/>
             {
-                allP ?
+                buscoProv ?
                 <table className="client-table">
                 <thead>
                     <tr>
@@ -47,7 +60,7 @@ function ListaProveedores() {
                 </thead>
                 <tbody>
                     {
-                        allP?.map((p) => (
+                        buscoProv?.map((p) => (
                             <tr key={p._id}>
                                 <td>{p.nombre} {p.apellido}</td>
                                 <td>{p.razonSocial}</td>

@@ -7,27 +7,24 @@ import { getAllProds } from '../../Redux/Actions';
 import { AppContexto } from '../../Contexto';
 import ModalEdicionProducto from '../ModalEdicionProducto';
 import ModalImgProducto from '../ModalImgProducto';
+import SearchBar from '../SearchBar';
 
 
 function ListaProductos() {
 
     const allP = useSelector(state => state.productos);
-    let productos = allP;
     //estado prods filtrados
-    const [filteredProductos, setFilteredProductos] = useState(productos);
-    //estado search
-    const [search, setSearch] = useState('');    
-
-    const contexto = useContext(AppContexto); 
-    const dispatch = useDispatch();
+    const [filteredProductos, setFilteredProductos] = useState(allP);    
     //estado para almacenar el prod a modif
     const [prodAmodif, setProdAmodif] = useState(null);
     //estado para la img q se verá en grande
     const [imgGrande, setImgGrande] = useState("");
+    const contexto = useContext(AppContexto); 
+    const dispatch = useDispatch();
 
     //change para search
     const handleOnChange = (e) => {        
-        setSearch(e.target.value);
+        contexto.setSearch(e.target.value);
     };
     const handleClikEditar = (prod) => {
         contexto.setModalProductoOpen(true);
@@ -41,25 +38,24 @@ function ListaProductos() {
         contexto.setModalImgOpen(false);
     };
 
-
-    useEffect(()=>{
+    //separo los useEffect para q no se dispare todo el tiempo geAll (si estuviera en el de abajo- todos juntos)
+    useEffect(() => {
         dispatch(getAllProds());
-        
+    }, [dispatch]);
+    
+    useEffect(()=>{
         setFilteredProductos(
-            productos.filter(producto =>
-                producto.nombre.includes(search)
+            allP.filter(producto =>
+                producto.nombre.includes(contexto.search)
             )
         );
-    },[dispatch, productos, search]);
+    },[allP, contexto.search, dispatch]);
 
 
     return (
         <div className='cont-lista-clientes'>
             <div className='cont-searchP'>
-                <form>
-                    <label className='label-searchP'>Buscar un Producto:</label>
-                    <input type='text' onChange={(e) => { handleOnChange(e) }} className='input-search-producto'/>
-                </form>
+                <SearchBar handleOnChange={handleOnChange}/>
             </div>
             {
                 filteredProductos ?
