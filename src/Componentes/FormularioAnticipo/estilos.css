@@ -1,0 +1,20 @@
+.cont-formulario-anticipo{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: antiquewhite;
+}
+.cont-inputs-anticipo{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.input-detalle-anticipo,
+.input-montoPagar-anticipo,
+.input-detallePago-anticipo {
+    font-size: 23px;
+}

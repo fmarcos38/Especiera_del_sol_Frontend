@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, filtraFechasRemitosCliente } from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, filtraFechasRemitosCliente, resetCliente } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import EditIcon from '@mui/icons-material/Edit';
@@ -86,6 +86,8 @@ function ListaRemitosCliente() {
     useEffect(()=>{
         dispatch(getRemitosCliente(cuit, estado));
         dispatch(buscaClientePorCuit(cuit));
+
+        return () => {dispatch(resetCliente())};
     },[cuit, dispatch, estado]);
 
 

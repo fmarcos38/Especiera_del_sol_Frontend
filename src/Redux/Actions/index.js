@@ -6,6 +6,7 @@ import {
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID,
     ORDENA_FECHA,
     FILTRA_FECHAS_REMITOS_CLIENTE,
+    GET_ALL_REMITOS_COMPRA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -212,5 +213,13 @@ export function ordenaPorFecha(fecha){
 export function filtraFechasRemitosCliente(fechas){
     return function(dispatch){
         dispatch({type: FILTRA_FECHAS_REMITOS_CLIENTE, payload: fechas});
+    }
+}
+
+//----actions remitos COMPRAS-----------------------------------------------------------
+export function getAllCompras() {
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/compras`);
+        dispatch({type: GET_ALL_REMITOS_COMPRA, payload: resp.data});
     }
 }

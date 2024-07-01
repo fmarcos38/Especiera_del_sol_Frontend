@@ -254,7 +254,15 @@
     font-size: medium;
 }
 /* botón imp */
-.boton-imprimir{
+.btn-crea-pedido,
+.boton-imprimir,
+.btn-limpiar-datos {
     margin-top: 10px;
-    margin-bottom: 30px;
+    color: #fff;
+    font-size: 23px;
+    background-color: black;
+    border-radius: 5px;
+}
+.btn-limpiar-datos{
+    margin-right: 10px;
 }

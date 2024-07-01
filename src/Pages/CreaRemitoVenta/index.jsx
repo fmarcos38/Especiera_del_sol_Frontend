@@ -9,4 +9,4 @@ function CreaRemitoVentaPage() {
     )
 }
 
-export default CreaRemitoVentaPage
+export default CreaRemitoVentaPage;

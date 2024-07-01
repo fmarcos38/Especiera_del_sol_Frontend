@@ -1,0 +1,33 @@
+.cont-items-form-compra{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: antiquewhite;
+}
+.cont-items-pedido{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.cont-item{
+    display: flex;
+    flex-direction: column;
+}
+.label-crea-compra {
+    font-size: 23px;
+}
+.input-pedido {
+    font-size: 23px;
+}
+.numRemito{
+    width: 100px;
+}
+.compra{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}

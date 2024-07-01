@@ -70,13 +70,14 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 estado: data.estado,
             }
             dispatch(creaRemito(dataBack));
+            setData()
         }
         
     };
     const resetInputs = () => {
         window.location.reload();
     };
-
+    
     return (
         <div className='cont-gralRemito'>
             <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito'>
@@ -268,16 +269,18 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 {/* btn crea pedido */}
                 {
                     operacion === "venta" &&
-                    <button type='onSubmit'>Crear Pedido</button>
+                    <button type='onSubmit' className='btn-crea-pedido'>Crear Pedido</button>
+                }
+            </form>
+            <div>
+                {/* reset inputs */}
+                {
+                    operacion === "venta" &&
+                    <button onClick={() => { resetInputs() }} className='btn-limpiar-datos'>Limpiar datos</button>
                 }
                 {/* botón imprimir */}
-                <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
-            </form>
-            {/* reset inputs */}
-            {
-                operacion === "venta" && 
-                <button onClick={() => {resetInputs()}}>Limpiar datos</button>
-            }
+                <button onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
+            </div>
         </div>
     )
 }

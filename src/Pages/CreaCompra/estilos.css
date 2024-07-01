@@ -1,6 +1,6 @@
-.cont-page-listaRemitosCompra{
-    width: 100%;
+.cont-crea-compra{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

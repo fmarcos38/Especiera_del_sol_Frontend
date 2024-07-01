@@ -1,9 +1,11 @@
 import React from 'react';
 import ListaRemitosCompras from '../../Componentes/ListaRemitosCompras';
+import './estilos.css';
+
 
 function ListaRemitosComprasPage() {
   return (
-    <div>
+    <div className='cont-page-listaRemitosCompra'>
         <ListaRemitosCompras/>
     </div>
   )

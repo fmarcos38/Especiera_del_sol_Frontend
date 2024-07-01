@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllRemitos } from '../../Redux/Actions';
+import { getAllCompras } from '../../Redux/Actions';
 import './estilos.css';
 
 
@@ -13,10 +13,10 @@ function ListaRemitos() {
     const calculateSaldo = (remitos) => {
         let saldo = 0;
         return remitos.map(r => {
-            if (r.estado === 'debe') {
-                saldo -= r.totPedido;
+            if (r.estado === 'debo') {
+                saldo -= r.total;
             } else if (r.estado === 'pagado') {
-                saldo = saldo + r.totPedido;
+                saldo = saldo + r.total;
             }
             return {
                 ...r,
@@ -26,15 +26,15 @@ function ListaRemitos() {
         });
     };
     //ejecutoi funcion - retorna un nuevo array
-    const arrayMovimientos = calculateSaldo(remitos); console.log("nuevoArr:", arrayMovimientos)
+    const arrayMovimientos = calculateSaldo(remitos); //console.log("nuevoArr:", arrayMovimientos)
 
     useEffect(()=>{
-        dispatch(getAllRemitos());
+        dispatch(getAllCompras());
     }, [dispatch]);
 
 
     return (
-        <div>
+        <div className='cont-listaRemitosCompra-componente'>
             <table className="client-table">
                 <thead>
                     <tr>
@@ -54,16 +54,14 @@ function ListaRemitos() {
                         arrayMovimientos?.map((r,i) => (
                             <tr key={r._id}>
                                 <td>{r.fecha}</td>
-                                <td></td>
-                                <td>{r.items[0].cantidad}kg de {r.items[0].detalle}</td>
-                                <td>{r.items[0].unitario}</td>
-                                <td>{r.estado === 'debe' ? r.totPedido : '-'}</td>
-                                <td>{r.estado === 'pagado' ? r.totPedido : '-'}</td>
+                                <td>{r.envio}</td>
+                                <td>{r.detalle}</td>
+                                <td>{r.unitario}</td>
+                                <td>{r.estado === 'debo' ? r.totPedido : ' '}</td>
+                                <td>{r.estado === 'pagado' ? r.totPedido : ' '}</td>
                                 <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
                                 <td>{r.saldoText}</td>
-                                <td>
-
-                                </td>
+                                <td>{r.detallePago}</td>
                             </tr>
                         ))
                     }
