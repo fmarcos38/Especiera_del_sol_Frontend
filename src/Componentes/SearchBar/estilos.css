@@ -1,6 +1,8 @@
 .cont-searchBar{
     margin-top: 20px;
     border: 2px solid salmon;
+    padding: 20px 30px;
+    background-color: var(--background-color-navBar-oscuro);
 }
 .form-search{
     display: flex;
@@ -14,6 +16,9 @@
     align-items: center;
     border: 1px solid black;
     margin: 5px;
+}
+.label-searchP{
+    color: #fff;
 }
 .input-search{
     height: 30px;

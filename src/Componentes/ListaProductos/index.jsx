@@ -55,7 +55,7 @@ function ListaProductos() {
     return (
         <div className='cont-lista-clientes'>
             <div className='cont-searchP'>
-                <SearchBar handleOnChange={handleOnChange}/>
+                <SearchBar handleOnChange={handleOnChange} vista={"producto"}/>
             </div>
             {
                 filteredProductos ?

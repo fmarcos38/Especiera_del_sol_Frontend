@@ -40,7 +40,7 @@ function ListaProveedores() {
 
     return (
         <div className='cont-lista-clientes'>
-            <SearchBar handleOnChange={handleOnChange}/>
+            <SearchBar handleOnChange={handleOnChange} vista={"proveedor"}/>
             {
                 buscoProv ?
                 <table className="client-table">

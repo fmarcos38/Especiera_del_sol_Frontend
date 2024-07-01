@@ -34,13 +34,13 @@ function ListaClientes() {
     
     useEffect(() => {
         setBuscaCliente(
-            allC.filter(c => c.nombre.includes(contexto.search)));
+            allC.filter(c => c.nombreApellido.includes(contexto.search)));
     },[allC, contexto.search]);
 
 
     return (
         <div className='cont-lista-clientes'>
-            <SearchBar handleOnChange={handleOnChangeBuscaCliente}/>
+            <SearchBar handleOnChange={handleOnChangeBuscaCliente} vista={"cliente"}/>
             {
                 allC ?
                 <table className="client-table">
