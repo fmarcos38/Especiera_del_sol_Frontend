@@ -18,3 +18,8 @@
 .input-detallePago-anticipo {
     font-size: 23px;
 }
+.anticipo{
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}

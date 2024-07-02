@@ -13,9 +13,9 @@ function ListaRemitos() {
     const calculateSaldo = (remitos) => {
         let saldo = 0;
         return remitos.map(r => {
-            if (r.estado === 'debo') {
+            if (r.estado === 'Debo') {
                 saldo -= r.total;
-            } else if (r.estado === 'pagado') {
+            } else if (r.estado === 'Pago') {
                 saldo = saldo + r.total;
             }
             return {
@@ -39,6 +39,7 @@ function ListaRemitos() {
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Proveedor</th>
                         <th>Envio</th>
                         <th>Detalle</th>
                         <th>Unitario</th>
@@ -54,11 +55,12 @@ function ListaRemitos() {
                         arrayMovimientos?.map((r,i) => (
                             <tr key={r._id}>
                                 <td>{r.fecha}</td>
+                                <td>{r.proveedor}</td>
                                 <td>{r.envio}</td>
                                 <td>{r.detalle}</td>
                                 <td>{r.unitario}</td>
-                                <td>{r.estado === 'debo' ? r.totPedido : ' '}</td>
-                                <td>{r.estado === 'pagado' ? r.totPedido : ' '}</td>
+                                <td>{r.estado === 'Debo' ? r.total : ' '}</td>
+                                <td>{r.estado === 'Pago' ? r.total : ' '}</td>
                                 <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
                                 <td>{r.saldoText}</td>
                                 <td>{r.detallePago}</td>

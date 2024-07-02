@@ -13,7 +13,8 @@ const Navbar = () => {
     const [muestraMenuClientes, setMuestraMenuClientes] = useState(false); //estado menú cliente
     const [muestraMenuProductos, setMuestraMenuProductos] = useState(false); //estado menú prod
     const [muestraMenuProveedor, setMuestraMenuProveedor] = useState(false); //estado menú proveedor
-    const [muestraMenuRemitos, setMuestraMenuRemitos] = useState(false); //estado menú remitos
+    const [muestraMenuCompras, setMuestraMenuCompras] = useState(false); //estado menú compras
+    const [muestraMenuVentas, setMuestraMenuVentas] = useState(false); //estado menú ventas
     const contexto = useContext(AppContexto);
 
     const handleMouseEnterCliente = () => {
@@ -34,11 +35,17 @@ const Navbar = () => {
     const handleMouseLeaveProveedor = () => {
         setMuestraMenuProveedor(false);
     };
-    const handleMouseEnterRemito = () => {
-        setMuestraMenuRemitos(true);
+    const handleMouseEnterCompras = () => {
+        setMuestraMenuCompras(true);
     };
-    const handleMouseLeaveRemito = () => {
-        setMuestraMenuRemitos(false);
+    const handleMouseLeavecompras = () => {
+        setMuestraMenuCompras(false);
+    };
+    const handleMouseEnterVentas = () => {
+        setMuestraMenuVentas(true);
+    };
+    const handleMouseLeaveVentas = () => {
+        setMuestraMenuVentas(false);
     };
     const handleLogOut = () => {
         logout();
@@ -54,7 +61,7 @@ const Navbar = () => {
                     <img src={textLogo} alt='' className='texto-logo'/>
                 </Link>
             </div>
-            {/* items */}
+            {/* items barra ADMIN*/}
             {
                 contexto.userLog ? (
                     <ul className="navbar-menu">
@@ -118,27 +125,44 @@ const Navbar = () => {
                                 )
                             }
                         </li>
-                        {/* remitos */}
+                        {/* Compras */}
                         <li
                             className="navbar-item"
-                            onMouseEnter={handleMouseEnterRemito}
-                            onMouseLeave={handleMouseLeaveRemito}
+                            onMouseEnter={handleMouseEnterCompras}
+                            onMouseLeave={handleMouseLeavecompras}
                         >
-                            Remitos
+                            Compras
                             {
-                                muestraMenuRemitos && (
+                                muestraMenuCompras && (
+                                    <ul className="dropdown-menu">
+                                        <Link to="/creaAnticipo" className='link-menu'>
+                                            <li className="dropdown-item">Crear anticipo</li>
+                                        </Link>
+                                        <Link to='/creaCompra' className='link-menu'>
+                                            <li className="dropdown-item">Crear remito Compra</li>
+                                        </Link>
+                                        <Link to='/listaRemitosCompras' className='link-menu'>
+                                            <li className="dropdown-item">Lista remitos Compra</li>
+                                        </Link>
+                                    </ul>
+                                )
+                            }
+                        </li>
+                        {/* Ventas */}
+                        <li
+                            className="navbar-item"
+                            onMouseEnter={handleMouseEnterVentas}
+                            onMouseLeave={handleMouseLeaveVentas}
+                        >
+                            Ventas
+                            {
+                                muestraMenuVentas && (
                                     <ul className="dropdown-menu">
                                         <Link to="/creaVenta" className='link-menu'>
                                             <li className="dropdown-item">Crear remito Venta</li>
                                         </Link>
-                                        <Link to='/creoRemitoCompra' className='link-menu'>
-                                            <li className="dropdown-item">Crear remito Compra</li>
-                                        </Link>
                                         <Link to="/listaRemitosVentas" className='link-menu'>
                                             <li className="dropdown-item">Lista remitos Venta</li>
-                                        </Link>
-                                        <Link to='/listaRemitosCompras' className='link-menu'>
-                                            <li className="dropdown-item">Lista remitos Compra</li>
                                         </Link>
                                     </ul>
                                 )

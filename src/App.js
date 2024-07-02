@@ -18,6 +18,7 @@ import ListaRemitosClientePage from './Pages/ListaRemitosClientePage';
 import DetalleRemitoPage from './Pages/DetalleRemitoPage';
 import EditaRemitoPage from './Pages/EditaRemito';
 import CreaCompra from './Pages/CreaCompra/CreaCompra';
+import CreaAnticipoPaga from './Pages/CreaAnticipo';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
             <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
+            <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />
             <Route path='/creaCompra' element={<CreaCompra/>} />
             {/* rutas para el desarrollador */}
             
