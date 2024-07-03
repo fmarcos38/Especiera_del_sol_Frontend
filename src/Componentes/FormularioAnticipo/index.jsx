@@ -13,7 +13,7 @@ function FormularioAnticipo() {
         detalle: "Anticipo",
         total: 0,
         detallePago: "",
-        estado: "pago"
+        estado: "Pago"
     }); console.log("items:", items);
     const dispatch = useDispatch();
 

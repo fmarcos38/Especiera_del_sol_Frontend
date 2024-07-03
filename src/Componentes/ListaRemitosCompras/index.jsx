@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCompras } from '../../Redux/Actions';
 import './estilos.css';
+import { fechaArg } from '../../Helpers';
 
 
 function ListaRemitos() {
@@ -35,7 +36,7 @@ function ListaRemitos() {
 
     return (
         <div className='cont-listaRemitosCompra-componente'>
-            <table className="client-table">
+            <table className="client-table listaCompras">
                 <thead>
                     <tr>
                         <th>Fecha</th>
@@ -57,7 +58,7 @@ function ListaRemitos() {
                     {
                         arrayMovimientos?.map((r,i) => (
                             <tr key={r._id}>
-                                <td>{r.fecha}</td>
+                                <td>{fechaArg(r.fecha)}</td>
                                 <td>{r.envio}</td>
                                 <td>{r.numRemito}</td>
                                 <td>{r.detalle}</td>

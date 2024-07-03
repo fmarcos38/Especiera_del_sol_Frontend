@@ -68,6 +68,7 @@ function FormularioCompras() {
                 items: pedido,                
             };
             dispatch(creaAnticipo(objetoCompra));
+            localStorage.setItem("numRemito", compra.numRemito);//actualizo numRemito en el localStorage
             Swal.fire({
                 text: "Creado con exito!!",
                 icon: "success"

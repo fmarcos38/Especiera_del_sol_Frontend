@@ -1,7 +1,12 @@
 .cont-listaRemitosCompra-componente{
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+}
+.listaCompras{
+  width: 100%;
 }
 .saldo-positivo {
     color: green;
