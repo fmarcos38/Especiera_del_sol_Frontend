@@ -39,10 +39,13 @@ function ListaRemitos() {
                 <thead>
                     <tr>
                         <th>Fecha</th>
-                        <th>Proveedor</th>
                         <th>Envio</th>
+                        <th>n° Remito</th>                        
                         <th>Detalle</th>
-                        <th>Unitario</th>
+                        <th>Proveedor</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Unitario</th>                        
                         <th>Debo</th>
                         <th>Haber</th>
                         <th>Saldo</th>
@@ -55,9 +58,12 @@ function ListaRemitos() {
                         arrayMovimientos?.map((r,i) => (
                             <tr key={r._id}>
                                 <td>{r.fecha}</td>
-                                <td>{r.proveedor}</td>
                                 <td>{r.envio}</td>
+                                <td>{r.numRemito}</td>
                                 <td>{r.detalle}</td>
+                                <td>{r.proveedor}</td>
+                                <td>{r.producto}</td>
+                                <td>{r.cantidad}</td>
                                 <td>{r.unitario}</td>
                                 <td>{r.estado === 'Debo' ? r.total : ' '}</td>
                                 <td>{r.estado === 'Pago' ? r.total : ' '}</td>

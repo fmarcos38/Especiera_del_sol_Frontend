@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
 }
-.cont-items-form-compra{
+.cont-form-compra{
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -14,12 +14,43 @@
     border-radius: 10px;
     background-color: antiquewhite;
 }
-.cont-items-pedido{
-    width: 80%;
+.cont-items-form-compra{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid salmon;
+    padding: 5px;
+    margin-top: 10px;
+}
+.cont-items-compra{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.btnCompra{
+    margin-top: 10px;
+}
+.cont-items-pedido{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
+    border: 2px solid saddlebrown;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.cont-compra-detalle-proveed{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cont-item{
     display: flex;
@@ -29,12 +60,16 @@
     font-size: 23px;
 }
 .input-pedido {
+    width: 220px;
     font-size: 23px;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 .numRemito{
     width: 100px;
 }
 .compra{
+    width: 80%;
     margin-top: 30px;
     margin-bottom: 20px;
 }
