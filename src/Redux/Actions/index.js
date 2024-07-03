@@ -4,6 +4,7 @@ import {
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_REMITOS_COMPRA,
+    GET_REMITOS_PROVEEDOR,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -120,7 +121,7 @@ export function getAllProveedores() {
         dispatch({type: GET_ALL_PROVEEDORES, payload:resp.data});
     }
 }
-//busca x ID
+//busca x nomb y apell
 export function buscaProveedor(data) {
     return async function(dispatch){
         const resp = await axios.get(`${local}/proveedores/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
@@ -224,5 +225,13 @@ export function getAllCompras() {
 export function creaAnticipo(data){
     return async function(){
         await axios.post(`${local}/compras`, data);
+    }
+}
+
+//trae remitos de un prov
+export function getRemitosProveedor(proveedor){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/compras/proveedor?proveedor=${proveedor}`);
+        dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
     }
 }

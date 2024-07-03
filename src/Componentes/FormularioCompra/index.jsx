@@ -90,6 +90,7 @@ function FormularioCompras() {
         if(numR){
             setCompra({...compra, numRemito: numR});
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dispatch]);
 
     return (

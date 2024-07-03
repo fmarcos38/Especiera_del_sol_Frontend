@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  getAllProveedores } from '../../Redux/Actions';
-import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
+import EditIcon from '@mui/icons-material/Edit';
 import ModalEdicionProveedor from '../ModalEdicionProveedor';
 import BotonEliminarProveedor from '../BotonEliminarProveedor';
 import SearchBar from '../SearchBar';
@@ -71,9 +72,9 @@ function ListaProveedores() {
                                 <td>{p.cuit}</td>
                                 <td>{p.iva}</td>
                                 <td style={{width: '50px'}}>
-                                    <button>
-                                        REMITOS
-                                    </button>
+                                    <Link to={`/remitosProveedor/${p.nombre}/${p.apellido}`}>
+                                        <button>REMITOS</button> 
+                                    </Link>
                                 </td>                                
                                 <td style={{width: '50px'}}>
                                     <div style={{display: 'flex'}} key={p._id}>

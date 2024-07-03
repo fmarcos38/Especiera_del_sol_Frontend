@@ -1,9 +1,13 @@
 .cont-listaRemitosCompra-componente{
   width: 95%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+.titulo-lista-compras{
+  margin: 0;
 }
 .listaCompras{
   width: 100%;

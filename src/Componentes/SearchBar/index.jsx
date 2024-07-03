@@ -6,7 +6,7 @@ import { AppContexto } from '../../Contexto';
 function SearchBar({ handleOnChange, vista }) {
 
     const contexto = useContext(AppContexto);
-    //useEffect para q no me que en el estdo la busqueda de un componente anterior.
+    //useEffect para q no me quede en el estdo, la busqueda de un componente anterior.
     useEffect(() => {
         contexto.setSearch("");
     }, []); //si coloco contexto en el array NO funciona
