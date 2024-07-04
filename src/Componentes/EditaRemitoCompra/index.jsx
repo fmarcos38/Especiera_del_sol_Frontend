@@ -21,15 +21,15 @@ function EditaRemitoCompra() {
         unitario: remito.unitario,
         total: 0,
         detallePago: remito.detallePago,
-        items: [],        
+        items: remito.items,        
     });
     //estado para Anticipo
     const [anticipo, setAnticipo] = useState({
-        proveedor: "",
-        detalle: "Anticipo",
+        proveedor: remito.proveedor,
+        detalle: remito.detalle,
         total: remito.total,
         detallePago: remito.detallePago,
-        estado: "Pago"
+        estado: remito.estado
     }); 
     //estado para los items que se compran
     const [items, setItems] = useState({
@@ -121,7 +121,7 @@ function EditaRemitoCompra() {
                                         <label className='label-crea-compra'>Proveedor</label>
                                         <input
                                             type={'text'}
-                                            value={remito.proveedor}
+                                            value={anticipo.proveedor}
                                             className='input-detalle-anticipo'
                                         />
                                     </div>
