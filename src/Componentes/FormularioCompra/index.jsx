@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaAnticipo, getAllProds, getAllProveedores } from '../../Redux/Actions';
-import {numRemitoActual} from '../../LocalStorage';
+import { creaAnticipo, getAllProds, getAllProveedores, getRemitosProveedor } from '../../Redux/Actions';
+//import {numRemitoActual} from '../../LocalStorage';
 import Swal from 'sweetalert2';
 
 
 function FormularioCompras() {
 
     const productos = useSelector(state => state.productos);
-    const proveedores = useSelector(state => state.proveedores);    
+    const proveedores = useSelector(state => state.proveedores);   
+    //const proveedor =  useSelector(state => state.remitosProveedor);
     //estado para los items que se compran
     const [items, setItems] = useState({
         cantidad: 0,
@@ -79,19 +80,14 @@ function FormularioCompras() {
     const calcTotCompra = () => {        
         return compra.cantidad * compra.unitario;
     };
-    
 
     useEffect(()=>{
         dispatch(getAllProds());
         dispatch(getAllProveedores());
-
-        //creo numRemito
-        const numR = numRemitoActual() + 1;
-        if(numR){
-            setCompra({...compra, numRemito: numR});
+        if(compra.proveedor){
+            dispatch(getRemitosProveedor(compra.proveedor));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[dispatch]);
+    },[compra, dispatch]);
 
     return (
         <div className='cont-vista-compra'>          
@@ -310,7 +306,6 @@ function FormularioCompras() {
                 </table>
             </div>
         </div>        
-                
     )
 }
 

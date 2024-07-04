@@ -1,7 +1,7 @@
 import React from 'react';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch } from 'react-redux';
 import { eliminaCliente, getAllClientes } from '../../Redux/Actions';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Swal from 'sweetalert2';
 import './estilos.css';
 

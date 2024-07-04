@@ -5,6 +5,8 @@ import {
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR,
+    GET_REMITO_COMPRA_BY_ID,
+    MODIFICA_ANTICIPO_COMPRA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -148,7 +150,7 @@ export function eliminaProveedor(_id){
     }    
 }
 
-//--remitos-----------------------------------------------------
+//--remitos ventas-----------------------------------------------------
 //trae remitos
 export function getAllRemitos(estado){
     return async function(dispatch){
@@ -227,11 +229,24 @@ export function creaAnticipo(data){
         await axios.post(`${local}/compras`, data);
     }
 }
-
 //trae remitos de un prov
 export function getRemitosProveedor(proveedor){
     return async function(dispatch){
         const resp = await axios.get(`${local}/compras/proveedor?proveedor=${proveedor}`);
         dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
+    }
+}
+//trea un remito por id
+export function getRemitoCompra(_id){
+    return async function(dispatch){ console.log("id:", _id)
+        const resp = await axios.get(`${local}/compras/remito/${_id}`);
+        dispatch({type: GET_REMITO_COMPRA_BY_ID, payload: resp.data});
+    }
+}
+//modifica anticipo/compra
+export function modificaAnticipoCompra(_id, data){
+    return async function(dispatch){
+        const resp = await axios.put(`${local}/compras/modifica/${_id}`, data);
+        dispatch({type: MODIFICA_ANTICIPO_COMPRA, payload: resp.data});
     }
 }

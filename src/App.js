@@ -20,6 +20,7 @@ import CreaCompra from './Pages/CreaCompra/CreaCompra';
 import CreaAnticipoPaga from './Pages/CreaAnticipo';
 import ListaProveedoresPage from './Pages/ListaProveedores';
 import ListaRemitosProveedorPage from './Pages/ListaRemitosProveedor';
+import EditaRemitoCompraPage from './Pages/EditaRemitoCompra';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
             <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />
             <Route path='/creaCompra' element={<CreaCompra/>} />
+            <Route path='/editaRemitoCompra/:_id' element={<EditaRemitoCompraPage/>} />
             {/* rutas para el desarrollador */}
             
             <Route path='/remito' element={<Remito/>} />

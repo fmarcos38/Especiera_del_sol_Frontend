@@ -10,7 +10,7 @@ const logout =() =>{
 }
 
 //creo numRemito en el localStarage en 1 --> luego se va a ir incrementando
-const numRemito = 1;
+const numRemito = 0;
 localStorage.setItem("numRemito", numRemito);
 
 //obtengo el numRemito

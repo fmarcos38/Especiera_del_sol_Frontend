@@ -14,7 +14,7 @@ function FormularioAnticipo() {
         total: 0,
         detallePago: "",
         estado: "Pago"
-    }); console.log("items:", items);
+    }); 
     const dispatch = useDispatch();
 
     const handleOnChange = (e) => {

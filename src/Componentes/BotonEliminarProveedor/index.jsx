@@ -20,7 +20,7 @@ function BotonEliminarProveedor({_id, nombre, apellido}) {
             confirmButtonText: "SI",
             cancelButtonText: "NO"
         }).then((result) => {
-            if (result.isConfirmed) {
+            if(result.isConfirmed) {
                 Swal.fire({
                     title: "Eliminado!",
                     text: "Se eliminó con exito",
