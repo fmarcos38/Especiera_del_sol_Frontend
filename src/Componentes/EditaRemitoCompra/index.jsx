@@ -21,7 +21,7 @@ function EditaRemitoCompra() {
         unitario: remito.unitario,
         total: 0,
         detallePago: remito.detallePago,
-        items: remito.items,        
+        items: [],        
     });
     //estado para Anticipo
     const [anticipo, setAnticipo] = useState({
@@ -39,13 +39,20 @@ function EditaRemitoCompra() {
         importe: 0
     });
     //estado para la conmposicion del pedido
-    const [pedido, setPedido] = useState([]);
+    const [pedido, setPedido] = useState(remito.items);
 
     const handleOnChangeItems = (e) => {
         setItems({...items, [e.target.id]: e.target.value});
     };
     const handleOnClickAgregaItem= () => {
         setPedido([...pedido, items]);
+        setCompra({...compra, items: pedido});
+        setItems({
+            cantidad: 0,
+            detalle: "",
+            unitario: 0,
+            importe: 0
+        });
     };    
     const handleOnChangeDatosCompra = (e) => {
         if(e.target.id === "proveedor"){
@@ -54,7 +61,7 @@ function EditaRemitoCompra() {
             setCompra({...compra, [e.target.id]:e.target.value});
         }
     };
-    const handleOnSubmit = (e) => {
+    const handleOnSubmitModifica = (e) => {
         e.preventDefault();
         if(!compra.unitario){
             Swal.fire({
@@ -101,11 +108,23 @@ function EditaRemitoCompra() {
             dispatch(modificaAnticipoCompra(_id, anticipo));
         }
     };
+    //funcion calc el tot de c/item de la compra
+    const calcTotItemCompra = () => {
+        return items.cantidad * items.unitario;
+    };
+    //funcion calcula el Total de los items, para la tabla
+    
 
     useEffect(()=>{
         dispatch(getRemitoCompra(_id));
         dispatch(getAllProds());
     },[_id, dispatch]);
+
+    useEffect(()=>{
+        if(remito.items){
+            setPedido(remito.items);
+        }
+    }, [remito.items]);
 
     return (
         <div className='cont-vista-modifRemitos-compra'>
@@ -160,7 +179,7 @@ function EditaRemitoCompra() {
                         </div>
                     ) : (
                         <div className='cont-form-modif-anticipo'>
-                            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
+                            <form onSubmit={(e) => { handleOnSubmitModifica(e) }} className='cont-form-compra'>
                                 {/* dato compra */}
                                 <div className='cont-items-pedido'>
                                     <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
@@ -251,6 +270,7 @@ function EditaRemitoCompra() {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 {/* items compra */}
                                 <div className='cont-items-form-compra'>
                                     <h2 className='titulos-form-compra'>Carga items de la compra</h2>
@@ -302,19 +322,21 @@ function EditaRemitoCompra() {
                                             <input
                                                 type='number'
                                                 id='importe'
-                                                value={items.importe}
+                                                value={calcTotItemCompra()}
                                                 onChange={(e) => handleOnChangeItems(e)}
                                                 className='input-importe-formulario'
                                             />
                                         </div>
                                     </div>
                                     <button
+                                        type='button'
                                         onClick={(e) => handleOnClickAgregaItem(e)}
                                         className='btn-cargarProd btnCompra'
                                     >
                                         Cargar producto
                                     </button>
                                 </div>
+                                
                                 {/* botón crea compra */}
                                 <button type='onSubmit' className='btn-crea-pedido compra'>Modifica compra</button>
                             </form>

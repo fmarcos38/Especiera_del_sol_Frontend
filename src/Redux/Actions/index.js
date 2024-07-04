@@ -251,7 +251,7 @@ export function resetUltimoRemitocompra(){
 }
 //trea un remito por id
 export function getRemitoCompra(_id){
-    return async function(dispatch){ console.log("id:", _id)
+    return async function(dispatch){ 
         const resp = await axios.get(`${local}/compras/remito/${_id}`);
         dispatch({type: GET_REMITO_COMPRA_BY_ID, payload: resp.data});
     }
