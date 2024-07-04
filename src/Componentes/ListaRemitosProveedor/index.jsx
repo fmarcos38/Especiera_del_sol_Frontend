@@ -19,7 +19,7 @@ function ListaRemitosProveedor() {
     return (
         <div>
             <h1>Compras realizadas al proveedor {proveedor}</h1> 
-            <TablaCompras compras={compras.compras} />
+            <TablaCompras compras={compras} />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaAnticipo, getAllProds, getAllProveedores, getRemitosProveedor } from '../../Redux/Actions';
+import { creaAnticipo, getAllProds, getAllProveedores, getUlimoRemitoCompra, resetUltimoRemitocompra } from '../../Redux/Actions';
 //import {numRemitoActual} from '../../LocalStorage';
 import Swal from 'sweetalert2';
 
@@ -10,7 +10,10 @@ function FormularioCompras() {
 
     const productos = useSelector(state => state.productos);
     const proveedores = useSelector(state => state.proveedores);   
-    //const proveedor =  useSelector(state => state.remitosProveedor);
+    const remito =  useSelector(state => state.ultimoRemito); 
+    let numUltRemito = 0;
+    if(remito === null) { numUltRemito = 1; } 
+    if(remito !== null) { numUltRemito = remito.numR + 1; } 
     //estado para los items que se compran
     const [items, setItems] = useState({
         cantidad: 0,
@@ -32,7 +35,7 @@ function FormularioCompras() {
         total: 0,
         detallePago: "",
         items: [],        
-    }); 
+    }); console.log("compra:", compra);
     const dispatch = useDispatch();
 
     const handleOnChangeItems = (e) => {
@@ -42,11 +45,7 @@ function FormularioCompras() {
         setPedido([...pedido, items]);
     };    
     const handleOnChangeDatosCompra = (e) => {
-        if(e.target.id === "proveedor"){
-            setCompra({...compra, proveedor: e.target.value});
-        }else {
-            setCompra({...compra, [e.target.id]:e.target.value});
-        }
+        setCompra({...compra, [e.target.id]:e.target.value});
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -57,7 +56,7 @@ function FormularioCompras() {
             });
         }else{
             const objetoCompra = {
-                numRemito: compra.numRemito, //corregir para obt el num de remito
+                numRemito: numUltRemito, //corregir para obt el num de remito
                 proveedor: compra.proveedor,
                 detalle: compra.detalle,
                 producto: compra.producto,
@@ -83,11 +82,16 @@ function FormularioCompras() {
 
     useEffect(()=>{
         dispatch(getAllProds());
-        dispatch(getAllProveedores());
-        if(compra.proveedor){
-            dispatch(getRemitosProveedor(compra.proveedor));
-        }
+        dispatch(getAllProveedores());      
     },[compra, dispatch]);
+
+    useEffect(()=>{
+        if(compra.proveedor !== ''){
+            dispatch(getUlimoRemitoCompra(compra.proveedor));
+        }
+
+        return () => {dispatch(resetUltimoRemitocompra());}
+    },[compra.proveedor, dispatch]);
 
     return (
         <div className='cont-vista-compra'>          
@@ -96,16 +100,7 @@ function FormularioCompras() {
                 <div className='cont-items-pedido'>
                     <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
                     {/* num remito - prov - detalle */}
-                    <div className='cont-compra-detalle-proveed'>                        
-                        <div className='cont-item'>
-                            <label className='label-crea-compra'>N° Remito:</label>
-                            <input
-                                type={'number'}
-                                value={compra.numRemito}
-                                /* onChange={() => { handleOnChange() }} */
-                                className='input-pedido numRemito'
-                            />
-                        </div>
+                    <div className='cont-compra-detalle-proveed'>
                         <div className='cont-item'>
                             <label className='label-crea-compra'>Proveedor:</label>
                             <select
@@ -127,6 +122,15 @@ function FormularioCompras() {
                                     })
                                 }
                             </select>
+                        </div>
+                        <div className='cont-item'>
+                            <label className='label-crea-compra'>N° Remito:</label>
+                            <input
+                                type={'number'}
+                                value={numUltRemito}
+                                /* onChange={() => { handleOnChange() }} */
+                                className='input-pedido numRemito'
+                            />
                         </div>
                         <div className='cont-item'>
                             <label className='label-crea-compra'>Detalle:</label>

@@ -2,8 +2,8 @@ import React from 'react'
 import { fechaArg } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
+import BotonEliminaRemitoCompra from '../BotonEliminaRemitoCompra';
 
 function TablaCompras({ compras }) {
 
@@ -70,9 +70,7 @@ function TablaCompras({ compras }) {
                                             <EditIcon/>
                                         </button>
                                     </Link>
-                                    <button>
-                                        <DeleteForeverIcon/>
-                                    </button>
+                                    <BotonEliminaRemitoCompra _id={r._id}/>
                                 </div>
                             </td>
                         </tr>

@@ -4,9 +4,9 @@ import {
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_REMITOS_COMPRA,
-    GET_REMITOS_PROVEEDOR,
-    GET_REMITO_COMPRA_BY_ID,
-    MODIFICA_ANTICIPO_COMPRA,
+    GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA,
+    ULTIMO_REMITO_COMPRA,
+    RESET_ULTIMO_REMITO_COMPRA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -236,6 +236,19 @@ export function getRemitosProveedor(proveedor){
         dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
     }
 }
+//trea el número del último remito compra hacia un provee
+export function getUlimoRemitoCompra(proveedor){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/compras/ultimoRemito?proveedor=${proveedor}`);
+        dispatch({type: ULTIMO_REMITO_COMPRA, payload: resp.data});
+    }
+}
+//reset ultimo remito
+export function resetUltimoRemitocompra(){
+    return function(dispatch){
+        dispatch({type: RESET_ULTIMO_REMITO_COMPRA});
+    }
+}
 //trea un remito por id
 export function getRemitoCompra(_id){
     return async function(dispatch){ console.log("id:", _id)
@@ -248,5 +261,11 @@ export function modificaAnticipoCompra(_id, data){
     return async function(dispatch){
         const resp = await axios.put(`${local}/compras/modifica/${_id}`, data);
         dispatch({type: MODIFICA_ANTICIPO_COMPRA, payload: resp.data});
+    }
+}
+//elimina remito compra
+export function elimnimaRemitoCompra(_id){
+    return async function(){
+        await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
     }
 }
