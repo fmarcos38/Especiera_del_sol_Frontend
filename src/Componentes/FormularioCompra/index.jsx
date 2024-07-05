@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaAnticipo, getAllProds, getAllProveedores, getUlimoRemitoCompra, resetUltimoRemitocompra } from '../../Redux/Actions';
-//import {numRemitoActual} from '../../LocalStorage';
+import DeleteIcon from '@mui/icons-material/DeleteForever';
 import Swal from 'sweetalert2';
 
 
@@ -20,7 +20,7 @@ function FormularioCompras() {
         detalle: "",
         unitario: 0,
         importe: 0
-    });
+    });  console.log("item:", items)
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState([]);
     
@@ -35,14 +35,20 @@ function FormularioCompras() {
         total: 0,
         detallePago: "",
         items: [],        
-    }); console.log("compra:", compra);
+    }); 
     const dispatch = useDispatch();
 
     const handleOnChangeItems = (e) => {
         setItems({...items, [e.target.id]: e.target.value});
     };
-    const handleOnClickAgregaItem= () => {
+    const handleOnClickAgregaItem= (e) => {
         setPedido([...pedido, items]);
+        setItems({
+            cantidad: 0,
+            detalle: "",
+            unitario: 0,
+            importe: 0
+        });
     };    
     const handleOnChangeDatosCompra = (e) => {
         setCompra({...compra, [e.target.id]:e.target.value});
@@ -79,6 +85,21 @@ function FormularioCompras() {
     const calcTotCompra = () => {        
         return compra.cantidad * compra.unitario;
     };
+    
+    //elimnina item
+    const handleElimnimaItem = (detalle) => {
+        const newPedido = pedido.filter(item => item.detalle !== detalle);
+        setPedido(newPedido);
+    };
+    //func calc tot pedido(items)
+    const calculaTotPedido = () => {
+        let tot = 0;
+        pedido.map(item => {
+            tot = tot + item.importe;
+            return tot;
+        });
+        return tot;
+    };
 
     useEffect(()=>{
         dispatch(getAllProds());
@@ -92,6 +113,24 @@ function FormularioCompras() {
 
         return () => {dispatch(resetUltimoRemitocompra());}
     },[compra.proveedor, dispatch]);
+
+    //para calcular el total del item 
+    useEffect(() => {        
+        if(items.cantidad && items.unitario){//con este if evito q se quede en un bucle
+            const tot = items.cantidad * items.unitario;
+            if(tot){
+                setItems((prevItems) => ({
+                    ...prevItems,
+                    importe: tot,
+                }));
+            }else{
+                setItems((prevItems) => ({
+                    ...prevItems,
+                    importe: 0,
+                }));
+            }
+        } 
+    }, [items.cantidad,items.unitario]);
 
     return (
         <div className='cont-vista-compra'>          
@@ -200,6 +239,7 @@ function FormularioCompras() {
                         </div>
                     </div>
                 </div>
+                
                 {/* items compra */}
                 <div className='cont-items-form-compra'>
                     <h2 className='titulos-form-compra'>Carga items de la compra</h2>
@@ -251,19 +291,20 @@ function FormularioCompras() {
                             <input
                                 type='number'
                                 id='importe'
-                                value={items.importe} 
-                                onChange={(e) => handleOnChangeItems(e)} 
+                                value={items.importe}
                                 className='input-importe-formulario'
                             />
                         </div>
                     </div>
                     <button 
+                        type='button'
                         onClick={(e) => handleOnClickAgregaItem(e)} 
                         className='btn-cargarProd btnCompra'
                     >
                         Cargar producto
                     </button>
                 </div>
+                
                 {/* botón crea compra */}
                 <button type='onSubmit' className='btn-crea-pedido compra'>Crear compra</button>
             </form>
@@ -291,8 +332,8 @@ function FormularioCompras() {
                                         <td>{item.unitario}</td>
                                         <td>{item.importe}</td>
                                         <td style={{ display: 'flex', justifyContent: 'center' }}>
-                                            <button /* onClick={() => {handleElimnimaItem(item._id)}} */ className='btn-elimina-item-pedido'>
-                                                Elimnar{/* <DeleteIcon className='icono-elimina-item'/> */}
+                                            <button onClick={() => {handleElimnimaItem(item.detalle)}} className='btn-elimina-item-pedido'>
+                                                <DeleteIcon className='icono-elimina-item'/>
                                             </button>
                                         </td>
                                     </tr>
@@ -305,7 +346,7 @@ function FormularioCompras() {
                         <td>TOTAL</td>
                         <td></td>
                         <td></td>
-                        <td>{/* {calculaTotPedido()} */}tot pedido</td>
+                        <td>{calculaTotPedido()}</td>
                     </tfoot>
                 </table>
             </div>

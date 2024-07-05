@@ -37,7 +37,7 @@ function EditaRemitoCompra() {
         detalle: "",
         unitario: 0,
         importe: 0
-    });
+    }); 
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState(remito.items);
 
@@ -112,8 +112,7 @@ function EditaRemitoCompra() {
     const calcTotItemCompra = () => {
         return items.cantidad * items.unitario;
     };
-    //funcion calcula el Total de los items, para la tabla
-    
+
 
     useEffect(()=>{
         dispatch(getRemitoCompra(_id));
