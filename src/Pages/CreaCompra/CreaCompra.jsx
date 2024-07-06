@@ -1,6 +1,6 @@
 import React from 'react';
 import './estilos.css';
-import FormularioCompras from '../../Componentes/FormularioCompra'
+import FormularioCompras from '../../Componentes/CreaCompra'
 
 function CreaCompra() {
     return (

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRemitoCompra, getAllProds, modificaAnticipoCompra, } from '../../Redux/Actions';
 import { useParams } from 'react-router-dom';
+import FormularioCompra from '../FormularioCompra';
+import TablaItemsRemitoCompra from '../TablaItemsRemitoCompra';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
-
 function EditaRemitoCompra() {
     const {_id} = useParams();
+    const tipoOperacion = 'modifica';
     const remito = useSelector(state => state.remito);
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
@@ -108,9 +110,19 @@ function EditaRemitoCompra() {
             dispatch(modificaAnticipoCompra(_id, anticipo));
         }
     };
-    //funcion calc el tot de c/item de la compra
-    const calcTotItemCompra = () => {
-        return items.cantidad * items.unitario;
+    //elimnina item
+    const handleElimnimaItem = (detalle) => {
+        const newPedido = pedido.filter(item => item.detalle !== detalle);
+        setPedido(newPedido);
+    };
+    //func calc tot pedido(items)
+    const calculaTotPedido = () => {
+        let tot = 0;
+        pedido?.map(item => {
+            tot = tot + item.importe;
+            return tot;
+        });
+        return tot;
     };
 
 
@@ -124,6 +136,25 @@ function EditaRemitoCompra() {
             setPedido(remito.items);
         }
     }, [remito.items]);
+
+    //para calcular el total del item 
+    useEffect(() => {        
+        if(items.cantidad && items.unitario){//con este if evito q se quede en un bucle
+            const tot = items.cantidad * items.unitario;
+            if(tot){
+                setItems((prevItems) => ({
+                    ...prevItems,
+                    importe: tot,
+                }));
+            }else{
+                setItems((prevItems) => ({
+                    ...prevItems,
+                    importe: 0,
+                }));
+            }
+        } 
+    }, [items.cantidad,items.unitario]);
+
 
     return (
         <div className='cont-vista-modifRemitos-compra'>
@@ -178,208 +209,27 @@ function EditaRemitoCompra() {
                         </div>
                     ) : (
                         <div className='cont-form-modif-anticipo'>
-                            <form onSubmit={(e) => { handleOnSubmitModifica(e) }} className='cont-form-compra'>
-                                {/* dato compra */}
-                                <div className='cont-items-pedido'>
-                                    <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
-                                    {/* num remito - prov - detalle */}
-                                    <div className='cont-compra-detalle-proveed'>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>N° Remito:</label>
-                                            <input
-                                                type={'number'}
-                                                value={remito.numRemito}
-                                                /* onChange={() => { handleOnChange() }} */
-                                                className='input-pedido numRemito'
-                                            />
-                                        </div>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Proveedor:</label>
-                                            <input
-                                                type={'text'}
-                                                id='proveedor'
-                                                value={remito.proveedor}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Detalle:</label>
-                                            <input
-                                                type={'text'}
-                                                id='detalle'
-                                                value={remito.detalle}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* producto - kg comprados - precio unitario - tot compra */}
-                                    <div className='cont-compra-detalle-proveed'>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Producto:</label>
-                                            <input
-                                                type={'text'}
-                                                id='producto'
-                                                value={compra.producto}
-                                                onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Cant Kg:</label>
-                                            <input
-                                                type={'number'}
-                                                id='cantidad'
-                                                value={compra.cantidad}
-                                                onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Unitario:</label>
-                                            <input
-                                                type={'text'}
-                                                id='unitario'
-                                                value={compra.unitario}
-                                                onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Total:</label>
-                                            <input
-                                                type={'number'}
-                                                id='total'
-                                                value={calcTotCompra()}
-                                                onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* detalle pago y observaciones*/}
-                                    <div className='cont-compra-detalle-proveed'>
-                                        <div className='cont-item'>
-                                            <label className='label-crea-compra'>Detalle Pago:</label>
-                                            <input
-                                                type={'text'}
-                                                id='detallePago'
-                                                value={compra.detallePago}
-                                                onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                                                className='input-pedido'
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                {/* items compra */}
-                                <div className='cont-items-form-compra'>
-                                    <h2 className='titulos-form-compra'>Carga items de la compra</h2>
-                                    <div className='cont-items-compra'>
-                                        {/* cantidad */}
-                                        <div className='cont-item-cantidad'>
-                                            <label className='label-crea-compra'>Cantidad:</label>
-                                            <input
-                                                type='number'
-                                                id='cantidad'
-                                                value={items.cantidad}
-                                                onChange={(e) => handleOnChangeItems(e)}
-                                                className='input-cant-formulario'
-                                            />
-                                        </div>
-                                        {/* detalle */}
-                                        <div className='cont-item-producto'>
-                                            <label className='label-crea-compra'>Nombre del Producto:</label>
-                                            <input
-                                                type="text"
-                                                id='detalle'
-                                                value={items.detalle}
-                                                onChange={(e) => { handleOnChangeItems(e) }}
-                                                list="product-list"
-                                                className='input-producto-formulario'
-                                            />
-                                            {/* lista q aparecerá en el input */}
-                                            <datalist id="product-list">
-                                                {
-                                                    productos.map(p => (
-                                                        <option key={p._id} value={p.nombre} />
-                                                    ))
-                                                }
-                                            </datalist>
-                                        </div>
-                                        {/* Precio unitario */}
-                                        <div className='cont-item-unitario'>
-                                            <label className='label-crea-compra'>Precio Unitario:</label>
-                                            <input
-                                                type='number'
-                                                id='unitario'
-                                                value={items.unitario}
-                                                onChange={(e) => handleOnChangeItems(e)}
-                                                className='input-unitario-formulario'
-                                            />
-                                        </div>
-                                        <div className='cont-item-importe'>
-                                            <label className='label-crea-compra'>Importe:</label>
-                                            <input
-                                                type='number'
-                                                id='importe'
-                                                value={calcTotItemCompra()}
-                                                onChange={(e) => handleOnChangeItems(e)}
-                                                className='input-importe-formulario'
-                                            />
-                                        </div>
-                                    </div>
-                                    <button
-                                        type='button'
-                                        onClick={(e) => handleOnClickAgregaItem(e)}
-                                        className='btn-cargarProd btnCompra'
-                                    >
-                                        Cargar producto
-                                    </button>
-                                </div>
-                                
-                                {/* botón crea compra */}
-                                <button type='onSubmit' className='btn-crea-pedido compra'>Modifica compra</button>
-                            </form>
+                            <FormularioCompra
+                                tipoOperacion={tipoOperacion}
+                                handleOnSubmit={handleOnSubmitModifica}
+                                handleOnChangeDatosCompra={handleOnChangeDatosCompra}                                
+                                numUltRemito={remito.numRemito}
+                                compra={compra}
+                                calcTotCompra={calcTotCompra}
+                                items={items}
+                                handleOnChangeItems={handleOnChangeItems}
+                                productos={productos}
+                                handleOnClickAgregaItem={handleOnClickAgregaItem}
+                            />
 
                             {/* muestra pedido TABLA*/}
                             <h2>Items pedido</h2>
                             <div className='cont-tabla-items-pedido'>
-                                <table className="client-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Cantidad</th>
-                                            <th>Detalle</th>
-                                            <th>P.Unitario</th>
-                                            <th>Importe</th>
-                                            <th style={{ display: 'flex', justifyContent: 'center' }}>Elimina</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            pedido?.map(item => {
-                                                return (
-                                                    <tr key={item.detalle}>
-                                                        <td>{item.cantidad}</td>
-                                                        <td>{item.detalle}</td>
-                                                        <td>{item.unitario}</td>
-                                                        <td>{item.importe}</td>
-                                                        <td style={{ display: 'flex', justifyContent: 'center' }}>
-                                                            <button /* onClick={() => {handleElimnimaItem(item._id)}} */ className='btn-elimina-item-pedido'>
-                                                                Elimnar{/* <DeleteIcon className='icono-elimina-item'/> */}
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
-                                            )
-                                        }
-                                    </tbody>
-                                    <tfoot>
-                                        <td>TOTAL</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{/* {calculaTotPedido()} */}tot pedido</td>
-                                    </tfoot>
-                                </table>
+                                <TablaItemsRemitoCompra 
+                                    pedido={pedido}
+                                    handleElimnimaItem={handleElimnimaItem}
+                                    calculaTotPedido={calculaTotPedido}
+                                />
                             </div>
                         </div>
                     )
