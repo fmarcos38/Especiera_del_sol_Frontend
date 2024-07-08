@@ -20,6 +20,7 @@ function ListaRemitosProveedor() {
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState(''); 
 
+    //onClick para botones: debe, pagado, fecha+, fecha-, reset
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
@@ -76,11 +77,11 @@ function ListaRemitosProveedor() {
             <div className="cont-filtros-btnTeset-lista-remitos-proveedor">
                 <div className='cont-filtros-lista-remitos-proveedor'>
                     <FiltrosComprasVentasFecha  
-                        /* handleOnSubFechas={handleOnSubFechas} 
+                        handleOnSubFechas={handleOnSubFechas} 
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
-                        handleOnChFechaHasta={handleOnChFechaHasta} */
+                        handleOnChFechaHasta={handleOnChFechaHasta}
                     />
                     <FiltraDebePago handleOnClick={handleOnClick}/>
                 </div>
