@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, filtraFechasRemitosCliente, resetCliente } from '../../Redux/Actions';
+import { 
+    getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, 
+    filtraFechasRemitosCliente, resetCliente 
+} from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import EditIcon from '@mui/icons-material/Edit';
 import {fechaArg} from '../../Helpers/index.js';
-import './estilos.css';
 import Swal from 'sweetalert2';
-
+import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
+import FiltraDebePago from '../FiltraDebePago';
+import BotonResetFiltros from '../BotonResetFiltros';
+import './estilos.css';
 function ListaRemitosCliente() {
     const remitosCliente = useSelector(state => state.remitosCliente); 
     const {cuit} = useParams(); 
@@ -32,7 +37,7 @@ function ListaRemitosCliente() {
                 setEstado("Debe");
                 dispatch(getRemitosCliente(cuit, estado));
                 break;
-                case 'pagado':
+            case 'pagado':
                 setEstado("Pagado");
                 dispatch(getRemitosCliente(cuit, estado));
                 break;
@@ -94,42 +99,24 @@ function ListaRemitosCliente() {
     return (
         <div className="cont-listaRemitosCliente">
             {/* filtros */}
-            <div className='cont-listaRemitosCliente-filtros'>
-                <div className='cont-filtros-btns-fecha'>
-                    {/* cont btns debe-opagado-fech max min */}
-                    <div className='cont-btns-filtros-btns-fecha'>
-                        {/* botnes estado */}
-                        <div className='cont-btns-debe-pagado'>
-                            <button id='debe' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Debe</button>
-                            <button id='pagado' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Pagado</button>
-                        </div>
-                        {/* btns y fecha Max Min */}
-                        <div className='cont-btns-fecha-max-min'>
-                            <button id='fechaMax' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬆</button>
-                            <button id='fechaMin' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬇</button>
-                        </div>
-                    </div>
-                    {/* filtra por fecha */}
-                    <div className='cont-filtros-fecha'>
-                        <p className='p-titulo-fecha-filtro'>Buscar por Fecha</p>
-                        <form onSubmit={(e) => handleOnSubFechas(e)}>
-                            <div>
-                                <label className='lable-fecha-filtro'>Desde</label>
-                                <input type='date' id='fechaDesde' value={fechaDesde} onChange={(e) => handleOnChFechaDesde(e)} className='input-fecha-filtro' />
-                                <label className='lable-fecha-filtro'>Hasta</label>
-                                <input type='date' id='fechaHasta' value={fechaHasta} onChange={(e) => handleOnChFechaHasta(e)} className='input-fecha-filtro' />
-                            </div>
-                            <div className='cont-btn-aplicar-fechas'>
-                                <button type='submit' className='btn-aplicar-fechas'>Aplicar fechas</button>
-                            </div>
-                        </form>
-                    </div>
+            <div className="cont-filtros-btnTeset-lista-remitos-proveedor">
+                <div className='cont-filtros-lista-remitos-proveedor'>
+                    <FiltraDebePago 
+                        handleOnClick={handleOnClick}
+                    />
+                    <FiltrosComprasVentasFecha  
+                        handleOnSubFechas={handleOnSubFechas} 
+                        fechaDesde={fechaDesde}
+                        handleOnChFechaDesde={handleOnChFechaDesde}
+                        fechaHasta={fechaHasta}
+                        handleOnChFechaHasta={handleOnChFechaHasta}
+                    />
                 </div>
-                {/* boton resetea */}
-                <div className='cont-btn-resetea'>
-                    <button id='todos' onClick={(e)=>{handleOnClick(e)}} className='btn-resetea-filtros'>Resetea Filtros</button>
+                <div className='cont-btnReset-lista-remitos-proveedor'>
+                    <BotonResetFiltros handleOnClick={handleOnClick} />
                 </div>
             </div>
+
             {/* TABLA */}
             {
                 remitosCliente ? (

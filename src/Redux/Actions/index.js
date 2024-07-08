@@ -7,6 +7,7 @@ import {
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA,
     ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA,
+    FILTRA_ESTADO_REMITO_COMPRA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -268,4 +269,11 @@ export function elimnimaRemitoCompra(_id){
     return async function(){
         await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
     }
+}
+//filtra estado del remito Dede o Pagado
+export function filtraEstadoRemitoCompra(estado){console.log("estadoA:", estado)
+    return {
+        type: FILTRA_ESTADO_REMITO_COMPRA, 
+        payload: estado
+    };
 }

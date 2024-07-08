@@ -1,0 +1,9 @@
+.cont-btn-resetea{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btn-resetea-filtros{
+    margin-top: 20px;
+    width: 60%;
+}
