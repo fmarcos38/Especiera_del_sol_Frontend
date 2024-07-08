@@ -1,8 +1,9 @@
 import { 
     BUSCA_CLIENTE_POR_CUIT, BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, BUSCA_PRODUCTO_POR_NOMBRE, 
-    BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, FILTRA_ESTADO_REMITO_COMPRA, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, 
-    GET_ALL_REMITOS, GET_ALL_REMITOS_COMPRA, GET_CLIENTE, GET_REMITO_BY_ID, GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, 
-    ULTIMO_REMITO_COMPRA
+    BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, FILTRA_FECHAS_REMITOS, GET_ALL_CLIENTES, GET_ALL_PRODUCTOS, 
+    GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_ALL_REMITOS_COMPRA, GET_CLIENTE, GET_REMITO_BY_ID, 
+    GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, ORDENA_FECHA, 
+    RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA
 } from "../Actions/actionType";
 
 const initialState = {
@@ -14,8 +15,8 @@ const initialState = {
     proveedor: {},
     remitos: [],
     ultimoRemito: {},
-    remitosCliente: [],
-    remitosProveedor: [],
+    /* remitosCliente: [],
+    remitosProveedor: [], */
     remito: {},
     load: false,
 };
@@ -80,7 +81,7 @@ export default function rootReducer(state = initialState, action){
         case GET_REMITOS_CLIENTE:
             return{
                 ...state,
-                remitosCliente: action.payload
+                remitos: action.payload
             }
         case GET_REMITO_BY_ID:
             return{
@@ -88,25 +89,25 @@ export default function rootReducer(state = initialState, action){
                 remito: action.payload
             }
         case ORDENA_FECHA:
-            let remitosOrdenados = [...state.remitosCliente];
+            let remitosOrdenados = [...state.remitos];
             remitosOrdenados = remitosOrdenados.sort((a, b) => {
                 let fechaA = new Date(a.fecha);
                 let fechaB = new Date(b.fecha);
 
                 if (action.payload === 'fechaMax') {
-                    return fechaB - fechaA; // Orden descendente
+                    return fechaB - fechaA;  
                 } else if (action.payload === 'fechaMin') {
-                    return fechaA - fechaB; // Orden ascendente
+                    return fechaA - fechaB; 
                 } else {
                     throw new Error('Criterio no válido. Usa "fechaMax" o "fechaMin".');
                 }
             });
             return{
                 ...state,
-                remitosCliente: remitosOrdenados
+                remitos: remitosOrdenados
             }
-        case FILTRA_FECHAS_REMITOS_CLIENTE:
-            let remitosFiltrar = [...state.remitosCliente];
+        case FILTRA_FECHAS_REMITOS:
+            let remitosFiltrar = [...state.remitos];
             let fechaDesde = new Date(action.payload.fechaDesde);
             let fechaHasta = new Date(action.payload.fechaHasta);
             fechaHasta.setUTCHours(23, 59, 59, 999); // Incluir todo el día hasta la fecha final en UTC
@@ -118,7 +119,7 @@ export default function rootReducer(state = initialState, action){
 
             return{
                 ...state,
-                remitosCliente: remitosFiltrdos
+                remitos: remitosFiltrdos
             }
         case GET_ALL_REMITOS_COMPRA:
             return{
@@ -128,7 +129,7 @@ export default function rootReducer(state = initialState, action){
         case GET_REMITOS_PROVEEDOR:
             return {
                 ...state,
-                remitosProveedor: action.payload
+                remitos: action.payload
             }
         case GET_REMITO_COMPRA_BY_ID:
             return{
@@ -144,19 +145,6 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 ultimoRemito: {}
-            }
-        case FILTRA_ESTADO_REMITO_COMPRA:
-            const allRemitoCompras = [...state.remitosProveedor]; 
-            let remitosC;
-            if (action.payload === 'Debo') {
-                remitosC = allRemitoCompras.filter(r => r.estado !== 'Pago');
-            }
-            if (action.payload === 'Pago') {
-                remitosC = allRemitoCompras.filter(r => r.estado !== 'Debo');
-            }
-            return {
-                ...state,
-                remitosProveedor: remitosC
             }
         default:
             return state;

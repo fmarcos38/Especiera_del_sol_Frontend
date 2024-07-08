@@ -32,7 +32,7 @@ function TablaCompras({ compras }) {
                 <tr>
                     <th>Fecha</th>
                     <th>Envio</th>
-                    <th>n° Remito</th>
+                    <th>Remito</th>
                     <th>Detalle</th>
                     <th>Proveedor</th>
                     <th>Producto</th>

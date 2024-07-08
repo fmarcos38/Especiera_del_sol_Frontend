@@ -2,19 +2,21 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { 
     getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, 
-    filtraFechasRemitosCliente, resetCliente 
+    filtraFechasRemitos, resetCliente 
 } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
-import EditIcon from '@mui/icons-material/Edit';
 import {fechaArg} from '../../Helpers/index.js';
-import Swal from 'sweetalert2';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
+import EditIcon from '@mui/icons-material/Edit';
+import Swal from 'sweetalert2';
 import './estilos.css';
+
+
 function ListaRemitosCliente() {
-    const remitosCliente = useSelector(state => state.remitosCliente); 
+    const remitosCliente = useSelector(state => state.remitos); 
     const {cuit} = useParams(); 
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
@@ -76,7 +78,7 @@ function ListaRemitosCliente() {
             fechaHasta: fechaHasta
         }
         
-        dispatch(filtraFechasRemitosCliente(fechas));
+        dispatch(filtraFechasRemitos(fechas));
     };
     //calcula el total de todos los remitos
     const totRemitos = () => {

@@ -3,11 +3,9 @@ import {
     BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, CREA_CLIENTE, CREA_PROVEEDOR, ELIMINA_CLIENTE, ELIMINA_PRODUCTO, GET_ALL_CLIENTES, 
     GET_ALL_PRODUCTOS, GET_ALL_PROVEEDORES, GET_CLIENTE, MODIFICA_CLIENTE, BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO,
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
-    GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS_CLIENTE, GET_ALL_REMITOS_COMPRA,
-    GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA,
-    ULTIMO_REMITO_COMPRA,
+    GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
+    GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA,
-    FILTRA_ESTADO_REMITO_COMPRA,
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -206,15 +204,11 @@ export function modificaRemito(_id, data){
 }
 //ordena x fecha Mayor a Menor o viceversa
 export function ordenaPorFecha(fecha){
-    return function(dispatch){
-        dispatch({type: ORDENA_FECHA, payload: fecha});
-    }
+    return {type: ORDENA_FECHA, payload: fecha};
 }
 //filtra fechas
-export function filtraFechasRemitosCliente(fechas){
-    return function(dispatch){
-        dispatch({type: FILTRA_FECHAS_REMITOS_CLIENTE, payload: fechas});
-    }
+export function filtraFechasRemitos(fechas){
+    return {type: FILTRA_FECHAS_REMITOS, payload: fechas};
 }
 
 //----actions remitos COMPRAS-----------------------------------------------------------
@@ -231,9 +225,9 @@ export function creaAnticipo(data){
     }
 }
 //trae remitos de un prov
-export function getRemitosProveedor(proveedor){
+export function getRemitosProveedor(proveedor, estado){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/compras/proveedor?proveedor=${proveedor}`);
+        const resp = await axios.get(`${local}/compras/proveedor?proveedor=${proveedor}&estado=${estado}`);
         dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
     }
 }
@@ -269,11 +263,4 @@ export function elimnimaRemitoCompra(_id){
     return async function(){
         await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
     }
-}
-//filtra estado del remito Dede o Pagado
-export function filtraEstadoRemitoCompra(estado){console.log("estadoA:", estado)
-    return {
-        type: FILTRA_ESTADO_REMITO_COMPRA, 
-        payload: estado
-    };
 }

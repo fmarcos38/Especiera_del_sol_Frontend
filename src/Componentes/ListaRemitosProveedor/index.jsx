@@ -1,34 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosProveedor, filtraEstadoRemitoCompra,  } from '../../Redux/Actions';
+import { getRemitosProveedor, filtraFechasRemitos, ordenaPorFecha } from '../../Redux/Actions';
 import { useParams } from 'react-router-dom';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
 import TablaCompras from '../TablaCompras';
+import Swal from 'sweetalert2';
 import './estilos.css';
 
 
 
 function ListaRemitosProveedor() {
-    const compras = useSelector(state => state.remitosProveedor); 
+    const compras = useSelector(state => state.remitos); 
     const {nombre, apellido} = useParams();
     const proveedor = nombre+" "+apellido;
     const dispatch = useDispatch();
+    //estado para las fechas
+    const [fechaDesde, setFechaDesde] = useState(''); 
+    const [fechaHasta, setFechaHasta] = useState(''); 
 
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
-                dispatch(filtraEstadoRemitoCompra("Debo"));
+                dispatch(getRemitosProveedor(proveedor, "Debo"));
                 break;
             case 'pagado':
-                dispatch(filtraEstadoRemitoCompra("Pago"));
+                dispatch(getRemitosProveedor(proveedor, "Pago"));
                 break;
             case 'fechaMax':
-                dispatch();
+                dispatch(ordenaPorFecha("fechaMax"));
                 break;
             case 'fechaMin':
-                dispatch();
+                dispatch(ordenaPorFecha("fechaMin"));
                 break;
             case 'todos':
                 dispatch(getRemitosProveedor(proveedor));
@@ -38,7 +42,28 @@ function ListaRemitosProveedor() {
             
         }
     };
-
+    const handleOnChFechaDesde = (e) => {
+        setFechaDesde(e.target.value);
+    };
+    const handleOnChFechaHasta = (e) => {
+        setFechaHasta(e.target.value);        
+    };
+    const handleOnSubFechas = (e) => {
+        e.preventDefault();
+        if(!fechaDesde && !fechaHasta){
+            Swal.fire({
+                text: "Ingrese ambas fechas",
+                icon: "error"
+            });
+        }
+        
+        const fechas = {
+            fechaDesde: fechaDesde, 
+            fechaHasta: fechaHasta
+        }
+        
+        dispatch(filtraFechasRemitos(fechas));
+    };
 
     useEffect(()=>{
         dispatch(getRemitosProveedor(proveedor));
