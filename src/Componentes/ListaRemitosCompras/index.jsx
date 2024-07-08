@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCompras } from '../../Redux/Actions';
+import { getAllCompras, resetRemitos } from '../../Redux/Actions';
 import './estilos.css';
 import TablaCompras from '../TablaCompras';
 
@@ -12,6 +12,8 @@ function ListaRemitos() {
 
     useEffect(()=>{
         dispatch(getAllCompras());
+
+        return () => {dispatch(resetRemitos())};
     }, [dispatch]);
 
 

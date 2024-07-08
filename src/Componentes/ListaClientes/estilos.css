@@ -10,12 +10,12 @@
     margin: 20px 0;
     font-size: 1em;
     font-family: 'Arial', sans-serif;
-    text-align: left;
+    text-align: center;
 }
 .cliente-table thead tr {
     background-color: #009879;
     color: #090909;
-    text-align: left;
+    text-align: center;
     font-weight: bold;
 }
 .client-table th,

@@ -66,6 +66,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 fecha: fecha,
                 totPedido,
                 cuit: cliente.cuit,
+                cliente: cliente.nombre+" "+cliente.apellido,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
             }

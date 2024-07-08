@@ -2,7 +2,6 @@ import React from 'react'
 import { fechaArg } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
-import './estilos.css';
 import BotonEliminaRemitoCompra from '../BotonEliminaRemitoCompra';
 
 function TablaCompras({ compras }) {
@@ -38,7 +37,7 @@ function TablaCompras({ compras }) {
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Unitario</th>
-                    <th>Debo</th>
+                    <th>Debe</th>
                     <th>Haber</th>
                     <th>Saldo</th>
                     <th>Observaciones</th>

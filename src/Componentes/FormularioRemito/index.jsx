@@ -54,14 +54,12 @@ function FormRemito({tipo}) {
     };
     const handleChangeImporte = (e) => {
         setImporte(e.target.value);
-    };  
-
+    };
     //funcion calcula tot import item
     const totItem = (cantidad, unitario) => {
         const tot = cantidad * unitario;
         setImporte(tot);
-    };
-    
+    };    
     //funcion calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
@@ -226,7 +224,13 @@ function FormRemito({tipo}) {
 
             {/* Remito */}
             <div className='cont-remito-pedido'>
-                <Remito operacion={"venta"} numUltimoRemito={numUltimoRemito} cliente={traeCliente} items={pedido} totPedido={calculaTotPedido()}/>
+                <Remito 
+                    operacion={"venta"} 
+                    numUltimoRemito={numUltimoRemito} 
+                    cliente={traeCliente} 
+                    items={pedido} 
+                    totPedido={calculaTotPedido()}
+                />
             </div>
         </div>
     )
