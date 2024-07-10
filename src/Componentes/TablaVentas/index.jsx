@@ -15,7 +15,7 @@ function TablaVentas({ ventas }) {
             return totPedido;
         }else{
             if(entregas.length !== 0){
-                const arrayEntregas = entregas.map(e => {
+                entregas.map(e => {
                     return tot += e.entrega; 
                 });
             }
@@ -26,8 +26,7 @@ function TablaVentas({ ventas }) {
     //funcion calcula las entregas y resta del saldo
     const calculaSaldo = (tot, entregas, estado) =>{
         let saldo = 0;
-        
-        
+
         if(estado === "Pagado"){
             return saldo;
         }else{

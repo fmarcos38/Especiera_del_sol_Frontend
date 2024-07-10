@@ -6,7 +6,7 @@ import {
 } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
-import {fechaArg} from '../../Helpers/index.js';
+import {fechaArg, formatMoney} from '../../Helpers/index.js';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
@@ -24,7 +24,8 @@ function ListaRemitosCliente() {
     const [estado, setEstado] = useState("todos");
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
-    const [fechaHasta, setFechaHasta] = useState(''); 
+    const [fechaHasta, setFechaHasta] = useState('');
+
 
     const handleClick = () => {
         contexto.setModalRemito(true);
@@ -80,8 +81,35 @@ function ListaRemitosCliente() {
         
         dispatch(filtraFechasRemitos(fechas));
     };
-    //calcula saldo remito
 
+    //funcion calc el tot de las entregas
+    const calcEntregas = (entregas, estado, totPedido) => {
+        let tot=0;
+
+        if(estado === "Pagado"){
+            return totPedido;
+        }else{
+            if(entregas.length !== 0){
+                entregas.map(e => {
+                    return tot += e.entrega; 
+                });
+            }
+        }
+
+        return tot;
+    };
+    //funcion calcula las entregas y resta del saldo
+    const calculaSaldo = (tot, entregas, estado) =>{
+        let saldo = 0;
+
+        if(estado === "Pagado"){
+            return saldo;
+        }else{
+            const totEntregas = calcEntregas(entregas);
+            saldo = tot - totEntregas;
+            return saldo;
+        }
+    };
     //calcula el total de todos los remitos
     const totRemitos = () => {
         let tot = 0;
@@ -91,7 +119,27 @@ function ListaRemitosCliente() {
         });
         return tot;
     };
+    //funcion calc el tot de los saldos 
+    const totSaldos = () => {
+        let tot = 0; 
+        remitosCliente.map(r => {
+            return tot += calculaSaldo(r.totPedido, r.entrego, r.estado); 
+        });
+        return tot;
+    };
+    //funcion calc el tot de entregas
+    const totEntregas = () => {
+        let tot = 0;
+        remitosCliente.map(r => {
+            r.entrego.map(e => {
+                return tot += e.entrega;
+            });
+            return tot;
+        });
+        return tot;
+    };
 
+    
     useEffect(()=>{
         dispatch(getRemitosCliente(cuit, estado));
         dispatch(buscaClientePorCuit(cuit));
@@ -148,9 +196,9 @@ function ListaRemitosCliente() {
                                             <td>{fechaArg(r.fecha)}</td>
                                             <td>{r.cuit}</td>
                                             <td>{r.condicion_pago}</td>
-                                            <td>{r.totPedido}</td>
-                                            <td>{r.entrego}</td>
-                                            <td>{r.entrego}</td>
+                                            <td>{formatMoney(r.totPedido)}</td>
+                                            <td>{formatMoney(calcEntregas(r.entrego))}</td>
+                                            <td className={calculaSaldo(r.totPedido, r.entrego, r.estado) > 0  ? 'debe' : 'pagado'}>{formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado))}</td>
                                             <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>                                            
                                             <td>
                                                 {
@@ -178,9 +226,9 @@ function ListaRemitosCliente() {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{totRemitos()}</td>
-                                <td></td>
-                                <td></td>                                
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totRemitos())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totEntregas())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totSaldos())}</td>                                
                                 <td></td>
                                 <td></td>
                                 <td></td>

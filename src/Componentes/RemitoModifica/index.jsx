@@ -22,7 +22,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
     
     //estado para cond venta y estado
     const [data, setData] = useState({        
-        condicion_pago: condPago,
+        condicion_pago: "",
         estado: "",
     });
     const dispatch = useDispatch();
@@ -50,24 +50,15 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(!data.condicion_pago || !data.estado){
-            Swal.fire({
-                title: 'Faltan datos !!',
-                text: "Ingrese Cond.venta y Estado",
-                icon: 'error'
-            });
-        }else{
-            const dataBack = {
-                numRemito: nuevoNumeroRemito,
-                items,
-                totPedido,
-                cuit: cliente.cuit,
-                condicion_pago: data.condicion_pago,
-                estado: data.estado,
-            }
-            dispatch(modificaRemito(_id, dataBack));
+        const dataBack = {
+            numRemito: nuevoNumeroRemito,
+            items,
+            totPedido,
+            cuit: cliente.cuit,
+            condicion_pago: data.condicion_pago,
+            estado: data.estado,
         }
-        
+        dispatch(modificaRemito(_id, dataBack));
     };
     
 
@@ -194,7 +185,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                                 <input
                                     type='text'
                                     id='condicion_pago'
-                                    value={ data.condicion_pago }
+                                    value={ condPago }
                                     onChange={ (e) => { handleOnChange(e) }}
                                     className='input-remito-condicionPago'
                                 />
@@ -249,7 +240,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                     </div>
                 </div>
                 {/* btn crea pedido */}
-                    <button type='onSubmit'>Modificar Remito</button>
+                    <button type='onSubmit' className='boton-imprimir'>Modificar Remito</button>
                 
                 {/* botón imprimir */}
                 <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
