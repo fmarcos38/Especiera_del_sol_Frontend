@@ -7,13 +7,13 @@ import TablaCompras from '../TablaCompras';
 
 function ListaRemitos() {
 
-    const remitos = useSelector(state => state.remitos);
+    const remitos = useSelector(state => state.remitosCompras);
     const dispatch = useDispatch();
 
     useEffect(()=>{
         dispatch(getAllCompras());
 
-        return () => {dispatch(resetRemitos())};
+        //return () => {dispatch(resetRemitos())};
     }, [dispatch]);
 
 

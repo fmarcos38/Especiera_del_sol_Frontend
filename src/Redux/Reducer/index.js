@@ -15,8 +15,9 @@ const initialState = {
     proveedor: {},
     remitos: [],
     ultimoRemito: {},
-    /* remitosCliente: [],
-    remitosProveedor: [], */
+    remitosVentas: [],
+    remitosCompras: [],
+    remitosCliente: [],
     remito: {},
     load: false,
 };
@@ -71,7 +72,7 @@ export default function rootReducer(state = initialState, action){
         case GET_ALL_REMITOS:
             return{
                 ...state,
-                remitos: action.payload
+                remitosVentas: action.payload
             }
         case ULTIMO_REMITO:
             return{
@@ -124,7 +125,7 @@ export default function rootReducer(state = initialState, action){
         case GET_ALL_REMITOS_COMPRA:
             return{
                 ...state,
-                remitos: action.payload
+                remitosCompras: action.payload
             }
         case GET_REMITOS_PROVEEDOR:
             return {

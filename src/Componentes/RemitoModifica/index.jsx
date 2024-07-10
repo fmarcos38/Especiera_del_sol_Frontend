@@ -5,7 +5,6 @@ import logoRemito from '../../Imagenes/logo.png';
 import './estilos.css';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
-import Swal from 'sweetalert2';
 
 
 function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPedido, condPago, estado}) { 

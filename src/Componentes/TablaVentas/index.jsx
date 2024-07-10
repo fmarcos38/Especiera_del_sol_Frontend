@@ -1,11 +1,11 @@
 import React from 'react'
-import { fechaArg } from '../../Helpers';
+import { fechaArg, formatMoney } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
 
 
-function TablaVentas({ ventas }) {
+function TablaVentas({ ventas }) { 
 
     //funcion calc el tot de las entregas
     const calcEntregas = (entregas, estado, totPedido) => {
@@ -30,11 +30,44 @@ function TablaVentas({ ventas }) {
         if(estado === "Pagado"){
             return saldo;
         }else{
-            const totEntregas = calcEntregas(entregas);
-            saldo = tot - totEntregas;
-            return saldo;
+            if (entregas.length !== 0) {
+                const totEntregas = calcEntregas(entregas);
+                saldo = tot - totEntregas;
+                return saldo;
+            }else{
+                return tot;
+            }
         }
     };
+    //calcula el total de todos los remitos
+    const totRemitos = () => {
+        let tot = 0;
+        ventas.map(r => {
+            tot = tot + r.totPedido;
+            return tot;
+        });
+        return tot;
+    };
+    //funcion calc el tot de los saldos 
+    const totSaldos = () => {
+        let tot = 0; 
+        ventas.map(r => {
+            return tot += calculaSaldo(r.totPedido, r.entrego, r.estado); 
+        });
+        return tot;
+    };
+    //funcion calc el tot de entregas
+    const totEntregas = () => {
+        let tot = 0;
+        ventas.map(r => {
+            r.entrego.map(e => {
+                return tot += e.entrega;
+            });
+            return 0;
+        });
+        return tot;
+    };
+
 
     return (
         <table className="client-table listaCompras">
@@ -59,17 +92,17 @@ function TablaVentas({ ventas }) {
                             <td>{fechaArg(r.fecha)}</td>
                             <td>{r.numRemito}</td>
                             <td>{r.cliente}</td>
-                            <td>{r.totPedido}</td>
+                            <td>{formatMoney(r.totPedido)}</td>
                             <td>
                                 <div style={{display:"flex", justifyContent:"space-between"}}>
                                 {
-                                    calcEntregas(r.entrego, r.estado, r.totPedido)
+                                    formatMoney(calcEntregas(r.entrego, r.estado, r.totPedido))
                                 }
                                 <button>ver</button>
                                 </div>
                             </td>
-                            <td className={calculaSaldo(r.totPedido, r.entrego) === 0 ? 'saldado' : 'deudor'}>{calculaSaldo(r.totPedido, r.entrego, r.estado)}</td>
-                            <td className={calculaSaldo(r.totPedido, r.entrego) === 0 ? 'saldado' : 'deudor'}>{r.estado}</td>
+                            <td className={calculaSaldo(r.totPedido, r.entrego, r.estado) > 0  ? 'debe' : 'pagado'}>{formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado))}</td>
+                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                             <td>{r.ganancia}</td>
                             <td>
                                 <button>Detalle</button>
@@ -88,6 +121,18 @@ function TablaVentas({ ventas }) {
                     ))
                 }
             </tbody>
+            <tfoot>
+                                <td>TOTALES</td>
+                                <td></td>
+                                <td></td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totRemitos())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totEntregas())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totSaldos())}</td>
+                                <td></td>                                                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tfoot>
         </table>
     )
 }
