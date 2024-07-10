@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRemitoById, } from '../../Redux/Actions';
+import { buscaClientePorCuit, getRemitoById, } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemitoModifica from '../RemitoModifica';
@@ -53,8 +53,7 @@ function FormularioModificaRemito() {
     const totItem = (cantidad, unitario) => {
         const tot = cantidad * unitario;
         setImporte(tot);
-    };
-    
+    };    
     //funcion calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
@@ -64,7 +63,6 @@ function FormularioModificaRemito() {
         }
         return tot;
     };
-
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -86,14 +84,12 @@ function FormularioModificaRemito() {
             resetForm();
         }
     };
-
     const resetForm = () => {
         setCantidad('');
         setDetalle('');
         setUnitario('');
         setImporte('');
     }
-
     //elimina item tabla pedido
     const handleElimnimaItem = (_id) => {
         const newPedido = pedido.filter(p => p._id !== _id);
@@ -101,8 +97,9 @@ function FormularioModificaRemito() {
     };
 
     useEffect(()=>{
-        dispatch(getRemitoById(_id));        
-    },[_id, dispatch]);
+        dispatch(getRemitoById(_id)); 
+        dispatch(buscaClientePorCuit(remito.cuit));
+    },[_id, dispatch, remito.cuit]);
 
     useEffect(()=>{
         if(remito.items){

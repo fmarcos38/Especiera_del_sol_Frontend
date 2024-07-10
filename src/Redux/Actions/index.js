@@ -190,7 +190,7 @@ export function getRemitosCliente(cuit, estado){
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
-//tre remito por ID
+//trae remito por ID
 export function getRemitoById(_id){
     return async function(dispatch){
         const resp = await axios.get(`${local}/remitos/remitoId/${_id}`);
@@ -211,7 +211,12 @@ export function ordenaPorFecha(fecha){
 export function filtraFechasRemitos(fechas){
     return {type: FILTRA_FECHAS_REMITOS, payload: fechas};
 }
-
+//elimina
+export function eliminaRemitoVentas(_id){
+    return async function(){
+        await axios.delete(`${local}/remitos/elimina/${_id}`);
+    }
+}
 //----actions remitos COMPRAS-----------------------------------------------------------
 export function getAllCompras() {
     return async function(dispatch){

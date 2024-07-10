@@ -1,0 +1,47 @@
+.cont-modal-entregaCliente{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-btn-cierra-modal{
+    position: absolute;
+    top: 5px;
+}
+.cont-form-monto{
+    width: 50%;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--background-color-navBar-claro);
+}
+.formulario-monto{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.label-monto,
+.input-monto{
+    font-size: 23px;
+    font-weight: 500;
+}
+.label-monto{
+    margin-top: 10px;
+}
+.btn-carga-entrega{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 23px;
+}
+.cont-tabla-entregas-remito{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

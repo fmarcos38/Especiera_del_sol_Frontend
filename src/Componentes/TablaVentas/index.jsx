@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { fechaArg, formatMoney } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
-
+import { AppContexto } from '../../Contexto';
+import ModalAgregaEntregaCliente from '../ModalAgregaEntregaDeCliente';
+import BotonEliminaRemitoVenta from '../BotonEliminaRemitoVenta';
 
 function TablaVentas({ ventas }) { 
+
+    const contexto = useContext(AppContexto);
+    //estado para obtener el id del remito y pasarselo al modal
+    const [id, setId] = useState();
 
     //funcion calc el tot de las entregas
     const calcEntregas = (entregas, estado, totPedido) => {
@@ -58,7 +64,7 @@ function TablaVentas({ ventas }) {
     };
     //funcion calc el tot de entregas
     const totEntregas = () => {
-        let tot = 0;
+        let tot = 0; 
         ventas.map(r => {
             r.entrego.map(e => {
                 return tot += e.entrega;
@@ -67,10 +73,15 @@ function TablaVentas({ ventas }) {
         });
         return tot;
     };
-
+    //abre modal
+    const handleClickModal = (id) => {
+        contexto.setModalEntregaCliente(true);
+        setId(id);
+    };
 
     return (
-        <table className="client-table listaCompras">
+        <div style={{width: "100%"}}>
+            <table className="client-table listaCompras">
             <thead>
                 <tr>
                     <th>Fecha</th>
@@ -82,7 +93,7 @@ function TablaVentas({ ventas }) {
                     <th>Estado</th>
                     <th>Ganancia</th>
                     <th>Detalle</th>
-                    <th>Elim/Edita</th>
+                    <th>Edita/Elim</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,16 +103,18 @@ function TablaVentas({ ventas }) {
                             <td>{fechaArg(r.fecha)}</td>
                             <td>{r.numRemito}</td>
                             <td>{r.cliente}</td>
-                            <td>{formatMoney(r.totPedido)}</td>
+                            <td>${formatMoney(r.totPedido)}</td>
                             <td>
                                 <div style={{display:"flex", justifyContent:"space-between"}}>
-                                {
-                                    formatMoney(calcEntregas(r.entrego, r.estado, r.totPedido))
-                                }
-                                <button>ver</button>
+                                ${ formatMoney(calcEntregas(r.entrego, r.estado, r.totPedido)) }
+                                <button onClick={()=>{handleClickModal(r._id)}}>ver</button>
                                 </div>
                             </td>
-                            <td className={calculaSaldo(r.totPedido, r.entrego, r.estado) > 0  ? 'debe' : 'pagado'}>{formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado))}</td>
+                            <td 
+                                className={calculaSaldo(r.totPedido, r.entrego, r.estado) > 0  ? 'debe' : 'pagado'}
+                            >
+                                ${ formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado)) }
+                            </td>
                             <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                             <td>{r.ganancia}</td>
                             <td>
@@ -109,12 +122,12 @@ function TablaVentas({ ventas }) {
                             </td>
                             <td style={{width: '50px'}}>
                                 <div style={{display: 'flex'}} key={r._id}>
-                                    <Link to={`/editaRemitoVenta/${r._id}`}>
+                                    <Link to={`/editaRemito/${r._id}`}>
                                         <button>
                                             <EditIcon/>
                                         </button>
                                     </Link>
-                                    <button>Elimina</button>{/* <BotonEliminaRemitoVenta _id={r._id}/> */}
+                                    <BotonEliminaRemitoVenta _id={r._id}/>
                                 </div>
                             </td>
                         </tr>
@@ -125,15 +138,25 @@ function TablaVentas({ ventas }) {
                                 <td>TOTALES</td>
                                 <td></td>
                                 <td></td>
-                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totRemitos())}</td>
-                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totEntregas())}</td>
-                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>{formatMoney(totSaldos())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totRemitos())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totEntregas())}</td>
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totSaldos())}</td>
                                 <td></td>                                                                
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             </tfoot>
         </table>
+
+        {/* modal entrega cliente */}
+        {
+            contexto.modalEntregaCliente === true && (
+                <div className='cont-modal-entrega'>
+                    <ModalAgregaEntregaCliente id={id}/>
+                </div>
+            )
+        }
+        </div>
     )
 }
 

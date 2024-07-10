@@ -12,7 +12,7 @@ import './estilos.css';
 
 function ListaRemitosVentas() {
 
-    const ventas = useSelector(state => state.remitosVentas); console.log("ventas:", ventas)
+    const ventas = useSelector(state => state.remitosVentas); 
     const [estado, setEstado] = useState("");
     const dispatch = useDispatch();
 

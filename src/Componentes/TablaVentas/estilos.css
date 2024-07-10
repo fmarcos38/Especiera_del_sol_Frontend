@@ -4,3 +4,14 @@
 .debe{
     color: red;
 }
+.cont-modal-entrega{
+    position: absolute;
+    top: 70px;
+    left: 10%;
+    width: 80%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(64, 63, 63);
+}
