@@ -23,7 +23,7 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
                 {/* precio kg y envase */}
                 <div className='cont-dos-items'>
                     <div className="cont-form-item-precio">
-                        <label className='label-form-modif-prod'>Precio Kg: </label>
+                        <label className='label-form-modif-prod'>Precio Público Kg: </label>
                         <input
                             type="number"
                             name="precioKg"
@@ -44,13 +44,24 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
                         />
                         {errors.envase && <span className="error">{errors.envase}</span>}
                     </div>
+                    <div className="cont-form-item-precio">
+                        <label className='label-form-modif-prod'>Costo Kg: </label>
+                        <input
+                            type="number"
+                            name="costo"
+                            value={input.costo}
+                            onChange={handleChange}
+                            className='input-precio-form-modif-prod'
+                        />
+                        {errors.costo && <span className="error">{errors.costo}</span>}
+                    </div>
                 </div>
 
                 {/* imagen prod */}
                 <div className="cont-img-vistaPrevia">
                     {/* foto */}
                     <div className="cont-imagen-prod">
-                        <label className='label-img'>Seleccione una imágen para el producto:</label>
+                        <label className='label-form-modif-prod'>Seleccione una imágen para el producto:</label>
                         <input className="input-carga-img" name='imagen' type="file" accept="imagen/*" onChange={handleChange} />
                         {errors.imagen && <span className="error">{errors.imagen}</span>}
                     </div>

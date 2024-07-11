@@ -84,7 +84,7 @@ function FormRemito({tipo}) {
                 cantidad,
                 detalle,
                 unitario,
-                importe
+                importe,
             }
 
             setPedido([...pedido, newItem]);
@@ -123,17 +123,6 @@ function FormRemito({tipo}) {
             <h2>Carga de items para la {tipo} y creación del Remito</h2>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
-                    {/* cantidad */}
-                    <div className='cont-item-cantidad'>
-                        <label className='label-formulario'>Cantidad:</label>
-                        <input 
-                            type='number' 
-                            id='cantidad' 
-                            value={cantidad} 
-                            onChange={(e) => handleChangeCantidad(e)} 
-                            className='input-cant-formulario' 
-                        />
-                    </div>
                     {/* detalle */}
                     <div className='cont-item-producto'>
                         <label className='label-formulario'>Nombre del Producto:</label>
@@ -154,6 +143,17 @@ function FormRemito({tipo}) {
                             }
                         </datalist>
                     </div>
+                    {/* cantidad */}
+                    <div className='cont-item-cantidad'>
+                        <label className='label-formulario'>Cantidad:</label>
+                        <input 
+                            type='number' 
+                            id='cantidad' 
+                            value={cantidad} 
+                            onChange={(e) => handleChangeCantidad(e)} 
+                            className='input-cant-formulario' 
+                        />
+                    </div>                    
                     {/* Precio unitario */}
                     <div className='cont-item-unitario'>
                         <label className='label-formulario'>Precio Unitario:</label>
@@ -165,6 +165,7 @@ function FormRemito({tipo}) {
                             className='input-unitario-formulario'
                         />
                     </div>
+                    
                     <div className='cont-item-importe'>
                         <label className='label-formulario'>Importe:</label>
                         <input 
@@ -184,7 +185,7 @@ function FormRemito({tipo}) {
             <div className='cont-tabla-items-pedido'>
                 <table className="client-table">
                     <thead>
-                        <tr>
+                        <tr>                            
                             <th>Cantidad</th>
                             <th>Detalle</th>
                             <th>P.Unitario</th>
@@ -197,7 +198,11 @@ function FormRemito({tipo}) {
                             pedido?.map(item => {
                                 return (
                                     <tr key={item.detalle}>
-                                        <td>{item.cantidad}</td>
+                                        {
+                                            item.detalle === "Bombones de Higo con nuez" ?
+                                            <td>{item.cantidad}unid</td> :
+                                            <td>{item.cantidad}kg</td>
+                                        }
                                         <td>{item.detalle}</td>
                                         <td>{item.unitario}</td>
                                         <td>{item.importe}</td>

@@ -1,84 +1,25 @@
-import React, { useContext, useState } from 'react'
+import React, { useState, useContext } from 'react';
+import { AppContexto } from '../../Contexto';
 import { fechaArg, formatMoney } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import './estilos.css';
-import { AppContexto } from '../../Contexto';
 import ModalAgregaEntregaCliente from '../ModalAgregaEntregaDeCliente';
 import BotonEliminaRemitoVenta from '../BotonEliminaRemitoVenta';
 
-function TablaVentas({ ventas }) { 
+function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemitos, totEntregas, totSaldos}) { 
 
-    const contexto = useContext(AppContexto);
     //estado para obtener el id del remito y pasarselo al modal
     const [id, setId] = useState();
+    const contexto = useContext(AppContexto);
 
-    //funcion calc el tot de las entregas
-    const calcEntregas = (entregas, estado, totPedido) => {
-        let tot=0;
-
-        if(estado === "Pagado"){
-            return totPedido;
-        }else{
-            if(entregas.length !== 0){
-                entregas.map(e => {
-                    return tot += e.entrega; 
-                });
-            }
-        }
-
-        return tot;
-    };
-    //funcion calcula las entregas y resta del saldo
-    const calculaSaldo = (tot, entregas, estado) =>{
-        let saldo = 0;
-
-        if(estado === "Pagado"){
-            return saldo;
-        }else{
-            if (entregas.length !== 0) {
-                const totEntregas = calcEntregas(entregas);
-                saldo = tot - totEntregas;
-                return saldo;
-            }else{
-                return tot;
-            }
-        }
-    };
-    //calcula el total de todos los remitos
-    const totRemitos = () => {
-        let tot = 0;
-        ventas.map(r => {
-            tot = tot + r.totPedido;
-            return tot;
-        });
-        return tot;
-    };
-    //funcion calc el tot de los saldos 
-    const totSaldos = () => {
-        let tot = 0; 
-        ventas.map(r => {
-            return tot += calculaSaldo(r.totPedido, r.entrego, r.estado); 
-        });
-        return tot;
-    };
-    //funcion calc el tot de entregas
-    const totEntregas = () => {
-        let tot = 0; 
-        ventas.map(r => {
-            r.entrego.map(e => {
-                return tot += e.entrega;
-            });
-            return 0;
-        });
-        return tot;
-    };
     //abre modal
     const handleClickModal = (id) => {
         contexto.setModalEntregaCliente(true);
         setId(id);
     };
 
+    
     return (
         <div style={{width: "100%"}}>
             <table className="client-table listaCompras">
@@ -116,7 +57,7 @@ function TablaVentas({ ventas }) {
                                 ${ formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado)) }
                             </td>
                             <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
-                            <td>{r.ganancia}</td>
+                            <td>${formatMoney(calcGanancia(r.items))}</td>
                             <td>
                                 <button>Detalle</button>
                             </td>

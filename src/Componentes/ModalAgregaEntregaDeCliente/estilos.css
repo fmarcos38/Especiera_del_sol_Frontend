@@ -45,3 +45,9 @@
     justify-content: center;
     align-items: center;
 }
+.entregaMonto tbody tr:nth-of-type(even) {
+    background-color: #515050;
+}
+.entregaMonto tbody tr:hover {
+    background-color: #9a9595;
+}

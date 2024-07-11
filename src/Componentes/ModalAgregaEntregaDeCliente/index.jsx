@@ -42,7 +42,7 @@ function ModalAgregaEntregaCliente({id}) {
 
             {/* tabla muestra entregas */}
             <div className='cont-tabla-entregas-remito'>
-                <table className="client-table">
+                <table className="client-table entregaMonto">
                     <thead>
                         <tr>
                             <th>Fecha Entrega</th>

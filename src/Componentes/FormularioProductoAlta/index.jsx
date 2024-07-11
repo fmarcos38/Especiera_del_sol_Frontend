@@ -11,6 +11,7 @@ function FormularioProductoAlta() {
     const [input, setInput] = useState({
         nombre: "",
         precioKg: 0,
+        costo: 0,
         envase: 0,
         imagen: "",
     }); //estado inical inputs 
@@ -20,7 +21,7 @@ function FormularioProductoAlta() {
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
-    //funcion verifica si ya existe un cliente con mismo CUIT
+    //funcion verifica si ya existe el producto
     const existeProducto = () => {
         let existeProd = {};
         existeProd = productos.find(p => p.nombre === input.nombre);
@@ -59,6 +60,7 @@ function FormularioProductoAlta() {
 
         if (!input.nombre) newErrors.nombre = 'Nombre es requerido';
         if (!input.precioKg) newErrors.precioKg = 'Precio x Kg es requerido';
+        if (!input.costo) newErrors.costo = 'Costo es requerido';
         if (!input.envase) newErrors.envase = 'Envase es requerido';
         if (!previewSource) newErrors.imagen = 'La imágen es requerida';
         setErrors(newErrors);
@@ -75,6 +77,7 @@ function FormularioProductoAlta() {
                     let formData = new FormData();
                     formData.append("nombre", input.nombre);
                     formData.append("precioKg", input.precioKg);
+                    formData.append("costo", input.costo);
                     formData.append("envase", input.envase);
                     formData.append("imagen", input.imagen);//este nombre "imagen" es el q va en upload.single("imagen") en el back
 
@@ -90,6 +93,7 @@ function FormularioProductoAlta() {
                     setInput({
                         nombre: "",
                         precioKg: 0,
+                        costo: 0,
                         envase: 0,
                         imagen: "",
                     });
