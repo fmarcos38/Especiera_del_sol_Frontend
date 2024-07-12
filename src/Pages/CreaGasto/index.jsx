@@ -1,9 +1,11 @@
 import React from 'react'
 import CreaGasto from '../../Componentes/CreaGasto';
+import './estilos.css';
+
 
 function CreaGastoPage() {
     return (
-        <div>
+        <div className='cont-gastos-page'>
             <CreaGasto />
         </div>
     )
