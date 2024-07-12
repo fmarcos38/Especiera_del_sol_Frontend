@@ -15,6 +15,7 @@ const Navbar = () => {
     const [muestraMenuProveedor, setMuestraMenuProveedor] = useState(false); //estado menú proveedor
     const [muestraMenuCompras, setMuestraMenuCompras] = useState(false); //estado menú compras
     const [muestraMenuVentas, setMuestraMenuVentas] = useState(false); //estado menú ventas
+    const [muestraMenuReportes, setMuestraMenuReportes] = useState(false); //estado menú reportes
     const contexto = useContext(AppContexto);
 
     const handleMouseEnterCliente = () => {
@@ -46,6 +47,12 @@ const Navbar = () => {
     };
     const handleMouseLeaveVentas = () => {
         setMuestraMenuVentas(false);
+    };
+    const handleMouseEnterReportes = () => {
+        setMuestraMenuReportes(true);
+    };
+    const handleMouseLeaveReportes = () => {
+        setMuestraMenuReportes(false);
     };
     const handleLogOut = () => {
         logout();
@@ -163,6 +170,26 @@ const Navbar = () => {
                                         </Link>
                                         <Link to="/listaRemitosVentas" className='link-menu'>
                                             <li className="dropdown-item">Lista remitos Venta</li>
+                                        </Link>
+                                    </ul>
+                                )
+                            }
+                        </li>
+                        {/* Reportes */}
+                        <li
+                            className="navbar-item"
+                            onMouseEnter={handleMouseEnterReportes}
+                            onMouseLeave={handleMouseLeaveReportes}
+                        >
+                            Reportes
+                            {
+                                muestraMenuReportes && (
+                                    <ul className="dropdown-menu">
+                                        <Link to="/creaGastos" className='link-menu'>
+                                            <li className="dropdown-item">Crear Gastos</li>
+                                        </Link>
+                                        <Link to="/listaReportes" className='link-menu'>
+                                            <li className="dropdown-item">Lista Reportes</li>
                                         </Link>
                                     </ul>
                                 )

@@ -6,7 +6,7 @@ import {
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA,
-    RESET_REMITOS,
+    GET_GASTOS_MES, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -271,9 +271,12 @@ export function elimnimaRemitoCompra(_id){
     }
 }
 
-//RESET REMITOS
-export function resetRemitos(){
-    return{
-        type: RESET_REMITOS,
+
+//--REPORTES y GASTOS----------------------------------------
+//trea gastos del mes
+export function getGastosMesActual(year, month) {
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/gastos/${year}/${month}`);
+        dispatch({type: GET_GASTOS_MES, payload: resp.data});
     }
 }
