@@ -21,7 +21,9 @@ function FormRemito({tipo}) {
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");
     const [unitario, setUnitario]= useState("");
-    const [importe, setImporte] = useState("");   
+    const [importe, setImporte] = useState("");  
+    const [costo, setCosto] = useState(""); console.log("costo:",costo)
+
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
@@ -55,6 +57,20 @@ function FormRemito({tipo}) {
     const handleChangeImporte = (e) => {
         setImporte(e.target.value);
     };
+    const handleChangeCosto = (e) => {
+        setCosto(e.target.value);
+    };
+    //funcion busca costo producto
+    const costoProducto = () => {
+        let costo = 0;
+        
+        const prod = productos.find(p => p.nombre === detalle);
+        if(prod){
+            costo = prod.costo;
+        }
+        
+        return costo;
+    };
     //funcion calcula tot import item
     const totItem = (cantidad, unitario) => {
         const tot = cantidad * unitario;
@@ -85,6 +101,7 @@ function FormRemito({tipo}) {
                 detalle,
                 unitario,
                 importe,
+                costo,
             }
 
             setPedido([...pedido, newItem]);
@@ -109,6 +126,14 @@ function FormRemito({tipo}) {
         dispatch(getAllProds());
         dispatch(traeUltimoRemito());        
     },[dispatch, cuit, traeCliente]);
+
+    useEffect(()=>{
+        if(detalle){
+            const costoP = costoProducto()
+            setCosto(costoP);
+        }
+    },[detalle]);
+
 
     return (
         <div className='cont-pedido'>
@@ -142,6 +167,17 @@ function FormRemito({tipo}) {
                                 ))
                             }
                         </datalist>
+                    </div>
+                    {/* costo */}
+                    <div className='cont-item-costo'>
+                        <label className='label-formulario'>Costo del Producto:</label>
+                        <input
+                            type="number"
+                            id='costo'
+                            value={costo}
+                            onChange={(e) => { handleChangeCosto(e) }}
+                            className='input-costo-formulario'
+                        />
                     </div>
                     {/* cantidad */}
                     <div className='cont-item-cantidad'>

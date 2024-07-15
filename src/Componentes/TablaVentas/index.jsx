@@ -7,10 +7,10 @@ import './estilos.css';
 import ModalAgregaEntregaCliente from '../ModalAgregaEntregaDeCliente';
 import BotonEliminaRemitoVenta from '../BotonEliminaRemitoVenta';
 
-function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemitos, totEntregas, totSaldos}) { 
+function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemitos, totEntregas, totSaldos, calcTotGanancias}) { 
 
     //estado para obtener el id del remito y pasarselo al modal
-    const [id, setId] = useState();
+    const [id, setId] = useState(); 
     const contexto = useContext(AppContexto);
 
     //abre modal
@@ -30,9 +30,9 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                     <th>Cliente</th>                    
                     <th>Tot.venta</th>                    
                     <th>Entregó</th>
-                    <th>Saldo</th>
-                    <th>Estado</th>
+                    <th>Saldo</th>                    
                     <th>Ganancia</th>
+                    <th>Estado</th>
                     <th>Detalle</th>
                     <th>Edita/Elim</th>
                 </tr>
@@ -56,10 +56,12 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                             >
                                 ${ formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado)) }
                             </td>
-                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                             <td>${formatMoney(calcGanancia(r.items))}</td>
+                            <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                             <td>
-                                <button>Detalle</button>
+                                <Link to={`/detalleRemito/${r._id}`}>
+                                    <button>Detalle</button>
+                                </Link>
                             </td>
                             <td style={{width: '50px'}}>
                                 <div style={{display: 'flex'}} key={r._id}>
@@ -82,7 +84,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                                 <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totRemitos())}</td>
                                 <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totEntregas())}</td>
                                 <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(totSaldos())}</td>
-                                <td></td>                                                                
+                                <td style={{color: 'white', fontSize:'23px', fontWeight:'600'}}>${formatMoney(calcTotGanancias())}</td>                                                                
                                 <td></td>
                                 <td></td>
                                 <td></td>

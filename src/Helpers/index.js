@@ -19,7 +19,26 @@ const fechaArg = (fecha) => {
 function formatMoney(amount) {
     return amount.toLocaleString('de-DE');
 }
+
+//funcion pasa de la fecha --> Mon Jul 15 2024 11:36:50 GMT-0300 (hora estándar de Argentina)
+//a la fecha así --> 15/07/2024
+function formatDate(dateString) {
+    const date = new Date(dateString);
+
+    // Obtener el día, mes y año de la fecha
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Los meses en JavaScript son 0-indexed
+    const year = date.getFullYear();
+
+    // Formatear día y mes para que siempre tengan dos dígitos
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    // Retornar la fecha en el formato deseado
+    return `${formattedDay}/${formattedMonth}/${year}`;
+}
 export {
     fechaArg,
-    formatMoney
+    formatMoney,
+    formatDate,
 }

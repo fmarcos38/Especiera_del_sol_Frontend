@@ -9,8 +9,7 @@ import './estilos.css';
 
 function ListaRemitosVentas() {
 
-    const ventas = useSelector(state => state.remitosVentas); 
-    const productos = useSelector(state => state.productos); 
+    const ventas = useSelector(state => state.remitosVentas);
     const [estado, setEstado] = useState("");
     const dispatch = useDispatch();
 
@@ -79,13 +78,21 @@ function ListaRemitosVentas() {
         let totGanancia = 0;
 
         items?.map(item => {
-            const producto = productos.find(p => p.nombre === item.detalle);
-            totGanancia += (item.unitario * item.cantidad) - (producto.costo * item.cantidad);
+            //let producto = productos.find(p => p.nombre === item.detalle); //console.log("prod:",producto)
+            totGanancia += (item.unitario * item.cantidad) - (item.costo * item.cantidad);//q producto es?
             return totGanancia;
         });
         return totGanancia;
     };
-    
+    //calc tot Ganacias
+    const calcTotGanancias = () => {
+        let tot = 0;
+        ventas.map(v => {
+            tot += calcGanancia(v.items);
+            return tot;
+        });
+        return tot;
+    };
 
     useEffect(() => {
         dispatch(getAllRemitos(estado));
@@ -111,6 +118,7 @@ function ListaRemitosVentas() {
                 totRemitos={totRemitos}
                 totEntregas={totEntregas}
                 totSaldos={totSaldos}
+                calcTotGanancias={calcTotGanancias}
             />
         </div>
     )

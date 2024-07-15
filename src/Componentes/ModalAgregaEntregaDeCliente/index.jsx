@@ -2,21 +2,33 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContexto } from '../../Contexto';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRemitoById } from '../../Redux/Actions';
+import { agregaEntrega, getRemitoById } from '../../Redux/Actions';
 import { fechaArg } from '../../Helpers';
+import Swal from 'sweetalert2';
 
 function ModalAgregaEntregaCliente({id}) {
 
     const contexto = useContext(AppContexto);
-    const [monto, setMonto] = useState();
+    const [monto, setMonto] = useState(); console.log("monto:", monto); console.log("id:", id)
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito);
 
-    const handleSubmit = () => {}
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(!monto){
+            Swal.fire({
+                text: "Ingrese un Monto",
+                icon: "error"
+            })
+        }else{
+            dispatch(agregaEntrega(id, {monto: monto}));
+            window.location.reload();
+        }
+    }
 
 
     useEffect(()=>{
-        console.log("disparé:", id)
         dispatch(getRemitoById(id));
     },[dispatch, id]);
 
@@ -33,7 +45,7 @@ function ModalAgregaEntregaCliente({id}) {
             
             {/* formulario agrega entrega */}
             <div className='cont-form-monto'>
-                <form onSubmit={()=> {handleSubmit()}} className='formulario-monto'>
+                <form onSubmit={(e)=> {handleSubmit(e)}} className='formulario-monto'>
                     <label className='label-monto'>Monto</label>
                     <input type='number' value={monto} onChange={(e) => setMonto(e.target.value)} className='input-monto' />
                     <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>

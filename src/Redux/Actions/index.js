@@ -217,6 +217,12 @@ export function eliminaRemitoVentas(_id){
         await axios.delete(`${local}/remitos/elimina/${_id}`);
     }
 }
+//inserta una entrega
+export function agregaEntrega(_id, monto){
+    return async function(){ console.log("montoA:", monto)
+        await axios.post(`${local}/remitos/entrega/${_id}`, monto);
+    }
+}
 //----actions remitos COMPRAS-----------------------------------------------------------
 export function getAllCompras() {
     return async function(dispatch){

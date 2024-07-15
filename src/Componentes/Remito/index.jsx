@@ -6,12 +6,14 @@ import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
+import { fechaArg, formatDate } from '../../Helpers';
 
 
 function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
 
     let nuevoNumeroRemito = 0; 
-    //asigno valor a num reito si es el primero en generse SINO suma 1
+    let fechaActual = Date(); 
+    //asigno valor a num remito si es el primero en generse SINO suma 1
     if( operacion === "venta" && !numUltimoRemito.ultimoRemito){
         nuevoNumeroRemito = 1;
     }else if(operacion === "venta") {
@@ -24,7 +26,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
-    });
+    }); 
     //me traigo el remito a mostrar - Para la funcionalidad de mostrar un remito
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
@@ -71,7 +73,10 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 estado: data.estado,
             }
             dispatch(creaRemito(dataBack));
-            setData()
+            setData({        
+                condicion_pago: "",
+                estado: "",
+            })
         }
         
     };
@@ -115,7 +120,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                             <div className='cont-remito-derecho-SUP'>
                                 <h2 className='cont-remito-derecho-SUP-titulo'>REMITO</h2>
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <p className='fecha-remito'>Fecha: {data.fecha_compra}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(fechaActual)}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
