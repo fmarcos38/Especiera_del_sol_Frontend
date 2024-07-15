@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProds, getAllRemitos } from '../../Redux/Actions';
+import { getAllProds, getAllRemitos, ordenaPorFecha, filtraFechasRemitos } from '../../Redux/Actions';
 import TablaVentas from '../TablaVentas';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
+import Swal from 'sweetalert2';
 import './estilos.css';
 
 function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
-    const [estado, setEstado] = useState("");
+    const [estado, setEstado] = useState("todos");
+    //estado para las fechas
+    const [fechaDesde, setFechaDesde] = useState(''); 
+    const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
     //funcion calc el tot de las entregas
@@ -94,6 +98,56 @@ function ListaRemitosVentas() {
         return tot;
     };
 
+    //para filtro de fechas 
+    const handleOnChFechaDesde = (e) => {
+        setFechaDesde(e.target.value);
+    };
+    const handleOnChFechaHasta = (e) => {
+        setFechaHasta(e.target.value);        
+    };
+    const handleOnSubFechas = (e) => {
+        e.preventDefault();
+        if(!fechaDesde && !fechaHasta){
+            Swal.fire({
+                text: "Ingrese ambas fechas",
+                icon: "error"
+            });
+        }
+        
+        const fechas = {
+            fechaDesde: fechaDesde, 
+            fechaHasta: fechaHasta
+        }
+        
+        dispatch(filtraFechasRemitos(fechas));
+    };
+    //para botones debe pagado fecha mas, fecha menos
+    const handleOnClick = (e) => {
+        switch (e.target.id) {
+            case 'debe':
+                setEstado("Debe");
+                dispatch(getAllRemitos(estado));
+                break;
+            case 'pagado':
+                setEstado("Pagado");
+                dispatch(getAllRemitos(estado));
+                break;
+            case 'fechaMax':
+                dispatch(ordenaPorFecha("fechaMax"));
+                break;
+            case 'fechaMin':
+                dispatch(ordenaPorFecha("fechaMin"));
+                break;
+            case 'todos':
+                setEstado("todos");
+                dispatch(getAllRemitos( estado));
+                break;
+            default:
+                break; 
+            
+        }
+    };
+
     useEffect(() => {
         dispatch(getAllRemitos(estado));
         dispatch(getAllProds());
@@ -105,10 +159,20 @@ function ListaRemitosVentas() {
             <h1>Lista de Ventas</h1>
             <div className='cont-filtros-btnReset-lista-remitos-ventas'>
                 <div className='cont-filtros-lista-remitos-ventas'>
-                    <FiltrosComprasVentasFecha />
-                    <FiltraDebePago />
+                    <FiltrosComprasVentasFecha 
+                        handleOnSubFechas={handleOnSubFechas}
+                        fechaDesde={fechaDesde}
+                        handleOnChFechaDesde={handleOnChFechaDesde}
+                        fechaHasta={fechaHasta}
+                        handleOnChFechaHasta={handleOnChFechaHasta}
+                    />
+                    <FiltraDebePago 
+                        handleOnClick={handleOnClick}
+                    />
                 </div>
-                <BotonResetFiltros />
+                <BotonResetFiltros 
+                    handleOnClick={handleOnClick}
+                />
             </div>
             <TablaVentas 
                 ventas={ventas}

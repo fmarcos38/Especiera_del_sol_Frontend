@@ -15,7 +15,7 @@
     background-color: var(--background-color-navBar-oscuro);
 }
 .cont-filtros-lista-remitos-ventas{
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: center;
     align-items: center;

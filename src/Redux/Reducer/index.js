@@ -91,7 +91,7 @@ export default function rootReducer(state = initialState, action){
                 remito: action.payload
             }
         case ORDENA_FECHA:
-            let remitosOrdenados = [...state.remitos];
+            let remitosOrdenados = [...state.remitosVentas]; 
             remitosOrdenados = remitosOrdenados.sort((a, b) => {
                 let fechaA = new Date(a.fecha);
                 let fechaB = new Date(b.fecha);
@@ -106,10 +106,10 @@ export default function rootReducer(state = initialState, action){
             });
             return{
                 ...state,
-                remitos: remitosOrdenados
+                remitosVentas: remitosOrdenados
             }
         case FILTRA_FECHAS_REMITOS:
-            let remitosFiltrar = [...state.remitos];
+            let remitosFiltrar = [...state.remitosVentas];
             let fechaDesde = new Date(action.payload.fechaDesde);
             let fechaHasta = new Date(action.payload.fechaHasta);
             fechaHasta.setUTCHours(23, 59, 59, 999); // Incluir todo el día hasta la fecha final en UTC
@@ -121,7 +121,7 @@ export default function rootReducer(state = initialState, action){
 
             return{
                 ...state,
-                remitos: remitosFiltrdos
+                remitosVentas: remitosFiltrdos
             }
         case GET_ALL_REMITOS_COMPRA:
             return{
