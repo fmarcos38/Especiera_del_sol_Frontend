@@ -5,8 +5,7 @@ import {
     RESET_CLIENTE, BUSCA_PRODUCTO_POR_NOMBRE, GET_ALL_REMITOS, CREA_REMITO,  BUSCA_CLIENTE_POR_CUIT, ULTIMO_REMITO,
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
-    RESET_ULTIMO_REMITO_COMPRA,
-    GET_GASTOS_MES, 
+    RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES, GET_REPORTES_MES_AÑO, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -284,5 +283,20 @@ export function getGastosMesActual(year, month) {
     return async function(dispatch){
         const resp = await axios.get(`${local}/gastos/${year}/${month}`);
         dispatch({type: GET_GASTOS_MES, payload: resp.data});
+    }
+}
+
+//trae reportes mes/es año
+export function getReporteMes(month, year, meses){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
+        dispatch({type: GET_REPORTES_MES, payload: resp.data});
+    }
+}
+//reporte todos los meses d un año
+export function getReporteMesesAño(month, year, meses){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
+        dispatch({type: GET_REPORTES_MES_AÑO, payload: resp.data});
     }
 }

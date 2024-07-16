@@ -1,0 +1,12 @@
+.cont-reportes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.label-año,
+.input-año,
+.btn-muestraReporte {
+    font-size: 23px;
+    font-weight: 500;
+}
