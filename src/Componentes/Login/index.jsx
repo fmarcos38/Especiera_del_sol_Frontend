@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../Redux/Actions';
 import { userLogData } from "../../LocalStorage";
-import Swal from 'sweetalert2';
 import { AppContexto } from '../../Contexto';
 
 
@@ -44,14 +43,11 @@ function Login() {
         e.preventDefault();
         if(validaInputs()){
             dispatch(login(input));
-            Swal.fire({
-                text: "Login OK!",
-                icon: "success"
-            });
         }
         //actualizo data del user log en el contexto
         const userLog = userLogData();
         contexto.setUserLog(userLog);
+        contexto.login();
         navigate('/');
     };
 

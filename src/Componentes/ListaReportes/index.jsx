@@ -110,7 +110,7 @@ function ListaReportes() {
                     <td>${formatMoney(r.ganancias)}</td>
                     <td>${formatMoney(r.compras)}</td>
                     <td>${formatMoney(r.gastos)}</td>
-                    <td>${formatMoney(calcSaldo(r.ventas, r.compras, r.gastos))}</td>
+                    {/* <td>${formatMoney(calcSaldo(r.ventas, r.compras, r.gastos))}</td> */}
                   </tr>
                 )
               })
@@ -123,7 +123,7 @@ function ListaReportes() {
                 <td>${formatMoney(calcTotGanancias())}</td>
                 <td>${formatMoney(calcTotCompras())}</td>
                 <td>${formatMoney(calcTotGastos())}</td>
-                <td>${formatMoney(calcTotSaldos())}</td>
+                {/* <td>${formatMoney(calcTotSaldos())}</td> */}
             </tr>
           </tfoot>
         </table>

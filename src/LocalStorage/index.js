@@ -6,7 +6,7 @@ const userLogData = () => {
 
 //logout
 const logout =() =>{
-    localStorage.removeItem("user");
+    localStorage.removeItem("userData");
 }
 
 //creo numRemito en el localStarage en 1 --> luego se va a ir incrementando

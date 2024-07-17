@@ -7,9 +7,11 @@ import { AppContexto } from '../../Contexto';
 import { logout } from '../../LocalStorage';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Swal from 'sweetalert2';
 
 
 const Navbar = () => {
+
     const [muestraMenuClientes, setMuestraMenuClientes] = useState(false); //estado menú cliente
     const [muestraMenuProductos, setMuestraMenuProductos] = useState(false); //estado menú prod
     const [muestraMenuProveedor, setMuestraMenuProveedor] = useState(false); //estado menú proveedor
@@ -17,6 +19,7 @@ const Navbar = () => {
     const [muestraMenuVentas, setMuestraMenuVentas] = useState(false); //estado menú ventas
     const [muestraMenuReportes, setMuestraMenuReportes] = useState(false); //estado menú reportes
     const contexto = useContext(AppContexto);
+
 
     const handleMouseEnterCliente = () => {
         setMuestraMenuClientes(true);
@@ -55,10 +58,25 @@ const Navbar = () => {
         setMuestraMenuReportes(false);
     };
     const handleLogOut = () => {
-        logout();
-        contexto.setUserLog(null);
+        Swal.fire({
+            title: "Salir?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logout();
+                contexto.setUserLog(null);
+                contexto.logout();
+            }
+        });
+        
     };
 
+    
+    
     return (
         <nav className="navbar">
             {/* logo */}
@@ -70,7 +88,7 @@ const Navbar = () => {
             </div>
             {/* items barra ADMIN*/}
             {
-                contexto.userLog ? (
+                contexto.isAuthenticated ? (
                     <ul className="navbar-menu">
                         {/* clientes */}
                         <li
@@ -203,15 +221,17 @@ const Navbar = () => {
             
             {/* login/logout */}
             {
-                !contexto.userLog ? (
+                !contexto.isAuthenticated ? (
+                    /* login */
                     <div className='cont-der'>
                         <Link to={'/login'}>
                             <LoginIcon />
                         </Link>
                     </div>
                 ) : (
+                    /* logout */
                     <div className='cont-der'>
-                        <p className='nombre-userLog'>Hola {contexto.userLog.user.nombre}</p>
+                        <p className='nombre-userLog'>Hola {contexto.nombre}</p>
                         <button onClick={()=>handleLogOut()} className='btn-logout'>
                             <LogoutIcon/>
                         </button>

@@ -10,6 +10,10 @@ export const AppProvider = ({children}) => {
     //const userLogueado = userLog();
     //estado user logeado
     const [userLog, setUserLog] = useState(null); 
+    //estado nombreUser
+    const [nombre, setNombre] = useState();
+    //estado para login
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     //estado modal cliente
     const [modalClienteOpen, setModalClienteOpen] = useState(false); 
     //estado modal producto
@@ -25,10 +29,19 @@ export const AppProvider = ({children}) => {
     //estado para el SEARCH
     const [search, setSearch] = useState(''); 
 
+    const login = () => {
+        setIsAuthenticated(true);
+    };
+    const logout = () => {
+        setIsAuthenticated(false);
+    };
+
     useEffect(()=>{
-        const userLogin = userLogData();
+        const userLogin = userLogData(); 
         if(userLogin){
             setUserLog(userLogin);
+            setIsAuthenticated(true);
+            setNombre(userLogin.user.nombre)
         }
     }, []);
     
@@ -51,6 +64,10 @@ export const AppProvider = ({children}) => {
                 setModalEntregaCliente,
                 search,
                 setSearch,
+                isAuthenticated,
+                login,
+                logout,
+                nombre
             }}
         >
             {children}
