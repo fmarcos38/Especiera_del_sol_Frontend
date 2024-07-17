@@ -1,14 +1,20 @@
 import React from 'react'
 import CreaGasto from '../../Componentes/CreaGasto';
 import './estilos.css';
+import { userLogData } from '../../LocalStorage';
 
 
 function CreaGastoPage() {
-    return (
-        <div className='cont-gastos-page'>
-            <CreaGasto />
-        </div>
-    )
+
+    const userLog = userLogData();
+    
+    if(userLog){
+        return (
+            <div className='cont-gastos-page'>
+                <CreaGasto />
+            </div>
+        )
+    }
 }
 
 export default CreaGastoPage;

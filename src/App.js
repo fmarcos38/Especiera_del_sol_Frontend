@@ -57,8 +57,7 @@ function App() {
             <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
             <Route path='/creaGastos' element={<CreaGastoPage/>} />
             <Route path='/listaReportes' element={<ListaReportesPage/>} />
-            {/* rutas para el desarrollador */}
-            
+            {/* rutas para el desarrollador */}            
             <Route path='/remito' element={<Remito/>} />
         </Routes>
       

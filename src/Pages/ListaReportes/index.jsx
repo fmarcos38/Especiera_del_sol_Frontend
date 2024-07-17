@@ -1,12 +1,18 @@
 import React from 'react'
 import ListaReportes from '../../Componentes/ListaReportes'
+import { userLogData } from '../../LocalStorage'
 
 function ListaReportesPage() {
-    return (
-        <div>
-            <ListaReportes />
-        </div>
-    )
+
+    const userLog = userLogData();
+
+    if(userLog){
+        return (
+            <div>
+                <ListaReportes />
+            </div>
+        )
+    }
 }
 
 export default ListaReportesPage
