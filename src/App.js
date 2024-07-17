@@ -24,6 +24,8 @@ import EditaRemitoCompraPage from './Pages/EditaRemitoCompra';
 import ListaRemitosVentas from './Pages/ListaRemitosVentas';
 import CreaGastoPage from './Pages/CreaGasto';
 import ListaReportesPage from './Pages/ListaReportes';
+import QuienesSomosPage from './Pages/QuienesSomos';
+import ListaDePreciosPage from './Pages/ListaDePrecios';
 
 function App() {
 
@@ -57,6 +59,8 @@ function App() {
             <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
             <Route path='/creaGastos' element={<CreaGastoPage/>} />
             <Route path='/listaReportes' element={<ListaReportesPage/>} />
+            <Route path='/listaDePrecios' element={<ListaDePreciosPage/>} />
+            <Route path='/quienesSomos' element={<QuienesSomosPage/>} />
             {/* rutas para el desarrollador */}            
             <Route path='/remito' element={<Remito/>} />
         </Routes>

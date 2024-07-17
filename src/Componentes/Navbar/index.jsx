@@ -215,7 +215,14 @@ const Navbar = () => {
                         </li>
                     </ul>
                 ) : (
-                    <div className="navbar-menu"></div>
+                    <ul className="navbar-menu">
+                        <Link to="/listaDePrecios" className='link-menu'>
+                            <li className="navbar-item">Lista de precios</li>
+                        </Link>
+                        <Link to="/quienesSomos" className='link-menu'>
+                            <li className="navbar-item">Quienes somos</li>
+                        </Link>                        
+                    </ul>
                 )
             }
             

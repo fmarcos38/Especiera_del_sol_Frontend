@@ -1,0 +1,20 @@
+.cont-quienesSomos{
+    width: 70%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+.parrafo-quienesSomos{
+    text-align: center;
+    padding: 20px;
+    color: #e6e3e3;
+    font-size: 35px;
+    font-weight: 500;
+    font-variant:inherit;
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 10px;
+    background-color: rgba(17, 17, 18, 0.723);
+}

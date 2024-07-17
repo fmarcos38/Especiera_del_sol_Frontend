@@ -1,0 +1,10 @@
+.cont-quienesSomos-page {
+    width: 100%;
+    height: 89.9vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../Imagenes/frutos2.jpg');
+    background-repeat : no-repeat;
+    background-size: cover;
+}
