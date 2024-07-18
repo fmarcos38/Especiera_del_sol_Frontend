@@ -5,56 +5,76 @@
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+/* medida de hoja A4 en px */
+/*
+    width: 148mm;
+    height: 210mm;
+ */
 .cont-form-remito{
-    width: 100%;
+    width: 561px;
+    height: 793px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .cont-remito{
-    width: 60%;
-    height: auto;
+    width: 561px;
+    height: 793px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    align-items: start;
     border: 2px solid brown;
 }
 /* estilos contenedor sup */
 .cont-remito-sup{
     width: 100%;
-    height: 200px;
+    height: 150px;
     display: flex;
+    background-color: aqua;
 }
 .cont-remito-sup-izq{
     width: 60%;
+    height: 150px;
     display: flex;
     background-color: var(--background-color-remito);
 }
-.cont-remito-sup-logo{
+.cont-remito-sup-info-empresa{
+    width: 80%;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
+}
+.cont-remito-sup-logo{
+    width: 20%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
 }
 .logo-remito{
     width: 60px;
     height: 60px;
 }
-/*  */
-.cont-remito-sup-info-empresa{
+.cont-info-empresa{
     width: 80%;
-    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
 }
-.cont-remito-sup-info-empresa h1, p{
-    margin: 0;    
+.texto-logo{
+    width: 180px;
+    height: 40px;
+}
+.cont-remito-sup-info-empresa p{
+    margin: 0;
+    font-size: 12px;    
 }
 .cont-remito-sup-info-X{
     width: 20%;
@@ -66,12 +86,28 @@
     border-right: 2px solid white;
     color: #fff;
 }
-.letra-X{
-    font-size: 50px;
+.cont-letra-x{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.letra-x{
+    font-size: 40px;
     height: 20px;
+}
+.cont-doc-no-valido{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .p-cont-X{
     margin: 0;
+    font-size: 10px;
 }
 /* estilos cont datos Remito + fecha + data empresa */
 /* estilos cont sup der */
