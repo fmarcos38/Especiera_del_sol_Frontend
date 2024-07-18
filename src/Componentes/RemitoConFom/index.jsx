@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from '../../Helpers';
 
 
-function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
+function RemitoConForm({operacion, numUltimoRemito, cliente, items, totPedido}) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -76,8 +76,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
             setData({        
                 condicion_pago: "",
                 estado: "",
-            });
-            window.location.reload();
+            })
         }
         
     };
@@ -86,7 +85,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
     };
     
     return (
-        <div className='cont-gralRemito'>
+        <div className='cont-remito-con-form'>
             <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito'>
                 <div className='cont-remito' id='pdf-content'>
                     {/* cont info superior */}
@@ -248,19 +247,90 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    items?.map(item => {
-                                        return (
-                                            <tr key={item.detalle}>
-                                                <td>{item.cantidad}</td>
-                                                <td>{item.detalle}</td>
-                                                <td>{item.unitario}</td>
-                                                <td>{item.importe}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                    <td>
+                                        <input type='text' />
+                                    </td>
+                                </tr>
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
@@ -290,4 +360,4 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
     )
 }
 
-export default Remito;
+export default RemitoConForm;

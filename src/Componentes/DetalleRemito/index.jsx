@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import Remito from '../Remito';
-import { getRemitoById, } from '../../Redux/Actions';
+import { buscaClientePorCuit, getRemitoById, } from '../../Redux/Actions';
 
 
 function DetalleRemito() {
@@ -13,12 +13,19 @@ function DetalleRemito() {
 
     useEffect(() => {
         dispatch(getRemitoById(_id));
-    }, [_id, dispatch]);
+        dispatch(buscaClientePorCuit(remito.cuit));
+    }, [_id, dispatch, remito.cuit]);
 
 
     return (
         <div>            
-            <Remito operacion={"muestra"} numUltimoRemito={remito.numRemito} cliente={cliente} items={remito.items} totPedido={remito.totPedido} />
+            <Remito 
+                operacion={"muestra"} 
+                numUltimoRemito={remito.numRemito} 
+                cliente={cliente} 
+                items={remito.items} 
+                totPedido={remito.totPedido} 
+            />
         </div>
     )
 }

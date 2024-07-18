@@ -27,6 +27,7 @@ import ListaReportesPage from './Pages/ListaReportes';
 import QuienesSomosPage from './Pages/QuienesSomos';
 import ListaDePreciosPage from './Pages/ListaDePrecios';
 import Footbar from './Componentes/Footbar';
+import RemitoConForm from './Componentes/RemitoConFom';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
             <Route path='/quienesSomos' element={<QuienesSomosPage/>} />
             {/* rutas para el desarrollador */}            
             <Route path='/remito' element={<Remito/>} />
+            <Route path='/remitoConForm' element={<RemitoConForm/>} />
         </Routes>
       
       <footer>

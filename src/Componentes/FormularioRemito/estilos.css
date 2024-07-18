@@ -141,39 +141,3 @@
 .icono-elimina-item{
     color: red;
 }
-
-
-/* responsive */
-@media screen and (max-width:1100px){
-    .label-formulario {
-        font-size: 20px;
-    }
-}
-@media screen and (max-width:900px){
-    .label-formulario {
-        font-size: 16px;
-    }
-}
-@media screen and (max-width:700px) {
-    .cont-items-form {
-        flex-direction: column;
-    }
-
-    .label-formulario {
-        font-size: 16px;
-    }
-
-    .cont-item-cantidad,
-    .cont-item-producto,
-    .cont-item-unitario,
-    .cont-item-importe {
-        width: 80%;
-    }
-
-    .input-cant-formulario,
-    .input-producto-formulario,
-    .input-unitario-formulario,
-    .input-importe-formulario {
-        width: 100%;
-    }
-}

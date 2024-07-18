@@ -21,8 +21,9 @@ function FormRemito({tipo}) {
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");
     const [unitario, setUnitario]= useState("");
-    const [importe, setImporte] = useState("");  
-    const [costo, setCosto] = useState(""); console.log("costo:",costo)
+    const [costo, setCosto] = useState("");
+    const [importe, setImporte] = useState("");   
+    
 
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
@@ -54,27 +55,15 @@ function FormRemito({tipo}) {
         setUnitario(unit);
         totItem(cantidad, unit);
     };
-    const handleChangeImporte = (e) => {
-        setImporte(e.target.value);
-    };
     const handleChangeCosto = (e) => {
         setCosto(e.target.value);
     };
-    //funcion busca costo producto
-    const costoProducto = () => {
-        let costo = 0;
-        
-        const prod = productos.find(p => p.nombre === detalle);
-        if(prod){
-            costo = prod.costo;
-        }
-        
-        return costo;
-    };
+    
     //funcion calcula tot import item
-    const totItem = (cantidad, unitario) => {
+    const totItem = (cantidad, unitario) => {        
         const tot = cantidad * unitario;
         setImporte(tot);
+        return tot;
     };    
     //funcion calc tot del pedido
     const calculaTotPedido = () => {
@@ -114,6 +103,7 @@ function FormRemito({tipo}) {
         setDetalle('');
         setUnitario('');
         setImporte('');
+        setCosto('');
     }
 
     //elimina item tabla pedido
@@ -127,12 +117,15 @@ function FormRemito({tipo}) {
         dispatch(traeUltimoRemito());        
     },[dispatch, cuit, traeCliente]);
 
-    useEffect(()=>{
-        if(detalle){
-            const costoP = costoProducto()
-            setCosto(costoP);
+    useEffect(()=>{ 
+        if(detalle){ 
+            const prod = productos.find(p => p.nombre === detalle);
+            setCantidad(prod?.envase);
+            setCosto(prod?.costo);
+            setUnitario(prod?.precioKg);
+            setImporte(totItem(prod?.envase, prod?.precioKg));
         }
-    },[detalle]);
+    },[detalle, productos]);
 
 
     return (
@@ -201,14 +194,14 @@ function FormRemito({tipo}) {
                             className='input-unitario-formulario'
                         />
                     </div>
-                    
+                    {/* importe */}
                     <div className='cont-item-importe'>
                         <label className='label-formulario'>Importe:</label>
                         <input 
-                            type='number' 
+                            type='text' 
                             id='importe' 
                             value={importe} 
-                            onChange={(e) => handleChangeImporte(e)} 
+                            /* onChange={(e) => handleChangeImporte(e)}  */
                             className='input-importe-formulario'
                         />
                     </div>
