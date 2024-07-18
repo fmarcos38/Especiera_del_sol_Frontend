@@ -2,64 +2,93 @@ import React, { useEffect } from 'react';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProds } from '../../Redux/Actions';
-import logo from '../../Imagenes/logo.png';
-import textoLogo from '../../Imagenes/texto-logo.png';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import logo from '../../Imagenes/logoYtexto.jpg';
 
 function ListaDePrecios() {
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
+
+    /* funcion para PDF mejor opcion */
+    const handleSavePDF = () => {
+        const input = document.getElementById('lista-precios');
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('lista.pdf'); //nombre del archivo q se baja
+        });
+    };
 
     useEffect(() => {
         dispatch(getAllProds())
     }, [dispatch]);
 
     return (
-        <div className="cont-gral-listaDePrecios">
-            <div className='cont-secundario-listaDePrecios'>
-                <div className="linea linea-1"></div>
-                <div className="linea linea-2"></div>
-                <div className="linea linea-3"></div>
-                <div className='cont-informacion'>
-                    {/* logo y datos */}
-                    <div className='cont-logo-datos'>
-                        <div className='cont-logo'>
-                            <img src={logo} alt='not found' className='logo-lista-precio' />
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div className="cont-gral-listaDePrecios" id='lista-precios'>
+                <div className='cont-secundario-listaDePrecios'>
+                    <div className="linea linea-1"></div>
+                    <div className="linea linea-2"></div>
+                    <div className="linea linea-3"></div>
+                    <div className='cont-informacion'>
+                        {/* logo y datos */}
+                        <div className='cont-logo-datos'>
+                            <div className='cont-logo'>
+                                <img src={logo} alt='not found' className='logo-lista-precio' />
+                            </div>
                         </div>
-                        <div className='datos-empresa'>
-                            <img src={textoLogo} alt='not found' className='textoLogo-lista-precio' />
+                        {/* titulo */}
+                        <div className='cont-titulo-lista-precio'>
+                            <h2 className='titulo-lista-precio'>LISTA DE PRECIOS MAYORISTA</h2>
                         </div>
-                    </div>
-                    {/* titulo */}
-                    <div className='cont-titulo-lista-precio'>
-                        <h1>LISTA DE PRECIOS MAYORISTA</h1>
-                    </div>
-                    {/* tabla */}
-                    <div>
-                        <table className='tabla-precios'>
-                            <thead>
-                                <tr>
-                                    <th>Descripción</th>
-                                    <th>Precio (x Kg)</th>
-                                    <th>Envace (Kg)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    productos?.map((p,i) => {
-                                        return(
-                                            <tr key={i}>
-                                                <td>{p.nombre}</td>
-                                                <td>{p.precioKg}</td>
-                                                <td>{p.envase}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                        {/* tabla */}
+                        <div className='cont-tabla-listaPrecio'>
+                            <table className='tabla-precios'>
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Precio (x Kg)</th>
+                                        <th>Envace (Kg)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        productos?.map((p, i) => {
+                                            return (
+                                                <tr key={i}>
+                                                    <td>{p.nombre}</td>
+                                                    <td style={{ textAlign: 'center' }}>{p.precioKg}</td>
+                                                    <td style={{ textAlign: 'center' }}>{p.envase}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* info contactos */}
+                        <div className='info-contacto-lita-precio'>
+                            <div className='cont-info-contacto'>
+                                <p className='item-info-contacto-lista-precio'>Cel: 11 41997200 Gustavo</p>
+                                <p className='item-info-contacto-lista-precio'>Cel: 11 59510493 Florencia</p>
+                            </div>
+                            <div className='cont-info-contacto'>
+                                <p className='item-info-contacto-lista-precio'>www.especieradelsol.com</p>
+                                <p className='item-info-contacto-lista-precio'>info@especieradelsol.com</p>
+                                <p className='item-info-contacto-lista-precio'>Intagram: @especieradelsol</p>
+                                <p className='item-info-contacto-lista-precio'>Facebook: Especiera del Sol</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            {/* botón imprimir */}
+            <button onClick={handleSavePDF} className='boton-imprimir'>Descargar</button>
         </div>
     )
 }

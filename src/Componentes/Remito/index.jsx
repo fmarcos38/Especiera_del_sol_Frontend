@@ -233,8 +233,6 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                 </select>
                             </div>
                         </div>
-
-
                     </div>
 
                     {/* cont info items */}
