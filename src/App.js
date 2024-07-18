@@ -26,6 +26,7 @@ import CreaGastoPage from './Pages/CreaGasto';
 import ListaReportesPage from './Pages/ListaReportes';
 import QuienesSomosPage from './Pages/QuienesSomos';
 import ListaDePreciosPage from './Pages/ListaDePrecios';
+import Footbar from './Componentes/Footbar';
 
 function App() {
 
@@ -65,6 +66,9 @@ function App() {
             <Route path='/remito' element={<Remito/>} />
         </Routes>
       
+      <footer>
+        <Footbar />
+      </footer>
     </div>
     </AppProvider>
   );

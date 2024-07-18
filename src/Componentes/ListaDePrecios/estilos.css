@@ -1,3 +1,7 @@
+.cont-padre-lista-precios{
+    display: flex;
+    flex-direction: column;
+}
 .cont-gral-listaDePrecios {
     width: 210mm; /* Ancho de una hoja A4 */
     height: 297mm; /* Alto de una hoja A4 */
@@ -113,4 +117,54 @@
 }
 .item-info-contacto-lista-precio{
     color: rgb(66, 68, 68);
+}
+
+/* responsive */
+@media screen and (max-width: 800px){
+    .cont-padre-lista-precios{
+        width: 95%; 
+        height: auto; 
+        display: flex;
+        flex-direction: column;
+    }
+    .cont-gral-listaDePrecios {
+        width: 95%; 
+        height: auto; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000;
+        margin: 20px auto;
+        /* Centramos el recuadro */
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .linea {
+        position: absolute;
+        height: 100%;
+    }
+    .linea-1 {
+        left: 5px;
+        width: 1.5px;
+        background-color: rgb(246, 179, 120);
+    }
+    .linea-2 {
+        left: 10px;
+        width: 2px;
+        background-color: rgb(241, 128, 54);
+    }
+    .linea-3 {
+        left: 15px;
+        width: 2px;
+        background-color: rgb(217, 143, 7);
+    }
+    .titulo-lista-precio{
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .info-contacto-lita-precio{
+        flex-direction: column;
+    }
+    .cont-info-contacto{
+        margin-bottom: 10px;
+    }
 }

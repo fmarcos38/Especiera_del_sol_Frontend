@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProds } from '../../Redux/Actions';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logo from '../../Imagenes/logoYtexto.jpg';
+import WhatsAppButton from '../BotonWhastApp';
+import './estilos.css';
+
 
 function ListaDePrecios() {
     const productos = useSelector(state => state.productos);
@@ -29,7 +31,7 @@ function ListaDePrecios() {
     }, [dispatch]);
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div className='cont-padre-lista-precios'>
             <div className="cont-gral-listaDePrecios" id='lista-precios'>
                 <div className='cont-secundario-listaDePrecios'>
                     <div className="linea linea-1"></div>
@@ -89,6 +91,8 @@ function ListaDePrecios() {
             </div>
             {/* botón imprimir */}
             <button onClick={handleSavePDF} className='boton-imprimir'>Descargar</button>
+            {/* Botón WhatsApp */}
+            <WhatsAppButton />
         </div>
     )
 }

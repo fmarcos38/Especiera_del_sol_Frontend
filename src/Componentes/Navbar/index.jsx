@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import './estilos.css';
 import logo from '../../Imagenes/logo.png';
 import textLogo from '../../Imagenes/texto-logo.png';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { logout } from '../../LocalStorage';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Swal from 'sweetalert2';
+import './estilos.css';
 
 
 const Navbar = () => {
@@ -217,10 +217,10 @@ const Navbar = () => {
                 ) : (
                     <ul className="navbar-menu">
                         <Link to="/listaDePrecios" className='link-menu'>
-                            <li className="navbar-item">Lista de precios</li>
+                            <li className="navbar-item-cliente">Lista de precios</li>
                         </Link>
                         <Link to="/quienesSomos" className='link-menu'>
-                            <li className="navbar-item">Quienes somos</li>
+                            <li className="navbar-item-cliente">Quienes somos</li>
                         </Link>                        
                     </ul>
                 )
