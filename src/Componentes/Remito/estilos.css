@@ -34,7 +34,6 @@
     width: 100%;
     height: 150px;
     display: flex;
-    background-color: aqua;
 }
 .cont-remito-sup-izq{
     width: 60%;
@@ -116,42 +115,44 @@
     display: flex;
     flex-direction: column;
 }
-.cont-remito-derecho-SUP, 
-.cont-remito-derecho-INF {
+.cont-remito-derecho-SUP {
     display: flex;
     flex-direction: column;
+    justify-content: start;
     height: 50%;
-    color: brown;
-}
+} 
 .cont-remito-derecho-SUP-titulo,
 .num-remito,
 .fecha-remito {
-    margin: 10px 0 0 10px;
+    margin: 0;
+    color: brown;
 }
-.cont-remito-derecho-INF{
+.cont-remito-derecho-INF {
     display: flex;
-    flex-direction: row;
+    height: 50%;
+    color: brown;
 }
-.cont-remito-derecho-INF-izq {
+.cont-remito-derecho-INF-izq,
+.cont-remito-derecho-INF-der {
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
 }
-.datos-empresa-afip-IZQ{
-    margin-left: 10px;
+.datos-empresa-afip-IZQ,
+.datos-empresa-afip-DER{
+    margin: 0;
+    font-size: 12px;
+    padding: 1px;
 }
 .cont-remito-derecho-INF-der{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     align-items: end;
 }
-.datos-empresa-afip-DER {
-    margin-right: 10px;
+.datos-empresa-afip-DER{
+    margin-right: 2px;
 }
+
 
 /* estilos cont info CLIENTE */
 .cont-remito-datos-cliente{

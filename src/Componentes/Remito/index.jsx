@@ -122,12 +122,29 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                 </div>
                             </div>
                         </div>
+                        {/* cont sup Derecho */}
+                        <div className='cont-remito-derecho'>
+                            <div className='cont-remito-derecho-SUP'>
+                                <p className='cont-remito-derecho-SUP-titulo'>REMITO</p>
+                                <p className='num-remito'>N° {nuevoNumeroRemito}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(fechaActual)}</p>
+                            </div>
+                            <div className='cont-remito-derecho-INF'>
+                                <div className='cont-remito-derecho-INF-izq'>
+                                    <p className='datos-empresa-afip-IZQ'>C.U.I.T</p>
+                                    <p className='datos-empresa-afip-IZQ'>Ing Brutos C.M</p>
+                                    <p className='datos-empresa-afip-IZQ'>Inicio de actividades</p>
+                                </div>
+                                <div className='cont-remito-derecho-INF-der'>
+                                    <p className='datos-empresa-afip-DER'>20-11816651-6</p>
+                                    <p className='datos-empresa-afip-DER'>901-20-11816651-6</p>
+                                    <p className='datos-empresa-afip-DER'>01-12-88</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* cont info cliente */}
-
-
-                    {/* cont info items */}
+                    
 
                 </div>                
             </form>
