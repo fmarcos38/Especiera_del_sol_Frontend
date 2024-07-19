@@ -37,6 +37,8 @@ function formatDate(dateString) {
     // Retornar la fecha en el formato deseado
     return `${formattedDay}/${formattedMonth}/${year}`;
 }
+
+
 export {
     fechaArg,
     formatMoney,

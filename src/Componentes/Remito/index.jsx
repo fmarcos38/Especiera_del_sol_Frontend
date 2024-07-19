@@ -9,30 +9,25 @@ import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import { formatDate } from '../../Helpers';
 
-
-function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) { 
+function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
-    //asigno valor a num remito si es el primero en generse SINO suma 1
-    if( operacion === "venta" && !numUltimoRemito.ultimoRemito){
+    if (operacion === "venta" && !numUltimoRemito.ultimoRemito) {
         nuevoNumeroRemito = 1;
-    }else if(operacion === "venta") {
-        nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
-    }else if(operacion === "muestra") {
-        nuevoNumeroRemito = numUltimoRemito ;
+    } else if (operacion === "venta") {
+        nuevoNumeroRemito = numUltimoRemito.ultimoRemito + 1;
+    } else if (operacion === "muestra") {
+        nuevoNumeroRemito = numUltimoRemito;
     }
     
-    //estado para cond venta y estado
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
     }); 
-    //me traigo el remito a mostrar - Para la funcionalidad de mostrar un remito
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
-    /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
         const input = document.getElementById('remito');
         html2canvas(input).then((canvas) => {
@@ -47,21 +42,22 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
     };
 
     const handleOnChange = (e) => {
-        if(e.target.id === 'estado'){
-            setData({...data, estado: e.target.value});
-        }else{
-            setData({...data, [e.target.id]: e.target.value});
+        if (e.target.id === 'estado') {
+            setData({ ...data, estado: e.target.value });
+        } else {
+            setData({ ...data, [e.target.id]: e.target.value });
         }
     };
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(!data.condicion_pago || !data.estado){
+        if (!data.condicion_pago || !data.estado) {
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cond.venta y Estado",
                 icon: 'error'
             });
-        }else{
+        } else {
             let fecha = new Date();             
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
@@ -69,10 +65,10 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                 fecha: fecha,
                 totPedido,
                 cuit: cliente.cuit,
-                cliente: cliente.nombre+" "+cliente.apellido,
+                cliente: cliente.nombre + " " + cliente.apellido,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
-            }
+            };
             dispatch(creaRemito(dataBack));
             setData({        
                 condicion_pago: "",
@@ -80,15 +76,38 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
             });
             window.location.reload();
         }
-        
     };
+
     const resetInputs = () => {
         window.location.reload();
     };
-    
+
+    const renderRows = () => {
+        const rows = items?.map(item => (
+            <tr key={item.detalle}>
+                <td>{item.cantidad}</td>
+                <td>{item.detalle}</td>
+                <td>{item.unitario}</td>
+                <td>{item.importe}</td>
+            </tr>
+        ));
+
+        for (let i = rows?.length; i < 8; i++) {
+            rows.push(
+                <tr key={`empty-${i}`}>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            );
+        }
+        return rows;
+    };
+
     return (
         <div className='cont-gralRemito'>
-            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito'>
+            <form onSubmit={handleOnSubmit} className='cont-form-remito'>
                 <div className='cont-remito' id='remito'>
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
@@ -106,7 +125,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                                     <p>11 5951 0493</p>
                                     <p>info@especieradelsol.com</p>
                                     <p>www.especieradelsol.com</p>
-                                    <p style={{fontSize: '10px'}}>IVA RESPONSABLE INSCRIPTO</p>
+                                    <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
                                 </div>                                
                             </div>
                             {/* cont X */}
@@ -125,7 +144,7 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                         {/* cont sup Derecho */}
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
-                                <p className='cont-remito-derecho-SUP-titulo'>REMITO</p>
+                                <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
                                 <p className='fecha-remito'>Fecha: {formatDate(fechaActual)}</p>
                             </div>
@@ -144,16 +163,152 @@ function Remito({operacion, numUltimoRemito, cliente, items, totPedido}) {
                         </div>
                     </div>
 
-                    
+                    {/* cont info cliente */}
+                    <div className='cont-remito-datos-cliente'>
+                        {/* nombre y ape */}
+                        <div className='cont-remito-datos-cliente-Item-NombreYApe'>
+                            <div className='cont-remito-datos-cliente-Item-Nombre'>
+                                <label className='lable-remito'>Nombre:</label>
+                                <input
+                                    type='text'
+                                    value={cliente?.nombre}
+                                    className='input-remito-nombre'
+                                    readOnly
+                                />
+                            </div>
+                            <div className='cont-remito-datos-cliente-Item-Nombre'>
+                                <label className='lable-remito'>Apellido:</label>
+                                <input
+                                    type='text'
+                                    value={cliente?.apellido}
+                                    className='input-remito-nombre'
+                                    readOnly
+                                />
+                            </div>
+                        </div>
+                        {/* domicilio */}
+                        <div className='cont-remito-datos-cliente-Item-Direccion'>
+                            <label className='lable-remito'>Domicilio:</label>
+                            <input
+                                type='text'
+                                value={cliente?.direccion}
+                                className='input-remito-nombre'
+                                readOnly
+                            />
+                        </div>
+                        {/* localidad y tel */}
+                        <div className='cont-remito-datos-cliente-Item-Localidad-Telef'>
+                            <div className='cont-localidad'>
+                                <label className='lable-remito'>Localidad:</label>
+                                <input
+                                    type='text'
+                                    value={cliente?.ciudad}
+                                    className='input-remito-localidad'
+                                    readOnly
+                                />
+                            </div>
+                            <div className='cont-telefono'>
+                                <label className='lable-remito'>Tel:</label>
+                                <input
+                                    type='number'
+                                    value={cliente?.telefono}
+                                    className='input-remito-telefono'
+                                    readOnly
+                                />
+                            </div>
+                        </div>
+                        {/* cuit - iva */}
+                        <div className='cont-remito-datos-cliente-Item-AFIP'>
+                            <div className='cont-CUIT'>
+                                <label className='lable-remito'>CUIT:</label>
+                                <input
+                                    type='number'
+                                    value={cliente?.cuit}
+                                    className='input-remito-cuit'
+                                    readOnly
+                                />
+                            </div>
+                            <div className='cont-IVA'>
+                                <label className='lable-remito'>IVA:</label>
+                                <input
+                                    type='text'
+                                    value={cliente?.iva}
+                                    className='input-remito-iva'
+                                    readOnly
+                                />
+                            </div>
+                        </div>
+                        {/* cond pago y Estado */}
+                        <div className='cont-remito-datos-cliente-Item-CondicionPago'>
+                            <div className='cont-condicion-pago'>
+                                <label className='lable-remito-condicion'>Condición de pago:</label>
+                                <input
+                                    type='text'
+                                    id='condicion_pago'
+                                    value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
+                                    onChange={operacion === "venta" ? handleOnChange : null}
+                                    className='input-remito-condicionPago'
+                                />
+                            </div>
+                            <div className='cont-estado'>
+                                <label className='lable-remito-condicion'>Estado:</label>
+                                <select id='estado' onChange={handleOnChange} className='input-remito-estado'>
+                                    {
+                                        operacion === "venta" ?
+                                            (
+                                                <>
+                                                    <option>Elija estado remito</option>
+                                                    <option value={'Debe'}>Deudor</option>
+                                                    <option value={'Pagado'}>Pagado</option>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <option>{remitoAmostrar.estado}</option>
+                                                </>
+                                            )
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-                </div>                
+                    {/* tabla pedido */}
+                    <div className='cont-remito-items'>
+                        <table className='pedido-tabla'>
+                            <thead>
+                                <tr>
+                                    <th className="encabezado-cantidad">Cantidad</th>
+                                    <th className="encabezado-detalle">Detalle</th>
+                                    <th className="encabezado-unitario">P. Unitario</th>
+                                    <th className="encabezado-importe">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {renderRows()}
+                            </tbody>
+                            <tfoot className='celda-total-cifra'>
+                                <tr className="total-row">
+                                    <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
+                                    <td className='celda-total-cifra'>{totPedido}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                {
+                    operacion === "venta" &&
+                    <button type='onSubmit' className='btn-crea-pedido'>Crear Pedido</button>
+                }                
             </form>
-            
+            <div>
+                {
+                    operacion === "venta" &&
+                    <button onClick={resetInputs} className='btn-limpiar-datos'>Limpiar datos</button>
+                }
+                <button onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
+            </div>
         </div>
-    )
+    );
 }
 
 export default Remito;
-
-
-

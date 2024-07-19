@@ -26,24 +26,24 @@
     height: 793px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     border: 2px solid brown;
 }
 /* estilos contenedor sup */
 .cont-remito-sup{
     width: 100%;
-    height: 150px;
+    height: 180px;
     display: flex;
 }
 .cont-remito-sup-izq{
     width: 60%;
-    height: 150px;
+    height: 180px;
     display: flex;
     background-color: var(--background-color-remito);
 }
 .cont-remito-sup-info-empresa{
     width: 80%;
-    height: 150px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,14 +51,16 @@
 }
 .cont-remito-sup-logo{
     width: 20%;
-    height: 150px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: start;
+    margin-top: 20px;
 }
 .logo-remito{
     width: 60px;
     height: 60px;
+    margin-left: 5px;
 }
 .cont-info-empresa{
     width: 80%;
@@ -70,10 +72,11 @@
 .texto-logo{
     width: 180px;
     height: 40px;
+    margin-bottom: 8px;
 }
 .cont-remito-sup-info-empresa p{
     margin: 0;
-    font-size: 12px;    
+    font-size: 14px;    
 }
 .cont-remito-sup-info-X{
     width: 20%;
@@ -121,10 +124,11 @@
     justify-content: start;
     height: 50%;
 } 
-.cont-remito-derecho-SUP-titulo,
+.derecho-SUP-titulo,
 .num-remito,
 .fecha-remito {
-    margin: 0;
+    margin: 5px;
+    font-size: 17px;
     color: brown;
 }
 .cont-remito-derecho-INF {
@@ -142,7 +146,7 @@
 }
 .datos-empresa-afip-IZQ,
 .datos-empresa-afip-DER{
-    margin: 0;
+    margin: 1px;
     font-size: 12px;
     padding: 1px;
 }
@@ -157,21 +161,25 @@
 /* estilos cont info CLIENTE */
 .cont-remito-datos-cliente{
     width: 90%;
-    color: brown;
-}
-.cont-remito-datos-cliente-Item-Localidad-Telef,
-.cont-remito-datos-cliente-Item-AFIP {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: brown;
 }
 .cont-remito-datos-cliente-Item-NombreYApe,
 .cont-remito-datos-cliente-Item-Direccion,
 .cont-remito-datos-cliente-Item-Localidad-Telef,
-.cont-remito-datos-cliente-Item-AFIP,
+.cont-remito-datos-cliente-Item-AFIP, 
 .cont-remito-datos-cliente-Item-CondicionPago {
+    width: 100%;
+    display: flex;
     margin-top: 10px;
 }
-.cont-remito-datos-cliente-Item-NombreYApe{
+.cont-localidad,
+.cont-telefono,
+.cont-CUIT,
+.cont-IVA {
     display: flex;
 }
 .cont-remito-datos-cliente-Item-Nombre{
@@ -180,6 +188,7 @@
 }
 .lable-remito{
     margin-right: 5px;
+    font-size: 18px;
 }
 .input-remito-nombre,
 .input-remito-domicilio,
@@ -189,7 +198,9 @@
 .input-remito-cuit {
     width: 90%;
     border: none; 
-    border-bottom: 2px solid brown; 
+    border-bottom: 2px solid brown;
+    font-size: 18px;
+    padding: 2px; 
 }
 .cont-localidad,
 .cont-telefono,
@@ -206,24 +217,21 @@
 .input-remito-cuit{
     width: 83.5%;
 }
-.cont-remito-datos-cliente-Item-CondicionPago{
+.cont-condicion-pago,
+.cont-estado {
     display: flex;
-    justify-content: start;
-    margin-bottom: 10px;
-}
-.cont-condicion-pago{
-    display: flex;
-    width: 60%;
+    margin-top: 10px;
 }
 .lable-remito-condicion{
-    padding: 3px 10px;
-    color: #fff;    
+    width: auto;
+    color: #fff;
+    font-size: 20px;    
     background-color: rgba(132, 73, 73, 0.718);
-
 }
-.input-remito-condicionPago{
-    width: 50%;
-    padding: 3px 10px;
+.input-remito-condicionPago,
+.input-remito-estado{
+    width: 130px;
+    font-size: 18px;
 }
 
 /* estilos para la tablas de items */
@@ -238,23 +246,22 @@
 .pedido-tabla th {
     background-color: var(--background-color-remito);
     color: white;
-    padding: 10px;
+    padding: 5px;
     border-left: 2px solid white;
     border-right: 2px solid white;
 }
 /* estilos encabezados tabla */
-.encabezado-cantidad{
-    width: 90px;
+.encabezado-cantidad,
+.encabezado-importe {
+    width: 70px;
 }
 .encabezado-unitario{
-    width: 90px;
-}
-.encabezado-importe{
-    width: 90px;
+    width: 80px;
 }
 /*----------------------------*/
 .pedido-tabla td {
-    padding: 10px;
+    padding: 5px;
+    text-align: center;
     border-left: 2px solid var(--background-color-remito);
     border-right: 2px solid var(--background-color-remito);
     border-top: 1px dotted var(--background-color-remito);
@@ -269,6 +276,7 @@
 .pedido-tabla tbody tr:nth-child(even) td {
     background-color: white;
 }
+/* palabra TOTAL */
 .pie-tabla-palabra {
     text-align: end;
     font-size: 20px;
@@ -283,13 +291,7 @@
     border-top: 1px solid var(--background-color-remito);
     border-bottom: 1px solid var(--background-color-remito);
 }
-/* estilos input-item-remito */
-.nput-item-1-cantidad{
-    width: 100%;
-    height: 100%;
-    border: none;
-    font-size: medium;
-}
+
 /* botón imp */
 .btn-crea-pedido,
 .boton-imprimir,
