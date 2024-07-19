@@ -1,6 +1,9 @@
 .contFooter{
-    width: 100%; 
-    height: auto; 
+    /*
+    position: fixed;
+    bottom: 0; */ /*SI quiero q qde fija como pie de pag o en el view heigth*/
+    /* left: 0; */
+    width: 100%;  
     display: flex;
     flex-direction: column;
     justify-content: center;  
@@ -8,30 +11,25 @@
     background-color: var(--background-color-navBar-oscuro);
 }
 .footer {
-    width: 90%;
-    height: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.cont-logo-foot{
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.cont-lista-links-foot{
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-footer ul {
+.divF{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    color: aliceblue;
+}
+footer ul {
+    display: flex;
+    width: 100%;
+}
+.logo-footbar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
 }
 footer ul li {
     display: inline-block;
@@ -42,7 +40,7 @@ footer ul li {
 footer ul li h2 {
     display: block;
     margin-bottom: 3px;
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 1px solid #fff;
 }
 footer ul li h4 p {
     display: inline-block;
@@ -57,7 +55,9 @@ footer ul li h4 p {
 /* color letras */
 footer ul li p {
     display: block;
+    color: #fff;
     font-size: small;
+    margin: 0;
 }
 .divLinks{
     display: flex;
@@ -65,8 +65,9 @@ footer ul li p {
 }
 /* color par los Link */
 .link-footbar{
-    color: aliceblue;
+    color: #fff;
     text-decoration: none;
+    margin: 0;
 }
 .contTodasMedidas{
     display: flex;
@@ -80,7 +81,7 @@ footer ul li p {
     margin-top: 10px;
     width: 100%; /* Ancho de la línea */
     height: 1px; /* Grosor de la línea */
-    background-color: aliceblue; /* Color de la línea */
+    background-color: #fff; /* Color de la línea */
     
     margin-bottom: 5px;
 }
@@ -147,5 +148,3 @@ footer ul li p {
         align-items: center;
     }
 }
-
-

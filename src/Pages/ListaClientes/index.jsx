@@ -10,7 +10,7 @@ function ListaClientesPage() {
     
     if (userLog) {
         return (
-            <div>
+            <div >
                 <ListaClientes />
             </div>
         )

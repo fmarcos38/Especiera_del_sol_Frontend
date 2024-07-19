@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
-import './estilos.css';
+import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
+import { formatDate } from '../../Helpers';
 
 
-function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPedido, condPago, estado}) { 
+function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, items, totPedido, condPago, estado}) { 
 
     let nuevoNumeroRemito = 0; 
     //asigno valor a num reito si es el primero en generse SINO suma 1
@@ -59,7 +60,29 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
         }
         dispatch(modificaRemito(_id, dataBack));
     };
-    
+    //función crea las filas de la tabla 8 y llena las q sean necesarias
+    const renderRows = () => {
+        const rows = items?.map(item => (
+            <tr key={item.detalle}>
+                <td>{item.cantidad}</td>
+                <td>{item.detalle}</td>
+                <td>{item.unitario}</td>
+                <td>{item.importe}</td>
+            </tr>
+        ));
+
+        for (let i = rows?.length; i < 8; i++) {
+            rows.push(
+                <tr key={`empty-${i}`}>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            );
+        }
+        return rows;
+    };
 
     return (
         <div className='cont-gralRemito'>
@@ -73,31 +96,36 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                                 {/* cont logo */}
                                 <div className='cont-remito-sup-logo'>
                                     <img src={logoRemito} alt='' className='logo-remito' />
-                                    <h1>ESPECIERA DEL SOL</h1>
                                 </div>
-                                <p>ESPECIAS - FRUTAS SECAS</p>
-                                <p>11 4199 7200</p>
-                                <p>11 5951 0493</p>
-                                <p>info@especieradelsol.com</p>
-                                <p>www.especieradelsol</p>
-                                <p>IVA RESPONSABLE INSCRIPTO</p>
+                                <div className='cont-info-empresa'>
+                                    <img src={textoLogo} alt='' className='texto-logo' />
+                                    <p>De Gustavo Matusovsky</p>
+                                    <p>11 4199 7200</p>
+                                    <p>11 5951 0493</p>
+                                    <p>info@especieradelsol.com</p>
+                                    <p>www.especieradelsol.com</p>
+                                    <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
+                                </div>                                
                             </div>
                             {/* cont X */}
                             <div className='cont-remito-sup-info-X'>
-                                <h2 className='letra-X'>X</h2>
-                                <p className='p-cont-X'>Documento</p>
-                                <p className='p-cont-X'>No Válido</p>
-                                <p className='p-cont-X'>como</p>
-                                <p className='p-cont-X'>Factura</p>
+                                <div className='cont-letra-x'>
+                                    <p className='letra-x'>X</p>
+                                </div>
+                                <div className='cont-doc-no-valido'>
+                                    <p className='p-cont-X'>Documento</p>
+                                    <p className='p-cont-X'>No Válido</p>
+                                    <p className='p-cont-X'>como</p>
+                                    <p className='p-cont-X'>Factura</p>
+                                </div>
                             </div>
                         </div>
-
                         {/* cont sup Derecho */}
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
-                                <h2 className='cont-remito-derecho-SUP-titulo'>REMITO</h2>
+                                <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <p className='fecha-remito'>Fecha: {data.fecha_compra}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(fechaRemito)}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -203,7 +231,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
 
                     </div>
 
-                    {/* cont info items */}
+                    {/* tabla items */}
                     <div className='cont-remito-items'>
                         <table className='pedido-tabla'>
                             <thead>
@@ -215,19 +243,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    items?.map(item => {
-                                        return (
-                                            <tr key={item.detalle}>
-                                                <td>{item.cantidad}</td>
-                                                <td>{item.detalle}</td>
-                                                <td>{item.unitario}</td>
-                                                <td>{item.importe}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-
+                                {renderRows()}
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
@@ -238,6 +254,7 @@ function RemitoModifica({operacion, _id, numUltimoRemito, cliente, items, totPed
                         </table>
                     </div>
                 </div>
+
                 {/* btn crea pedido */}
                     <button type='onSubmit' className='boton-imprimir'>Modificar Remito</button>
                 

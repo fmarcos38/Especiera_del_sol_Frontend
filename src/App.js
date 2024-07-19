@@ -38,8 +38,9 @@ function App() {
         <Navbar />
       </header>
       
-        {/* rutas */}
-        <Routes>
+      <div className='content-wrap'>
+{/* rutas */}
+<Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/login' element={<LoginPage/>} />
             <Route path='/creaCliente' element={<CreaCliente/>} />
@@ -65,6 +66,7 @@ function App() {
             {/* rutas para el desarrollador */}            
             <Route path='/remito' element={<Remito/>} />
         </Routes>
+      </div>
       
       <footer>
         <Footbar />

@@ -40,7 +40,6 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
             pdf.save('remito.pdf');
         });
     };
-
     const handleOnChange = (e) => {
         if (e.target.id === 'estado') {
             setData({ ...data, estado: e.target.value });
@@ -48,7 +47,6 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
             setData({ ...data, [e.target.id]: e.target.value });
         }
     };
-
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (!data.condicion_pago || !data.estado) {
@@ -77,11 +75,10 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
             window.location.reload();
         }
     };
-
     const resetInputs = () => {
         window.location.reload();
     };
-
+    //función crea las filas de la tabla 8 y llena las q sean necesarias
     const renderRows = () => {
         const rows = items?.map(item => (
             <tr key={item.detalle}>
@@ -272,7 +269,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
                         </div>
                     </div>
 
-                    {/* tabla pedido */}
+                    {/* tabla items */}
                     <div className='cont-remito-items'>
                         <table className='pedido-tabla'>
                             <thead>

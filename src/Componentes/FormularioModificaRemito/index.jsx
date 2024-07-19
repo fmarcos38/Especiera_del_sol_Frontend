@@ -213,7 +213,7 @@ function FormularioModificaRemito() {
 
 
             {/* Remito */}
-            <div className='cont-remito-pedido'>
+            <div style={{marginTop: '30px', backgroundColor: 'antiquewhite'}}>
                 <RemitoModifica 
                     operacion={"editar"}
                     _id={remito._id} 
@@ -223,8 +223,11 @@ function FormularioModificaRemito() {
                     totPedido={calculaTotPedido()}
                     condPago={remito.condicion_pago}
                     estado={remito.estado}
+                    fechaRemito={remito.fecha}
                 />
             </div>
+
+            
         </div>
     )
 }

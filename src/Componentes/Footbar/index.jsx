@@ -10,14 +10,11 @@ function Footbar() {
     return (
         <footer className='contFooter'>
             <div className="footer">
-                {/* logo */}
-                <div className='cont-logo-foot'>
-                    <Link to='/' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <img src={logo} alt='' className='logo' />
-                        <img src={textLogo} alt='' className='texto-logo' />
-                    </Link>
-                </div>
-                <div className='cont-lista-links-foot'>
+                <div className='divF'>
+                    {/* logo */}
+                    <a href='/home'>
+                        <img src={logo} alt='' className='logo-footbar' />
+                    </a>
                     <ul>
                         {/* Contactanos */}
                         <li>
@@ -41,7 +38,7 @@ function Footbar() {
                         <li>
                             <h2><p>Seguinos</p></h2>
                             <div className='cont-iconos-redes'>
-                                <a href='https://www.instagram.com/especieradelsol/'>
+                                <a href='https://www.instagram.com/florm.bienesraices/'>
                                     <InstagramIcon className='icono-redes-foot' />
                                 </a>
                                 <a href='https://www.facebook.com/especieradelsol'>
@@ -53,6 +50,7 @@ function Footbar() {
                 </div>
             </div>         
         </footer>
+
     )
 }
 
