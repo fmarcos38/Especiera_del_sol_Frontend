@@ -48,7 +48,7 @@ function CreaGasto() {
     useEffect(()=>{
         let fechaActual = new Date(); 
         // Convertir a la zona horaria UTC y al formato ISO
-        const utcFecha = fechaActual.toISOString(); console.log("utcFecha:", utcFecha)
+        let utcFecha = fechaActual.toISOString(); 
         let separofecha;
         let año;
         let mes;

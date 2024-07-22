@@ -28,6 +28,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
+    //funcion para guardar PDF
     const handleSavePDF = () => {
         const input = document.getElementById('remito');
         html2canvas(input).then((canvas) => {

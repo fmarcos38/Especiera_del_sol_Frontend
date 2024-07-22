@@ -29,7 +29,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                     <th>Remito</th>
                     <th>Cliente</th>                    
                     <th>Tot.venta</th>                    
-                    <th>Entregó</th>
+                    <th>Pagos</th>
                     <th>Saldo</th>                    
                     <th>Ganancia</th>
                     <th>Estado</th>

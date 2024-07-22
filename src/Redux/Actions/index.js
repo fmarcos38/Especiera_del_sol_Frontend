@@ -292,13 +292,13 @@ export function elimnimaRemitoCompra(_id){
 //trea gastos del mes
 export function getGastosMesActual(year, month) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/gastos/${year}/${month}`);
+        const resp = await axios.get(`${local}/gastos?year=${year}&month=${month}`);
         dispatch({type: GET_GASTOS_MES, payload: resp.data});
     }
 }
 
 //trae reportes mes/es año
-export function getReporteMes(month, year, meses){
+export function getReporteMes(month, year, meses){ 
     return async function(dispatch){
         const resp = await axios.get(`${local}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
         dispatch({type: GET_REPORTES_MES, payload: resp.data});

@@ -10,21 +10,11 @@ import './estilos.css';
 function EditaRemitoCompra() {
     const {_id} = useParams();
     const tipoOperacion = 'modifica';
-    const remito = useSelector(state => state.remito);
+    const remito = useSelector(state => state.remito); 
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
     //estado para compra
-    const [compra, setCompra] = useState({
-        numRemito: remito.numRemito,
-        proveedor: remito.proveedor,
-        detalle: remito.compra,
-        producto: remito.producto,
-        cantidad: remito.cantidad,
-        unitario: remito.unitario,
-        total: 0,
-        detallePago: remito.detallePago,
-        items: [],        
-    });
+    const [compra, setCompra] = useState({});
     //estado para Anticipo
     const [anticipo, setAnticipo] = useState({
         proveedor: remito.proveedor,
@@ -35,10 +25,10 @@ function EditaRemitoCompra() {
     }); 
     //estado para los items que se compran
     const [items, setItems] = useState({
-        cantidad: 0,
+        cantidad: "",
         detalle: "",
-        unitario: 0,
-        importe: 0
+        unitario: "",
+        importe: ""
     }); 
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState(remito.items);
@@ -132,10 +122,11 @@ function EditaRemitoCompra() {
     },[_id, dispatch]);
 
     useEffect(()=>{
-        if(remito.items){
+        if(remito){
+            setCompra(remito);
             setPedido(remito.items);
         }
-    }, [remito.items]);
+    }, [remito]);
 
     //para calcular el total del item 
     useEffect(() => {        
@@ -213,7 +204,7 @@ function EditaRemitoCompra() {
                                 tipoOperacion={tipoOperacion}
                                 handleOnSubmit={handleOnSubmitModifica}
                                 handleOnChangeDatosCompra={handleOnChangeDatosCompra}                                
-                                numUltRemito={remito.numRemito}
+                                numUltRemito={remito.numCompra}
                                 compra={compra}
                                 calcTotCompra={calcTotCompra}
                                 items={items}

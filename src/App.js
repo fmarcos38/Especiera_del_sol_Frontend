@@ -51,12 +51,12 @@ function App() {
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
             <Route path='/proveedores' element={<ListaProveedoresPage/>} />
             <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage/>} />
-            <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />
-            <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
+            <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />            
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
             <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />
             <Route path='/creaCompra' element={<CreaCompra/>} />
+            <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
             <Route path='/editaRemitoCompra/:_id' element={<EditaRemitoCompraPage/>} />
             <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
             <Route path='/creaGastos' element={<CreaGastoPage/>} />

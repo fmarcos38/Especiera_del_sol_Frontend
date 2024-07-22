@@ -33,7 +33,7 @@ function BotonEliminaRemitoCompra({_id}) {
 
     return (
         <button onClick={()=>{handleOnClick()}}>
-            <DeleteForeverIcon />
+            <DeleteForeverIcon sx={{ fontSize: '20px'}}/>
         </button>
     )
 }

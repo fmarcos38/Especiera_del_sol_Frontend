@@ -6,7 +6,7 @@ function FormularioCompra({
     calcTotCompra, items,handleOnChangeItems, productos, handleOnClickAgregaItem
 }) {
 
-    
+
     return (
         <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
             {/* dato compra */}
@@ -50,24 +50,35 @@ function FormularioCompra({
                             </div>
                         )
                     }
-                    
+                    {/* num compra */}
                     <div className='cont-item'>
-                        <label className='label-crea-compra'>N° Remito:</label>
+                        <label className='label-crea-compra'>N° Compra:</label>
                         <input
                             type={'number'}
                             value={numUltRemito}
-                            /* onChange={() => { handleOnChange() }} */
-                            className='input-pedido numRemito'
+                            className='input-pedido numCompra'
                         />
                     </div>
+                    {/* num remito proveedor */}
                     <div className='cont-item'>
-                        <label className='label-crea-compra'>Detalle:</label>
+                        <label className='label-crea-compra'>N° Remito Proveedor:</label>
+                        <input
+                            type={'number'}
+                            id='numRemitoProveedor'
+                            value={compra.numRemitoProveedor}
+                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
+                            className='input-pedido numRemitoProveedor'
+                        />
+                    </div>
+                    {/* transporte */}
+                    <div className='cont-item'>
+                        <label className='label-crea-compra'>Transporte:</label>
                         <input
                             type={'text'}
-                            id='detalle'
-                            value={compra.detalle}
+                            id='transporte'
+                            value={compra.transporte}
                             onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
+                            className='input-pedido numRemitoProveedor'
                         />
                     </div>
                 </div>

@@ -18,22 +18,24 @@ function FormularioCompras() {
     if(remito !== null) { numUltRemito = remito.numR + 1; } 
     //estado para los items que se compran
     const [items, setItems] = useState({
-        cantidad: 0,
+        cantidad: "",
         detalle: "",
-        unitario: 0,
-        importe: 0
+        unitario: "",
+        importe: ""
     });
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState([]);    
     //estado para detalle, unitario y total PERO de la compra Acordada con el provvedor
     const [compra, setCompra] = useState({
-        numRemito: 0,
+        numCompra: 0,
+        numRemitoProveedor: "",
+        transporte: "",
         proveedor: "",
         detalle: 'Compra',
         producto: "",
-        cantidad: 0,
-        unitario: 0,
-        total: 0,
+        cantidad: "",
+        unitario: "",
+        total: "",
         detallePago: "",
         items: [],        
     }); 

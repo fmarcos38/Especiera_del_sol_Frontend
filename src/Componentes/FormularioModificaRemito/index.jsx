@@ -15,8 +15,7 @@ function FormularioModificaRemito() {
     const cliente = useSelector(state => state.cliente);    
 
     //estado arreglo pedido
-    const [pedido, setPedido] = useState([]); 
-    
+    const [pedido, setPedido] = useState([]);     
     //estado item
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");

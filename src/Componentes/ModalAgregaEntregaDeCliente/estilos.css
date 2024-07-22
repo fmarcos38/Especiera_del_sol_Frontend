@@ -9,21 +9,14 @@
     position: absolute;
     top: 5px;
 }
-.cont-form-monto{
-    width: 50%;
-    height: auto;
-    position: absolute;
-    top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: var(--background-color-navBar-claro);
-}
 .formulario-monto{
-    width: 80%;
+    width: 50%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: var(--background-color-navBar-claro);
 }
 .label-monto,
 .input-monto{

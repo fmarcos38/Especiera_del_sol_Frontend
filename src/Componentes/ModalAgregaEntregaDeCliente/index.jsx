@@ -3,17 +3,24 @@ import { AppContexto } from '../../Contexto';
 import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { agregaEntrega, getRemitoById } from '../../Redux/Actions';
-import { fechaArg } from '../../Helpers';
+import { fechaArg, formatMoney } from '../../Helpers';
 import Swal from 'sweetalert2';
 
 function ModalAgregaEntregaCliente({id}) {
 
     const contexto = useContext(AppContexto);
-    const [monto, setMonto] = useState(); console.log("monto:", monto); console.log("id:", id)
+    const [monto, setMonto] = useState(); 
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito);
 
-
+    //funcion calc saldo restante
+    const calcSaldoRestante = () => {
+        let tot = remito?.totPedido;
+        remito.entrego?.map(e => {            
+            return tot -= e.entrega;
+        });
+        return tot;
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!monto){
@@ -25,8 +32,7 @@ function ModalAgregaEntregaCliente({id}) {
             dispatch(agregaEntrega(id, {monto: monto}));
             window.location.reload();
         }
-    }
-
+    };
 
     useEffect(()=>{
         dispatch(getRemitoById(id));
@@ -44,13 +50,11 @@ function ModalAgregaEntregaCliente({id}) {
             </div>
             
             {/* formulario agrega entrega */}
-            <div className='cont-form-monto'>
-                <form onSubmit={(e)=> {handleSubmit(e)}} className='formulario-monto'>
-                    <label className='label-monto'>Monto</label>
-                    <input type='number' value={monto} onChange={(e) => setMonto(e.target.value)} className='input-monto' />
-                    <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
-                </form>
-            </div>
+            <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
+                <label className='label-monto'>Monto</label>
+                <input type='number' value={monto} onChange={(e) => setMonto(e.target.value)} className='input-monto' />
+                <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
+            </form>           
 
             {/* tabla muestra entregas */}
             <div className='cont-tabla-entregas-remito'>
@@ -67,13 +71,19 @@ function ModalAgregaEntregaCliente({id}) {
                                 return (
                                     <tr key={e.fechaEntrega}>
                                         <td>{fechaArg(e.fechaEntrega)}</td>
-                                        <td>${e.entrega}</td>
+                                        <td>${formatMoney(e.entrega)}</td>
                                     </tr>
                                 )
                             }
                             )
                         }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Restan</td>
+                            <td>${ formatMoney(calcSaldoRestante()) }</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

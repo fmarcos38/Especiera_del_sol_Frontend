@@ -1,0 +1,14 @@
+.tabla-listaCompras {
+    width: 98%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+.tabla-listaCompras th,
+.tabla-listaCompras td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 10px 10px;
+}

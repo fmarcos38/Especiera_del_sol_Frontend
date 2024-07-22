@@ -3,6 +3,8 @@ import { fechaArg } from '../../Helpers';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import BotonEliminaRemitoCompra from '../BotonEliminaRemitoCompra';
+import './estilos.css';
+
 
 function TablaCompras({ compras }) {
 
@@ -26,12 +28,13 @@ function TablaCompras({ compras }) {
     const arrayMovimientos = calculateSaldo(compras); //console.log("nuevoArr:", arrayMovimientos)
 
     return (
-        <table className="client-table listaCompras">
+        <table className="client-table tabla-listaCompras">
             <thead>
                 <tr>
                     <th>Fecha</th>
                     <th>Envio</th>
-                    <th>Remito</th>
+                    <th>n° Compra</th>
+                    <th>n° Remito</th>
                     <th>Detalle</th>
                     <th>Proveedor</th>
                     <th>Producto</th>
@@ -40,9 +43,10 @@ function TablaCompras({ compras }) {
                     <th>Debe</th>
                     <th>Haber</th>
                     <th>Saldo</th>
-                    <th>Observaciones</th>
+                    <th>Observ</th>
                     <th>Detalle Pago</th>
-                    <th>Elim/Edita</th>
+                    <th>Transp</th>
+                    <th>Edit/Elim</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +55,8 @@ function TablaCompras({ compras }) {
                         <tr key={r._id}>
                             <td>{fechaArg(r.fecha)}</td>
                             <td>{r.envio}</td>
-                            <td>{r.numRemito}</td>
+                            <td>{r.numCompra}</td>
+                            <td>{r.numRemitoProveedor}</td>
                             <td>{r.detalle}</td>
                             <td>{r.proveedor}</td>
                             <td>{r.producto}</td>
@@ -62,11 +67,12 @@ function TablaCompras({ compras }) {
                             <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
                             <td>{r.saldoText}</td>
                             <td>{r.detallePago}</td>
+                            <td>{r.transporte}</td>
                             <td style={{width: '50px'}}>
                                 <div style={{display: 'flex'}} key={r._id}>
                                     <Link to={`/editaRemitoCompra/${r._id}`}>
-                                        <button>
-                                            <EditIcon/>
+                                        <button >
+                                            <EditIcon sx={{ fontSize: '20px'}}/>
                                         </button>
                                     </Link>
                                     <BotonEliminaRemitoCompra _id={r._id}/>
