@@ -1,21 +1,50 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContexto } from '../../Contexto';
-import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { agregaEntrega, getRemitoById } from '../../Redux/Actions';
 import { fechaArg, formatMoney } from '../../Helpers';
-import Swal from 'sweetalert2';
+import './estilos.css';
+
 
 function ModalAgregaEntregaCliente({id}) {
 
     const contexto = useContext(AppContexto);
-    const [monto, setMonto] = useState(); 
+    const [data, setData] = useState({
+        monto: "",
+        metodoPago: ""
+    });
+    const [errors, setErrors] = useState({}); 
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito);
+    
+    const handleOnchange = (e) => {
+        const {id, value} = e.target
+        setData({...data, [id]: value});
 
+        //quito msj de error si se llena el dato
+        if(value){
+            const errores = {...errors};
+            delete errores[id];
+            setErrors(errores);
+        }
+    };
+    //funcion valida inputs
+    const validate = () => {
+        const newErrors = {};
+
+        if (!data.monto) newErrors.monto = 'Monto es requerido';
+        if (!data.metodoPago) newErrors.metodoPago = 'Metodo Pago es requerido';
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    };
     //funcion calc saldo restante
     const calcSaldoRestante = () => {
-        let tot = remito?.totPedido;
+        let tot = 0;
+        if(remito.entrego){
+            tot = remito.totPedido
+        }
         remito.entrego?.map(e => {            
             return tot -= e.entrega;
         });
@@ -23,13 +52,8 @@ function ModalAgregaEntregaCliente({id}) {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!monto){
-            Swal.fire({
-                text: "Ingrese un Monto",
-                icon: "error"
-            })
-        }else{
-            dispatch(agregaEntrega(id, {monto: monto}));
+        if (validate()) {
+            dispatch(agregaEntrega(id, data));
             window.location.reload();
         }
     };
@@ -37,6 +61,7 @@ function ModalAgregaEntregaCliente({id}) {
     useEffect(()=>{
         dispatch(getRemitoById(id));
     },[dispatch, id]);
+
 
     return (
         <div className='cont-modal-entregaCliente'>
@@ -51,8 +76,29 @@ function ModalAgregaEntregaCliente({id}) {
             
             {/* formulario agrega entrega */}
             <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
-                <label className='label-monto'>Monto</label>
-                <input type='number' value={monto} onChange={(e) => setMonto(e.target.value)} className='input-monto' />
+                <div className='cont-item-data-agregaPago'>
+                    <label className='label-monto'>Monto</label>
+                    <input
+                        type='number'
+                        id='monto'
+                        value={data.monto}
+                        onChange={(e) => handleOnchange(e)}
+                        className='input-monto'
+                    />
+                    {errors.monto && (<span className='errors'>{errors.monto}</span>)}
+                </div>
+                <div className='cont-item-data-agregaPago'>
+                    <label className='label-monto'>Metodo pago</label>
+                    <input
+                        type='text'
+                        id='metodoPago'
+                        value={data.metodoPago}
+                        onChange={(e) => handleOnchange(e)}
+                        className='input-monto'
+                    />
+                    {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
+                </div>
+
                 <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
             </form>           
 
@@ -63,6 +109,7 @@ function ModalAgregaEntregaCliente({id}) {
                         <tr>
                             <th>Fecha Entrega</th>
                             <th>Monto</th>
+                            <th>Metodo Pago</th>
                         </tr>
                     </thead>
                     <tbody style={{ color: "#fff", fontSize:"23px" }}>
@@ -72,6 +119,7 @@ function ModalAgregaEntregaCliente({id}) {
                                     <tr key={e.fechaEntrega}>
                                         <td>{fechaArg(e.fechaEntrega)}</td>
                                         <td>${formatMoney(e.entrega)}</td>
+                                        <td>${e.metodoPago}</td>
                                     </tr>
                                 )
                             }
@@ -80,8 +128,9 @@ function ModalAgregaEntregaCliente({id}) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>Restan</td>
-                            <td>${ formatMoney(calcSaldoRestante()) }</td>
+                            <td style={{color: 'white', fontSize: '23px'}}>Restan</td>
+                            <td style={{color: 'white', fontSize: '23px'}}>${ formatMoney(calcSaldoRestante()) }</td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>

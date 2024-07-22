@@ -18,10 +18,17 @@
     border-radius: 20px;
     background-color: var(--background-color-navBar-claro);
 }
+.cont-item-data-agregaPago{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .label-monto,
 .input-monto{
     font-size: 23px;
     font-weight: 500;
+    border: none;
+    border-radius: 10px;
 }
 .label-monto{
     margin-top: 10px;
@@ -29,6 +36,7 @@
 .btn-carga-entrega{
     margin-top: 10px;
     margin-bottom: 10px;
+    border: none;
     border-radius: 10px;
     font-size: 23px;
 }
@@ -43,4 +51,7 @@
 }
 .entregaMonto tbody tr:hover {
     background-color: #9a9595;
+}
+.errors{
+    color: red;
 }

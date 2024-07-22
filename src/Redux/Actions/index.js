@@ -228,9 +228,9 @@ export function eliminaRemitoVentas(_id){
     }
 }
 //inserta una entrega
-export function agregaEntrega(_id, monto){
-    return async function(){ console.log("montoA:", monto)
-        await axios.post(`${local}/remitos/entrega/${_id}`, monto);
+export function agregaEntrega(_id, data){
+    return async function(){ 
+        await axios.post(`${local}/remitos/entrega/${_id}`, data);
     }
 }
 //----actions remitos COMPRAS-----------------------------------------------------------
@@ -296,7 +296,6 @@ export function getGastosMesActual(year, month) {
         dispatch({type: GET_GASTOS_MES, payload: resp.data});
     }
 }
-
 //trae reportes mes/es año
 export function getReporteMes(month, year, meses){ 
     return async function(dispatch){
