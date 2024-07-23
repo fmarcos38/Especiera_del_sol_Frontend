@@ -281,8 +281,10 @@
     border: none;
     width: 60px;
     margin-left: 5px;
-    font-size: 23px;
     text-align: center;
+}
+.input-transporte{
+    border: none;
 }
 .pie-tabla-palabra {
     width: 95%;

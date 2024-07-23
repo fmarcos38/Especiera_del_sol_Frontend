@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
-import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
-import Swal from 'sweetalert2';
 import { formatDate, formatMoney } from '../../Helpers';
+import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import './estilos.css';
 
-function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos = 0 }) { 
+
+function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos = 0, transporte = '' }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -27,6 +28,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
     }); 
     //estado para la cant de bultos
     const [bultosActual, setBultos] = useState(bultos);
+    const [transporteActual, setTransporte] = useState(transporte);
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
@@ -53,6 +55,9 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
     const handleChangeBulto = (e) => {
         setBultos(e.target.value)
     }
+    const handleChangeTransporte = (e) => {
+        setTransporte(e.target.value)
+    }
     //calc tot kgs vendidos
     const caclTotKgs = () => {
         let tot = 0;
@@ -70,13 +75,22 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                 text: "Ingrese Cond.venta y Estado",
                 icon: 'error'
             });
-        }else if(bultosActual === 0){
+        }
+        if(bultosActual === 0){
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
-        } else {
+        }
+        if(transporteActual === ''){
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Transporte",
+                icon: 'error'
+            });
+        } 
+        if(data.condicion_pago && data.estado && bultosActual !== 0 && transporteActual !== ''){
             let fecha = new Date();             
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
@@ -87,19 +101,19 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                 cliente: cliente.nombre + " " + cliente.apellido,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
-                bultosActual,
-                totKgs: caclTotKgs(),
+                bultos: bultosActual,
+                transporte: transporteActual,
             };
             dispatch(creaRemito(dataBack));
             setData({        
                 condicion_pago: "",
                 estado: "",
             });
-            window.location.reload();
+            Swal.fire({
+                title: 'Creado con exito !!',
+                icon: 'success'
+            }, window.location.reload());
         }
-    };
-    const resetInputs = () => {
-        window.location.reload();
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias
     const renderRows = () => {
@@ -305,12 +319,48 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                             </thead>
                             <tbody>
                                 {renderRows()}
+                                <tr>
+                                    <td></td>
+                                    <td 
+                                        style={{
+                                            display:'flex', 
+                                            justifyContent:'center', 
+                                            alignItems:'center', 
+                                            padding:'0', 
+                                            border:'none',
+                                        }}
+                                    >
+                                        <label style={{marginRight:'5px'}}>Transp:</label>
+                                        {
+                                            operacion === 'venta' ? 
+                                            <input 
+                                            type='text' 
+                                            id='trasporte' 
+                                            value={transporteActual} 
+                                            onChange={(e) => handleChangeTransporte(e)} 
+                                            placeholder='Ingresar Aquí'
+                                            className='input-transporte'
+                                        /> :
+                                        <p 
+                                            style={{margin:'0', padding:'5px'}}
+                                        >
+                                            {transporte}
+                                        </p>
+                                        }
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td>{caclTotKgs()}</td>
                                     <td className='pie-tabla-palabra'>
-                                        Cant Bultos:
+                                        <label 
+                                            style={{marginRight:'5px', fontSize:'15px'}}
+                                        >
+                                            Cant Bultos:
+                                        </label>
                                         {
                                             operacion === 'venta' ? 
                                             <input 
@@ -336,10 +386,6 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                 }                
             </form>
             <div>
-                {
-                    operacion === "venta" &&
-                    <button onClick={resetInputs} className='btn-limpiar-datos'>Limpiar datos</button>
-                }
                 <button onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
             </div>
         </div>

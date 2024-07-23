@@ -1,31 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
-import { formatDate } from '../../Helpers';
+import { formatDate, formatMoney } from '../../Helpers';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
-function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, items, totPedido, condPago, estado}) { 
+function RemitoModifica({operacion, cliente, remito, items, totPedido}) { 
 
-    let nuevoNumeroRemito = 0; 
-    //asigno valor a num reito si es el primero en generse SINO suma 1
-    if( operacion === "venta" && !numUltimoRemito.ultimoRemito){
-        nuevoNumeroRemito = 1;
-    }else if(operacion === "venta") {
-        nuevoNumeroRemito = numUltimoRemito.ultimoRemito +1;
-    }else if(operacion === "muestra" || operacion === "editar") {
-        nuevoNumeroRemito = numUltimoRemito ;
-    }
-    
-    //estado para cond venta y estado
-    const [data, setData] = useState({        
-        condicion_pago: "",
-        estado: "",
-    });
+    const [condicion_pago, setCondicion_pago] = useState();
+    const [estado, setEstado] = useState();
+    const [bultosActual, setBultos] = useState();
+    const [transporteActual, setTransporte] = useState();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     /* funcion para PDF mejor opcion */
     const handleSavePDF = () => {
@@ -40,25 +32,67 @@ function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, 
             pdf.save('remito.pdf');
         });
     };
-
-    const handleOnChange = (e) => {
-        if(e.target.id === 'estado'){
-            setData({...data, estado: e.target.value});
-        }else{
-            setData({...data, [e.target.id]: e.target.value});
-        }
+    const handleOnChangeCondicion = (e) => {
+            setCondicion_pago(e.target.value);
+    };
+    const handleOnChangeEstado = (e) => {
+        setEstado(e.target.value);
+    };
+    const handleChangeBulto = (e) => {
+        setBultos(e.target.value)
+    }
+    const handleChangeTransporte = (e) => {
+        setTransporte(e.target.value)
+    }
+    //calc tot kgs vendidos
+    const caclTotKgs = () => {
+        let tot = 0;
+        items?.map(item => {
+            return tot += item.cantidad;
+        });
+        return tot;
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        const dataBack = {
-            numRemito: nuevoNumeroRemito,
-            items,
-            totPedido,
-            cuit: cliente.cuit,
-            condicion_pago: data.condicion_pago,
-            estado: data.estado,
+        if (!condicion_pago || !estado) {
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Cond.venta y Estado",
+                icon: 'error'
+            });
         }
-        dispatch(modificaRemito(_id, dataBack));
+        if(bultosActual === 0){
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Cant de Bultos",
+                icon: 'error'
+            });
+        }
+        if(transporteActual === ''){
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Transporte",
+                icon: 'error'
+            });
+        }
+        if (condicion_pago && estado && bultosActual !== 0 && transporteActual !== '') {
+            const dataBack = {
+                numRemito: remito.numRemito,
+                items,
+                totPedido,
+                cuit: cliente.cuit,
+                condicion_pago: condicion_pago,
+                estado: estado,
+                bultos: bultosActual,
+                transporte: transporteActual,
+            }
+            dispatch(modificaRemito(remito._id, dataBack));
+            Swal.fire({
+                title: 'Modificado con exito !!',
+                icon: 'success'
+            });
+            navigate('/listaRemitosVentas')
+        }
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias
     const renderRows = () => {
@@ -83,6 +117,16 @@ function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, 
         }
         return rows;
     };
+
+    useEffect(()=>{
+        if(remito){
+            setCondicion_pago(remito.condicion_pago);
+            setEstado(remito.estado);
+            setBultos(remito.bultos);
+            setTransporte(remito.transporte);
+        }
+    },[remito]);
+
 
     return (
         <div className='cont-gralRemito'>
@@ -124,8 +168,8 @@ function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, 
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
-                                <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <p className='fecha-remito'>Fecha: {formatDate(fechaRemito)}</p>
+                                <p className='num-remito'>N° {remito.numRemito}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(remito.fecha)}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -212,16 +256,16 @@ function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, 
                                 <input
                                     type='text'
                                     id='condicion_pago'
-                                    value={ condPago }
-                                    onChange={ (e) => { handleOnChange(e) }}
+                                    value={ condicion_pago }
+                                    onChange={ (e) => { handleOnChangeCondicion(e) }}
                                     className='input-remito-condicionPago'
                                 />
                             </div>
                             {/* Estado */}
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Estado:</label>
-                                <select id='estado' onChange={(e) => { handleOnChange(e) }} className='input-remito-condicionPago'>
-                                    <option>{estado}</option>
+                                <select id='estado' onChange={(e) => { handleOnChangeEstado(e) }} className='input-remito-condicionPago'>
+                                    <option>Estado actual:{estado}</option>
                                     <option value={'Debe'}>Debe</option>
                                     <option value={'Pagado'}>Pagado</option>                                    
                                 </select>
@@ -244,11 +288,62 @@ function RemitoModifica({operacion, _id, numUltimoRemito, fechaRemito, cliente, 
                             </thead>
                             <tbody>
                                 {renderRows()}
+                                <tr>
+                                    <td></td>
+                                    <td 
+                                        style={{
+                                            display:'flex', 
+                                            justifyContent:'center', 
+                                            alignItems:'center', 
+                                            padding:'0', 
+                                            border:'none',
+                                        }}
+                                    >
+                                        <label style={{marginRight:'5px'}}>Transp:</label>
+                                        {
+                                            operacion === 'editar' ? 
+                                            <input 
+                                            type='text' 
+                                            id='trasporte' 
+                                            value={transporteActual} 
+                                            onChange={(e) => handleChangeTransporte(e)} 
+                                            placeholder='Ingresar Aquí'
+                                            className='input-transporte'
+                                        /> :
+                                        <p 
+                                            style={{margin:'0', padding:'5px'}}
+                                        >
+                                            {remito.transporte}
+                                        </p>
+                                        }
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
-                                    <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
-                                    <td className='celda-total-cifra'>{totPedido}</td>
+                                    <td>{caclTotKgs()}</td>
+                                    <td className='pie-tabla-palabra'>
+                                        <label 
+                                            style={{marginRight:'5px', fontSize:'15px'}}
+                                        >
+                                            Cant Bultos:
+                                        </label>
+                                        {
+                                            operacion === 'editar' ? 
+                                            <input 
+                                            type='number' 
+                                            id='bultos' 
+                                            value={bultosActual} 
+                                            onChange={(e) => handleChangeBulto(e)} 
+                                            className='input-bultos'
+                                        /> :
+                                        remito.bultos
+                                        } 
+                                    </td>
+                                    <td></td>
+                                    <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>
                                 </tr>
                             </tfoot>
                         </table>

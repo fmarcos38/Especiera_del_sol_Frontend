@@ -26,6 +26,7 @@ function DetalleRemito() {
                 items={remito.items} 
                 totPedido={remito.totPedido}
                 bultos={remito.bultos} 
+                transporte={remito.transporte}
             />
         </div>
     )

@@ -27,11 +27,6 @@ function ListaReportes() {
       dispatch(getReporteMesesAño(month, año, meses));
     }
   };
-  const calcSaldo = (v,c,g) => {
-    let saldo = 0;
-    saldo = v - c - g;
-    return saldo;
-  };
   const calcTotVentasBruto = () => {
     let tot = 0;
     reporteMesesAño.map(mes => {
@@ -60,10 +55,10 @@ function ListaReportes() {
     });
     return tot;
   };
-  const calcTotSaldos = () => {
+  const calcuTotKgs = () => {
     let tot = 0;
     reporteMesesAño.map(mes => {
-      return tot += calcSaldo(mes.ventas, mes.compras, mes.ganancias);
+      return tot += mes.totKgs;
     });
     return tot;
   };
@@ -93,11 +88,11 @@ function ListaReportes() {
           <thead>
             <tr>
               <th>Mes</th>
-              <th>Ventas en bruto</th>
-              <th>Ganancia Ventas</th>
+              <th>Kgs Vendidos</th>
+              <th>Ventas en bruto</th>              
               <th>Compras</th>
               <th>Gastos</th>
-              <th>Saldo</th>
+              <th>Ganancia Ventas</th>
             </tr>
           </thead>
           <tbody>
@@ -106,11 +101,11 @@ function ListaReportes() {
                 return(
                   <tr key={r.month}>
                     <td>{r.month}</td>
+                    <td>{r.totKgs}</td>
                     <td>${formatMoney(r.ventas)}</td>
-                    <td>${formatMoney(r.ganancias)}</td>
                     <td>${formatMoney(r.compras)}</td>
                     <td>${formatMoney(r.gastos)}</td>
-                    {/* <td>${formatMoney(calcSaldo(r.ventas, r.compras, r.gastos))}</td> */}
+                    <td>${formatMoney(r.ganancias)}</td>
                   </tr>
                 )
               })
@@ -119,11 +114,11 @@ function ListaReportes() {
           <tfoot>
             <tr>
                 <td></td>
-                <td>${formatMoney(calcTotVentasBruto())}</td>
-                <td>${formatMoney(calcTotGanancias())}</td>
+                <td>{calcuTotKgs()}Kgs</td>
+                <td>${formatMoney(calcTotVentasBruto())}</td>                
                 <td>${formatMoney(calcTotCompras())}</td>
                 <td>${formatMoney(calcTotGastos())}</td>
-                {/* <td>${formatMoney(calcTotSaldos())}</td> */}
+                <td>${formatMoney(calcTotGanancias())}</td>
             </tr>
           </tfoot>
         </table>

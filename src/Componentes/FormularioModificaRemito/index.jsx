@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorCuit, getRemitoById, } from '../../Redux/Actions';
+import { buscaClientePorCuit, getRemitoById, getAllProds} from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemitoModifica from '../RemitoModifica';
@@ -20,7 +20,8 @@ function FormularioModificaRemito() {
     const [cantidad, setCantidad] = useState(""); 
     const [detalle, setDetalle] = useState("");
     const [unitario, setUnitario]= useState("");
-    const [importe, setImporte] = useState("");   
+    const [importe, setImporte] = useState("");
+    const [costo, setCosto] = useState("");   
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
@@ -43,15 +44,15 @@ function FormularioModificaRemito() {
         const unit = e.target.value;
         setUnitario(unit);
         totItem(cantidad, unit);
-    };
-    const handleChangeImporte = (e) => {
-        setImporte(e.target.value);
     };  
-
+    const handleChangeCosto = (e) => {
+        setCosto(e.target.value);
+    };
     //funcion calcula tot import item
-    const totItem = (cantidad, unitario) => {
+    const totItem = (cantidad, unitario) => {        
         const tot = cantidad * unitario;
         setImporte(tot);
+        return tot;
     };    
     //funcion calc tot del pedido
     const calculaTotPedido = () => {
@@ -76,7 +77,8 @@ function FormularioModificaRemito() {
                 cantidad,
                 detalle,
                 unitario,
-                importe
+                importe,
+                costo
             }
 
             setPedido([...pedido, newItem]);
@@ -88,14 +90,16 @@ function FormularioModificaRemito() {
         setDetalle('');
         setUnitario('');
         setImporte('');
+        setCosto('');
     }
     //elimina item tabla pedido
-    const handleElimnimaItem = (_id) => {
-        const newPedido = pedido.filter(p => p._id !== _id);
+    const handleElimnimaItem = (detalle) => {
+        const newPedido = pedido.filter(p => p.detalle !== detalle);
         setPedido(newPedido);
     };
 
     useEffect(()=>{
+        dispatch(getAllProds());
         dispatch(getRemitoById(_id)); 
         dispatch(buscaClientePorCuit(remito.cuit));
     },[_id, dispatch, remito.cuit]);
@@ -106,23 +110,24 @@ function FormularioModificaRemito() {
         }
     },[remito.items]);
     
+    //para la carga de items
+    useEffect(()=>{ 
+        if(detalle){ 
+            const prod = productos.find(p => p.nombre === detalle);
+            setCantidad(prod?.envase);
+            setCosto(prod?.costo);
+            setUnitario(prod?.precioKg);
+            setImporte(totItem(prod?.envase, prod?.precioKg));
+        }
+    },[detalle, productos]);
+
+
     return (
         <div className='cont-pedido'>
             <h1>Modificar Remito</h1>
-            <h2>Carga de items si es que se tienen que modificar</h2>
+            <h2>Eliminar Items existentes y añadir nuevos</h2>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
-                    {/* cantidad */}
-                    <div className='cont-item-cantidad'>
-                        <label className='label-formulario'>Cantidad:</label>
-                        <input 
-                            type='number' 
-                            id='cantidad' 
-                            value={cantidad} 
-                            onChange={(e) => handleChangeCantidad(e)} 
-                            className='input-cant-formulario' 
-                        />
-                    </div>
                     {/* detalle */}
                     <div className='cont-item-producto'>
                         <label className='label-formulario'>Nombre del Producto:</label>
@@ -143,6 +148,27 @@ function FormularioModificaRemito() {
                             }
                         </datalist>
                     </div>
+                    {/* costo */}
+                    <div className='cont-item-costo'>
+                        <label className='label-formulario'>Costo del Producto:</label>
+                        <input
+                            type="number"
+                            id='costo'
+                            defaultValue={costo}
+                            className='input-costo-formulario'
+                        />
+                    </div>
+                    {/* cantidad */}
+                    <div className='cont-item-cantidad'>
+                        <label className='label-formulario'>Cantidad:</label>
+                        <input 
+                            type='number' 
+                            id='cantidad' 
+                            value={cantidad} 
+                            onChange={(e) => handleChangeCantidad(e)} 
+                            className='input-cant-formulario' 
+                        />
+                    </div>                    
                     {/* Precio unitario */}
                     <div className='cont-item-unitario'>
                         <label className='label-formulario'>Precio Unitario:</label>
@@ -154,17 +180,18 @@ function FormularioModificaRemito() {
                             className='input-unitario-formulario'
                         />
                     </div>
+                    {/* importe */}
                     <div className='cont-item-importe'>
                         <label className='label-formulario'>Importe:</label>
                         <input 
-                            type='number' 
+                            type='text' 
                             id='importe' 
-                            value={importe} 
-                            onChange={(e) => handleChangeImporte(e)} 
+                            defaultValue={importe} 
                             className='input-importe-formulario'
                         />
                     </div>
                 </div>
+                
                 <button type='onSubmit' className='btn-cargarProd'>Cargar producto</button>                
             </form>
 
@@ -191,7 +218,7 @@ function FormularioModificaRemito() {
                                         <td>{item.unitario}</td>
                                         <td>{item.importe}</td>
                                         <td style={{display: 'flex', justifyContent: 'center'}}>
-                                            <button onClick={() => {handleElimnimaItem(item._id)}} className='btn-elimina-item-pedido'>
+                                            <button onClick={() => {handleElimnimaItem(item.detalle)}} className='btn-elimina-item-pedido'>
                                                 <DeleteIcon className='icono-elimina-item'/>
                                             </button>
                                         </td>
@@ -215,14 +242,10 @@ function FormularioModificaRemito() {
             <div style={{marginTop: '30px', backgroundColor: 'antiquewhite'}}>
                 <RemitoModifica 
                     operacion={"editar"}
-                    _id={remito._id} 
-                    numUltimoRemito={remito.numRemito} 
-                    cliente={cliente} 
+                    cliente={cliente}
+                    remito={remito} 
                     items={pedido} 
                     totPedido={calculaTotPedido()}
-                    condPago={remito.condicion_pago}
-                    estado={remito.estado}
-                    fechaRemito={remito.fecha}
                 />
             </div>
 

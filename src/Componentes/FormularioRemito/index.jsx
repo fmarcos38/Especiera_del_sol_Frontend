@@ -55,8 +55,7 @@ function FormRemito({tipo}) {
     };
     const handleChangeCosto = (e) => {
         setCosto(e.target.value);
-    };
-    
+    };    
     
     //funcion calcula tot import item
     const totItem = (cantidad, unitario) => {        
@@ -259,7 +258,7 @@ function FormRemito({tipo}) {
                     operacion={"venta"} 
                     numUltimoRemito={numUltimoRemito} 
                     cliente={traeCliente} 
-                    pedido={pedido} 
+                    items={pedido} 
                     totPedido={calculaTotPedido()}
                 />
             </div>
