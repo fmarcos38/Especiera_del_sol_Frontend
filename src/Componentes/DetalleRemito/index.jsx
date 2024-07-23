@@ -24,7 +24,8 @@ function DetalleRemito() {
                 numUltimoRemito={remito.numRemito} 
                 cliente={cliente} 
                 items={remito.items} 
-                totPedido={remito.totPedido} 
+                totPedido={remito.totPedido}
+                bultos={remito.bultos} 
             />
         </div>
     )

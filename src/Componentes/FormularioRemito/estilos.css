@@ -90,7 +90,8 @@
 .input-producto-formulario,
 .input-unitario-formulario,
 .input-costo-formulario,
-.input-importe-formulario {
+.input-importe-formulario,
+.input-bultos-formulario {
     border-radius: 5px;
     height: 25px;
     border: none;
@@ -111,6 +112,9 @@
 .input-costo-formulario{
     width: 200px;
     margin: 0;
+}
+.input-bultos-formulario{
+    margin-bottom: 10px;
 }
 .btn-cargarProd{
     width: 50%;

@@ -14,7 +14,8 @@ function FormRemito({tipo}) {
     const [cuit, setCuit] = useState(); 
     const traeCliente = useSelector(state => state.cliente);
     const numUltimoRemito = useSelector(state => state.ultimoRemito);
-
+    const productos = useSelector(state => state.productos);
+    const dispatch = useDispatch();
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
     //estado item
@@ -22,11 +23,8 @@ function FormRemito({tipo}) {
     const [detalle, setDetalle] = useState("");
     const [unitario, setUnitario]= useState("");
     const [costo, setCosto] = useState("");
-    const [importe, setImporte] = useState("");   
+    const [importe, setImporte] = useState("");
     
-
-    const productos = useSelector(state => state.productos);
-    const dispatch = useDispatch();
 
     const handleOnChangeCuit = (e) => {
         setCuit(e.target.value);
@@ -59,6 +57,7 @@ function FormRemito({tipo}) {
         setCosto(e.target.value);
     };
     
+    
     //funcion calcula tot import item
     const totItem = (cantidad, unitario) => {        
         const tot = cantidad * unitario;
@@ -73,8 +72,7 @@ function FormRemito({tipo}) {
             tot = tot + imp;
         }
         return tot;
-    }; 
-    
+    };
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -97,7 +95,6 @@ function FormRemito({tipo}) {
             resetForm();
         }
     };
-
     const resetForm = () => {
         setCantidad('');
         setDetalle('');
@@ -200,12 +197,12 @@ function FormRemito({tipo}) {
                         <input 
                             type='text' 
                             id='importe' 
-                            value={importe} 
-                            /* onChange={(e) => handleChangeImporte(e)}  */
+                            defaultValue={importe} 
                             className='input-importe-formulario'
                         />
                     </div>
                 </div>
+                
                 <button type='onSubmit' className='btn-cargarProd'>Cargar producto</button>                
             </form>
 
@@ -262,7 +259,7 @@ function FormRemito({tipo}) {
                     operacion={"venta"} 
                     numUltimoRemito={numUltimoRemito} 
                     cliente={traeCliente} 
-                    items={pedido} 
+                    pedido={pedido} 
                     totPedido={calculaTotPedido()}
                 />
             </div>

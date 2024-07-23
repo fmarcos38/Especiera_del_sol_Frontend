@@ -276,13 +276,23 @@
 .pedido-tabla tbody tr:nth-child(even) td {
     background-color: white;
 }
-/* palabra TOTAL */
+.input-bultos{
+    border-radius: 10px;
+    border: none;
+    width: 60px;
+    margin-left: 5px;
+    font-size: 23px;
+    text-align: center;
+}
 .pie-tabla-palabra {
-    text-align: end;
+    width: 95%;
     font-size: 20px;
     font-weight: 700;
     background-color: var(--background-color-remito);
     color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 .pedido-table tfoot td {
     padding: 10px;
@@ -291,7 +301,6 @@
     border-top: 1px solid var(--background-color-remito);
     border-bottom: 1px solid var(--background-color-remito);
 }
-
 /* botón imp */
 .btn-crea-pedido,
 .boton-imprimir,

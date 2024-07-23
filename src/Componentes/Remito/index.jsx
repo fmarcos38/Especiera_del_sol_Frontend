@@ -7,9 +7,9 @@ import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
-import { formatDate } from '../../Helpers';
+import { formatDate, formatMoney } from '../../Helpers';
 
-function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) { 
+function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos = 0 }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -25,6 +25,8 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
         condicion_pago: "",
         estado: "",
     }); 
+    //estado para la cant de bultos
+    const [bultosActual, setBultos] = useState(bultos);
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
@@ -48,12 +50,30 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
             setData({ ...data, [e.target.id]: e.target.value });
         }
     };
+    const handleChangeBulto = (e) => {
+        setBultos(e.target.value)
+    }
+    //calc tot kgs vendidos
+    const caclTotKgs = () => {
+        let tot = 0;
+        items?.map(item => {
+            return tot += item.cantidad;
+        });
+        return tot;
+    };
+    //crea el Remito/Venta
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (!data.condicion_pago || !data.estado) {
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cond.venta y Estado",
+                icon: 'error'
+            });
+        }else if(bultosActual === 0){
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
         } else {
@@ -67,6 +87,8 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
                 cliente: cliente.nombre + " " + cliente.apellido,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
+                bultosActual,
+                totKgs: caclTotKgs(),
             };
             dispatch(creaRemito(dataBack));
             setData({        
@@ -85,8 +107,8 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
             <tr key={item.detalle}>
                 <td>{item.cantidad}</td>
                 <td>{item.detalle}</td>
-                <td>{item.unitario}</td>
-                <td>{item.importe}</td>
+                <td>${formatMoney(item.unitario)}</td>
+                <td>${formatMoney(item.importe)}</td>
             </tr>
         ));
 
@@ -286,8 +308,23 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido }) {
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
-                                    <td className='pie-tabla-palabra' colSpan="3">TOTAL</td>
-                                    <td className='celda-total-cifra'>{totPedido}</td>
+                                    <td>{caclTotKgs()}</td>
+                                    <td className='pie-tabla-palabra'>
+                                        Cant Bultos:
+                                        {
+                                            operacion === 'venta' ? 
+                                            <input 
+                                            type='number' 
+                                            id='bultos' 
+                                            value={bultosActual} 
+                                            onChange={(e) => handleChangeBulto(e)} 
+                                            className='input-bultos'
+                                        /> :
+                                        bultos
+                                        } 
+                                    </td>
+                                    <td></td>
+                                    <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>
                                 </tr>
                             </tfoot>
                         </table>

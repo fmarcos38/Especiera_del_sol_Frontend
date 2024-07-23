@@ -17,9 +17,16 @@ const fechaArg = (fecha) => {
 
 //funcion transforma números a num dinero
 function formatMoney(amount) {
-    return amount.toLocaleString('de-DE');
+    if (amount == null) {
+        return '0.00'; // Valor por defecto si amount es null o undefined
+    }
+    return amount.toLocaleString('de-DE'/* , { minimumFractionDigits: 2, maximumFractionDigits: 2 } */);
 }
 
+//misma q la de arriba pero le añade coma
+/* function formatMoneyComa(amount) {
+    return amount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+} */
 //funcion pasa de la fecha --> Mon Jul 15 2024 11:36:50 GMT-0300 (hora estándar de Argentina)
 //a la fecha así --> 15/07/2024
 function formatDate(dateString) {
