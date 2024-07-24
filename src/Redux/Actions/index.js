@@ -6,7 +6,8 @@ import {
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES, GET_REPORTES_MES_AÑO,
-    BUSCA_PROVEEDOR_POR_CUIT, 
+    BUSCA_PROVEEDOR_POR_CUIT,
+    ORDENA_FECHA_REMITO_COMPRA, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -241,10 +242,11 @@ export function agregaEntrega(_id, data){
         await axios.post(`${local}/remitos/entrega/${_id}`, data);
     }
 }
+
 //----actions remitos COMPRAS-----------------------------------------------------------
-export function getAllCompras() {
+export function getAllCompras(detalle, fechaDesde, fechaHasta) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/compras`);
+        const resp = await axios.get(`${local}/compras?detalle=${detalle}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS_COMPRA, payload: resp.data});
     }
 }
@@ -294,7 +296,12 @@ export function elimnimaRemitoCompra(_id){
         await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
     }
 }
-
+export function ordenaFechaCompras(fecha) {
+    return {
+        type: ORDENA_FECHA_REMITO_COMPRA,
+        payload: fecha,
+    }
+}
 
 //--REPORTES y GASTOS----------------------------------------
 //trea gastos del mes

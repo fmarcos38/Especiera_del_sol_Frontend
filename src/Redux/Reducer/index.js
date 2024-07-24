@@ -4,7 +4,8 @@ import {
     GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_ALL_REMITOS_COMPRA, GET_CLIENTE, GET_GASTOS_MES, GET_REMITO_BY_ID, 
     GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, GET_REPORTES_MES_AÑO, GET_REPORTES_MES,
     ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA,
-    BUSCA_PROVEEDOR_POR_CUIT
+    BUSCA_PROVEEDOR_POR_CUIT,
+    ORDENA_FECHA_REMITO_COMPRA
 } from "../Actions/actionType";
 
 const initialState = {
@@ -119,7 +120,7 @@ export default function rootReducer(state = initialState, action){
             }
         case FILTRA_FECHAS_REMITOS:
             let remitosFiltrar = [...state.remitosVentas];
-            let fechaDesde = new Date(action.payload.fechaDesde);
+            let fechaDesde = new Date(action.payload.fechaDesde); //fecha: 2024-07-01
             let fechaHasta = new Date(action.payload.fechaHasta);
             fechaHasta.setUTCHours(23, 59, 59, 999); // Incluir todo el día hasta la fecha final en UTC
             
@@ -136,6 +137,24 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 remitosCompras: action.payload
+            }
+        case ORDENA_FECHA_REMITO_COMPRA:
+            const compras = [...state.remitosCompras];
+            let comprasOrdenadas = compras.sort((a, b) => {
+                let fechaA = new Date(a.fecha);
+                let fechaB = new Date(b.fecha);
+
+                if(action.payload === 'fechaMax'){
+                    return fechaB - fechaA; 
+                }else if (action.payload === 'fechaMin') {
+                    return fechaA - fechaB; 
+                } else {
+                    throw new Error('Criterio no válido. Usa "fechaMax" o "fechaMin".');
+                }
+            });
+            return{
+                ...state,
+                remitosCompras: comprasOrdenadas
             }
         case GET_REMITOS_PROVEEDOR:
             return {

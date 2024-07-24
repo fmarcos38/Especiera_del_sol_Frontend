@@ -1,14 +1,30 @@
 import React from 'react';
 import './estilos.css';
-function FiltraDebePago({ handleOnClick }) {
+function FiltraDebePago({ operacion, handleOnClick }) {
 
 
     return (
         <div className='cont-btns-debePago-fechaMas-ffechaMenos'>
             {/* botnes estado */}
             <div className='cont-btns-debe-pagado'>
-                <button id='debe' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Debe</button>
-                <button id='pagado' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Pagado</button>
+                <button 
+                    id='debe' 
+                    onClick={(e) => { handleOnClick(e) }} 
+                    className='btn-filtros'
+                >
+                    {
+                        operacion === 'venta' ? "Debe" : "Compra"
+                    }
+                </button>
+                <button 
+                    id='pagado' 
+                    onClick={(e) => { handleOnClick(e) }} 
+                    className='btn-filtros'
+                >
+                    {
+                        operacion === "venta" ? "Pagado" : "Anticipo" 
+                    }
+                </button>
             </div>
             {/* btns y fecha Max Min */}
             <div className='cont-btns-fecha-max-min'>

@@ -166,7 +166,8 @@ function ListaRemitosVentas() {
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
                     />
-                    <FiltraDebePago 
+                    <FiltraDebePago
+                        operacion={"venta"}
                         handleOnClick={handleOnClick}
                     />
                 </div>
