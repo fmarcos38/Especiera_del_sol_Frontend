@@ -8,7 +8,7 @@ function ListaRemitosProveedorPage() {
 
     if(userLog){
         return (
-            <div className='cont-listaRemitosCliente'>
+            <div style={{width:'100%'}}>
                 <ListaRemitosProveedor />
             </div>
         )

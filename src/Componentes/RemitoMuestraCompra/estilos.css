@@ -1,0 +1,30 @@
+.input-remito-condicionPagoo{
+    width: 120px;
+    text-align: center;
+    font-size: 20px;
+}
+.input-remito-estadoo{
+    width: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+/* tabla */
+.encabezado-cantidad-compra,
+.encabezado-detalle-compra,
+.encabezado-unitario-compra,
+.encabezado-importe-compra {
+    font-size: 15px;
+}
+.cont-foot-bultos{
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.tfootCompras{
+    width: 95%;
+    color: black;
+    background-color: #fff;
+    border: none;
+}

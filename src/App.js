@@ -15,6 +15,7 @@ import CreaRemitoVentaPage from './Pages/CreaRemitoVenta';
 import ListaRemitosComprasPage from './Pages/ListaRemitosCompras';
 import ListaRemitosClientePage from './Pages/ListaRemitosClientePage';
 import DetalleRemitoPage from './Pages/DetalleRemitoPage';
+import DetalleRemitoCompraPage from './Pages/DetalleRemitoCompraPage';
 import EditaRemitoPage from './Pages/EditaRemito';
 import CreaCompra from './Pages/CreaCompra/CreaCompra';
 import CreaAnticipoPaga from './Pages/CreaAnticipo';
@@ -53,6 +54,7 @@ function App() {
             <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage/>} />
             <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />            
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
+            <Route path='/detalleRemitoCompra/:_id' element={<DetalleRemitoCompraPage/>} />
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
             <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />
             <Route path='/creaCompra' element={<CreaCompra/>} />

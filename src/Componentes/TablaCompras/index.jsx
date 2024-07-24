@@ -32,8 +32,8 @@ function TablaCompras({ compras }) {
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Envio</th>
-                    <th>n° Compra</th>
+                    {/* <th>Envio</th> */}
+                    <th>n° Comp</th>
                     <th>n° Remito</th>
                     <th>Detalle</th>
                     <th>Proveedor</th>
@@ -44,7 +44,7 @@ function TablaCompras({ compras }) {
                     <th>Haber</th>
                     <th>Saldo</th>
                     <th>Observ</th>
-                    <th>Detalle Pago</th>
+                    <th>Pago</th>
                     <th>Transp</th>
                     <th>Edit/Elim</th>
                 </tr>
@@ -54,9 +54,19 @@ function TablaCompras({ compras }) {
                     arrayMovimientos?.map(r => (
                         <tr key={r._id}>
                             <td>{fechaArg(r.fecha)}</td>
-                            <td>{r.envio}</td>
+                            {/* <td>{r.envio}</td> */}
                             <td>{r.numCompra}</td>
-                            <td>{r.numRemitoProveedor}</td>
+                            <td>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    {r.numRemitoProveedor}
+                                    {
+                                        r.detalle === 'Compra' &&
+                                        <Link to={`/detalleRemitoCompra/${r._id}`}>
+                                            <button>Ver</button>
+                                        </Link>
+                                    }
+                                </div>
+                            </td>
                             <td>{r.detalle}</td>
                             <td>{r.proveedor}</td>
                             <td>{r.producto}</td>

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCompras } from '../../Redux/Actions';
-import './estilos.css';
 import TablaCompras from '../TablaCompras';
+import './estilos.css';
 
 
 function ListaRemitos() {
