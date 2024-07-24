@@ -6,12 +6,13 @@
 }
 .cont-modal-entrega{
     position: absolute;
-    top: 70px;
+    top: 80px;
     left: 10%;
     width: 80%;
-    height: 95vh;
+    height: 89.5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(64, 63, 63);
+    z-index: 1;
 }

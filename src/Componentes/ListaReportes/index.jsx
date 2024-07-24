@@ -81,10 +81,10 @@ function ListaReportes() {
           Mostrar resultados
         </button>
       </div>
-
+      <h3 className='subTitulo-reportes'>Reportes año {año}</h3>
       {/* tabla */}
-      <div>
-        <table className='client-table'>
+      <div className='cont-tabla-reportes'>
+        <table className='client-table tabla-reportes'>
           <thead>
             <tr>
               <th>Mes</th>

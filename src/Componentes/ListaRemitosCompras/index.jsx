@@ -55,8 +55,7 @@ function ListaRemitos() {
                 dispatch(ordenaFechaCompras("fechaMin"));
                 break;
             case 'todos': //btn_reset
-                setDetalle("todas");
-                
+                setDetalle("todas");                
                 dispatch(getAllCompras( detalle, fechaDesde, fechaHasta)); 
                 break;
             default:

@@ -11,7 +11,7 @@ import './estilos.css';
 function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
-    const [estado, setEstado] = useState("todos");
+    const [estado, setEstado] = useState("todas");
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
@@ -66,18 +66,17 @@ function ListaRemitosVentas() {
         });
         return tot;
     };
-    //funcion calc el tot de entregas
+    //funcion calc el tot de entregas por remito
     const totEntregas = () => {
-        let tot = 0; 
-        ventas.map(r => {
-            r.entrego.map(e => {
-                return tot += e.entrega;
+        let total = 0;
+        ventas.forEach(compra => {
+            compra.entrego.forEach(entrega => {
+                total += entrega.entrega;
             });
-            return 0;
         });
-        return tot;
-    };
-    //calcula ganacia
+        return total;
+    }
+    //calcula ganacia por remito
     const calcGanancia = (items) => {
         let totGanancia = 0;
 
@@ -112,25 +111,21 @@ function ListaRemitosVentas() {
                 text: "Ingrese ambas fechas",
                 icon: "error"
             });
-        }
-        
-        const fechas = {
-            fechaDesde: fechaDesde, 
-            fechaHasta: fechaHasta
-        }
-        
-        dispatch(filtraFechasRemitos(fechas));
+        }        
+        dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+        setFechaDesde("");
+        setFechaHasta("");
     };
     //para botones debe pagado fecha mas, fecha menos
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
                 setEstado("Debe");
-                dispatch(getAllRemitos(estado));
+                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
                 break;
             case 'pagado':
                 setEstado("Pagado");
-                dispatch(getAllRemitos(estado));
+                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
@@ -139,8 +134,8 @@ function ListaRemitosVentas() {
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
             case 'todos':
-                setEstado("todos");
-                dispatch(getAllRemitos( estado));
+                setEstado("todas");
+                dispatch(getAllRemitos( estado, fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
@@ -149,8 +144,9 @@ function ListaRemitosVentas() {
     };
 
     useEffect(() => {
-        dispatch(getAllRemitos(estado));
+        dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
         dispatch(getAllProds());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, estado]);
 
 

@@ -10,3 +10,23 @@
     font-size: 23px;
     font-weight: 500;
 }
+.subTitulo-reportes{
+    background-color: yellow;
+    margin-top: 15px;
+}
+.cont-tabla-reportes{
+    display: flex;
+    justify-content: center;
+}
+.tabla-reportes{
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.tabla-reportes thead th {
+    width: 190px;
+    text-align: center;
+}
+.tabla-reportes tbody td {
+    text-align: center;
+}

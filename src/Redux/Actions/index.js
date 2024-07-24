@@ -171,10 +171,10 @@ export function eliminaProveedor(_id){
 
 //--remitos ventas-----------------------------------------------------
 //trae remitos
-export function getAllRemitos(estado){
+export function getAllRemitos(estado, fechaDesde, fechaHasta){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos?estado=${estado}`);
-        dispatch({type: GET_ALL_REMITOS, payload: resp.data})
+        const resp = await axios.get(`${local}/remitos?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        dispatch({type: GET_ALL_REMITOS, payload: resp.data});
     }
 }
 //trae último remito ppara obt su num
@@ -296,6 +296,7 @@ export function elimnimaRemitoCompra(_id){
         await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
     }
 }
+//ordena fechas compras max min
 export function ordenaFechaCompras(fecha) {
     return {
         type: ORDENA_FECHA_REMITO_COMPRA,

@@ -1,13 +1,17 @@
 .cont-modal-entregaCliente{
     width: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    background-color: rgb(75, 76, 77);
 }
 .cont-btn-cierra-modal{
     position: absolute;
     top: 5px;
+    margin-bottom: 10px;
 }
 .formulario-monto{
     width: 50%;
@@ -16,6 +20,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    position: relative;
+    top: 100px;
     background-color: var(--background-color-navBar-claro);
 }
 .cont-item-data-agregaPago{
@@ -45,6 +51,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: 120px
 }
 .entregaMonto tbody tr:nth-of-type(even) {
     background-color: #515050;

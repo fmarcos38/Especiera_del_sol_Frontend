@@ -42,13 +42,18 @@ function ModalAgregaEntregaCliente({id}) {
     //funcion calc saldo restante
     const calcSaldoRestante = () => {
         let tot = 0;
-        if(remito.entrego){
-            tot = remito.totPedido
+        if(remito.estado === 'Pagado'){
+            return tot;
+        }else{
+            if(remito.entrego?.length === 0){
+                tot = remito.totPedido
+            }
+            tot = remito.totPedido;
+            remito.entrego?.map(e => {            
+                return tot -= e.entrega;
+            });
+            return tot;
         }
-        remito.entrego?.map(e => {            
-            return tot -= e.entrega;
-        });
-        return tot;
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -75,32 +80,40 @@ function ModalAgregaEntregaCliente({id}) {
             </div>
             
             {/* formulario agrega entrega */}
-            <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
-                <div className='cont-item-data-agregaPago'>
-                    <label className='label-monto'>Monto</label>
-                    <input
-                        type='number'
-                        id='monto'
-                        value={data.monto}
-                        onChange={(e) => handleOnchange(e)}
-                        className='input-monto'
-                    />
-                    {errors.monto && (<span className='errors'>{errors.monto}</span>)}
-                </div>
-                <div className='cont-item-data-agregaPago'>
-                    <label className='label-monto'>Metodo pago</label>
-                    <input
-                        type='text'
-                        id='metodoPago'
-                        value={data.metodoPago}
-                        onChange={(e) => handleOnchange(e)}
-                        className='input-monto'
-                    />
-                    {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
-                </div>
+            {
+                remito.estado === 'Pagado' ? (
+                    <>
+                        <h1>REMITO SALDADO !!</h1>
+                    </>
+                ) : (
+                        <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
+                            <div className='cont-item-data-agregaPago'>
+                                <label className='label-monto'>Monto</label>
+                                <input
+                                    type='number'
+                                    id='monto'
+                                    value={data.monto}
+                                    onChange={(e) => handleOnchange(e)}
+                                    className='input-monto'
+                                />
+                                {errors.monto && (<span className='errors'>{errors.monto}</span>)}
+                            </div>
+                            <div className='cont-item-data-agregaPago'>
+                                <label className='label-monto'>Metodo pago</label>
+                                <input
+                                    type='text'
+                                    id='metodoPago'
+                                    value={data.metodoPago}
+                                    onChange={(e) => handleOnchange(e)}
+                                    className='input-monto'
+                                />
+                                {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
+                            </div>
 
-                <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
-            </form>           
+                            <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
+                        </form>
+                )
+            }
 
             {/* tabla muestra entregas */}
             <div className='cont-tabla-entregas-remito'>
