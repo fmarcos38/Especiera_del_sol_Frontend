@@ -93,13 +93,13 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
             </table>
 
         {/* modal entrega cliente */}
-        {
-            contexto.modalEntregaCliente === true && (
-                <div className='cont-modal-entrega'>
-                    <ModalAgregaEntregaCliente id={id}/>
-                </div>
-            )
-        }
+            {
+                contexto.modalEntregaCliente === true && (
+                    <div className='cont-modal-entregaCliente'>
+                        <ModalAgregaEntregaCliente id={id} />
+                    </div>
+                )
+            }
         </div>
     )
 }

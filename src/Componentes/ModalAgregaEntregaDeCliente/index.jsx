@@ -70,80 +70,82 @@ function ModalAgregaEntregaCliente({id}) {
 
     return (
         <div className='cont-modal-entregaCliente'>
-            <button
-                onClick={() => { contexto.setModalEntregaCliente(false) }}
-                className='btn-cerrar-modal-entrega'
-            >
-                X
-            </button>
+            <div className="modal-content">
+                <button
+                    onClick={() => { contexto.setModalEntregaCliente(false) }}
+                    className='btn-cerrar-modal-entrega'
+                >
+                    X
+                </button>
 
-            {/* formulario agrega entrega */}
-            {
-                remito.estado === 'Pagado' ? (
+                {/* formulario agrega entrega */}
+                {
+                    remito.estado === 'Pagado' ? (
+                        <h1 className='remito-saldado'>REMITO SALDADO !!</h1>
+                    ) : (
+                        <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
+                            <div className='cont-item-data-agregaPago'>
+                                <label className='label-monto'>Monto</label>
+                                <input
+                                    type='number'
+                                    id='monto'
+                                    value={data.monto}
+                                    onChange={(e) => handleOnchange(e)}
+                                    className='input-monto'
+                                />
+                                {errors.monto && (<span className='errors'>{errors.monto}</span>)}
+                            </div>
+                            <div className='cont-item-data-agregaPago'>
+                                <label className='label-monto'>Metodo pago</label>
+                                <input
+                                    type='text'
+                                    id='metodoPago'
+                                    value={data.metodoPago}
+                                    onChange={(e) => handleOnchange(e)}
+                                    className='input-monto'
+                                />
+                                {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
+                            </div>
 
-                    <h1>REMITO SALDADO !!</h1>
+                            <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
+                        </form>
+                    )
+                }
 
-                ) : (
-                    <form onSubmit={(e) => { handleSubmit(e) }} className='formulario-monto'>
-                        <div className='cont-item-data-agregaPago'>
-                            <label className='label-monto'>Monto</label>
-                            <input
-                                type='number'
-                                id='monto'
-                                value={data.monto}
-                                onChange={(e) => handleOnchange(e)}
-                                className='input-monto'
-                            />
-                            {errors.monto && (<span className='errors'>{errors.monto}</span>)}
-                        </div>
-                        <div className='cont-item-data-agregaPago'>
-                            <label className='label-monto'>Metodo pago</label>
-                            <input
-                                type='text'
-                                id='metodoPago'
-                                value={data.metodoPago}
-                                onChange={(e) => handleOnchange(e)}
-                                className='input-monto'
-                            />
-                            {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
-                        </div>
-
-                        <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
-                    </form>
-                )
-            }
-
-            {/* tabla muestra entregas */}
-            <table className="client-table entregaMonto">
-                <thead>
-                    <tr>
-                        <th>Fecha Entrega</th>
-                        <th>Monto</th>
-                        <th>Metodo Pago</th>
-                    </tr>
-                </thead>
-                <tbody style={{ color: "#fff", fontSize: "23px" }}>
-                    {
-                        remito.entrego?.map(e => {
-                            return (
-                                <tr key={e.fechaEntrega}>
-                                    <td>{fechaArg(e.fechaEntrega)}</td>
-                                    <td>${formatMoney(e.entrega)}</td>
-                                    <td>${e.metodoPago}</td>
-                                </tr>
-                            )
-                        }
-                        )
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td style={{ color: 'white', fontSize: '23px' }}>Restan</td>
-                        <td style={{ color: 'white', fontSize: '23px' }}>${formatMoney(calcSaldoRestante())}</td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+                {/* tabla muestra entregas */}
+                <div className="table-container">
+                    <table className="client-table entregaMonto">
+                        <thead>
+                            <tr>
+                                <th>Fecha Entrega</th>
+                                <th>Monto</th>
+                                <th>Metodo Pago</th>
+                            </tr>
+                        </thead>
+                        <tbody style={{ color: "#fff", fontSize: "23px" }}>
+                            {
+                                remito.entrego?.map(e => {
+                                    return (
+                                        <tr key={e.fechaEntrega}>
+                                            <td>{fechaArg(e.fechaEntrega)}</td>
+                                            <td>${formatMoney(e.entrega)}</td>
+                                            <td>${e.metodoPago}</td>
+                                        </tr>
+                                    )
+                                }
+                                )
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td style={{ color: 'white', fontSize: '23px' }}>Restan</td>
+                                <td style={{ color: 'white', fontSize: '23px' }}>${formatMoney(calcSaldoRestante())}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     )
 }

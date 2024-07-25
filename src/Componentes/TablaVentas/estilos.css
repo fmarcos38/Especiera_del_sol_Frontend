@@ -4,15 +4,15 @@
 .debe{
     color: red;
 }
-.cont-modal-entrega{
-    position: absolute;
-    top: 80px;
-    left: 10%;
-    width: 80%;
+.cont-modal-entregaCliente {
+    position: fixed;
+    top: 10%;
+    left: 5%;
+    width: 90%;
     height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(64, 63, 63);
+    background-color: rgb(75, 76, 77);
     z-index: 1;
 }
