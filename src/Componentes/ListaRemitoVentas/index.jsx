@@ -69,10 +69,14 @@ function ListaRemitosVentas() {
     //funcion calc el tot de entregas por remito
     const totEntregas = () => {
         let total = 0;
-        ventas.forEach(compra => {
-            compra.entrego.forEach(entrega => {
-                total += entrega.entrega;
-            });
+        ventas.forEach(r => {
+            if(r.estado === "Pagado"){
+                total += r.totPedido;
+            }else{
+                r.entrego.forEach(entrega => {
+                    total += entrega.entrega;
+                });
+            }            
         });
         return total;
     }

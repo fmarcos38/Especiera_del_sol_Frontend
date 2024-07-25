@@ -8,10 +8,13 @@
     overflow-y: auto;
     background-color: rgb(75, 76, 77);
 }
-.cont-btn-cierra-modal{
-    position: absolute;
-    top: 5px;
-    margin-bottom: 10px;
+.btn-cerrar-modal-entrega{
+    color: #fff;
+    background-color: aquamarine;
+    position: relative;
+    top: 130px;
+    font-size: 20px;
+    border-radius: 30px;
 }
 .formulario-monto{
     width: 50%;
@@ -21,7 +24,7 @@
     align-items: center;
     border-radius: 20px;
     position: relative;
-    top: 100px;
+    top: 150px;
     background-color: var(--background-color-navBar-claro);
 }
 .cont-item-data-agregaPago{
@@ -46,13 +49,9 @@
     border-radius: 10px;
     font-size: 23px;
 }
-.cont-tabla-entregas-remito{
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.entregaMonto{
     position: relative;
-    top: 120px
+    top: 170px
 }
 .entregaMonto tbody tr:nth-of-type(even) {
     background-color: #515050;
