@@ -39,6 +39,7 @@
 .input-dato-gasto-monto {
     font-size: 23px;
     font-weight: 500;
+    border-radius: 10px;
 }
 .input-dato-gasto-descrip {
     width: 500px;
@@ -47,9 +48,10 @@
     width: 300px;
 }
 .btn-creaGasto{
-    width: 90%;
+    width: 50%;
     margin-top: 10px;
     font-size: 23px;
     font-weight: 600;
     border-radius: 10px;
+    cursor: pointer;
 }

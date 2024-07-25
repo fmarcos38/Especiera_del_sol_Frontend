@@ -1,0 +1,80 @@
+.modal-content {
+    position: relative;
+    padding: 20px;
+    width: 80%;
+    height: 80vh;
+    overflow-y: auto;
+    background: rgb(88, 87, 87);
+}
+.btn-cerrar-modal-entrega{    
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* centro eje x, junto al left de arriba */
+    margin-top: 5px;
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    color: black;
+    background-color: aquamarine;
+}
+.remito-saldado{
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+}
+.formulario-monto{
+    width: 50%;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;    
+    background-color: var(--background-color-navBar-claro);
+}
+.cont-item-data-agregaPago{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.label-monto,
+.input-monto{
+    font-size: 23px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+}
+.label-monto{
+    margin-top: 10px;
+}
+.btn-carga-entrega{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 23px;
+}
+/* tabla */
+.entregaMonto{    
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    transform: translateX(-50%); 
+    overflow-y: auto;
+}
+.entregaMonto tbody tr:nth-of-type(even) {
+    background-color: #515050;
+}
+.entregaMonto tbody tr:hover {
+    background-color: #9a9595;
+}
+.errors{
+    color: red;
+}

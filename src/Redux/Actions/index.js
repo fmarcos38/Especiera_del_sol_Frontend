@@ -7,7 +7,8 @@ import {
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES, GET_REPORTES_MES_AÑO,
     BUSCA_PROVEEDOR_POR_CUIT,
-    ORDENA_FECHA_REMITO_COMPRA, 
+    ORDENA_FECHA_REMITO_COMPRA,
+    GET_GASTOS_BY_ID, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -305,11 +306,48 @@ export function ordenaFechaCompras(fecha) {
 }
 
 //--REPORTES y GASTOS----------------------------------------
+//crea gasto
+export function creaGasto(data){
+    return async function(){
+        const resp = await axios.post(`${local}/gastos`, data);
+        if(resp.data === "Creado con exito"){
+            Swal.fire({
+                text: 'Creado con exito!!',
+                icon: 'success'
+            });
+        }else{
+            Swal.fire({
+                text: 'Algo salió mal!!',
+                icon: 'error'
+            });
+        }
+    }
+}
+//trae gasto por ID
+export function getGastoById(_id){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/gastos/${_id}`);
+        dispatch({type: GET_GASTOS_BY_ID, payload: resp.data});
+    }
+}
 //trea gastos del mes
 export function getGastosMesActual(year, month) {
     return async function(dispatch){
         const resp = await axios.get(`${local}/gastos?year=${year}&month=${month}`);
         dispatch({type: GET_GASTOS_MES, payload: resp.data});
+    }
+}
+//modif Gasto
+export function modifGasto(_id, data){
+    return async function(){
+        await axios.put(`${local}/gastos/modifGasto/${_id}`, data);        
+    }
+}
+
+//elimina un Gasto
+export function eliminaGasto(_id) {
+    return async function(){
+        await axios.delete(`${local}/gastos/elimina/${_id}`);
     }
 }
 //trae reportes mes/es año

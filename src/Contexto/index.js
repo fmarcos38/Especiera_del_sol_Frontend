@@ -26,6 +26,8 @@ export const AppProvider = ({children}) => {
     const[modalRemito, setModalRemito] = useState(false);
     //estado modal entrega cliente
     const[modalEntregaCliente, setModalEntregaCliente] = useState(false);
+    //estado modal modif Gasto
+    const[modalModifGasto, setModalModifGasto] = useState(false);
     //estado para el SEARCH
     const [search, setSearch] = useState(''); 
 
@@ -62,12 +64,14 @@ export const AppProvider = ({children}) => {
                 setModalRemito,
                 modalEntregaCliente,
                 setModalEntregaCliente,
+                modalModifGasto,
+                setModalModifGasto,
                 search,
                 setSearch,
                 isAuthenticated,
                 login,
                 logout,
-                nombre
+                nombre,
             }}
         >
             {children}
