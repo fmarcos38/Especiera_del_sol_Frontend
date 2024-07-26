@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getReporteMesesAño } from '../../Redux/Actions';
+import { getReporteMesesAño, getReporteMes } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import './estilos.css';
 import { formatMoney } from '../../Helpers';
@@ -9,15 +9,35 @@ import { formatMoney } from '../../Helpers';
 function ListaReportes() {
   
   const reporteMesesAño = useSelector(state => state.reporteMesesAño);
-  const dispatch = useDispatch();
-  const [año, setAño] = useState();
+  const reporteMes = useSelector(state => state.reporteMes); 
+  let newReporteMes;
+  const [mes, setMes] = useState(""); console.log("mes:", mes)
+  const [año, setAño] = useState("");
   const month = "";
-  const meses = true;
+  let meses = true;
+  const dispatch = useDispatch();
 
+  const handleOnchangeMes = (e) => {
+    setMes(e.target.value);
+    
+  };
+  const handleClikMostrarMes = () => {
+    const dividoFecha = mes.split('-');
+    const añoNumber = dividoFecha[0];
+    const mesNumber = dividoFecha[1];
+    if(!mes){
+      Swal.fire({
+        text: "Ingrese un mes",
+        icon: "error"
+      });
+    }else{
+      dispatch(getReporteMes(mesNumber, añoNumber, meses = false));
+    }
+  };
   const handleOnchangeAño = (e) => {
     setAño(e.target.value);
   };
-  const handleClikMostrar = () => {
+  const handleClikMostrarAño = () => {
     if(!año){
       Swal.fire({
         text: "Ingrese un año",
@@ -27,62 +47,118 @@ function ListaReportes() {
       dispatch(getReporteMesesAño(month, año, meses));
     }
   };
-  const calcTotVentasBruto = () => {
+  const calcTotVentasBruto = (arr) => {
     let tot = 0;
-    reporteMesesAño.map(mes => {
+    arr?.map(mes => {
       return tot += mes.ventas;
     });
     return tot;
   };
-  const calcTotGanancias = () => {
+  const calcTotGanancias = (arr) => {
     let tot = 0;
-    reporteMesesAño.map(mes => {
+    arr?.map(mes => {
       return tot += mes.ganancias;
     });
     return tot;
   };
-  const calcTotCompras = () => {
+  const calcTotCompras = (arr) => {
     let tot = 0;
-    reporteMesesAño.map(mes => {
+    arr?.map(mes => {
       return tot += mes.compras;
     });
     return tot;
   };
-  const calcTotGastos = () => {
+  const calcTotGastos = (arr) => {
     let tot = 0;
-    reporteMesesAño.map(mes => {
+    arr?.map(mes => {
       return tot += mes.gastos;
     });
     return tot;
   };
-  const calcuTotKgs = () => {
+  const calcuTotKgs = (arr) => {
     let tot = 0;
-    reporteMesesAño.map(mes => {
+    arr?.map(mes => {
       return tot += mes.totKgs;
     });
     return tot;
   };
 
+  const generoReporteMes = () => {
+    // Función para obtener la cantidad de días en un mes específico
+    const getDaysInMonth = (month, year) => {
+      return new Date(year, month, 0).getDate();
+    };
+    // Inicializar un array con los días del mes, con ventas, compras y gastos en 0
+    const dividoFecha = mes.split('-');
+    const añoNumber = dividoFecha[0];
+    const mesNumber = dividoFecha[1];
+    const daysInMonth = getDaysInMonth(mesNumber, añoNumber);
+    const initialData = Array.from({ length: daysInMonth }, (_, i) => ({
+      day: i + 1,
+      ventas: 0,
+      compras: 0,
+      gastos: 0,
+      totKgs: 0,
+    }));
+    // Actualizar los valores del array inicial con los datos reales
+    const updateData = (initialData, reporteMes, type, weightField = null) => {
+      reporteMes?.forEach(item => {
+        const date = new Date(item.fecha);
+        const day = date.getDate();
+        initialData[day - 1][type] += item.total || item.monto || item.totPedido || 0;
+        if (weightField && item[weightField]) {
+          initialData[day - 1]['totKgs'] += item[weightField];
+        }
+      });
+      return initialData;
+    };
+  
+    // Actualizar datos con ventas, compras, gastos y totKgs
+    let updatedData = updateData([...initialData], reporteMes.ventas, 'ventas', 'totKgs');
+    updatedData = updateData([...updatedData], reporteMes.compras, 'compras');
+    updatedData = updateData([...updatedData], reporteMes.gastos, 'gastos');
+
+    return updatedData;
+  }
+  newReporteMes = generoReporteMes();
+
   return (
     <div className='cont-reportes'>
       <h1 className='titulo-reportes'>Reportes</h1>
+      <div className='cont-reporte-mes'>
+        <input 
+          type='month'
+          id='mes' 
+          value={mes} 
+          onChange={(e) => { handleOnchangeMes(e) }} 
+          placeholder='ingrese año ejem: 2024' 
+          className='input-año' 
+        />
+        <button
+          onClick={() => { handleClikMostrarMes() }}
+          className='btn-muestraReporte'
+        >
+          Mostrar resultados por Mes
+        </button>
+      </div>
       <div>
         <input 
           type='number' 
+          id='año'
           value={año} 
           onChange={(e) => { handleOnchangeAño(e) }} 
           placeholder='ingrese año ejem: 2024' 
           className='input-año' 
         />
         <button
-          onClick={() => { handleClikMostrar() }}
+          onClick={() => { handleClikMostrarAño() }}
           className='btn-muestraReporte'
         >
-          Mostrar resultados
+          Mostrar resultados por Añon
         </button>
       </div>
       <h3 className='subTitulo-reportes'>Reportes año {año}</h3>
-      {/* tabla */}
+      {/* tabla Año*/}
       <div className='cont-tabla-reportes'>
         <table className='client-table tabla-reportes'>
           <thead>
@@ -124,6 +200,42 @@ function ListaReportes() {
         </table>
       </div>
 
+      {/* tablas por día */}
+      <h3 className='subTitulo-reportes'>Reportes mes {mes} </h3>
+      <div className='cont-tabla-reportes'>
+        <table className='client-table tabla-reportes'>
+          <thead className='client-table tabla-reportes'>
+            <tr>
+              <th>Día</th>
+              <th>Kgs Vendidos</th>
+              <th>Ventas</th>
+              <th>Compras</th>
+              <th>Gastos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {newReporteMes?.map((dayData, index) => (
+              <tr key={index}>
+                <td>{dayData.day}</td>
+                <td>{dayData.totKgs}</td>
+                <td>{dayData.ventas}</td>
+                <td>{dayData.compras}</td>
+                <td>{dayData.gastos}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+          <tr>
+                <td></td>
+                <td>{calcuTotKgs(newReporteMes)}Kgs</td>
+                <td>${formatMoney(calcTotVentasBruto(newReporteMes))}</td>                
+                <td>${formatMoney(calcTotCompras(newReporteMes))}</td>
+                <td>${formatMoney(calcTotGastos(newReporteMes))}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      
     </div>
   )
 }

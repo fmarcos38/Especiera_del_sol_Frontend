@@ -44,5 +44,5 @@ export const RESET_REMITO = "RESET_REMITO";
 //gastos y reportes
 export const GET_GASTOS_MES = "GET_GASTOS_MES";
 export const GET_GASTOS_BY_ID = "GET_GASTOS_BY_ID";
-export const GET_REPORTES_MES = "GET_REPORTES_MES";
+export const GET_REPORTE_MES = "GET_REPORTE_MES";
 export const GET_REPORTES_MES_AÑO = "GET_REPORTES_MES_AÑO";
