@@ -9,7 +9,8 @@ import { formatMoney } from '../../Helpers';
 function ListaReportes() {
   
   const reporteMesesAño = useSelector(state => state.reporteMesesAño);
-  const reporteMes = useSelector(state => state.reporteMes); 
+  const reporteMes = useSelector(state => state.reporteMes);
+  const [muestraTablaMes, setMuestraTablaMes] = useState(false); 
   let newReporteMes;
   const [mes, setMes] = useState(""); console.log("mes:", mes)
   const [año, setAño] = useState("");
@@ -32,6 +33,7 @@ function ListaReportes() {
       });
     }else{
       dispatch(getReporteMes(mesNumber, añoNumber, meses = false));
+      setMuestraTablaMes(true)
     }
   };
   const handleOnchangeAño = (e) => {
@@ -190,11 +192,11 @@ function ListaReportes() {
           <tfoot>
             <tr>
                 <td></td>
-                <td>{calcuTotKgs()}Kgs</td>
-                <td>${formatMoney(calcTotVentasBruto())}</td>                
-                <td>${formatMoney(calcTotCompras())}</td>
-                <td>${formatMoney(calcTotGastos())}</td>
-                <td>${formatMoney(calcTotGanancias())}</td>
+                <td>{calcuTotKgs(reporteMesesAño)}Kgs</td>
+                <td>${formatMoney(calcTotVentasBruto(reporteMesesAño))}</td>                
+                <td>${formatMoney(calcTotCompras(reporteMesesAño))}</td>
+                <td>${formatMoney(calcTotGastos(reporteMesesAño))}</td>
+                <td>${formatMoney(calcTotGanancias(reporteMesesAño))}</td>
             </tr>
           </tfoot>
         </table>
@@ -202,7 +204,9 @@ function ListaReportes() {
 
       {/* tablas por día */}
       <h3 className='subTitulo-reportes'>Reportes mes {mes} </h3>
-      <div className='cont-tabla-reportes'>
+      {
+        muestraTablaMes && 
+        <div className='cont-tabla-reportes'>
         <table className='client-table tabla-reportes'>
           <thead className='client-table tabla-reportes'>
             <tr>
@@ -235,6 +239,7 @@ function ListaReportes() {
           </tfoot>
         </table>
       </div>
+      }
       
     </div>
   )
