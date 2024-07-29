@@ -6,7 +6,8 @@ import {
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
-    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES, 
+    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES,
+    GET_PRODUCTO_BY_ID, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -109,6 +110,12 @@ export function getAllProds(){
     return async function(dispatch){
         const resp = await axios.get(`${local}/productos`);
         dispatch({type: GET_ALL_PRODUCTOS, payload: resp.data});
+    }
+}
+export function getProductoById(_id){
+    return async function(dispatch){
+        const resp = await axios.get(`${local}/productos/${_id}`);
+        dispatch({type: GET_PRODUCTO_BY_ID, payload: resp.data});
     }
 }
 //busca por nombre

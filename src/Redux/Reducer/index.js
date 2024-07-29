@@ -4,7 +4,8 @@ import {
     GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_ALL_REMITOS_COMPRA, GET_CLIENTE, GET_GASTOS_MES, GET_REMITO_BY_ID, 
     GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, GET_REPORTES_MES_AÑO, GET_REPORTE_MES,
     ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA, BUSCA_PROVEEDOR_POR_CUIT,
-    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID
+    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID,
+    GET_PRODUCTO_BY_ID
 } from "../Actions/actionType";
 
 const initialState = {
@@ -58,6 +59,11 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 productos: action.payload
+            }
+        case GET_PRODUCTO_BY_ID:
+            return{
+                ...state,
+                producto: action.payload
             }
         case BUSCA_PRODUCTO_POR_NOMBRE:
             return{

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProds, getProductoById } from '../../Redux/Actions';
+import FormularioProducto from '../FormularioProducto';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './estilos.css';
-import { getAllProds } from '../../Redux/Actions';
-import FormularioProducto from '../FormularioProducto';
 
 
-function FormularioModifProducto({prod, setProdAmodif}) {
+function FormularioModifProducto() {
 
-    const [input, setInput] = useState(prod);     
+    const {_id} = useParams();
+    const prod = useSelector(state => state.producto);
+    const [input, setInput] = useState({});     
     const [errors, setErrors] = useState({});
     const [previewSource, setPreviewSource] = useState('');
+    const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
     //funcion para manipulación de la pre-imagen
@@ -46,9 +50,11 @@ function FormularioModifProducto({prod, setProdAmodif}) {
             formData.append("nombre", input.nombre);
             formData.append("precioKg", input.precioKg);
             formData.append("envase", input.envase);
+            formData.append("posicionLista", input.posicionLista);
+            formData.append("costo", input.costo);
             formData.append("imagen", input.imagen);//este nombre "imagen" es el q va en upload.single("imagen") en el back
 
-            fetch(`http://localhost:3001/productos/${input._id}`, {
+            fetch(`http://localhost:3001/productos/${_id}`, {
                 method: "PUT",
                 body: formData,
             });
@@ -59,21 +65,39 @@ function FormularioModifProducto({prod, setProdAmodif}) {
             });
             dispatch(getAllProds());
             setPreviewSource('');
-            setProdAmodif(false);
             window.location.reload();
         } catch (error) {
             console.log(error);
         }
     };
 
+    useEffect(()=>{
+        dispatch(getProductoById(_id));
+    },[_id, dispatch]);
+
+    useEffect(()=>{
+        setInput({
+            nombre: prod.nombre,
+            precioKg: prod.precioKg,
+            envase: prod.envase,
+            costo: prod.costo,
+            posicionLista: prod.posicionLista,
+            imagen: prod.imagen
+        })
+    },[prod.costo, prod.envase, prod.imagen, prod.nombre, prod.posicionLista, prod.precioKg])
+
     return (
-        <FormularioProducto
+        <div className='cont-modifProd-formulario'>
+            <FormularioProducto
+            operacion={"modifica"}
+            productos={productos}
             handleSubmit={handleSubmit}
             input={input}
             handleChange={handleChange}
             errors={errors}
             previewSource={previewSource}
         />
+        </div>
     )
 }
 

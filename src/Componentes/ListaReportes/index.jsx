@@ -156,7 +156,7 @@ function ListaReportes() {
           onClick={() => { handleClikMostrarAño() }}
           className='btn-muestraReporte'
         >
-          Mostrar resultados por Añon
+          Mostrar resultados por Año
         </button>
       </div>
       <h3 className='subTitulo-reportes'>Reportes año {año}</h3>

@@ -12,7 +12,7 @@ function CreaProducto() {
         return (
             <div className='cont-pagina-crea-prod'>
                 <h1>Formulario creación de producto</h1>
-                <FormularioProductoAlta />
+                <FormularioProductoAlta operacion={"crea"}/>
             </div>
         )
     }

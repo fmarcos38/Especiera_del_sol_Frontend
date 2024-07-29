@@ -1,17 +1,27 @@
 .cont-formulario-producto{
-    width: 90%;
+    width: 97%;
     height: auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 100px;
+    align-items: start;
+    margin-bottom: 20px;
+}
+.cont-form-producto{
+    width: 65%;
+    height: auto;
+    padding: 10px;
     border-radius: 10px;
     background-color: var(--background-color-navBar-oscuro);
 }
-.cont-form-producto{
-    width: 90%;
-    height: 90%;
-    padding: 10px;
+.cont-lista-prods{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.titulo-listaProds-creaProds{
+    margin: 0;
 }
 .cont-form-item-nombre,
 .cont-dos-items{
@@ -29,6 +39,7 @@
     width: 600px;
     min-width: 200px;
     font-size: 23px;
+    border-radius: 10px;
 }
 .cont-dos-items{
     margin-top: 20px;
@@ -42,8 +53,15 @@
 }
 .input-precio-form-modif-prod,
 .input-envase-form-modif-prod {
-    width: 302px;
+    width: 266px;
     font-size: 23px;
+    border-radius: 10px;
+}
+.cont-imgagen-precioLista{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .cont-img-vistaPrevia{
     width: 85%;
@@ -61,9 +79,16 @@
 .input-carga-img{
     font-size: 20px;
     margin-top: 10px;
+    border-radius: 10px;
 }
 .pre-imagen-prod{
     width: 200px;
     height: 120px;
     border-radius: 10px;
+}
+.posicionLista{
+    width: 100px;
+}
+.error{
+    color: red;
 }

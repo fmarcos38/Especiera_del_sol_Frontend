@@ -6,16 +6,16 @@ import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-function FormularioProductoAlta() {
+function FormularioProductoAlta({operacion}) {
 
     const [input, setInput] = useState({
         nombre: "",
-        precioKg: 0,
-        costo: 0,
-        envase: 0,
+        precioKg: "",
+        costo: "",
+        envase: "",
         imagen: "",
-    }); //estado inical inputs 
-    
+        posicionLista: ""
+    }); //estado inical inputs     
     const [errors, setErrors] = useState({}); //manejo de errore
     const [previewSource, setPreviewSource] = useState('');//estado vista previa imagen 
     const productos = useSelector(state => state.productos);
@@ -63,6 +63,7 @@ function FormularioProductoAlta() {
         if (!input.costo) newErrors.costo = 'Costo es requerido';
         if (!input.envase) newErrors.envase = 'Envase es requerido';
         if (!previewSource) newErrors.imagen = 'La imágen es requerida';
+        if (!input.posicionLista) newErrors.imagen = 'La posición es requerida';
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0;
@@ -79,8 +80,9 @@ function FormularioProductoAlta() {
                     formData.append("precioKg", input.precioKg);
                     formData.append("costo", input.costo);
                     formData.append("envase", input.envase);
+                    formData.append("posicionLista", input.posicionLista);
                     formData.append("imagen", input.imagen);//este nombre "imagen" es el q va en upload.single("imagen") en el back
-
+                    
                     fetch(`http://localhost:3001/productos`, {
                         method: "POST",
                         body: formData,
@@ -96,6 +98,7 @@ function FormularioProductoAlta() {
                         costo: 0,
                         envase: 0,
                         imagen: "",
+                        posicionLista: ""
                     });
                     dispatch(getAllProds());
                     setPreviewSource('');
@@ -112,7 +115,9 @@ function FormularioProductoAlta() {
     };
 
     return (
-        <FormularioProducto 
+        <FormularioProducto
+            operacion={operacion}
+            productos={productos}
             handleSubmit={handleSubmit} 
             input={input} 
             handleChange={handleChange} 

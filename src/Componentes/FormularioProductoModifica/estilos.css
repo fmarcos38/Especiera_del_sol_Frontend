@@ -1,3 +1,10 @@
+.cont-modifProd-formulario{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 10px;
+}
 .cont-imagen-prod{
     display: flex;
     flex-direction: column;

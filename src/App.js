@@ -28,6 +28,7 @@ import ListaReportesPage from './Pages/ListaReportes';
 import QuienesSomosPage from './Pages/QuienesSomos';
 import ListaDePreciosPage from './Pages/ListaDePrecios';
 import Footbar from './Componentes/Footbar';
+import ModifProducto from './Pages/ModifProducto';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
             <Route path='/creaProducto' element={<CreaProducto/>} />
             <Route path='/remitosCliente/:cuit' element={<ListaRemitosClientePage/>} />
             <Route path='/productos' element={<ListaProductosPage/>} />
+            <Route path='/modifProd/:_id' element={<ModifProducto/>} />
             <Route path='/creaProveedor' element={<CreaProveedor/>} />
             <Route path='/proveedores' element={<ListaProveedoresPage/>} />
             <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage/>} />

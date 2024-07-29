@@ -2,12 +2,12 @@ import React from 'react';
 import './estilos.css';
 
 
-function FormularioProducto({handleSubmit, input, handleChange, errors, previewSource}) {
+function FormularioProducto({operacion, productos, handleSubmit, input, handleChange, errors, previewSource}) {
 
     return (
         <div className='cont-formulario-producto'>
             <form className="cont-form-producto" onSubmit={handleSubmit}>
-                {/* nombre y precio x kg */}
+                {/* nombre */}
                 <div className="cont-form-item-nombre">
                     <label className='label-form-modif-prod'>Nombre del producto: </label>
                     <input
@@ -20,7 +20,7 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
                     {errors.nombre && <span className="error">{errors.nombre}</span>}
                 </div>
 
-                {/* precio kg y envase */}
+                {/* precio público kg y envase */}
                 <div className='cont-dos-items'>
                     <div className="cont-form-item-precio">
                         <label className='label-form-modif-prod'>Precio Público Kg: </label>
@@ -56,6 +56,19 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
                         {errors.costo && <span className="error">{errors.costo}</span>}
                     </div>
                 </div>
+                
+                {/* Posición en la lista */}
+                <div style={{marginBottom:'20px'}}>
+                    <label className='label-form-modif-prod'>Posición en la Lista de Productos: </label>
+                    <input
+                        type='number'
+                        name={'posicionLista'}
+                        value={input.posicionLista}
+                        onChange={handleChange}
+                        className='input-nombre-form-modif-prod posicionLista'
+                    />
+                    {errors.posicionLista && <span className="error">{errors.posicionLista}</span>}
+                </div>
 
                 {/* imagen prod */}
                 <div className="cont-img-vistaPrevia">
@@ -71,17 +84,46 @@ function FormularioProducto({handleSubmit, input, handleChange, errors, previewS
                         <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
                     </div>
 
-                    {/* para el form modificar muestra la img q ya tiene */}
-                    <div >
-                        <img src={input.imagen} alt={""} className="pre-imagen-prod" />
-                    </div>
+                    {/* para opcion modificar muestra la img q ya tiene */}
+                    {
+                        operacion === 'modifica' &&
+                        <div >
+                            <img src={input.imagen} alt={""} className="pre-imagen-prod" />
+                        </div>
+                    }
                 </div>
 
+                    
                 {/* botón */}
                 <div className='cont-btn-enviar-formCliente'>
                     <button type="submit" className='btn-enviar-form-cliente'>Enviar</button>
                 </div>
             </form>
+
+            {/* muestra lista prods */}
+            <div className='cont-lista-prods'>
+                <h3 className='titulo-listaProds-creaProds'>Lista Prods.</h3>
+                <table className='client-table'>
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Prod</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            productos?.map(p => {
+                                return (
+                                    <tr key={p._id}>
+                                        <td>{p.posicionLista}</td>
+                                        <td>{p.nombre}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

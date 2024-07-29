@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './estilos.css';
-import EditIcon from '@mui/icons-material/Edit';
 import BotonEliminaProducto from '../BotonEliminaProducto';
 import { getAllProds } from '../../Redux/Actions';
 import { AppContexto } from '../../Contexto';
-import ModalEdicionProducto from '../ModalEdicionProducto';
 import ModalImgProducto from '../ModalImgProducto';
 import SearchBar from '../SearchBar';
+import EditIcon from '@mui/icons-material/Edit';
+import './estilos.css';
+import { Link } from 'react-router-dom';
 
 
 function ListaProductos() {
 
     const allP = useSelector(state => state.productos);
     //estado prods filtrados
-    const [filteredProductos, setFilteredProductos] = useState(allP);    
-    //estado para almacenar el prod a modif
-    const [prodAmodif, setProdAmodif] = useState(null);
+    const [filteredProductos, setFilteredProductos] = useState(allP);
     //estado para la img q se verá en grande
     const [imgGrande, setImgGrande] = useState("");
     const contexto = useContext(AppContexto); 
@@ -25,11 +23,7 @@ function ListaProductos() {
     //change para search
     const handleOnChange = (e) => {        
         contexto.setSearch(e.target.value);
-    };
-    const handleClikEditar = (prod) => {
-        contexto.setModalProductoOpen(true);
-        setProdAmodif(prod);
-    };
+    };    
     const handleMouseEnter = (imgP) => {
         setImgGrande(imgP)
         contexto.setModalImgOpen(true);
@@ -80,12 +74,11 @@ function ListaProductos() {
                                         <td className="centered">{p.precioKg}</td>
                                         <td className="centered">{p.envase}</td>
                                         <td className="centered">
-                                            <button
-                                                onClick={() => { handleClikEditar(p) }}
-                                                className='btn-edita-cliente'
-                                            >
-                                                <EditIcon />
-                                            </button>
+                                            <Link to={`/modifProd/${p._id}`}>
+                                                <button className='btn-edita-cliente'>
+                                                    <EditIcon />
+                                                </button>
+                                            </Link>                                            
                                             <BotonEliminaProducto _id={p._id} nombre={p.nombre} />
                                         </td>
                                     </tr>
@@ -98,14 +91,7 @@ function ListaProductos() {
                         No hay prods pa mostrar papu!!
                     </div>
             }
-            {/* edicion del producto */}
-            {
-                contexto.modalProductoOpen && (
-                    <div className='cont-modal-lista-clientes'>
-                        <ModalEdicionProducto prod={prodAmodif} setProdAmodif={setProdAmodif}/>
-                    </div>
-                )
-            }
+            
             {/* vista grande imag prod */}
             {
                 contexto.modalImgOpen && (
