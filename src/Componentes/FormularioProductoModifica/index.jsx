@@ -15,6 +15,7 @@ function FormularioModifProducto() {
     const [errors, setErrors] = useState({});
     const [previewSource, setPreviewSource] = useState('');
     const productos = useSelector(state => state.productos);
+    const [listaProd, setListaProd] = useState([]);
     const dispatch = useDispatch();
 
     //funcion para manipulación de la pre-imagen
@@ -43,7 +44,7 @@ function FormularioModifProducto() {
         }
     };
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         try {
             let formData = new FormData();
@@ -54,7 +55,7 @@ function FormularioModifProducto() {
             formData.append("costo", input.costo);
             formData.append("imagen", input.imagen);//este nombre "imagen" es el q va en upload.single("imagen") en el back
 
-            fetch(`http://localhost:3001/productos/${_id}`, {
+            await fetch(`http://localhost:3001/productos/${_id}`, {
                 method: "PUT",
                 body: formData,
             });
@@ -73,7 +74,8 @@ function FormularioModifProducto() {
 
     useEffect(()=>{
         dispatch(getProductoById(_id));
-    },[_id, dispatch]);
+        dispatch(getAllProds());
+    },[_id, dispatch, productos]);
 
     useEffect(()=>{
         setInput({
@@ -85,12 +87,18 @@ function FormularioModifProducto() {
             imagen: prod.imagen
         })
     },[prod.costo, prod.envase, prod.imagen, prod.nombre, prod.posicionLista, prod.precioKg])
+    
+    useEffect(() => {
+        // Actualizar lista local de productos cuando el store de Redux se actualice
+        setListaProd(productos);
+    }, [productos]);
+
 
     return (
         <div className='cont-modifProd-formulario'>
             <FormularioProducto
             operacion={"modifica"}
-            productos={productos}
+            productos={listaProd}
             handleSubmit={handleSubmit}
             input={input}
             handleChange={handleChange}

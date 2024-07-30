@@ -80,17 +80,15 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
                     </div>
 
                     {/* muestra foto */}
-                    <div>
-                        <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
+                    <div>                        
+                        {
+                            previewSource ? 
+                            <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
+                            :
+                            <img src={input.imagen} alt="Sin cargar" className="pre-imagen-prod" />
+                        }
                     </div>
 
-                    {/* para opcion modificar muestra la img q ya tiene */}
-                    {
-                        operacion === 'modifica' &&
-                        <div >
-                            <img src={input.imagen} alt={""} className="pre-imagen-prod" />
-                        </div>
-                    }
                 </div>
 
                     

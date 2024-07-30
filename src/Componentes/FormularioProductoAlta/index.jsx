@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProds } from '../../Redux/Actions';
 import FormularioProducto from '../FormularioProducto';
@@ -18,6 +18,7 @@ function FormularioProductoAlta({operacion}) {
     }); //estado inical inputs     
     const [errors, setErrors] = useState({}); //manejo de errore
     const [previewSource, setPreviewSource] = useState('');//estado vista previa imagen 
+    const [listaProd, setListaProd] = useState([]); //estado para actualizar la lista de productos al agregar uno
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ function FormularioProductoAlta({operacion}) {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         let prod = existeProducto(); 
         if(prod.nombre === ""){
@@ -83,7 +84,7 @@ function FormularioProductoAlta({operacion}) {
                     formData.append("posicionLista", input.posicionLista);
                     formData.append("imagen", input.imagen);//este nombre "imagen" es el q va en upload.single("imagen") en el back
                     
-                    fetch(`http://localhost:3001/productos`, {
+                    await fetch(`http://localhost:3001/productos`, {
                         method: "POST",
                         body: formData,
                     });
@@ -114,10 +115,20 @@ function FormularioProductoAlta({operacion}) {
         }
     };
 
+    useEffect(() => {
+        // Despachar acción para obtener todos los productos al montar el componente
+        dispatch(getAllProds());
+    }, [dispatch]);
+
+    useEffect(() => {
+        // Actualizar lista local de productos cuando el store de Redux se actualice
+        setListaProd(productos);
+    }, [productos]);
+
     return (
         <FormularioProducto
             operacion={operacion}
-            productos={productos}
+            productos={listaProd}
             handleSubmit={handleSubmit} 
             input={input} 
             handleChange={handleChange} 
