@@ -6,8 +6,8 @@
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    background-color: var(--background-color-navBar-oscuro);
+    border: 1px solid #861a1a;
     border-radius: 5px;
 }
 .cont-dos-items{

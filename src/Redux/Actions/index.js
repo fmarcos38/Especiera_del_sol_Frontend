@@ -7,7 +7,8 @@ import {
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES,
-    GET_PRODUCTO_BY_ID, 
+    GET_PRODUCTO_BY_ID,
+    RESET_REMITO, 
 } from './actionType';
 import { local } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -309,7 +310,12 @@ export function ordenaFechaCompras(fecha) {
         payload: fecha,
     }
 }
-
+//reset remito compra y venta
+export function resetRemito(){
+    return function(dispatch){
+        dispatch({type: RESET_REMITO});
+    }
+}
 //--REPORTES y GASTOS----------------------------------------
 //crea gasto
 export function creaGasto(data){

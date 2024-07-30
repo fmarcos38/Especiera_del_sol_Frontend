@@ -25,7 +25,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
     //calc tot kgs vendidos
     const caclTotKgs = () => {
         let tot = 0;
-        remito.items?.map(item => {
+        remito?.items?.map(item => {
             return tot += item.cantidad;
         });
         return tot;
@@ -33,14 +33,14 @@ function RemitoMuestraCompra({ proveedor, remito }) {
     //calcTotCompra
     const calcTotCompra = () => {
         let tot = 0;
-        remito.items?.map(item => {
+        remito?.items?.map(item => {
             return tot += (item.cantidad * item.unitario);
         });
         return tot;
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias
     const renderRows = () => {
-        const rows = remito.items?.map(item => (
+        const rows = remito?.items?.map(item => (
             <tr key={item.detalle}>
                 <td>{item.cantidad}</td>
                 <td>{item.detalle}</td>
@@ -101,8 +101,8 @@ function RemitoMuestraCompra({ proveedor, remito }) {
                         <div className='cont-remito-derecho'>
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
-                                <p className='num-remito'>N° {remito.numRemitoProveedor}</p>
-                                <p className='fecha-remito'>Fecha: {formatDate(remito.fecha)}</p>
+                                <p className='num-remito'>N° {remito?.numRemitoProveedor}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(remito?.fecha)}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -125,49 +125,49 @@ function RemitoMuestraCompra({ proveedor, remito }) {
                         <div className='cont-remito-datos-cliente-Item-NombreYApe'>
                             <div className='cont-remito-datos-cliente-Item-Nombre'>
                                 <label className='lable-remito'>Nombre:</label>
-                                <input className='input-remito-nombre' defaultValue={proveedor.nombre}/>
+                                <input className='input-remito-nombre' defaultValue={proveedor?.nombre}/>
                             </div>
                             <div className='cont-remito-datos-cliente-Item-Nombre'>
                                 <label className='lable-remito'>Apellido:</label>
-                                <input className='input-remito-nombre' defaultValue={proveedor.apellido}/>
+                                <input className='input-remito-nombre' defaultValue={proveedor?.apellido}/>
                             </div>
                         </div>
                         {/* domicilio */}
                         <div className='cont-remito-datos-cliente-Item-Direccion'>
                             <label className='lable-remito'>Domicilio:</label>
-                            <input className='input-remito-nombre' defaultValue={proveedor.direccion}/>
+                            <input className='input-remito-nombre' defaultValue={proveedor?.direccion}/>
                         </div>
                         {/* localidad y tel */}
                         <div className='cont-remito-datos-cliente-Item-Localidad-Telef'>
                             <div className='cont-localidad'>
                                 <label className='lable-remito'>Localidad:</label>
-                                <input className='input-remito-localidad' defaultValue={proveedor.ciudad}/>
+                                <input className='input-remito-localidad' defaultValue={proveedor?.ciudad}/>
                             </div>
                             <div className='cont-telefono'>
                                 <label className='lable-remito'>Tel:</label>
-                                <input className='input-remito-telefono' defaultValue={proveedor.telefono}/>
+                                <input className='input-remito-telefono' defaultValue={proveedor?.telefono}/>
                             </div>
                         </div>
                         {/* cuit - iva */}
                         <div className='cont-remito-datos-cliente-Item-AFIP'>
                             <div className='cont-CUIT'>
                                 <label className='lable-remito'>CUIT:</label>
-                                <input className='input-remito-cuit' defaultValue={proveedor.cuit} />
+                                <input className='input-remito-cuit' defaultValue={proveedor?.cuit} />
                             </div>
                             <div className='cont-IVA'>
                                 <label className='lable-remito'>IVA:</label>
-                                <input defaultValue={proveedor.iva} className='input-remito-iva'/>
+                                <input defaultValue={proveedor?.iva} className='input-remito-iva'/>
                             </div>
                         </div>
                         {/* cond pago y Estado */}
                         <div className='cont-remito-datos-cliente-Item-CondicionPago'>
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Condición de pago:</label>
-                                <input defaultValue={remito.detallePago} className='input-remito-condicionPagoo'/>
+                                <input defaultValue={remito?.detallePago} className='input-remito-condicionPagoo'/>
                             </div>
                             <div className='cont-estado'>
                                 <label className='lable-remito-condicion'>Estado:</label>
-                                <input defaultValue={remito.estado} className='input-remito-estadoo'/>
+                                <input defaultValue={remito?.estado} className='input-remito-estadoo'/>
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
                                 <td>
                                     <div className='cont-foot-bultos'>
                                         <label style={{ marginRight: '5px' }}>Transp:</label>
-                                        <p>{remito.transporte}</p>
+                                        <p>{remito?.transporte}</p>
                                     </div>
                                 </td>
                                     <td></td>
@@ -205,7 +205,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
                                         <label style={{ marginRight: '5px', fontSize: '15px', fontWeight:'400' }}>
                                             Cant Bultos:
                                         </label>
-                                        <p style={{ padding: '0', margin: '0',fontWeight:'400' }}>{remito.bultos}</p>
+                                        <p style={{ padding: '0', margin: '0',fontWeight:'400' }}>{remito?.bultos}</p>
                                     </div>
                                 </td>
                                 <td></td>

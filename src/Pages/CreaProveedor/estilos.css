@@ -1,0 +1,8 @@
+.cont-page-crea-prov{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 89.9vh;
+    background-color: #d5d3d3;
+}

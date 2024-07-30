@@ -1,7 +1,7 @@
 import React from 'react'
 import FormularioProveedorAlta from '../../Componentes/FormularioProveedorAlta';
 import { userLogData } from '../../LocalStorage';
-
+import './estilos.css';
 
 function CreaProveedor() {
 
@@ -9,8 +9,8 @@ function CreaProveedor() {
 
     if(userLog){
         return (
-            <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-                <h1>Formulario de creación de proveedor</h1>
+            <div className='cont-page-crea-prov'>
+                <h1 className='h1-form-cliente'>Formulario de creación de proveedor</h1>
                 <FormularioProveedorAlta />
             </div>
         )

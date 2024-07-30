@@ -6,16 +6,13 @@ import TablaItemsRemitoCompra from '../TablaItemsRemitoCompra';
 import Swal from 'sweetalert2';
 import FormularioCompra from '../FormularioCompra';
 
-
 function FormularioCompras() {
-
     const tipoOperacion = 'compra';
     const productos = useSelector(state => state.productos);
     const proveedores = useSelector(state => state.proveedores);   
     const remito =  useSelector(state => state.ultimoRemito); 
-    let numUltRemito = 0;
-    if(remito === null) { numUltRemito = 1; } 
-    if(remito !== null) { numUltRemito = remito.numR + 1; } 
+    //estado para el num de compra
+    const [numComp, setNumComp] = useState();
     //estado para los items que se compran
     const [items, setItems] = useState({
         cantidad: "",
@@ -27,7 +24,7 @@ function FormularioCompras() {
     const [pedido, setPedido] = useState([]);    
     //estado para detalle, unitario y total PERO de la compra Acordada con el provvedor
     const [compra, setCompra] = useState({
-        numCompra: 0,
+        numCompra: numComp,
         numRemitoProveedor: "",
         transporte: "",
         proveedor: "",
@@ -37,8 +34,9 @@ function FormularioCompras() {
         unitario: "",
         total: "",
         detallePago: "",
-        items: [],        
-    }); 
+        items: [], 
+        cuit: "",       
+    });  console.log("compra:", compra)
     const dispatch = useDispatch();
 
     const handleOnChangeItems = (e) => {
@@ -54,7 +52,24 @@ function FormularioCompras() {
         });
     };    
     const handleOnChangeDatosCompra = (e) => {
-        setCompra({...compra, [e.target.id]:e.target.value});
+        const { id, value } = e.target;
+        let updatedValue = value;
+
+        if (id === 'proveedor') {
+            const selectedProveedor = proveedores.find(p => `${p.nombre} ${p.apellido}` === value);
+            if (selectedProveedor) {
+                updatedValue = {
+                    proveedor: value,
+                    cuit: selectedProveedor.cuit,
+                };
+            }
+        }
+        
+        setCompra(prevCompra => ({
+            ...prevCompra,
+            [id]: id === 'proveedor' ? updatedValue.proveedor : value,
+            cuit: id === 'proveedor' ? updatedValue.cuit : prevCompra.cuit,
+        }));
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -65,19 +80,12 @@ function FormularioCompras() {
             });
         }else{
             const objetoCompra = {
-                numRemito: numUltRemito, //corregir para obt el num de remito
-                proveedor: compra.proveedor,
-                detalle: compra.detalle,
-                producto: compra.producto,
-                cantidad: compra.cantidad,              
+                ...compra,
                 total: calcTotCompra(),
-                unitario: compra.unitario,
+                items: pedido,
                 estado: "Debo",
-                detallePago: compra.detallePago,
-                items: pedido,                
             };
-            dispatch(creaAnticipo(objetoCompra));
-            localStorage.setItem("numRemito", compra.numRemito);//actualizo numRemito en el localStorage
+            dispatch(creaAnticipo(objetoCompra));            
             Swal.fire({
                 text: "Creado con exito!!",
                 icon: "success"
@@ -107,7 +115,7 @@ function FormularioCompras() {
         dispatch(getAllProds());
         dispatch(getAllProveedores());      
     },[compra, dispatch]);
-
+    //para el ultimo num remito
     useEffect(()=>{
         if(compra.proveedor !== ''){
             dispatch(getUlimoRemitoCompra(compra.proveedor));
@@ -115,7 +123,20 @@ function FormularioCompras() {
 
         return () => {dispatch(resetUltimoRemitocompra());}
     },[compra.proveedor, dispatch]);
-
+    //para actualizar el num de compra
+    useEffect(() => {
+        let numUltRemito;
+        if (remito === null) { 
+            numUltRemito = 1; 
+        } else { 
+            numUltRemito = remito.numR + 1;
+        }
+        setNumComp(numUltRemito);
+        setCompra(prevCompra => ({
+            ...prevCompra,
+            numCompra: numUltRemito
+        }));
+    }, [remito]);
     //para calcular el total del item 
     useEffect(() => {        
         if(items.cantidad && items.unitario){//con este if evito q se quede en un bucle
@@ -141,7 +162,7 @@ function FormularioCompras() {
                 handleOnSubmit={handleOnSubmit} 
                 handleOnChangeDatosCompra={handleOnChangeDatosCompra}
                 proveedores={proveedores}
-                numUltRemito={numUltRemito}
+                numUltRemito={numComp}
                 compra={compra}
                 calcTotCompra={calcTotCompra}
                 items={items}
@@ -163,7 +184,4 @@ function FormularioCompras() {
     )
 }
 
-
-    /*   */
-export default FormularioCompras;           
-
+export default FormularioCompras;

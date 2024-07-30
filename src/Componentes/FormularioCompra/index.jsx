@@ -3,10 +3,8 @@ import './estilos.css';
 
 function FormularioCompra({
     tipoOperacion, handleOnSubmit, handleOnChangeDatosCompra, proveedores, numUltRemito, compra, 
-    calcTotCompra, items,handleOnChangeItems, productos, handleOnClickAgregaItem
+    calcTotCompra, items, handleOnChangeItems, productos, handleOnClickAgregaItem
 }) {
-
-
     return (
         <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
             {/* dato compra */}
@@ -50,11 +48,23 @@ function FormularioCompra({
                             </div>
                         )
                     }
+                    {/* CUIT del proveedor */}
+                    <div className='cont-item'>
+                        <label className='label-crea-compra'>CUIT:</label>
+                        <input
+                            type={'text'}
+                            id='cuit'
+                            value={compra.cuit}
+                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
+                            className='input-pedido'
+                        />
+                    </div>
                     {/* num compra */}
                     <div className='cont-item'>
                         <label className='label-crea-compra'>N° Compra:</label>
                         <input
                             type={'number'}
+                            id='numCompra'
                             value={numUltRemito}
                             className='input-pedido numCompra'
                         />
@@ -215,4 +225,4 @@ function FormularioCompra({
     )
 }
 
-export default FormularioCompra
+export default FormularioCompra;
