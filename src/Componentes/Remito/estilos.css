@@ -317,3 +317,18 @@
 .btn-limpiar-datos{
     margin-right: 10px;
 }
+/* palabra pagado */
+.cont-palabra-pagado{
+    position: absolute;
+    top: 90%;
+}
+.diagonal-text {
+    display: inline-block; /* Necesario para aplicar transformaciones */
+    transform: rotate(-45deg); /* Ajusta el ángulo según sea necesario */
+    /* Otros estilos opcionales */
+    font-size: 23px;
+    font-weight: 500;
+    color: red;
+    margin: 10px;
+}
+

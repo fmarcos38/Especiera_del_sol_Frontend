@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProds, getAllRemitos, ordenaPorFecha, filtraFechasRemitos } from '../../Redux/Actions';
+import { getAllProds, getAllRemitos, ordenaPorFecha } from '../../Redux/Actions';
 import TablaVentas from '../TablaVentas';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
@@ -157,6 +157,7 @@ function ListaRemitosVentas() {
     return (
         <div className='cont-lista-remitos-ventass'>
             <h1>Lista de Ventas</h1>
+            {/* filtros */}
             <div className='cont-filtros-btnReset-lista-remitos-ventas'>
                 <div className='cont-filtros-lista-remitos-ventas'>
                     <FiltrosComprasVentasFecha 

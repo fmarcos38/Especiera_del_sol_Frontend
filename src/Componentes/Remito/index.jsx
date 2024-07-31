@@ -149,6 +149,8 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
             document.getElementById('cuit').value = '';
             document.getElementById('iva').value = '';
         }
+
+
     }, [clienteExiste]);
 
     return (
@@ -397,6 +399,14 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+
+                    {/* palabra pagado en diagonal */}
+                    <div className='cont-palabra-pagado'>
+                    {
+                        remitoAmostrar.estado === 'Pagado' &&
+                        <p className='diagonal-text'>Pagado</p>
+                    }
                     </div>
                 </div>
                 {

@@ -16,15 +16,17 @@ import './estilos.css';
 
 
 function ListaRemitosCliente() {
-    const remitosCliente = useSelector(state => state.remitos); 
+
     const {cuit} = useParams(); 
-    const contexto = useContext(AppContexto);
-    const dispatch = useDispatch();
+    const remitosCliente = useSelector(state => state.remitos);
     //estado para el estado del remito
     const [estado, setEstado] = useState("todos");
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
+    const contexto = useContext(AppContexto);
+    const dispatch = useDispatch();
+    
 
 
     const handleClick = () => {
