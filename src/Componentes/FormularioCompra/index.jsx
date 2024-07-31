@@ -52,7 +52,7 @@ function FormularioCompra({
                     <div className='cont-item'>
                         <label className='label-crea-compra'>CUIT:</label>
                         <input
-                            type={'text'}
+                            type={'number'}
                             id='cuit'
                             value={compra.cuit}
                             onChange={(e) => { handleOnChangeDatosCompra(e) }}

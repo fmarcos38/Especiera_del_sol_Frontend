@@ -26,7 +26,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
     const caclTotKgs = () => {
         let tot = 0;
         remito?.items?.map(item => {
-            return tot += item.cantidad;
+            return tot += Number(item.cantidad);
         });
         return tot;
     };

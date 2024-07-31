@@ -95,7 +95,7 @@ function FormularioCompras() {
     //funcion calc total compra (NO items)
     const calcTotCompra = () => {        
         return compra.cantidad * compra.unitario;
-    };    
+    };
     //elimnina item
     const handleElimnimaItem = (detalle) => {
         const newPedido = pedido.filter(item => item.detalle !== detalle);

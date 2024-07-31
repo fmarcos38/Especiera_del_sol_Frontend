@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import './estilos.css';
 
 
-function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos = 0, transporte = '' }) { 
+function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos = 0, transporte = '' }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -25,8 +25,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
-    }); 
-    //estado para la cant de bultos
+    });
     const [bultosActual, setBultos] = useState(bultos);
     const [transporteActual, setTransporte] = useState(transporte);
     const remitoAmostrar = useSelector(state => state.remito); 
@@ -139,6 +138,19 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
         return rows;
     };
 
+    useEffect(() => {
+        if (!clienteExiste) {
+            // Código para limpiar los inputs
+            document.getElementById('nombre').value = '';
+            document.getElementById('apellido').value = '';
+            document.getElementById('direccion').value = '';
+            document.getElementById('ciudad').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('cuit').value = '';
+            document.getElementById('iva').value = '';
+        }
+    }, [clienteExiste]);
+
     return (
         <div className='cont-gralRemito'>
             <form onSubmit={handleOnSubmit} className='cont-form-remito'>
@@ -205,6 +217,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>Nombre:</label>
                                 <input
                                     type='text'
+                                    id='nombre'
                                     value={cliente?.nombre}
                                     className='input-remito-nombre'
                                     readOnly
@@ -214,6 +227,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>Apellido:</label>
                                 <input
                                     type='text'
+                                    id='apellido'
                                     value={cliente?.apellido}
                                     className='input-remito-nombre'
                                     readOnly
@@ -225,6 +239,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                             <label className='lable-remito'>Domicilio:</label>
                             <input
                                 type='text'
+                                id='direccion'
                                 value={cliente?.direccion}
                                 className='input-remito-nombre'
                                 readOnly
@@ -236,6 +251,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>Localidad:</label>
                                 <input
                                     type='text'
+                                    id='ciudad'
                                     value={cliente?.ciudad}
                                     className='input-remito-localidad'
                                     readOnly
@@ -245,6 +261,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>Tel:</label>
                                 <input
                                     type='number'
+                                    id='telefono'
                                     value={cliente?.telefono}
                                     className='input-remito-telefono'
                                     readOnly
@@ -257,6 +274,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>CUIT:</label>
                                 <input
                                     type='number'
+                                    id='cuit'
                                     value={cliente?.cuit}
                                     className='input-remito-cuit'
                                     readOnly
@@ -266,6 +284,7 @@ function Remito({ operacion, numUltimoRemito, cliente, items, totPedido, bultos 
                                 <label className='lable-remito'>IVA:</label>
                                 <input
                                     type='text'
+                                    id='iva'
                                     value={cliente?.iva}
                                     className='input-remito-iva'
                                     readOnly

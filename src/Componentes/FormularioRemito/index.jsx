@@ -1,77 +1,89 @@
-import React, {useEffect, useState} from 'react';
-import './estilos.css';
-import Remito from '../Remito';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorCuit, getAllProds, traeUltimoRemito } from '../../Redux/Actions';
+import { buscaClientePorCuit, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
+import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './estilos.css';
 
+function FormRemito({ tipo }) {
 
-
-function FormRemito({tipo}) {
-
-    //estado dato cliente - CUIT
-    const [cuit, setCuit] = useState(); 
     const traeCliente = useSelector(state => state.cliente);
     const numUltimoRemito = useSelector(state => state.ultimoRemito);
     const productos = useSelector(state => state.productos);
-    const dispatch = useDispatch();
-    //estado arreglo pedido
+    const [cuit, setCuit] = useState("");    
+    //estados para el manejo del cliente  
+    const [cliente, setCliente] = useState();
+    const [clienteExiste, setClienteExiste] = useState(true);
+    const [haBuscadoCliente, setHaBuscadoCliente] = useState(false); 
+    // Estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
-    //estado item
-    const [cantidad, setCantidad] = useState(""); 
+    // Estados item
+    const [cantidad, setCantidad] = useState("");
     const [detalle, setDetalle] = useState("");
-    const [unitario, setUnitario]= useState("");
+    const [unitario, setUnitario] = useState("");
     const [costo, setCosto] = useState("");
     const [importe, setImporte] = useState("");
-    
+    const dispatch = useDispatch();
 
     const handleOnChangeCuit = (e) => {
         setCuit(e.target.value);
     };
+
     const handleClickCargaClienteRemito = (e) => {
-        if(!cuit){ alert("Ingrese un CUIT !!"); }
-        dispatch(buscaClientePorCuit(cuit));     
+        if (!cuit) {
+            alert("Ingrese un CUIT !!");
+            return;
+        }
+        setCliente(null);
+        setHaBuscadoCliente(true); // Indicar que se ha buscado un cliente
+        dispatch(buscaClientePorCuit(cuit));
     };
+
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
         setCantidad(cant);
         totItem(cant, unitario);
     };
+
     const handleChangeDetalle = (e) => {
-        const producto = e.target.value 
-        const buscaItem = pedido.find(p => p.detalle === producto)
-        if(buscaItem){ 
+        const producto = e.target.value;
+        const buscaItem = pedido.find(p => p.detalle === producto);
+        if (buscaItem) {
             alert("Ese producto ya fue ingresado !!");
             setDetalle("");
-        }else{
+        } else {
             setDetalle(producto);
         }
     };
+
     const handleChangeUnitario = (e) => {
         const unit = e.target.value;
         setUnitario(unit);
         totItem(cantidad, unit);
     };
+
     const handleChangeCosto = (e) => {
         setCosto(e.target.value);
-    };    
-    
-    //funcion calcula tot import item
-    const totItem = (cantidad, unitario) => {        
+    };
+
+    // Función calcula tot import item
+    const totItem = (cantidad, unitario) => {
         const tot = cantidad * unitario;
         setImporte(tot);
         return tot;
-    };    
-    //funcion calc tot del pedido
+    };
+
+    // Función calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
-        for(let i=0; i<pedido.length; i++){
-            let imp = parseInt(pedido[i].importe, 10); 
+        for (let i = 0; i < pedido.length; i++) {
+            let imp = parseInt(pedido[i].importe, 10);
             tot = tot + imp;
         }
         return tot;
     };
+
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -81,7 +93,7 @@ function FormRemito({tipo}) {
                 icon: "success"
             });
         } else {
-            //creo un obj para añadira al array de pedido
+            // Creo un obj para añadir al array de pedido
             const newItem = {
                 cantidad,
                 detalle,
@@ -94,6 +106,7 @@ function FormRemito({tipo}) {
             resetForm();
         }
     };
+
     const resetForm = () => {
         setCantidad('');
         setDetalle('');
@@ -102,27 +115,45 @@ function FormRemito({tipo}) {
         setCosto('');
     }
 
-    //elimina item tabla pedido
+    // Elimina item tabla pedido
     const handleElimnimaItem = (_id) => {
         const newPedido = pedido.filter(p => p._id !== _id);
         setPedido(newPedido);
     };
 
-    useEffect(()=>{
-        dispatch(getAllProds());
-        dispatch(traeUltimoRemito());        
-    },[dispatch, cuit, traeCliente]);
+    // Para cliente cuando busca por CUIT
+    useEffect(() => {
+        if (haBuscadoCliente) {
+            if (traeCliente !== "El cliente no existe") {
+                setCliente(traeCliente);
+                setClienteExiste(true); // Cliente existe                
+            }else{
+                Swal.fire({
+                    text: 'El cliente no existe !!',
+                    icon: 'error'
+                });
+                setClienteExiste(false); // Cliente no existe
+                dispatch(resetCliente()) //para esetear el estado global(sino al ingresar 2 cuit inexistentes seguido no arroja el msj)
+            }
+        } else {
+            setHaBuscadoCliente(true);            
+        }
+    }, [traeCliente, haBuscadoCliente, dispatch]);
 
-    useEffect(()=>{ 
-        if(detalle){ 
+    useEffect(() => {
+        dispatch(getAllProds());
+        dispatch(traeUltimoRemito());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (detalle) {
             const prod = productos.find(p => p.nombre === detalle);
             setCantidad(prod?.envase);
             setCosto(prod?.costo);
             setUnitario(prod?.precioKg);
             setImporte(totItem(prod?.envase, prod?.precioKg));
         }
-    },[detalle, productos]);
-
+    }, [detalle, productos]);
 
     return (
         <div className='cont-pedido'>
@@ -130,8 +161,19 @@ function FormRemito({tipo}) {
             <h2>Datos del cliente</h2>
             <div className='dato-cliente-cuit'>
                 <label className='label-cuit-remito'>CUIT: </label>
-                <input type='number' id='cuit' value={cuit} onChange={(e) => {handleOnChangeCuit(e)}} className='input-cuit-remito'/>
-                <button onClick={(e) => {handleClickCargaClienteRemito(e)}} className='btn-carga-data-cliente-remito'>Cargar datos del Clienta al Remito</button>
+                <input 
+                    type='number' 
+                    id='cuit' 
+                    value={cuit} 
+                    onChange={(e) => {handleOnChangeCuit(e)}} 
+                    className='input-cuit-remito'
+                />
+                <button 
+                    onClick={(e) => {handleClickCargaClienteRemito(e)}} 
+                    className='btn-carga-data-cliente-remito'
+                >
+                    Cargar datos del Cliente al Remito
+                </button>
             </div>
 
             <h2>Carga de items para la {tipo} y creación del Remito</h2>
@@ -251,13 +293,13 @@ function FormRemito({tipo}) {
                 </table>
             </div>
 
-
             {/* Remito */}
             <div className='cont-remito-pedido'>
                 <Remito 
                     operacion={"venta"} 
                     numUltimoRemito={numUltimoRemito} 
-                    cliente={traeCliente} 
+                    cliente={cliente} 
+                    clienteExiste={clienteExiste}
                     items={pedido} 
                     totPedido={calculaTotPedido()}
                 />
@@ -266,4 +308,4 @@ function FormRemito({tipo}) {
     )
 }
 
-export default FormRemito
+export default FormRemito;

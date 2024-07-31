@@ -25,10 +25,10 @@ function EditaRemitoCompra() {
     }); 
     //estado para los items que se compran
     const [items, setItems] = useState({
-        cantidad: 0,
+        cantidad: "",
         detalle: "",
-        unitario: 0,
-        importe: 0
+        unitario: "",
+        importe: "",
     }); 
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState(remito.items);
