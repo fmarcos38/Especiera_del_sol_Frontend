@@ -19,8 +19,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
         contexto.setModalEntregaCliente(true);
         setId(id);
     };
-
-    
+        
     return (
         <div style={{width: "100%"}}>
             <table className="client-table listaCompras">
@@ -60,7 +59,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                                 <td>${formatMoney(calcGanancia(r.items))}</td>
                                 <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                                 <td>
-                                    <Link to={`/detalleRemito/${r._id}`}>
+                                    <Link to={`/detalleRemitoVenta/${r._id}`}>
                                         <button>Detalle</button>
                                     </Link>
                                 </td>

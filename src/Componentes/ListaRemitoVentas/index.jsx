@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProds, getAllRemitos, ordenaPorFecha } from '../../Redux/Actions';
+import { getAllProds, getAllRemitos, ordenaPorFecha} from '../../Redux/Actions';
 import TablaVentas from '../TablaVentas';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';

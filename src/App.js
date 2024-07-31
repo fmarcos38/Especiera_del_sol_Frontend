@@ -29,6 +29,7 @@ import QuienesSomosPage from './Pages/QuienesSomos';
 import ListaDePreciosPage from './Pages/ListaDePrecios';
 import Footbar from './Componentes/Footbar';
 import ModifProducto from './Pages/ModifProducto';
+import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
             <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage/>} />
             <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />            
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
+            <Route path='/detalleRemitoVenta/:_id' element={<DetalleRemitoVenta/>} />{/* nuevo */}
             <Route path='/detalleRemitoCompra/:_id' element={<DetalleRemitoCompraPage/>} />
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
             <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />

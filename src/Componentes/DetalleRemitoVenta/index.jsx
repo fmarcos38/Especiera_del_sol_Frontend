@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import Remito from '../Remito';
-import { getRemitoById } from '../../Redux/Actions';
+import { buscaClientePorCuit, getRemitoById } from '../../Redux/Actions';
 
-
-function DetalleRemito() {
-    const {_id} = useParams(); 
+function DetalleRemitoVenta() {
+    const { _id } = useParams(); 
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito); 
     const cliente = useSelector(state => state.cliente); 
@@ -15,6 +14,11 @@ function DetalleRemito() {
         dispatch(getRemitoById(_id));
     }, [_id, dispatch]);
 
+    useEffect(() => {
+        if (remito && remito.cuit) {
+            dispatch(buscaClientePorCuit(remito.cuit));
+        }
+    }, [remito, dispatch]);
 
     return (
         <div>            
@@ -29,7 +33,7 @@ function DetalleRemito() {
                 transporte={remito.transporte}
             />
         </div>
-    )
+    );
 }
 
-export default DetalleRemito
+export default DetalleRemitoVenta;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaRemito } from '../../Redux/Actions';
+import { creaRemito, resetCliente } from '../../Redux/Actions';
 import { formatDate, formatMoney } from '../../Helpers';
 import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
@@ -149,9 +149,11 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
             document.getElementById('cuit').value = '';
             document.getElementById('iva').value = '';
         }
-
-
     }, [clienteExiste]);
+
+    useEffect(()=>{
+        return()=>{dispatch(resetCliente())}    
+    },[dispatch]); //nuevo
 
     return (
         <div className='cont-gralRemito'>
