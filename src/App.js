@@ -36,48 +36,48 @@ function App() {
   return (
     <AppProvider>
       <div className="App">
-      {/* navbar */}
-      <header className="App-header">
-        <Navbar />
-      </header>
-      
-      <div className='content-wrap'>
-{/* rutas */}
-<Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/login' element={<LoginPage/>} />
-            <Route path='/creaCliente' element={<CreaCliente/>} />
-            <Route path='/clientes' element={<ListaClientesPage/>} />            
-            <Route path='/creaProducto' element={<CreaProducto/>} />
-            <Route path='/remitosCliente/:cuit' element={<ListaRemitosClientePage/>} />
-            <Route path='/productos' element={<ListaProductosPage/>} />
-            <Route path='/modifProd/:_id' element={<ModifProducto/>} />
-            <Route path='/creaProveedor' element={<CreaProveedor/>} />
-            <Route path='/proveedores' element={<ListaProveedoresPage/>} />
-            <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage/>} />
-            <Route path='/creaVenta' element={<CreaRemitoVentaPage/>} />            
-            <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage/>} />
-            <Route path='/detalleRemitoVenta/:_id' element={<DetalleRemitoVenta/>} />{/* nuevo */}
-            <Route path='/detalleRemitoCompra/:_id' element={<DetalleRemitoCompraPage/>} />
-            <Route path='/editaRemito/:_id' element={<EditaRemitoPage/>} />
-            <Route path='/creaAnticipo' element={<CreaAnticipoPaga/>} />
-            <Route path='/creaCompra' element={<CreaCompra/>} />
-            <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage/>} />
-            <Route path='/editaRemitoCompra/:_id' element={<EditaRemitoCompraPage/>} />
-            <Route path='/listaRemitosVentas' element={<ListaRemitosVentas/>} />
-            <Route path='/creaGastos' element={<CreaGastoPage/>} />
-            <Route path='/listaReportes' element={<ListaReportesPage/>} />
-            <Route path='/listaDePrecios' element={<ListaDePreciosPage/>} />
-            <Route path='/quienesSomos' element={<QuienesSomosPage/>} />
-            {/* rutas para el desarrollador */}            
-            <Route path='/remito' element={<Remito/>} />
-        </Routes>
+        {/* navbar */}
+        <header className="App-header">
+          <Navbar />
+        </header>
+
+        <div className='content-wrap'>
+          {/* rutas */}
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/creaCliente' element={<CreaCliente />} />
+            <Route path='/clientes' element={<ListaClientesPage />} />
+            <Route path='/creaProducto' element={<CreaProducto />} />
+            <Route path='/remitosCliente/:cuit' element={<ListaRemitosClientePage />} />
+            <Route path='/productos' element={<ListaProductosPage />} />
+            <Route path='/modifProd/:_id' element={<ModifProducto />} />
+            <Route path='/creaProveedor' element={<CreaProveedor />} />
+            <Route path='/proveedores' element={<ListaProveedoresPage />} />
+            <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage />} />
+            <Route path='/creaVenta' element={<CreaRemitoVentaPage />} />
+            <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage />} />
+            <Route path='/detalleRemitoVenta/:_id' element={<DetalleRemitoVenta />} />{/* nuevo */}
+            <Route path='/detalleRemitoCompra/:_id' element={<DetalleRemitoCompraPage />} />
+            <Route path='/editaRemito/:_id' element={<EditaRemitoPage />} />
+            <Route path='/creaAnticipo' element={<CreaAnticipoPaga />} />
+            <Route path='/creaCompra' element={<CreaCompra />} />
+            <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage />} />
+            <Route path='/editaRemitoCompra/:_id' element={<EditaRemitoCompraPage />} />
+            <Route path='/listaRemitosVentas' element={<ListaRemitosVentas />} />
+            <Route path='/creaGastos' element={<CreaGastoPage />} />
+            <Route path='/listaReportes' element={<ListaReportesPage />} />
+            <Route path='/listaDePrecios' element={<ListaDePreciosPage />} />
+            <Route path='/quienesSomos' element={<QuienesSomosPage />} />
+            {/* rutas para el desarrollador */}
+            <Route path='/remito' element={<Remito />} />
+          </Routes>
+        </div>
+
+        <footer>
+          <Footbar />
+        </footer>
       </div>
-      
-      <footer>
-        <Footbar />
-      </footer>
-    </div>
     </AppProvider>
   );
 }

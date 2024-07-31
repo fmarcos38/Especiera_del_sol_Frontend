@@ -29,7 +29,6 @@ function FormRemito({ tipo }) {
     const handleOnChangeCuit = (e) => {
         setCuit(e.target.value);
     };
-
     const handleClickCargaClienteRemito = (e) => {
         if (!cuit) {
             alert("Ingrese un CUIT !!");
@@ -39,13 +38,11 @@ function FormRemito({ tipo }) {
         setHaBuscadoCliente(true); // Indicar que se ha buscado un cliente
         dispatch(buscaClientePorCuit(cuit));
     };
-
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
         setCantidad(cant);
         totItem(cant, unitario);
     };
-
     const handleChangeDetalle = (e) => {
         const producto = e.target.value;
         const buscaItem = pedido.find(p => p.detalle === producto);
@@ -56,24 +53,20 @@ function FormRemito({ tipo }) {
             setDetalle(producto);
         }
     };
-
     const handleChangeUnitario = (e) => {
         const unit = e.target.value;
         setUnitario(unit);
         totItem(cantidad, unit);
     };
-
     const handleChangeCosto = (e) => {
         setCosto(e.target.value);
     };
-
     // Función calcula tot import item
     const totItem = (cantidad, unitario) => {
         const tot = cantidad * unitario;
         setImporte(tot);
         return tot;
     };
-
     // Función calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
@@ -83,7 +76,6 @@ function FormRemito({ tipo }) {
         }
         return tot;
     };
-
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -106,7 +98,6 @@ function FormRemito({ tipo }) {
             resetForm();
         }
     };
-
     const resetForm = () => {
         setCantidad('');
         setDetalle('');
@@ -114,7 +105,6 @@ function FormRemito({ tipo }) {
         setImporte('');
         setCosto('');
     }
-
     // Elimina item tabla pedido
     const handleElimnimaItem = (_id) => {
         const newPedido = pedido.filter(p => p._id !== _id);

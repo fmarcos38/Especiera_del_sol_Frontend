@@ -353,7 +353,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                             border:'none',
                                         }}
                                     >
-                                        <label style={{marginRight:'5px'}}>Transp:</label>
+                                        <label style={{marginRight:'5px', fontSize:'20px'}}>Transp:</label>
                                         {
                                             operacion === 'venta' ? 
                                             <input 
@@ -417,7 +417,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                 }                
             </form>
             <div>
-                <button onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
+                <button type='button' onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
             </div>
         </div>
     );

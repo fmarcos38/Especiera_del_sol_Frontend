@@ -1,10 +1,12 @@
 .cont-gralRemito{
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
+    padding: 10px;
+    background-color: rgb(164, 163, 162);
 }
 /* medida de hoja A4 en px */
 /*
@@ -18,8 +20,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    background-color: antiquewhite;
+    margin-top: 30px;
 }
 .cont-remito{
     width: 561px;
@@ -27,7 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid brown;
+    border: 1px solid rgb(192, 83, 83);
     background-color: #fff;
 }
 /* estilos contenedor sup */
@@ -158,7 +159,6 @@
     margin-right: 2px;
 }
 
-
 /* estilos cont info CLIENTE */
 .cont-remito-datos-cliente{
     width: 90%;
@@ -277,12 +277,15 @@
 .pedido-tabla tbody tr:nth-child(even) td {
     background-color: white;
 }
-.input-bultos{
+.input-bultos,
+.input-transporte {
     border-radius: 10px;
     border: none;
     width: 60px;
     margin-left: 5px;
     text-align: center;
+    font-size: 15px;
+    font-weight: 600;
 }
 .input-transporte{
     border: none;
@@ -290,9 +293,8 @@
 .pie-tabla-palabra {
     width: 95%;
     font-size: 20px;
-    font-weight: 700;
-    background-color: var(--background-color-remito);
-    color: white;
+    font-weight: 600;
+    color: black;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -306,16 +308,13 @@
 }
 /* botón imp */
 .btn-crea-pedido,
-.boton-imprimir,
-.btn-limpiar-datos {
+.boton-imprimir {
     margin-top: 10px;
     color: #fff;
     font-size: 23px;
     background-color: black;
     border-radius: 5px;
-}
-.btn-limpiar-datos{
-    margin-right: 10px;
+    margin-bottom: 20px;
 }
 /* palabra pagado */
 .cont-palabra-pagado{
