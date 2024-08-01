@@ -34,8 +34,6 @@ function ListaRemitos() {
             });
         }        
         dispatch(getAllCompras(detalle, fechaDesde, fechaHasta)); //filtraFechasRemitosCompras
-        setFechaDesde("");
-        setFechaHasta("");
     };
     //para botones debe pagado fecha mas, fecha menos, reset
     const handleOnClick = (e) => {
@@ -54,9 +52,17 @@ function ListaRemitos() {
             case 'fechaMin':
                 dispatch(ordenaFechaCompras("fechaMin"));
                 break;
-            case 'todos': //btn_reset
-                setDetalle("todas");                
-                dispatch(getAllCompras( detalle, fechaDesde, fechaHasta)); 
+            case 'ambos':
+                setDetalle("todas");
+                dispatch(getAllCompras(detalle, fechaDesde, fechaHasta));
+                break;
+            case 'mesActual':
+                setDetalle("todas");
+                dispatch(getAllCompras(detalle, fechaDesde, fechaHasta));
+                break;
+            case 'borraFechas':
+                setFechaDesde("");
+                setFechaHasta("");
                 break;
             default:
                 break; 
@@ -81,6 +87,7 @@ function ListaRemitos() {
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
+                        handleOnClick={handleOnClick}
                     />
                     <FiltraDebePago 
                         operacion={"compra"}

@@ -142,8 +142,6 @@ function ListaRemitosVentas() {
                 dispatch(getAllRemitos( estado, fechaDesde, fechaHasta));
                 break;
             case 'mesActual':
-                /* setFechaDesde("");
-                setFechaHasta(""); */
                 setEstado("todas");
                 dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
                 break;
@@ -187,6 +185,11 @@ function ListaRemitosVentas() {
                     handleOnClick={handleOnClick}
                 />
             </div>
+            <h3 
+                style={{margin:'5px', background:'yellow'}}
+            >
+                SI NO SE UTILIZA EL FILTRO POR FECHA, SE MUESTRAN LOS MOVIMIENTOS DEL MES ACTUAL
+            </h3>
             <TablaVentas 
                 ventas={ventas}
                 calcGanancia={calcGanancia}
