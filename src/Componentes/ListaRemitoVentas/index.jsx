@@ -117,8 +117,8 @@ function ListaRemitosVentas() {
             });
         }        
         dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
-        setFechaDesde("");
-        setFechaHasta("");
+        /* setFechaDesde("");
+        setFechaHasta(""); */
     };
     //para botones debe pagado fecha mas, fecha menos
     const handleOnClick = (e) => {
@@ -137,9 +137,19 @@ function ListaRemitosVentas() {
             case 'fechaMin':
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
-            case 'todos':
+            case 'ambos':
                 setEstado("todas");
                 dispatch(getAllRemitos( estado, fechaDesde, fechaHasta));
+                break;
+            case 'mesActual':
+                /* setFechaDesde("");
+                setFechaHasta(""); */
+                setEstado("todas");
+                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+                break;
+            case 'borraFechas':
+                setFechaDesde("");
+                setFechaHasta("");
                 break;
             default:
                 break; 
@@ -166,6 +176,7 @@ function ListaRemitosVentas() {
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
+                        handleOnClick={handleOnClick}
                     />
                     <FiltraDebePago
                         operacion={"venta"}

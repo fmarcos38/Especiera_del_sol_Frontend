@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import './estilos.css';
 
 
-function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos = 0, transporte = '' }) { 
+function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -26,8 +26,8 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
         condicion_pago: "",
         estado: "",
     });
-    const [bultosActual, setBultos] = useState(bultos);
-    const [transporteActual, setTransporte] = useState(transporte);
+    const [bultosActual, setBultos] = useState(bultos || '');
+    const [transporteActual, setTransporte] = useState(transporte || '');
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
@@ -222,7 +222,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 <input
                                     type='text'
                                     id='nombre'
-                                    value={cliente?.nombre}
+                                    defaultValue={cliente?.nombre}
                                     className='input-remito-nombre'
                                     readOnly
                                 />
@@ -232,7 +232,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 <input
                                     type='text'
                                     id='apellido'
-                                    value={cliente?.apellido}
+                                    defaultValue={cliente?.apellido}
                                     className='input-remito-nombre'
                                     readOnly
                                 />
@@ -244,7 +244,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                             <input
                                 type='text'
                                 id='direccion'
-                                value={cliente?.direccion}
+                                defaultValue={cliente?.direccion}
                                 className='input-remito-nombre'
                                 readOnly
                             />
@@ -256,7 +256,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 <input
                                     type='text'
                                     id='ciudad'
-                                    value={cliente?.ciudad}
+                                    defaultValue={cliente?.ciudad}
                                     className='input-remito-localidad'
                                     readOnly
                                 />
@@ -279,7 +279,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 <input
                                     type='number'
                                     id='cuit'
-                                    value={cliente?.cuit}
+                                    defaultValue={cliente?.cuit}
                                     className='input-remito-cuit'
                                     readOnly
                                 />
@@ -289,7 +289,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 <input
                                     type='text'
                                     id='iva'
-                                    value={cliente?.iva}
+                                    defaultValue={cliente?.iva}
                                     className='input-remito-iva'
                                     readOnly
                                 />
@@ -300,7 +300,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Condición de pago:</label>
                                 <input
-                                    type='text'
+                                    type='text'defaultValue
                                     id='condicion_pago'
                                     value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
                                     onChange={operacion === "venta" ? handleOnChange : null}

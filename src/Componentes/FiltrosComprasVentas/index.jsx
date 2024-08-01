@@ -6,7 +6,8 @@ function FiltrosComprasVentasFecha({
     fechaDesde, 
     handleOnChFechaDesde,
     fechaHasta,
-    handleOnChFechaHasta
+    handleOnChFechaHasta,
+    handleOnClick,
 }) {
 
 
@@ -16,12 +17,32 @@ function FiltrosComprasVentasFecha({
             <form onSubmit={(e) => handleOnSubFechas(e)}>
                 <div>
                     <label className='lable-fecha-filtro'>Desde</label>
-                    <input type='date' id='fechaDesde' value={fechaDesde} onChange={(e) => handleOnChFechaDesde(e)} className='input-fecha-filtro' />
+                    <input 
+                        type='date' 
+                        id='fechaDesde' 
+                        value={fechaDesde} 
+                        onChange={(e) => handleOnChFechaDesde(e)} 
+                        className='input-fecha-filtro' 
+                    />
                     <label className='lable-fecha-filtro'>Hasta</label>
-                    <input type='date' id='fechaHasta' value={fechaHasta} onChange={(e) => handleOnChFechaHasta(e)} className='input-fecha-filtro' />
+                    <input 
+                        type='date' 
+                        id='fechaHasta' 
+                        value={fechaHasta} 
+                        onChange={(e) => handleOnChFechaHasta(e)} 
+                        className='input-fecha-filtro' 
+                    />
                 </div>
                 <div className='cont-btn-aplicar-fechas'>
                     <button type='submit' className='btn-aplicar-fechas'>Aplicar fechas</button>
+                    <button 
+                        type='button' 
+                        id='borraFechas'
+                        onClick={(e) => { handleOnClick(e) }}
+                        className='btn-aplicar-fechas'
+                    >
+                        Borra fechas
+                    </button>
                 </div>
             </form>
         </div>

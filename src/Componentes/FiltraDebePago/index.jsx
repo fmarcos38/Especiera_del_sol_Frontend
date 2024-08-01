@@ -25,6 +25,13 @@ function FiltraDebePago({ operacion, handleOnClick }) {
                         operacion === "venta" ? "Pagado" : "Anticipo" 
                     }
                 </button>
+                <button 
+                    id='ambos' 
+                    onClick={(e) => { handleOnClick(e) }} 
+                    className='btn-filtros'
+                >
+                    Ambos
+                </button>
             </div>
             {/* btns y fecha Max Min */}
             <div className='cont-btns-fecha-max-min'>

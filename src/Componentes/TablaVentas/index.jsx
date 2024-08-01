@@ -78,16 +78,18 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                     }
                 </tbody>
                 <tfoot>
-                    <td>TOTALES</td>
-                    <td></td>
-                    <td></td>
-                    <td style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totRemitos())}</td>
-                    <td style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totEntregas())}</td>
-                    <td style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totSaldos())}</td>
-                    <td style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(calcTotGanancias())}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <tr>
+                    <th>TOTALES</th>
+                    <th></th>
+                    <th></th>
+                    <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totRemitos())}</th>
+                    <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totEntregas())}</th>
+                    <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totSaldos())}</th>
+                    <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(calcTotGanancias())}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    </tr>
                 </tfoot>
             </table>
 
