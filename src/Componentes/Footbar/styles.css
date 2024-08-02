@@ -10,54 +10,60 @@
     align-items: center;
     background-color: var(--background-color-navBar-oscuro);
 }
-.footer {
-    width: 80%;
+.cont-footer {
+    width: 85%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px;
 }
 .divF{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
 }
-footer ul {
+.col-logo{
+    width: 15%;
     display: flex;
-    width: 100%;
+    justify-content: start;
+    align-items: center;
 }
 .logo-footbar {
     width: 90px;
     height: 90px;
     border-radius: 50%;
 }
-footer ul li {
-    display: inline-block;
-    position: relative;
+.cont-items {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.col-1,
+.col-2,
+.col-3 {
     width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: start; /* alineo EJE X */
 }
 /* color linea sup */
-footer ul li h2 {
+.h2-foot{
+    width: 80%; /* largo de la linea */
     display: block;
-    margin-bottom: 3px;
     border-bottom: 1px solid #fff;
+    margin: 0;
 }
-footer ul li h4 p {
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    font-size: .833vw;
-    line-height: .9vw;
-    text-transform: uppercase;
-    font-weight: 800;
-    vertical-align: middle;
+.titulo-col {
+    font-size: 20px;
+    margin: 0 0 3px 0;
 }
-/* color letras */
-footer ul li p {
+.info-col {
     display: block;
     color: #fff;
-    font-size: small;
-    margin: 0;
+    font-size: 15px;
+    margin: 3px 0 0 0;
 }
 .divLinks{
     display: flex;
@@ -67,27 +73,13 @@ footer ul li p {
 .link-footbar{
     color: #fff;
     text-decoration: none;
-    margin: 0;
-}
-.contTodasMedidas{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;  
-}
-/* color linea inferior */
-.line {
-    margin-top: 10px;
-    width: 100%; /* Ancho de la línea */
-    height: 1px; /* Grosor de la línea */
-    background-color: #fff; /* Color de la línea */
-    
-    margin-bottom: 5px;
+    font-size: 15px;
+    margin: 3px 0 0 0;
 }
 .icono-redes-foot{
     color: aliceblue;
-    font-size: xx-large;
+    font-size: 33px;
+    margin: 10px 0 0 0;
 }
 .icono-redes-foot:hover{
     color: blueviolet;
@@ -101,12 +93,10 @@ footer ul li p {
         align-items: center;
     }
 }
-@media screen and (max-width: 750px){
-    footer ul li {
-        text-align: center;
-    }
-}
 @media screen and (max-width: 650px) {
+    .cont-footer{
+        padding: 0;
+    }
     .divF {
         display: flex;
         flex-direction: column;
@@ -114,37 +104,42 @@ footer ul li p {
         align-items: center;
         width: 100%;
     }
-    .logo-footbar {
-        width: 140px;
-        height: 140px;
-        margin-top: 20px;
+    .col-logo{
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
     }
-    footer ul {
+    .logo-footbar {
+        width: 90px;
+        height: 90px;
+    }
+    .cont-items { 
+        width: 90%;
+        flex-direction: column;
+        border-radius: 10px;
+        background-color: #bd3b3b;
+        margin-bottom: 8px;
+    }
+    .col-1,
+    .col-2,
+    .col-3 {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 90%;
+        align-items: center; /* alineo EJE X */
     }
-    footer ul li {
-        display: block;        
-        position: relative;
-        width: 90%;
-        margin-bottom: 10px;
-    }
-    .divLinks{
-        justify-content: center;
-        align-items: center;
-    }
-    footer ul li h4 p, footer ul li p, footer ul li .link {
-        font-size: 15px;
-        line-height: 17px;
-        display: flex;
-        justify-content: center;
-    }
-    .cont-iconos-redes{
+    .h2-foot{
+        width: 80%; /* largo de la linea */
         display: flex;
         justify-content: center;
         align-items: center;
+        border-bottom: 1px solid #fff;
+        margin: 0;
+    }
+    .titulo-col {
+        font-size: 20px;
+        margin: 0 0 3px 0;
     }
 }

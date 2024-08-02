@@ -10,14 +10,14 @@ import {
     GET_PRODUCTO_BY_ID,
     RESET_REMITO, 
 } from './actionType';
-import { local } from '../../URLs';
+import { actual } from '../../URLs';
 import Swal from 'sweetalert2';
 
 
 //---LOGIN--------------------------------------------------------
 export function login(data){
     return async function(){
-        const resp = await axios.post(`${local}/auth/login`, data); 
+        const resp = await axios.post(`${actual}/auth/login`, data); 
         //asigno data del user al localStorage
         localStorage.setItem("userData", JSON.stringify(resp.data));
         if(resp.data.token){
@@ -38,14 +38,14 @@ export function login(data){
 //trae clientes
 export function getAllClientes(){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/clientes`);
+        const resp = await axios.get(`${actual}/clientes`);
         dispatch({type: GET_ALL_CLIENTES, payload: resp.data});
     }
 };
 //trae cliete por ID
 export function getClienteByID(_id){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/clientes/${_id}`);
+        const resp = await axios.get(`${actual}/clientes/${_id}`);
         dispatch({type:GET_CLIENTE, payload:resp.data});
     }
 }
@@ -58,14 +58,14 @@ export function resetCliente(){
 //trae por nombre y apellido
 export function buscaClientePorNombre(data){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/clientes/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
+        const resp = await axios.get(`${actual}/clientes/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
         dispatch({type: BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, payload:resp.data}); 
     }
 };
 //trae cliente por CUIT
 export function buscaClientePorCuit(cuit){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/clientes/cuit?cuit=${cuit}`);
+        const resp = await axios.get(`${actual}/clientes/cuit?cuit=${cuit}`);
         dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); 
             /* if(resp.data?.nombre){            
                 Swal.fire({
@@ -86,21 +86,21 @@ export function buscaClientePorCuit(cuit){
 //crea cliente
 export function createCliente(data){
     return async function(dispatch){
-        const resp = await axios.post(`${local}/clientes`, data);
+        const resp = await axios.post(`${actual}/clientes`, data);
         dispatch({type: CREA_CLIENTE, payload:resp.data});
     }
 }
 //elimina cliente
 export function eliminaCliente(_id){
     return async function(dispatch){
-        const resp = await axios.delete(`${local}/clientes/elimina/${_id}`);
+        const resp = await axios.delete(`${actual}/clientes/elimina/${_id}`);
         dispatch({type:ELIMINA_CLIENTE, payload:resp.data});
     }
 };
 //editar cliente
 export function editaCliente(data){
     return async function(dispatch){
-        const resp = await axios.put(`${local}/clientes/modificaCliente/${data._id}`, data);
+        const resp = await axios.put(`${actual}/clientes/modificaCliente/${data._id}`, data);
         dispatch({type:MODIFICA_CLIENTE, payload:resp.data});
     }
 }
@@ -109,27 +109,27 @@ export function editaCliente(data){
 //trae prods
 export function getAllProds(){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/productos`);
+        const resp = await axios.get(`${actual}/productos`);
         dispatch({type: GET_ALL_PRODUCTOS, payload: resp.data});
     }
 }
 export function getProductoById(_id){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/productos/${_id}`);
+        const resp = await axios.get(`${actual}/productos/${_id}`);
         dispatch({type: GET_PRODUCTO_BY_ID, payload: resp.data});
     }
 }
 //busca por nombre
 export function buscaProdPorNombre(nombre) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/productos?nombre=${nombre}`);
+        const resp = await axios.get(`${actual}/productos?nombre=${nombre}`);
         dispatch({type: BUSCA_PRODUCTO_POR_NOMBRE, payload: resp.data});
     }
 }
 //elimina prod
 export function eliminaProducto(_id){
     return async function(dispatch){
-        const resp = await axios.delete(`${local}/productos/${_id}`);
+        const resp = await axios.delete(`${actual}/productos/${_id}`);
         dispatch({type: ELIMINA_PRODUCTO, payload: resp.data});
     }
 }
@@ -138,41 +138,41 @@ export function eliminaProducto(_id){
 //trae proveedores
 export function getAllProveedores() { 
     return async function(dispatch){
-        const resp = await axios.get(`${local}/proveedores`);
+        const resp = await axios.get(`${actual}/proveedores`);
         dispatch({type: GET_ALL_PROVEEDORES, payload:resp.data});
     }
 }
 //busca x nomb y apell
 export function buscaProveedor(data) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/proveedores/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
+        const resp = await axios.get(`${actual}/proveedores/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
         dispatch({type: BUSCA_PROVEEDOR_POR_NOMBRE_APELLIDO, payload: resp.data});
     }
 }
 //busca proveedor por CUIT
 export function buscaProveedorPorCuit(cuit){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/proveedores/porCuit/${cuit}`);
+        const resp = await axios.get(`${actual}/proveedores/porCuit/${cuit}`);
         dispatch({type: BUSCA_PROVEEDOR_POR_CUIT, payload: resp.data});
     }
 } 
 //crea prov
 export function creaProveedor(data){
     return async function(dispatch){
-        const resp = await axios.post(`${local}/proveedores`, data);
+        const resp = await axios.post(`${actual}/proveedores`, data);
         dispatch({type:CREA_PROVEEDOR, payload:resp.data});
     }
 }
 //modifica proveedor
 export function modificaProveedor(data){
     return async function(dispatch){
-        await axios.put(`${local}/proveedores/modificaProveedor/${data._id}`, data);
+        await axios.put(`${actual}/proveedores/modificaProveedor/${data._id}`, data);
     }
 }
 //elimina
 export function eliminaProveedor(_id){
     return async function(dispatch){
-        await axios.delete(`${local}/proveedores/${_id}`);
+        await axios.delete(`${actual}/proveedores/${_id}`);
     }    
 }
 
@@ -180,21 +180,21 @@ export function eliminaProveedor(_id){
 //trae remitos
 export function getAllRemitos(estado, fechaDesde, fechaHasta){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/remitos?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS, payload: resp.data});
     }
 }
 //trae último remito ppara obt su num
 export function traeUltimoRemito(){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos/ultimoRemito`);
+        const resp = await axios.get(`${actual}/remitos/ultimoRemito`);
         dispatch({type: ULTIMO_REMITO, payload: resp.data});
     }
 }
 //crea remito
 export function creaRemito(data){
     return async function(dispatch){
-        const resp = await axios.post(`${local}/remitos`, data); 
+        const resp = await axios.post(`${actual}/remitos`, data); 
         dispatch({type: CREA_REMITO, payload: resp.data});
         if(resp.data.numRemito){
             Swal.fire({
@@ -212,21 +212,21 @@ export function creaRemito(data){
 //trae remitos de un cliente
 export function getRemitosCliente(cuit, estado){
     return async function(dispatch){ 
-        const resp = await axios.get(`${local}/remitos/remitosCliente/${cuit}?estado=${estado}`);       
+        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
 //trae remito por ID
 export function getRemitoById(_id){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/remitos/remitoId/${_id}`);
+        const resp = await axios.get(`${actual}/remitos/remitoId/${_id}`);
         dispatch({type: GET_REMITO_BY_ID, payload:resp.data});
     }
 }
 //modifica remito
 export function modificaRemito(_id, data){
     return async function(){
-        await axios.put(`${local}/remitos/modificaRemito/${_id}`, data);
+        await axios.put(`${actual}/remitos/modificaRemito/${_id}`, data);
     }
 }
 //ordena x fecha Mayor a Menor o viceversa
@@ -240,40 +240,40 @@ export function filtraFechasRemitos(fechas){
 //elimina
 export function eliminaRemitoVentas(_id){
     return async function(){
-        await axios.delete(`${local}/remitos/elimina/${_id}`);
+        await axios.delete(`${actual}/remitos/elimina/${_id}`);
     }
 }
 //inserta una entrega
 export function agregaEntrega(_id, data){
     return async function(){ 
-        await axios.post(`${local}/remitos/entrega/${_id}`, data);
+        await axios.post(`${actual}/remitos/entrega/${_id}`, data);
     }
 }
 
 //----actions remitos COMPRAS-----------------------------------------------------------
 export function getAllCompras(detalle, fechaDesde, fechaHasta) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/compras?detalle=${detalle}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/compras?detalle=${detalle}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS_COMPRA, payload: resp.data});
     }
 }
 //crea anticipo
 export function creaAnticipo(data){
     return async function(){
-        await axios.post(`${local}/compras`, data);
+        await axios.post(`${actual}/compras`, data);
     }
 }
 //trae remitos de un prov
 export function getRemitosProveedor(proveedor, estado){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/compras/proveedor?proveedor=${proveedor}&estado=${estado}`);
+        const resp = await axios.get(`${actual}/compras/proveedor?proveedor=${proveedor}&estado=${estado}`);
         dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
     }
 }
 //trea el número del último remito compra hacia un provee
 export function getUlimoRemitoCompra(proveedor){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/compras/ultimoRemito?proveedor=${proveedor}`);
+        const resp = await axios.get(`${actual}/compras/ultimoRemito?proveedor=${proveedor}`);
         dispatch({type: ULTIMO_REMITO_COMPRA, payload: resp.data});
     }
 }
@@ -286,21 +286,21 @@ export function resetUltimoRemitocompra(){
 //trea un remito por id
 export function getRemitoCompra(_id){
     return async function(dispatch){ 
-        const resp = await axios.get(`${local}/compras/remito/${_id}`);
+        const resp = await axios.get(`${actual}/compras/remito/${_id}`);
         dispatch({type: GET_REMITO_COMPRA_BY_ID, payload: resp.data});
     }
 }
 //modifica anticipo/compra
 export function modificaAnticipoCompra(_id, data){
     return async function(dispatch){
-        const resp = await axios.put(`${local}/compras/modifica/${_id}`, data);
+        const resp = await axios.put(`${actual}/compras/modifica/${_id}`, data);
         dispatch({type: MODIFICA_ANTICIPO_COMPRA, payload: resp.data});
     }
 }
 //elimina remito compra
 export function elimnimaRemitoCompra(_id){
     return async function(){
-        await axios.delete(`${local}/compras/eliminaRemito/${_id}`);
+        await axios.delete(`${actual}/compras/eliminaRemito/${_id}`);
     }
 }
 //ordena fechas compras max min
@@ -320,7 +320,7 @@ export function resetRemito(){
 //crea gasto
 export function creaGasto(data){
     return async function(){
-        const resp = await axios.post(`${local}/gastos`, data);
+        const resp = await axios.post(`${actual}/gastos`, data);
         if(resp.data === "Creado con exito"){
             Swal.fire({
                 text: 'Creado con exito!!',
@@ -337,41 +337,41 @@ export function creaGasto(data){
 //trae gasto por ID
 export function getGastoById(_id){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/gastos/${_id}`);
+        const resp = await axios.get(`${actual}/gastos/${_id}`);
         dispatch({type: GET_GASTOS_BY_ID, payload: resp.data});
     }
 }
 //trea gastos del mes
 export function getGastosMesActual(year, month) {
     return async function(dispatch){
-        const resp = await axios.get(`${local}/gastos?year=${year}&month=${month}`);
+        const resp = await axios.get(`${actual}/gastos?year=${year}&month=${month}`);
         dispatch({type: GET_GASTOS_MES, payload: resp.data});
     }
 }
 //modif Gasto
 export function modifGasto(_id, data){
     return async function(){
-        await axios.put(`${local}/gastos/modifGasto/${_id}`, data);        
+        await axios.put(`${actual}/gastos/modifGasto/${_id}`, data);        
     }
 }
 
 //elimina un Gasto
 export function eliminaGasto(_id) {
     return async function(){
-        await axios.delete(`${local}/gastos/elimina/${_id}`);
+        await axios.delete(`${actual}/gastos/elimina/${_id}`);
     }
 }
 
 //reporte mes, meses de un año
 export function getReporteMesesAño(month, year, meses){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
+        const resp = await axios.get(`${actual}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
         dispatch({type: GET_REPORTES_MES_AÑO, payload: resp.data});
     }
 }
 export function getReporteMes(month, year, meses){
     return async function(dispatch){
-        const resp = await axios.get(`${local}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
+        const resp = await axios.get(`${actual}/reportes/reporteMes?month=${month}&year=${year}&meses=${meses}`);
         dispatch({type: GET_REPORTE_MES, payload: resp.data});
     }
 }

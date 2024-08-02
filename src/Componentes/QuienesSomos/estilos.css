@@ -18,3 +18,16 @@
     border-radius: 10px;
     background-color: rgba(17, 17, 18, 0.723);
 }
+
+/* responsive */
+@media screen and (max-width:750px){
+    .cont-quienesSomos{
+        width: 80%;
+        height: 300px;
+    }
+    .parrafo-quienesSomos{
+        padding: 20px;
+        font-size: 25px;
+        font-weight: 500;
+    }
+}

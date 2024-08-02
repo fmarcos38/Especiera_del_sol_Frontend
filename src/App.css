@@ -4,17 +4,3 @@
     --background-color-navBar-oscuro: rgb(74, 75, 75);
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-.App {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-.content-wrap {
-    flex: 1;
-}

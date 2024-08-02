@@ -1,4 +1,5 @@
 .cont-home{
+    width: 100%;
     height: 89.9vh;
     display: flex;
     flex-direction: column;
@@ -7,3 +8,29 @@
     color: rgb(10, 188, 232);
     background-image: url('../../Imagenes/frutos2.jpg');
 }
+.cont-msj-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.621);
+}
+.texto-home {
+    color: #fff;
+}
+
+.whatsapp-button {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
+    right: 10px;    
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 1000;
+}
+/* responsive */
