@@ -3,10 +3,8 @@ import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito, resetCliente } from '../../Redux/Actions';
-import { formatDate, formatMoney } from '../../Helpers';
+import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
 import Swal from 'sweetalert2';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import './estilos.css';
 
 
@@ -31,19 +29,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
     const remitoAmostrar = useSelector(state => state.remito); 
     const dispatch = useDispatch();
 
-    //funcion para guardar PDF
-    const handleSavePDF = () => {
-        const input = document.getElementById('remito');
-        html2canvas(input).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('remito.pdf');
-        });
-    };
+    
     const handleOnChange = (e) => {
         if (e.target.id === 'estado') {
             setData({ ...data, estado: e.target.value });
@@ -119,7 +105,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
         const rows = items?.map(item => (
             <tr key={item.detalle}>
                 <td>{item.cantidad}</td>
-                <td>{item.detalle}</td>
+                <td>{cortaPalabra(item.detalle)}</td>
                 <td>${formatMoney(item.unitario)}</td>
                 <td>${formatMoney(item.importe)}</td>
             </tr>
@@ -158,7 +144,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
     return (
         <div className='cont-gralRemito'>
             <form onSubmit={handleOnSubmit} className='cont-form-remito'>
-                <div className='cont-remito' id='remito'>
+                <div className='cont-remito'>
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
@@ -344,32 +330,26 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                 {renderRows()}
                                 <tr>
                                     <td></td>
-                                    <td 
-                                        style={{
-                                            display:'flex', 
-                                            justifyContent:'center', 
-                                            alignItems:'center', 
-                                            padding:'0', 
-                                            border:'none',
-                                        }}
-                                    >
-                                        <label style={{marginRight:'5px', fontSize:'20px'}}>Transp:</label>
-                                        {
-                                            operacion === 'venta' ? 
-                                            <input 
-                                            type='text' 
-                                            id='trasporte' 
-                                            value={transporteActual} 
-                                            onChange={(e) => handleChangeTransporte(e)} 
-                                            placeholder='Ingresar Aquí'
-                                            className='input-transporte'
-                                        /> :
-                                        <p 
-                                            style={{margin:'0', padding:'5px'}}
-                                        >
-                                            {transporte}
-                                        </p>
-                                        }
+                                    <td>
+                                        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                                            <label>Transp:</label>
+                                            {
+                                                operacion === 'venta' ?
+                                                    <input
+                                                        type='text'
+                                                        id='trasporte'
+                                                        value={transporteActual}
+                                                        onChange={(e) => handleChangeTransporte(e)}
+                                                        placeholder='Ingresar Aquí'
+                                                        className='input-transporte'
+                                                    /> :
+                                                    <p
+                                                        style={{ margin: '0', padding: '5px' }}
+                                                    >
+                                                        {transporte}
+                                                    </p>
+                                            }
+                                        </div>                                        
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -378,7 +358,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td>{caclTotKgs()}</td>
-                                    <td className='pie-tabla-palabra'>
+                                    <td >
                                         <label 
                                             style={{marginRight:'5px', fontSize:'15px'}}
                                         >
@@ -406,6 +386,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                     {/* palabra pagado en diagonal */}
                     <div className='cont-palabra-pagado'>
                     {
+                        !operacion === "venta" &&
                         remitoAmostrar.estado === 'Pagado' &&
                         <p className='diagonal-text'>Pagado</p>
                     }
@@ -413,12 +394,9 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                 </div>
                 {
                     operacion === "venta" &&
-                    <button type='onSubmit' className='btn-crea-pedido'>Crear Pedido</button>
+                    <button type='onSubmit' className='btn-cargarProd'>Crear Pedido</button>
                 }                
-            </form>
-            <div>
-                <button type='button' onClick={handleSavePDF} className='boton-imprimir'>Imprimir</button>
-            </div>
+            </form>            
         </div>
     );
 }

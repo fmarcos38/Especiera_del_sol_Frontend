@@ -106,11 +106,10 @@ function FormRemito({ tipo }) {
         setCosto('');
     }
     // Elimina item tabla pedido
-    const handleElimnimaItem = (_id) => {
-        const newPedido = pedido.filter(p => p._id !== _id);
+    const handleEliminaItem = (index) => {
+        const newPedido = pedido.filter((item,i) => i !== index);
         setPedido(newPedido);
     };
-
     // Para cliente cuando busca por CUIT
     useEffect(() => {
         if (haBuscadoCliente) {
@@ -252,9 +251,9 @@ function FormRemito({ tipo }) {
                     </thead>
                     <tbody>
                         {
-                            pedido?.map(item => {
+                            pedido?.map((item,index) => {
                                 return (
-                                    <tr key={item.detalle}>
+                                    <tr key={item.index}>
                                         {
                                             item.detalle === "Bombones de Higo con nuez" ?
                                             <td>{item.cantidad}unid</td> :
@@ -264,7 +263,7 @@ function FormRemito({ tipo }) {
                                         <td>{item.unitario}</td>
                                         <td>{item.importe}</td>
                                         <td style={{display: 'flex', justifyContent: 'center'}}>
-                                            <button onClick={() => {handleElimnimaItem(item._id)}} className='btn-elimina-item-pedido'>
+                                            <button onClick={() => {handleEliminaItem(index)}} className='btn-elimina-item-pedido'>
                                                 <DeleteIcon className='icono-elimina-item'/>
                                             </button>
                                         </td>

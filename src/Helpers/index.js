@@ -45,9 +45,14 @@ function formatDate(dateString) {
     return `${formattedDay}/${formattedMonth}/${year}`;
 }
 
-
+//función para abrebiar productos
+function cortaPalabra(prod){
+    let newProd = prod.split("(");
+    return newProd[0];
+}
 export {
     fechaArg,
     formatMoney,
     formatDate,
+    cortaPalabra
 }

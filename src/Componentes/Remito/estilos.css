@@ -1,12 +1,12 @@
 .cont-gralRemito{
-    width: 100%;
-    height: auto;
+    width: 561px;
+    height: 793px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-color: rgb(164, 163, 162);
+    /* background-color: rgb(164, 163, 162); */
 }
 /* medida de hoja A4 en px */
 /*
@@ -14,21 +14,20 @@
     height: 210mm;
  */
 .cont-form-remito{
-    width: 561px;
-    height: 793px;
+    width: 577px;
+    height: 813px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
 }
 .cont-remito{
-    width: 561px;
-    height: 793px;
+    width: 577px;
+    height: 813px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgb(192, 83, 83);
+    border: 1px solid rgb(208, 162, 162);
     background-color: #fff;
 }
 /* estilos contenedor sup */
@@ -233,6 +232,7 @@
 .input-remito-estado{
     width: 130px;
     font-size: 18px;
+    margin-left: 2px;
 }
 
 /* estilos para la tablas de items */
@@ -287,17 +287,15 @@
     font-size: 15px;
     font-weight: 600;
 }
-.input-transporte{
-    border: none;
-}
 .pie-tabla-palabra {
-    width: 95%;
+    width: 90%;
     font-size: 20px;
     font-weight: 600;
     color: black;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    border: none;
 }
 .pedido-table tfoot td {
     padding: 10px;
