@@ -43,7 +43,7 @@ export const AppProvider = ({children}) => {
         if(userLogin){
             setUserLog(userLogin);
             setIsAuthenticated(true);
-            setNombre(userLogin.user.nombre)
+            setNombre(userLogin.user?.nombre)
         }
     }, []);
     

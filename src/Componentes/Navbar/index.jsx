@@ -8,6 +8,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Swal from 'sweetalert2';
 import './estilos.css';
+import { useDispatch } from 'react-redux';
+import { resetLogin, } from '../../Redux/Actions';
 
 
 const Navbar = () => {
@@ -19,7 +21,7 @@ const Navbar = () => {
     const [muestraMenuVentas, setMuestraMenuVentas] = useState(false); //estado menú ventas
     const [muestraMenuReportes, setMuestraMenuReportes] = useState(false); //estado menú reportes
     const contexto = useContext(AppContexto);
-
+    const dispatch = useDispatch();
 
     const handleMouseEnterCliente = () => {
         setMuestraMenuClientes(true);
@@ -70,11 +72,11 @@ const Navbar = () => {
                 logout();
                 contexto.setUserLog(null);
                 contexto.logout();
+                dispatch(resetLogin());
             }
         });
         
     };
-
     
     
     return (

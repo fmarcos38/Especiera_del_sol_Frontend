@@ -6,9 +6,7 @@ import {
     GET_REMITOS_CLIENTE, GET_REMITO_BY_ID, ORDENA_FECHA, FILTRA_FECHAS_REMITOS, GET_ALL_REMITOS_COMPRA,
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
-    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES,
-    GET_PRODUCTO_BY_ID,
-    RESET_REMITO, 
+    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
 } from './actionType';
 import { actual } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -16,24 +14,18 @@ import Swal from 'sweetalert2';
 
 //---LOGIN--------------------------------------------------------
 export function login(data){
-    return async function(){
-        const resp = await axios.post(`${actual}/auth/login`, data); 
+    return async function (dispatch) {
+        const resp = await axios.post(`${actual}/auth/login`, data); console.log("dataBack:", resp.data)
         //asigno data del user al localStorage
         localStorage.setItem("userData", JSON.stringify(resp.data));
-        if(resp.data.token){
-            Swal.fire({
-                text: "Login OK!",
-                icon: "success"
-            });
-        }else{
-            Swal.fire({
-                text: "Error de Login!",
-                icon: "error"
-            });
-        }
+        dispatch({ type: LOGIN, payload: resp.data });        
     }
 }
-
+export function resetLogin(){
+    return function(dispatch){
+        dispatch({type: RESET_LOGIN, payload: null})
+    }
+}
 //--CLIENTES------------------------------------------------------
 //trae clientes
 export function getAllClientes(){

@@ -1,15 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './estilos.css';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '../../Redux/Actions';
+import { useDispatch, useSelector  } from 'react-redux';
+import { login, resetLogin } from '../../Redux/Actions';
 import { userLogData } from "../../LocalStorage";
 import { AppContexto } from '../../Contexto';
+import Swal from 'sweetalert2';
 
 
 function Login() {
 
+    const [, setUser] = useState();
+    const userLog = useSelector(state => state.user);
+    const errorUserLog = useSelector(state => state.error);
     const [input, setInput] = useState({email: "", password: ""});
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
@@ -41,17 +45,43 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(validaInputs()){
-            dispatch(login(input));
+        if (userLog === null) {
+            if(validaInputs()){
+                dispatch(login(input));
+            }
         }
+        
+    };
+    
+    useEffect(() => {
+        setUser(userLog);
+    }, [errorUserLog, userLog])
+
+    useEffect(()=>{
+        if(userLog?.message === 'ok'){
         //actualizo data del user log en el contexto
-        const userLog = userLogData();
-        contexto.setUserLog(userLog);
+        const userLogActual = userLogData();
+        contexto.setUserLog(userLogActual);
         contexto.login();
         navigate('/');
-    };
+        }
+        if(userLog?.message === 'Email incorrecto'){
+            Swal.fire({
+                text: 'Email incorrecto',
+                icon: 'error'
+            });
+            dispatch(resetLogin());
+        }
+        if(userLog?.message === 'Contraseña incorrecta'){
+            Swal.fire({
+                text: 'Contraseña incorrecta',
+                icon: 'error'
+            });
+            dispatch(resetLogin());
+        }
+    },[contexto, dispatch, navigate, userLog]);
 
-    
+
     return (
         <div className='cont-componente-login'>
             <form onSubmit={(e) => { handleSubmit(e) }} className='cont-form-login'>
@@ -67,6 +97,7 @@ function Login() {
                 <div className='cont-btn-login'>
                     <Button variant="outlined" type="submit" className='btn-login'>Login</Button>
                 </div>
+                /
             </form>
         </div>
     )

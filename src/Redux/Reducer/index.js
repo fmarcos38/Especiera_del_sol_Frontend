@@ -4,12 +4,12 @@ import {
     GET_ALL_PROVEEDORES, GET_ALL_REMITOS, GET_ALL_REMITOS_COMPRA, GET_CLIENTE, GET_GASTOS_MES, GET_REMITO_BY_ID, 
     GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, GET_REPORTES_MES_AÑO, GET_REPORTE_MES,
     ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA, BUSCA_PROVEEDOR_POR_CUIT,
-    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID,
-    GET_PRODUCTO_BY_ID,
-    RESET_REMITO
+    ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
 } from "../Actions/actionType";
 
 const initialState = {
+    user: null,
+    error: null,
     productos: [],
     producto: {},
     clientes: [],
@@ -31,6 +31,17 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action){
     switch(action.type){
+        case LOGIN:
+            return{
+                ...state,
+                user: action.payload,
+                error: null,
+            }
+        case RESET_LOGIN: 
+        return{
+            ...state,
+            user: action.payload
+        }
         case GET_ALL_CLIENTES:
             return{
                 ...state,
