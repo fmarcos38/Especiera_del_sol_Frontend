@@ -90,7 +90,7 @@ function CreaGasto() {
 
     return (
         <div className='cont-gastos'>
-            <h1>Crea gasto y muestra los gastos actuales</h1>
+            <h1>Crea gasto y muestra los gastos del mes actual</h1>
             <form onSubmit={(e) => {handleSub(e)}} className='cont-form-creaGasto'>
                 <div className='cont-form-datos'>
                     <div className='cont-dato-gasto'>

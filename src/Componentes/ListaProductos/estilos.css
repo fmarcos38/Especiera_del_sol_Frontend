@@ -1,6 +1,7 @@
 .cont-lista-clientes{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .label-searchP{
@@ -42,8 +43,8 @@
     cursor: pointer;
 }
 .cont-modal-lista-clientes{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
+    position: absolute;
+    top: 10;
+    left: 18%;
+    width: 65%;
 }

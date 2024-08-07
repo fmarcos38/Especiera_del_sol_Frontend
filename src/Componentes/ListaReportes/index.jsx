@@ -128,13 +128,13 @@ function ListaReportes() {
     <div className='cont-reportes'>
       <h1 className='titulo-reportes'>Reportes</h1>
       <div className='cont-reporte-mes'>
-        <input 
+        <input
           type='month'
-          id='mes' 
-          value={mes} 
-          onChange={(e) => { handleOnchangeMes(e) }} 
-          placeholder='ingrese año ejem: 2024' 
-          className='input-año' 
+          id='mes'
+          value={mes}
+          onChange={(e) => { handleOnchangeMes(e) }}
+          placeholder='ingrese año ejem: 2024'
+          className='input-año'
         />
         <button
           onClick={() => { handleClikMostrarMes() }}
@@ -144,13 +144,13 @@ function ListaReportes() {
         </button>
       </div>
       <div>
-        <input 
-          type='number' 
+        <input
+          type='number'
           id='año'
-          value={año} 
-          onChange={(e) => { handleOnchangeAño(e) }} 
-          placeholder='ingrese año ejem: 2024' 
-          className='input-año' 
+          value={año}
+          onChange={(e) => { handleOnchangeAño(e) }}
+          placeholder='ingrese año ejem: 2024'
+          className='input-año'
         />
         <button
           onClick={() => { handleClikMostrarAño() }}
@@ -159,6 +159,45 @@ function ListaReportes() {
           Mostrar resultados por Año
         </button>
       </div>
+
+      {/* tablas por día */}
+      <h3 className='subTitulo-reportes'>Reportes mes {mes} </h3>
+      {
+        muestraTablaMes &&
+        <div className='cont-tabla-reportes'>
+          <table className='client-table tabla-reportes'>
+            <thead className='client-table tabla-reportes'>
+              <tr>
+                <th>Día</th>
+                <th>Kgs Vendidos</th>
+                <th>Ventas</th>
+                <th>Compras</th>
+                <th>Gastos</th>
+              </tr>
+            </thead>
+            <tbody>
+              {newReporteMes?.map((dayData, index) => (
+                <tr key={index}>
+                  <td>{dayData.day}</td>
+                  <td>{dayData.totKgs}</td>
+                  <td>{dayData.ventas}</td>
+                  <td>{dayData.compras}</td>
+                  <td>{dayData.gastos}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td>{calcuTotKgs(newReporteMes)}Kgs</td>
+                <td>${formatMoney(calcTotVentasBruto(newReporteMes))}</td>
+                <td>${formatMoney(calcTotCompras(newReporteMes))}</td>
+                <td>${formatMoney(calcTotGastos(newReporteMes))}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      }
       <h3 className='subTitulo-reportes'>Reportes año {año}</h3>
       {/* tabla Año*/}
       <div className='cont-tabla-reportes'>
@@ -167,7 +206,7 @@ function ListaReportes() {
             <tr>
               <th>Mes</th>
               <th>Kgs Vendidos</th>
-              <th>Ventas en bruto</th>              
+              <th>Ventas en bruto</th>
               <th>Compras</th>
               <th>Gastos</th>
               <th>Ganancia Ventas</th>
@@ -176,7 +215,7 @@ function ListaReportes() {
           <tbody>
             {
               reporteMesesAño?.map(r => {
-                return(
+                return (
                   <tr key={r.month}>
                     <td>{r.month}</td>
                     <td>{r.totKgs}</td>
@@ -191,56 +230,16 @@ function ListaReportes() {
           </tbody>
           <tfoot>
             <tr>
-                <td></td>
-                <td>{calcuTotKgs(reporteMesesAño)}Kgs</td>
-                <td>${formatMoney(calcTotVentasBruto(reporteMesesAño))}</td>                
-                <td>${formatMoney(calcTotCompras(reporteMesesAño))}</td>
-                <td>${formatMoney(calcTotGastos(reporteMesesAño))}</td>
-                <td>${formatMoney(calcTotGanancias(reporteMesesAño))}</td>
+              <td></td>
+              <td>{calcuTotKgs(reporteMesesAño)}Kgs</td>
+              <td>${formatMoney(calcTotVentasBruto(reporteMesesAño))}</td>
+              <td>${formatMoney(calcTotCompras(reporteMesesAño))}</td>
+              <td>${formatMoney(calcTotGastos(reporteMesesAño))}</td>
+              <td>${formatMoney(calcTotGanancias(reporteMesesAño))}</td>
             </tr>
           </tfoot>
         </table>
       </div>
-
-      {/* tablas por día */}
-      <h3 className='subTitulo-reportes'>Reportes mes {mes} </h3>
-      {
-        muestraTablaMes && 
-        <div className='cont-tabla-reportes'>
-        <table className='client-table tabla-reportes'>
-          <thead className='client-table tabla-reportes'>
-            <tr>
-              <th>Día</th>
-              <th>Kgs Vendidos</th>
-              <th>Ventas</th>
-              <th>Compras</th>
-              <th>Gastos</th>
-            </tr>
-          </thead>
-          <tbody>
-            {newReporteMes?.map((dayData, index) => (
-              <tr key={index}>
-                <td>{dayData.day}</td>
-                <td>{dayData.totKgs}</td>
-                <td>{dayData.ventas}</td>
-                <td>{dayData.compras}</td>
-                <td>{dayData.gastos}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-          <tr>
-                <td></td>
-                <td>{calcuTotKgs(newReporteMes)}Kgs</td>
-                <td>${formatMoney(calcTotVentasBruto(newReporteMes))}</td>                
-                <td>${formatMoney(calcTotCompras(newReporteMes))}</td>
-                <td>${formatMoney(calcTotGastos(newReporteMes))}</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      }
-      
     </div>
   )
 }

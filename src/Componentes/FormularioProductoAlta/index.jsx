@@ -10,12 +10,13 @@ function FormularioProductoAlta({operacion}) {
 
     const [input, setInput] = useState({
         nombre: "",
+        unidadMedida: null,
         precioKg: "",
         costo: "",
         envase: "",
-        imagen: "",
+        imagen: '',
         posicionLista: ""
-    }); //estado inical inputs     
+    }); //estado inical inputs
     const [errors, setErrors] = useState({}); //manejo de errore
     const [previewSource, setPreviewSource] = useState('');//estado vista previa imagen 
     const [listaProd, setListaProd] = useState([]); //estado para actualizar la lista de productos al agregar uno
@@ -44,6 +45,8 @@ function FormularioProductoAlta({operacion}) {
         if(name === "imagen"){
             setInput({...input, imagen: e.target.files[0]});
             previewFile(e.target.files[0]);//invoco la funcio q muestra la pre-imagen
+        }else if(name === 'unidadMedida'){
+            setInput({...input, unidadMedida: e.target.value});
         }else{
             setInput({...input, [name]: value});
         }
@@ -60,6 +63,7 @@ function FormularioProductoAlta({operacion}) {
         const newErrors = {};
 
         if (!input.nombre) newErrors.nombre = 'Nombre es requerido';
+        if (!input.unidadMedida) newErrors.unidadMedida = 'Unidad medida requerido';
         if (!input.precioKg) newErrors.precioKg = 'Precio x Kg es requerido';
         if (!input.costo) newErrors.costo = 'Costo es requerido';
         if (!input.envase) newErrors.envase = 'Envase es requerido';
@@ -72,13 +76,14 @@ function FormularioProductoAlta({operacion}) {
     };
 
     const handleSubmit = async(e) => {
-        e.preventDefault();
+        e.preventDefault(); console.log("entré")
         let prod = existeProducto(); 
         if(prod.nombre === ""){
             if (validate()) {
                 try {
                     let formData = new FormData();
                     formData.append("nombre", input.nombre);
+                    formData.append("unidadMedida", input.unidadMedida);
                     formData.append("precioKg", input.precioKg);
                     formData.append("costo", input.costo);
                     formData.append("envase", input.envase);
@@ -95,12 +100,13 @@ function FormularioProductoAlta({operacion}) {
                         icon: "success"
                     });
                     setInput({
-                        nombre: "",
-                        precioKg: 0,
-                        costo: 0,
-                        envase: 0,
-                        imagen: "",
-                        posicionLista: ""
+                        nombre: '',
+                        unidadMedida: null,
+                        precioKg: '',
+                        costo: '',
+                        envase: '',
+                        imagen: '',
+                        posicionLista: '',
                     });
                     dispatch(getAllProds());
                     setPreviewSource('');

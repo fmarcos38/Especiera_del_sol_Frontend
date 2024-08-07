@@ -36,7 +36,8 @@
     color: #fff;
 }
 .input-form-prod{
-    width: 500px;
+    width: 95%;
+    max-width: 500px;
     min-width: 200px;
     font-size: 23px;
     border-radius: 10px;
