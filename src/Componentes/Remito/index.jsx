@@ -300,7 +300,7 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                                         operacion === "venta" ?
                                             (
                                                 <>
-                                                    <option>Elija estado remito</option>
+                                                    <option>Elija estado</option>
                                                     <option value={'Debe'}>Deudor</option>
                                                     <option value={'Pagado'}>Pagado</option>
                                                 </>

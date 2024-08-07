@@ -54,7 +54,7 @@ export default function rootReducer(state = initialState, action){
         case BUSCA_CLIENTE_POR_NOMBRE_APELLIDO:
             return{
                 ...state,
-                clientes: [action.payload]
+                cliente: action.payload
             }
         case BUSCA_CLIENTE_POR_CUIT:
             return{

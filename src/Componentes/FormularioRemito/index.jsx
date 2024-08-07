@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorCuit, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
+import { buscaClientePorNombre, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
 import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,7 +11,7 @@ function FormRemito({ tipo }) {
     const traeCliente = useSelector(state => state.cliente);
     const numUltimoRemito = useSelector(state => state.ultimoRemito);
     const productos = useSelector(state => state.productos);
-    const [cuit, setCuit] = useState("");    
+    const [nombreApellido, setNombreApellido] = useState('');    
     //estados para el manejo del cliente  
     const [cliente, setCliente] = useState();
     const [clienteExiste, setClienteExiste] = useState(true);
@@ -26,17 +26,22 @@ function FormRemito({ tipo }) {
     const [importe, setImporte] = useState("");
     const dispatch = useDispatch();
 
-    const handleOnChangeCuit = (e) => {
-        setCuit(e.target.value);
+    const handleOnChangeNA = (e) => {
+        setNombreApellido(e.target.value);
     };
     const handleClickCargaClienteRemito = (e) => {
-        if (!cuit) {
-            alert("Ingrese un CUIT !!");
+        if (!nombreApellido) {
+            alert("Ingrese un Nombre y Apellido !!");
             return;
         }
         setCliente(null);
         setHaBuscadoCliente(true); // Indicar que se ha buscado un cliente
-        dispatch(buscaClientePorCuit(cuit));
+        let separo = nombreApellido.split(' '); 
+        const data = {
+            nombre: separo[0], 
+            apellido: separo[1]
+        }; 
+        dispatch(buscaClientePorNombre(data));
     };
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
@@ -149,12 +154,12 @@ function FormRemito({ tipo }) {
             <h1>VENTA</h1>
             <h2>Datos del cliente</h2>
             <div className='dato-cliente-cuit'>
-                <label className='label-cuit-remito'>CUIT: </label>
+                <label className='label-cuit-remito'>Nombre y Apellido: </label>
                 <input 
-                    type='number' 
-                    id='cuit' 
-                    value={cuit} 
-                    onChange={(e) => {handleOnChangeCuit(e)}} 
+                    type='text' 
+                    id='nombreApellido' 
+                    value={nombreApellido} 
+                    onChange={(e) => {handleOnChangeNA(e)}} 
                     className='input-cuit-remito'
                 />
                 <button 
