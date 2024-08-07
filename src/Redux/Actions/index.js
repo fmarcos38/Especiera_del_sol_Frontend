@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 
 
 //---LOGIN--------------------------------------------------------
-export function login(data){
+export function login(data){ console.log("enetré")
     return async function (dispatch) {
         const resp = await axios.post(`${actual}/auth/login`, data); console.log("dataBack:", resp.data)
         //asigno data del user al localStorage

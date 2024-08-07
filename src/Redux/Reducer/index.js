@@ -9,7 +9,6 @@ import {
 
 const initialState = {
     user: null,
-    error: null,
     productos: [],
     producto: {},
     clientes: [],
@@ -41,7 +40,7 @@ export default function rootReducer(state = initialState, action){
         return{
             ...state,
             user: action.payload
-        }
+            }
         case GET_ALL_CLIENTES:
             return{
                 ...state,

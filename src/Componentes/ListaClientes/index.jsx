@@ -62,7 +62,7 @@ function ListaClientes() {
                     {
                         buscaCliente?.map((c) => (
                             <tr key={c._id}>
-                                <td>{c.nombre} {c.apellido}</td>
+                                <td>{c.apellido} {c.nombre}</td>
                                 <td>{c.razonSocial}</td>
                                 <td>{c.telefono}</td>
                                 <td>{c.email}</td>

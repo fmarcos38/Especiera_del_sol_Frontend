@@ -8,7 +8,7 @@ function ListaProveedoresPage() {
 
     if(userLog){
         return (
-            <div>
+            <div style={{minHeight:'90vh'}}>
                 <ListaProveedores/>
             </div>
         )

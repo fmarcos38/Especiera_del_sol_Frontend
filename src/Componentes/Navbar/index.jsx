@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { resetLogin, } from '../../Redux/Actions';
 import logo from '../../Imagenes/logo.png';
 import textLogo from '../../Imagenes/texto-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import { logout } from '../../LocalStorage';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Swal from 'sweetalert2';
 import './estilos.css';
-import { useDispatch } from 'react-redux';
-import { resetLogin, } from '../../Redux/Actions';
+
 
 
 const Navbar = () => {
@@ -22,6 +23,7 @@ const Navbar = () => {
     const [muestraMenuReportes, setMuestraMenuReportes] = useState(false); //estado menú reportes
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleMouseEnterCliente = () => {
         setMuestraMenuClientes(true);
@@ -73,9 +75,9 @@ const Navbar = () => {
                 contexto.setUserLog(null);
                 contexto.logout();
                 dispatch(resetLogin());
+                navigate('/')
             }
-        });
-        
+        });        
     };
     
     

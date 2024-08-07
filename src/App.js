@@ -1,7 +1,6 @@
 
 import { Route, Routes } from 'react-router-dom';
 import { AppProvider } from './Contexto';
-import './App.css';
 import Navbar from './Componentes/Navbar';
 import Home from './Pages/Home';
 import Remito from './Componentes/Remito';
@@ -30,12 +29,14 @@ import ListaDePreciosPage from './Pages/ListaDePrecios';
 import Footbar from './Componentes/Footbar';
 import ModifProducto from './Pages/ModifProducto';
 import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
+import './App.css';
+
 
 function App() {
 
   return (
     <AppProvider>
-      <div className="App">
+      <div className="app">
         {/* navbar */}
         <header className="App-header">
           <Navbar />

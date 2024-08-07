@@ -63,7 +63,7 @@ function ListaProveedores() {
                     {
                         buscoProv?.map((p) => (
                             <tr key={p._id}>
-                                <td>{p.nombre} {p.apellido}</td>
+                                <td>{p.apellido} {p.nombre}</td>
                                 <td>{p.razonSocial}</td>
                                 <td>{p.telefono}</td>
                                 <td>{p.email}</td>
