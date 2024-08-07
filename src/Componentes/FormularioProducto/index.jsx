@@ -76,7 +76,7 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
                     <div className="cont-imagen-prod">
                         <label className='label-form-modif-prod'>Seleccione una imágen para el producto:</label>
                         <input className="input-carga-img" name='imagen' type="file" accept="imagen/*" onChange={handleChange} />
-                        {errors.imagen && <span className="error">{errors.imagen}</span>}
+                        {/* {errors.imagen && <span className="error">{errors.imagen}</span>} */}
                     </div>
 
                     {/* muestra foto */}

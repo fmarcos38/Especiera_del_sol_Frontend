@@ -63,7 +63,8 @@ function FormularioProductoAlta({operacion}) {
         if (!input.precioKg) newErrors.precioKg = 'Precio x Kg es requerido';
         if (!input.costo) newErrors.costo = 'Costo es requerido';
         if (!input.envase) newErrors.envase = 'Envase es requerido';
-        if (!previewSource) newErrors.imagen = 'La imágen es requerida';
+        if (!input.posicionLista) newErrors.posicionLista = 'Posición requerido';
+        //if (!previewSource) newErrors.imagen = 'La imágen es requerida';
         if (!input.posicionLista) newErrors.imagen = 'La posición es requerida';
         setErrors(newErrors);
 
