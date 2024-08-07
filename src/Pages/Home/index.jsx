@@ -17,7 +17,7 @@ function Home() {
     return (
         <div className='cont-home'>
             <div className='cont-msj-home'>
-                <h1 className='texto-home'>Bienvenido a Especiera del Sol</h1>
+                <h1 className='texto-home'>Bienvenid@ a Especiera del Sol</h1>
                 <h2 className='texto-home'>Especias + Frutas Secas</h2>
             </div>
             <div className='whatsapp-button '>
