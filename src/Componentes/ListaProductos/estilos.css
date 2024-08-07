@@ -42,5 +42,8 @@
     cursor: pointer;
 }
 .cont-modal-lista-clientes{
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }

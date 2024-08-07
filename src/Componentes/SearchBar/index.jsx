@@ -20,7 +20,7 @@ function SearchBar({ handleOnChange, vista }) {
                     type='text' 
                     onChange={(e) => { handleOnChange(e) }} 
                     className='input-search-producto'
-                    placeholder='Pepe Lopez' 
+                    placeholder={vista === 'producto' ? 'Nuez mariposa' : 'Pepe Lopez'}
                 />
             </form>
         </div>

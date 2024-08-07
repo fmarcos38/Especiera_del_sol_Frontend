@@ -2,11 +2,12 @@
     width: 97%;
     height: auto;
     display: flex;
+    justify-content: center;
     align-items: start;
     margin-bottom: 20px;
 }
 .cont-form-producto{
-    width: 65%;
+    width: 45%;
     height: auto;
     padding: 10px;
     border-radius: 10px;
@@ -16,44 +17,27 @@
     width: 35%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    
 }
 .titulo-listaProds-creaProds{
     margin: 0;
 }
-.cont-form-item-nombre,
-.cont-dos-items{
+.cont-form-item-nombre{
     width: 90%;
     display: flex;
+    flex-direction: column;
     justify-content: start;
-    align-items: center;
+    align-items: start;
 }
 .label-form-modif-prod{
     font-size: 23px;
     margin-right: 5px;
     color: #fff;
 }
-.input-nombre-form-modif-prod{
-    width: 600px;
+.input-form-prod{
+    width: 500px;
     min-width: 200px;
-    font-size: 23px;
-    border-radius: 10px;
-}
-.cont-dos-items{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.cont-form-item-precio,
-.cont-form-item-envase {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-.input-precio-form-modif-prod,
-.input-envase-form-modif-prod {
-    width: 266px;
     font-size: 23px;
     border-radius: 10px;
 }

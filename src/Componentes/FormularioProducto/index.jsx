@@ -7,7 +7,6 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
     return (
         <div className='cont-formulario-producto'>
             <form className="cont-form-producto" onSubmit={handleSubmit}>
-                {/* nombre */}
                 <div className="cont-form-item-nombre">
                     <label className='label-form-modif-prod'>Nombre del producto: </label>
                     <input
@@ -15,61 +14,54 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
                         name="nombre"
                         value={input.nombre}
                         onChange={handleChange}
-                        className='input-nombre-form-modif-prod'
+                        className='input-form-prod'
                     />
                     {errors.nombre && <span className="error">{errors.nombre}</span>}
                 </div>
-
-                {/* precio público kg y envase */}
-                <div className='cont-dos-items'>
-                    <div className="cont-form-item-precio">
-                        <label className='label-form-modif-prod'>Precio Público Kg: </label>
-                        <input
-                            type="number"
-                            name="precioKg"
-                            value={input.precioKg}
-                            onChange={handleChange}
-                            className='input-precio-form-modif-prod'
-                        />
-                        {errors.precioKg && <span className="error">{errors.precioKg}</span>}
-                    </div>
-                    <div className="cont-form-item-envase">
-                        <label className='label-form-modif-prod'>Envase: </label>
-                        <input
-                            type="number"
-                            name="envase"
-                            value={input.envase}
-                            onChange={handleChange}
-                            className='input-envase-form-modif-prod'
-                        />
-                        {errors.envase && <span className="error">{errors.envase}</span>}
-                    </div>
-                    <div className="cont-form-item-precio">
-                        <label className='label-form-modif-prod'>Costo Kg: </label>
-                        <input
-                            type="number"
-                            name="costo"
-                            value={input.costo}
-                            onChange={handleChange}
-                            className='input-precio-form-modif-prod'
-                        />
-                        {errors.costo && <span className="error">{errors.costo}</span>}
-                    </div>
+                <div className="cont-form-item-nombre">
+                    <label className='label-form-modif-prod'>Precio Público Kg: </label>
+                    <input
+                        type="number"
+                        name="precioKg"
+                        value={input.precioKg}
+                        onChange={handleChange}
+                        className='input-form-prod'
+                    />
+                    {errors.precioKg && <span className="error">{errors.precioKg}</span>}
                 </div>
-                
-                {/* Posición en la lista */}
-                <div style={{marginBottom:'20px'}}>
+                <div className="cont-form-item-nombre">
+                    <label className='label-form-modif-prod'>Envase: </label>
+                    <input
+                        type="number"
+                        name="envase"
+                        value={input.envase}
+                        onChange={handleChange}
+                        className='input-form-prod'
+                    />
+                    {errors.envase && <span className="error">{errors.envase}</span>}
+                </div>
+                <div className="cont-form-item-nombre">
+                    <label className='label-form-modif-prod'>Costo Kg: </label>
+                    <input
+                        type="number"
+                        name="costo"
+                        value={input.costo}
+                        onChange={handleChange}
+                        className='input-form-prod'
+                    />
+                    {errors.costo && <span className="error">{errors.costo}</span>}
+                </div>
+                <div className='cont-form-item-nombre'>
                     <label className='label-form-modif-prod'>Posición en la Lista de Productos: </label>
                     <input
                         type='number'
                         name={'posicionLista'}
                         value={input.posicionLista}
                         onChange={handleChange}
-                        className='input-nombre-form-modif-prod posicionLista'
+                        className='input-form-prod'
                     />
                     {errors.posicionLista && <span className="error">{errors.posicionLista}</span>}
                 </div>
-
                 {/* imagen prod */}
                 <div className="cont-img-vistaPrevia">
                     {/* foto */}
@@ -80,18 +72,16 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
                     </div>
 
                     {/* muestra foto */}
-                    <div>                        
+                    <div>
                         {
-                            previewSource ? 
-                            <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
-                            :
-                            <img src={input.imagen} alt="Sin cargar" className="pre-imagen-prod" />
+                            previewSource ?
+                                <img src={previewSource} alt="Sin cargar" className="pre-imagen-prod" />
+                                :
+                                <img src={input.imagen} alt="Sin cargar" className="pre-imagen-prod" />
                         }
                     </div>
 
                 </div>
-
-                    
                 {/* botón */}
                 <div className='cont-btn-enviar-formCliente'>
                     <button type="submit" className='btn-enviar-form-cliente'>Enviar</button>
@@ -100,8 +90,7 @@ function FormularioProducto({operacion, productos, handleSubmit, input, handleCh
 
             {/* muestra lista prods */}
             <div className='cont-lista-prods'>
-                <h3 className='titulo-listaProds-creaProds'>Lista Prods.</h3>
-                <table className='client-table'>
+                <table className='client-table' style={{margin:'0'}}>
                     <thead>
                         <tr>
                             <th>Pos</th>
