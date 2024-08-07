@@ -44,9 +44,6 @@ function FormularioModificaRemito() {
         const unit = e.target.value;
         setUnitario(unit);
         totItem(cantidad, unit);
-    };  
-    const handleChangeCosto = (e) => {
-        setCosto(e.target.value);
     };
     //funcion calcula tot import item
     const totItem = (cantidad, unitario) => {        

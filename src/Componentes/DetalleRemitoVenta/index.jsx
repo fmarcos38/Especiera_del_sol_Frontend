@@ -48,6 +48,7 @@ const handleSavePDF = () => {
                     totPedido={remito.totPedido}
                     bultos={remito.bultos}
                     transporte={remito.transporte}
+                    fecha={remito.fecha}
                 />
                 {/* 2do remito */}
                 <Remito
@@ -59,6 +60,7 @@ const handleSavePDF = () => {
                     totPedido={remito.totPedido}
                     bultos={remito.bultos}
                     transporte={remito.transporte}
+                    fecha={remito.fecha}
                 />
             </div>
             <div>

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte }) { 
+function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -182,7 +182,10 @@ function Remito({ operacion, numUltimoRemito, cliente, clienteExiste, items, tot
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <p className='fecha-remito'>Fecha: {formatDate(fechaActual)}</p>
+                                <p className='fecha-remito'>Fecha: 
+                                    {operacion === 'venta' && formatDate(fechaActual)}
+                                    {operacion === 'muestra' && formatDate(fecha)}
+                                </p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
