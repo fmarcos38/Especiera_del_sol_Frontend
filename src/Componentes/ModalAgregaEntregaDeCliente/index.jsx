@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContexto } from '../../Contexto';
 import { useDispatch, useSelector } from 'react-redux';
-import { agregaEntrega, getRemitoById } from '../../Redux/Actions';
+import { agregaEntrega, getRemitoById, modificaRemito } from '../../Redux/Actions';
 import { fechaArg, formatMoney } from '../../Helpers';
 import './estilos.css';
 
@@ -58,8 +58,13 @@ function ModalAgregaEntregaCliente({id}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(agregaEntrega(id, data));
-            window.location.reload();
+            dispatch(agregaEntrega(id, data)).then(() => {
+                const saldoRestante = calcSaldoRestante() - data.monto;
+                if (saldoRestante === 0) {
+                    dispatch(modificaRemito(id, { estado: "Pagado" }));
+                }
+                window.location.reload();
+            });
         }
     };
 

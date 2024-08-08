@@ -125,7 +125,6 @@ export function eliminaProducto(_id){
         dispatch({type: ELIMINA_PRODUCTO, payload: resp.data});
     }
 }
-
 //--proveedores-----------------------------------------------------
 //trae proveedores
 export function getAllProveedores() { 

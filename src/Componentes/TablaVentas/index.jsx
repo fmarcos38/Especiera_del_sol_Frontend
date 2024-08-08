@@ -19,7 +19,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
         contexto.setModalEntregaCliente(true);
         setId(id);
     };
-        
+
     return (
         <div style={{width: "100%"}}>
             <table className="client-table listaCompras">

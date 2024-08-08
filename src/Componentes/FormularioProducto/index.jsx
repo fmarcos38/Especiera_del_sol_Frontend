@@ -31,7 +31,7 @@ function FormularioProducto({ operacion, productos, handleSubmit, input, handleC
                     {errors.unidadMedida && <span className="error">{errors.unidadMedida}</span>}
                 </div>
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Precio Público Kg: </label>
+                    <label className='label-form-modif-prod'>Precio Público {input.unidadMedida}: </label>
                     <input
                         type="number"
                         name="precioKg"
@@ -42,7 +42,7 @@ function FormularioProducto({ operacion, productos, handleSubmit, input, handleC
                     {errors.precioKg && <span className="error">{errors.precioKg}</span>}
                 </div>
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Envase: </label>
+                    <label className='label-form-modif-prod'>Envase {input.unidadMedida}: </label>
                     <input
                         type="number"
                         name="envase"
@@ -53,7 +53,7 @@ function FormularioProducto({ operacion, productos, handleSubmit, input, handleC
                     {errors.envase && <span className="error">{errors.envase}</span>}
                 </div>
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Costo Kg: </label>
+                    <label className='label-form-modif-prod'>Costo {input.unidadMedida}: </label>
                     <input
                         type="number"
                         name="costo"

@@ -19,6 +19,7 @@ function FormRemito({ tipo }) {
     // Estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
     // Estados item
+    const [unidadMedida, setUnidadMedida] = useState("");
     const [cantidad, setCantidad] = useState("");
     const [detalle, setDetalle] = useState("");
     const [unitario, setUnitario] = useState("");
@@ -91,7 +92,17 @@ function FormRemito({ tipo }) {
             });
         } else {
             // Creo un obj para añadir al array de pedido
-            const newItem = {
+            let newItem = {};
+            if(unidadMedida === 'Unidad'){
+                newItem = {
+                    cantidad: 0,
+                    detalle,
+                    unitario,
+                    importe,
+                    costo,
+                }
+            }
+            newItem = {
                 cantidad,
                 detalle,
                 unitario,
@@ -142,6 +153,7 @@ function FormRemito({ tipo }) {
     useEffect(() => {
         if (detalle) {
             const prod = productos.find(p => p.nombre === detalle);
+            setUnidadMedida(prod.unidadMedida);
             setCantidad(prod?.envase);
             setCosto(prod?.costo);
             setUnitario(prod?.precioKg);
