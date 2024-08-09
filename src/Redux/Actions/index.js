@@ -201,8 +201,8 @@ export function creaRemito(data){
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit, estado){
-    return async function(dispatch){ 
+export function getRemitosCliente(cuit, {estado}){
+    return async function(dispatch){  
         const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }

@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    /* background-color: rgb(164, 163, 162); */
 }
 /* medida de hoja A4 en px */
 /*
@@ -20,6 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 .cont-remito{
     width: 577px;
@@ -305,14 +305,15 @@
     border-bottom: 1px solid var(--background-color-remito);
 }
 /* botón imp */
-.btn-crea-pedido,
-.boton-imprimir {
-    margin-top: 10px;
+.btn-crea-pedido {
+    width: 500px;
+    min-width: 200px;
     color: #fff;
     font-size: 23px;
     background-color: black;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 /* palabra pagado */
 .cont-palabra-pagado{

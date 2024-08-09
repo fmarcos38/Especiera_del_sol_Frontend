@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logo.png';
 import textoLogo from '../../Imagenes/texto-logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaRemito, resetCliente } from '../../Redux/Actions';
+import { creaRemito, getRemitosCliente, resetCliente } from '../../Redux/Actions';
 import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
 import Swal from 'sweetalert2';
 import './estilos.css';
@@ -25,11 +25,12 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
         estado: "",
     });
     const [bultosActual, setBultos] = useState(bultos || '');
-    const [transporteActual, setTransporte] = useState(transporte || '');
-    const remitoAmostrar = useSelector(state => state.remito); 
+    const [transporteActual, setTransporte] = useState(transporte || '');    
+    const remitoAmostrar = useSelector(state => state.remito);
+    const remitosCliente = useSelector(state => state.remitos);
     const dispatch = useDispatch();
 
-    
+
     const handleOnChange = (e) => {
         if (e.target.id === 'estado') {
             setData({ ...data, estado: e.target.value });
@@ -50,6 +51,21 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             return tot += item.cantidad;
         });
         return tot;
+    };
+    //funcion calc Saldo anterior
+    const calcSaldoAnterior = () => {
+        let saldo = 0;
+        remitosCliente?.map(r => {
+            let totP = r.totPedido;
+            r.entrego?.map(e => {
+                return totP -= e.entrega;  
+            });
+            if(totP > 0){
+                saldo += totP;
+            }
+            return saldo;
+        });
+        return saldo;
     };
     //crea el Remito/Venta
     const handleOnSubmit = (e) => {
@@ -111,7 +127,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             </tr>
         ));
 
-        for (let i = rows?.length; i < 8; i++) {
+        for (let i = rows?.length; i < 7; i++) {
             rows.push(
                 <tr key={`empty-${i}`}>
                     <td>&nbsp;</td>
@@ -123,6 +139,12 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
         }
         return rows;
     };
+
+    useEffect(()=>{
+        if(cliente?.cuit){
+            dispatch(getRemitosCliente(cliente?.cuit, {estado: "Debe"}));
+        }
+    },[cliente?.cuit, dispatch]);
 
     useEffect(() => {
         if (!clienteExiste) {
@@ -144,7 +166,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     return (
         <div className='cont-gralRemito'>
             <form onSubmit={handleOnSubmit} className='cont-form-remito'>
-                <div className='cont-remito'>
+                <div id='remito' className='cont-remito'>
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
@@ -331,7 +353,13 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                             </thead>
                             <tbody>
                                 {renderRows()}
-                                <tr>
+                                <tr> {/* fila saldo anterior */}
+                                    <td></td>
+                                    <td>Saldo anterior</td>
+                                    <td></td>
+                                    <td>${formatMoney(calcSaldoAnterior())}</td>
+                                </tr>
+                                <tr> {/* fila tranporte */}
                                     <td></td>
                                     <td>
                                         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -380,7 +408,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                         } 
                                     </td>
                                     <td></td>
-                                    <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>
+                                    <td className='celda-total-cifra'>${formatMoney(totPedido + calcSaldoAnterior())}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -397,9 +425,9 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                 </div>
                 {
                     operacion === "venta" &&
-                    <button type='onSubmit' className='btn-cargarProd'>Crear Pedido</button>
-                }                
-            </form>            
+                    <button type='onSubmit' className='btn-crea-pedido'>Crear Pedido</button>
+                }
+            </form>
         </div>
     );
 }

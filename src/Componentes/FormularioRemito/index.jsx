@@ -42,7 +42,7 @@ function FormRemito({ tipo }) {
             nombre: separo[0], 
             apellido: separo[1]
         }; 
-        dispatch(buscaClientePorNombre(data));
+        dispatch(buscaClientePorNombre(data))
     };
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
@@ -73,6 +73,7 @@ function FormRemito({ tipo }) {
         setImporte(tot);
         return tot;
     };
+    
     // Función calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
@@ -131,14 +132,14 @@ function FormRemito({ tipo }) {
         if (haBuscadoCliente) {
             if (traeCliente !== "El cliente no existe") {
                 setCliente(traeCliente);
-                setClienteExiste(true); // Cliente existe                
+                setClienteExiste(true); // Cliente existe  
             }else{
                 Swal.fire({
                     text: 'El cliente no existe !!',
                     icon: 'error'
                 });
                 setClienteExiste(false); // Cliente no existe
-                dispatch(resetCliente()) //para esetear el estado global(sino al ingresar 2 cuit inexistentes seguido no arroja el msj)
+                dispatch(resetCliente()) //para resetear el estado global(sino al ingresar 2 cuit inexistentes seguido no arroja el msj)
             }
         } else {
             setHaBuscadoCliente(true);            
@@ -306,7 +307,7 @@ function FormRemito({ tipo }) {
                     numUltimoRemito={numUltimoRemito} 
                     cliente={cliente} 
                     clienteExiste={clienteExiste}
-                    items={pedido} 
+                    items={pedido}
                     totPedido={calculaTotPedido()}
                 />
             </div>

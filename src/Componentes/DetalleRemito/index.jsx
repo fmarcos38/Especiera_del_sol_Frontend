@@ -15,18 +15,18 @@ function DetalleRemito() {
     const cliente = useSelector(state => state.cliente); 
 
     // Función para guardar PDF en hoja horizontal A4
-const handleSavePDF = () => {
-    const input = document.getElementById('imp-remitos');
-    html2canvas(input).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('l', 'mm', 'a4'); // Cambiamos la orientación a 'l' para horizontal
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('remito.pdf');
-    });
-};
+    const handleSavePDF = () => {
+        const input = document.getElementById('imp-remitos');
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('l', 'mm', 'a4'); // Cambiamos la orientación a 'l' para horizontal
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('remito.pdf');
+        });
+    };
 
 
     useEffect(() => {
