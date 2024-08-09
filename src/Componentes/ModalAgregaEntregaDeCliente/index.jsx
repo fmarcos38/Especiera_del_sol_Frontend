@@ -1,34 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContexto } from '../../Contexto';
 import { useDispatch, useSelector } from 'react-redux';
-import { agregaEntrega, getRemitoById, modificaRemito } from '../../Redux/Actions';
+import { agregaEntrega, editaEntrega, getRemitoById, modificaRemito } from '../../Redux/Actions';
 import { fechaArg, formatMoney } from '../../Helpers';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
 
-
-function ModalAgregaEntregaCliente({id}) {
+function ModalAgregaEntregaCliente({ id }) {
 
     const contexto = useContext(AppContexto);
     const [data, setData] = useState({
         monto: "",
-        metodoPago: ""
+        metodoPago: "",
+        idEntrega: null // Para almacenar el ID de la entrega a modificar
     });
-    const [errors, setErrors] = useState({}); 
+    const [errors, setErrors] = useState({});
+    const [modif, setModif] = useState(false);
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito);
-    
-    const handleOnchange = (e) => {
-        const {id, value} = e.target
-        setData({...data, [id]: value});
 
-        //quito msj de error si se llena el dato
-        if(value){
-            const errores = {...errors};
+    const handleOnchange = (e) => {
+        const { id, value } = e.target;
+        setData({ ...data, [id]: value });
+
+        // Quitar mensaje de error si se llena el dato
+        if (value) {
+            const errores = { ...errors };
             delete errores[id];
             setErrors(errores);
         }
     };
-    //funcion valida inputs
+
+    const handleClickModif = (id) => {
+        setModif(true);
+        // Buscar la entrega y actualizar el estado
+        let entrega = remito.entrego.find(e => e.id === id);
+        setData({
+            idEntrega: id,  // Guarda el ID de la entrega a modificar
+            monto: entrega.entrega,
+            metodoPago: entrega.metodoPago
+        });
+    };
+
+    // Función para validar inputs
     const validate = () => {
         const newErrors = {};
 
@@ -39,39 +54,48 @@ function ModalAgregaEntregaCliente({id}) {
 
         return Object.keys(newErrors).length === 0;
     };
-    //funcion calc saldo restante
+
+    // Función para calcular el saldo restante
     const calcSaldoRestante = () => {
-        let tot = 0;
-        if(remito.estado === 'Pagado'){
-            return tot;
-        }else{
-            if(remito.entrego?.length === 0){
-                tot = remito.totPedido
-            }
-            tot = remito.totPedido;
-            remito.entrego?.map(e => {            
-                return tot -= e.entrega;
-            });
-            return tot;
-        }
+        let tot = remito.totPedido;
+        remito.entrego?.forEach(e => {            
+            tot -= e.entrega;
+        });
+        return tot;
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            dispatch(agregaEntrega(id, data)).then(() => {
-                const saldoRestante = calcSaldoRestante() - data.monto;
-                if (saldoRestante === 0) {
-                    dispatch(modificaRemito(id, { estado: "Pagado" }));
-                }
-                window.location.reload();
-            });
+            if (modif) {
+                // Modifica la entrega existente
+                const entregaModificada = {
+                    monto: data.monto,
+                    metodoPago: data.metodoPago
+                };
+                dispatch(editaEntrega(remito._id, data.idEntrega, entregaModificada)).then(() => {
+                    const saldoRestante = calcSaldoRestante() - data.monto;
+                    if (saldoRestante === 0) {
+                        dispatch(modificaRemito(id, { estado: "Pagado" }));
+                    }
+                    window.location.reload();
+                });
+            } else {
+                // Crea una nueva entrega
+                dispatch(agregaEntrega(id, data)).then(() => {
+                    const saldoRestante = calcSaldoRestante() - data.monto;
+                    if (saldoRestante === 0) {
+                        dispatch(modificaRemito(id, { estado: "Pagado" }));
+                    }
+                    window.location.reload();
+                });
+            }
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getRemitoById(id));
-    },[dispatch, id]);
-
+    }, [dispatch, id]);
 
     return (
         <div className='cont-modal-entregaCliente'>
@@ -83,7 +107,7 @@ function ModalAgregaEntregaCliente({id}) {
                     X
                 </button>
 
-                {/* formulario agrega entrega */}
+                {/* Formulario agrega entrega */}
                 {
                     remito.estado === 'Pagado' ? (
                         <h1 className='remito-saldado'>REMITO SALDADO !!</h1>
@@ -112,12 +136,17 @@ function ModalAgregaEntregaCliente({id}) {
                                 {errors.metodoPago && (<span className='errors'>{errors.metodoPago}</span>)}
                             </div>
 
-                            <button type='onSubmit' className='btn-carga-entrega'>Cargar Entrega</button>
+                            {
+                                !modif ?
+                                <button type='submit' id='crea' className='btn-carga-entrega'>Cargar Entrega</button>
+                                :
+                                <button type='submit' id='modif' className='btn-carga-entrega'>Modificar Entrega</button>
+                            }
                         </form>
                     )
                 }
 
-                {/* tabla muestra entregas */}
+                {/* Tabla muestra entregas */}
                 <div className="table-container">
                     <table className="client-table entregaMonto">
                         <thead>
@@ -125,6 +154,7 @@ function ModalAgregaEntregaCliente({id}) {
                                 <th>Fecha Entrega</th>
                                 <th>Monto</th>
                                 <th>Metodo Pago</th>
+                                <th style={{ width: '100px' }}>Edita/Elimina</th>
                             </tr>
                         </thead>
                         <tbody style={{ color: "#fff", fontSize: "23px" }}>
@@ -134,17 +164,27 @@ function ModalAgregaEntregaCliente({id}) {
                                         <tr key={e.fechaEntrega}>
                                             <td>{fechaArg(e.fechaEntrega)}</td>
                                             <td>${formatMoney(e.entrega)}</td>
-                                            <td>${e.metodoPago}</td>
+                                            <td>{e.metodoPago}</td>
+                                            <td>
+                                                <div className='cont-btne-entrega'>
+                                                <button className='btns-edit-elim-entrega' onClick={() => { handleClickModif(e.id) }}>
+                                                    <EditIcon sx={{ 'font-size': '18px' }} />
+                                                </button>
+                                                <button className='btns-edit-elim-entrega'>
+                                                    <DeleteForeverIcon sx={{ 'font-size': '18px' }} />
+                                                </button>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    )
-                                }
-                                )
+                                    );
+                                })
                             }
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td style={{ color: 'white', fontSize: '23px' }}>Restan</td>
                                 <td style={{ color: 'white', fontSize: '23px' }}>${formatMoney(calcSaldoRestante())}</td>
+                                <td></td>
                                 <td></td>
                             </tr>
                         </tfoot>
@@ -155,4 +195,4 @@ function ModalAgregaEntregaCliente({id}) {
     )
 }
 
-export default ModalAgregaEntregaCliente
+export default ModalAgregaEntregaCliente;

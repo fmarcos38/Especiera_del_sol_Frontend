@@ -7,6 +7,7 @@ import {
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
+    EDITA_ENTREGA,
 } from './actionType';
 import { actual } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -240,7 +241,20 @@ export function agregaEntrega(_id, data){
         await axios.post(`${actual}/remitos/entrega/${_id}`, data);
     }
 }
-
+//-------ENTREGAS----
+//edita entrega
+export function editaEntrega(idRemito, idEntrega, entrega, metodoPago){
+    return async function(dispatch) {
+        const resp = await axios.put(`${actual}/remitos/editaEntrega/${idRemito}/entrega/${idEntrega}`, entrega, metodoPago);
+        dispatch({type: EDITA_ENTREGA, payload: resp.data});
+    }
+}
+//elimina entrega
+export function eliminaEntrega(idRemito, idEntrega){
+    return async function() {
+        await axios.delete(`${actual}/remitos/eliminaEntrega/${idRemito}/entrega/${idEntrega}`);
+    }
+}
 //----actions remitos COMPRAS-----------------------------------------------------------
 export function getAllCompras(detalle, fechaDesde, fechaHasta) {
     return async function(dispatch){
