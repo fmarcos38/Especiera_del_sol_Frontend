@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContexto } from '../../Contexto';
 import { useDispatch, useSelector } from 'react-redux';
-import { agregaEntrega, editaEntrega, getRemitoById, modificaRemito } from '../../Redux/Actions';
+import { agregaEntrega, editaEntrega, eliminaEntrega, getRemitoById, modificaRemito } from '../../Redux/Actions';
 import { fechaArg, formatMoney } from '../../Helpers';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
+import Swal from 'sweetalert2';
 
 function ModalAgregaEntregaCliente({ id }) {
 
@@ -31,7 +32,6 @@ function ModalAgregaEntregaCliente({ id }) {
             setErrors(errores);
         }
     };
-
     const handleClickModif = (id) => {
         setModif(true);
         // Buscar la entrega y actualizar el estado
@@ -42,7 +42,6 @@ function ModalAgregaEntregaCliente({ id }) {
             metodoPago: entrega.metodoPago
         });
     };
-
     // Función para validar inputs
     const validate = () => {
         const newErrors = {};
@@ -54,7 +53,6 @@ function ModalAgregaEntregaCliente({ id }) {
 
         return Object.keys(newErrors).length === 0;
     };
-
     // Función para calcular el saldo restante
     const calcSaldoRestante = () => {
         let tot = remito.totPedido;
@@ -63,7 +61,6 @@ function ModalAgregaEntregaCliente({ id }) {
         });
         return tot;
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
@@ -78,7 +75,7 @@ function ModalAgregaEntregaCliente({ id }) {
                     if (saldoRestante === 0) {
                         dispatch(modificaRemito(id, { estado: "Pagado" }));
                     }
-                    window.location.reload();
+                    dispatch(getRemitoById(id));//window.location.reload();
                 });
             } else {
                 // Crea una nueva entrega
@@ -87,15 +84,31 @@ function ModalAgregaEntregaCliente({ id }) {
                     if (saldoRestante === 0) {
                         dispatch(modificaRemito(id, { estado: "Pagado" }));
                     }
-                    window.location.reload();
+                    dispatch(getRemitoById(id));//window.location.reload();
                 });
+                setData({
+                    monto: "",
+                    metodoPago: "",
+                    idEntrega: null 
+                });
+                
             }
         }
     };
+    const handleClickElimina = (idEntrega) => {
+        dispatch(eliminaEntrega(remito._id, idEntrega))
+        .then(() => {
+            dispatch(getRemitoById(id));
+        });
+    }; 
 
     useEffect(() => {
         dispatch(getRemitoById(id));
     }, [dispatch, id]);
+
+    useEffect(()=>{
+
+    },[remito]);
 
     return (
         <div className='cont-modal-entregaCliente'>
@@ -167,10 +180,16 @@ function ModalAgregaEntregaCliente({ id }) {
                                             <td>{e.metodoPago}</td>
                                             <td>
                                                 <div className='cont-btne-entrega'>
-                                                <button className='btns-edit-elim-entrega' onClick={() => { handleClickModif(e.id) }}>
+                                                <button 
+                                                    className='btns-edit-elim-entrega' 
+                                                    onClick={() => { handleClickModif(e.id) }}
+                                                >
                                                     <EditIcon sx={{ 'font-size': '18px' }} />
                                                 </button>
-                                                <button className='btns-edit-elim-entrega'>
+                                                <button 
+                                                    className='btns-edit-elim-entrega'
+                                                    onClick={()=>{handleClickElimina(e.id)}}
+                                                >
                                                     <DeleteForeverIcon sx={{ 'font-size': '18px' }} />
                                                 </button>
                                                 </div>
