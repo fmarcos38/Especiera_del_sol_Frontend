@@ -315,12 +315,16 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                     id='condicion_pago'
                                     value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
                                     onChange={operacion === "venta" ? handleOnChange : null}
-                                    className='input-remito-condicionPago'
+                                    className={!data.condicion_pago ? 'input-remito-SinCondicionPago' : 'input-remito-condicionPago'}
                                 />
                             </div>
+                            {/* estado */}
                             <div className='cont-estado'>
                                 <label className='lable-remito-condicion'>Estado:</label>
-                                <select id='estado' onChange={handleOnChange} className='input-remito-estado'>
+                                <select 
+                                    id='estado' 
+                                    onChange={handleOnChange} 
+                                    className={operacion === 'venta' && !data.estado ? 'input-remito-sinEstado' : 'input-remito-estado'}>
                                     {
                                         operacion === "venta" ?
                                             (

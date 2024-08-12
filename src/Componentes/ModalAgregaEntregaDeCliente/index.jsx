@@ -6,7 +6,6 @@ import { fechaArg, formatMoney } from '../../Helpers';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
-import Swal from 'sweetalert2';
 
 function ModalAgregaEntregaCliente({ id }) {
 

@@ -229,12 +229,17 @@
     background-color: rgba(132, 73, 73, 0.718);
 }
 .input-remito-condicionPago,
-.input-remito-estado{
+.input-remito-estado,
+.input-remito-SinCondicionPago,
+.input-remito-sinEstado {
     width: 130px;
     font-size: 18px;
     margin-left: 2px;
 }
-
+.input-remito-SinCondicionPago,
+.input-remito-sinEstado {
+    background-color: red;
+}
 /* estilos para la tablas de items */
 .cont-remito-items{
     width: 90%;
