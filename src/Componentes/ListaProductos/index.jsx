@@ -31,7 +31,9 @@ function ListaProductos() {
     const hadleMouseLeave = () => {
         contexto.setModalImgOpen(false);
     };
-
+    const handleDeleteProduct = (id) => {
+        setFilteredProductos(filteredProductos.filter(p => p._id !== id));
+    };
     //separo los useEffect para q no se dispare todo el tiempo geAll (si estuviera en el de abajo- todos juntos)
     useEffect(() => {
         dispatch(getAllProds());
@@ -79,7 +81,7 @@ function ListaProductos() {
                                                     <EditIcon />
                                                 </button>
                                             </Link>                                            
-                                            <BotonEliminaProducto _id={p._id} nombre={p.nombre} />
+                                            <BotonEliminaProducto _id={p._id} nombre={p.nombre} onDelete={handleDeleteProduct}/>
                                         </td>
                                     </tr>
                                 ))

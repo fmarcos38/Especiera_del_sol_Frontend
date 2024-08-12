@@ -5,7 +5,7 @@ import { eliminaProducto, getAllProds } from '../../Redux/Actions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
 
-function BotonEliminaProducto({_id, nombre}) {
+function BotonEliminaProducto({_id, nombre, onDelete }) {
 
     const dispatch = useDispatch();
 
@@ -27,8 +27,9 @@ function BotonEliminaProducto({_id, nombre}) {
                     icon: "success"
                 });
                 dispatch(eliminaProducto(_id));
+                onDelete(_id); // Llama a la función de callback para actualizar la lista
                 dispatch(getAllProds());
-                window.location.reload();
+                //window.location.reload();
             }
         });
     };
