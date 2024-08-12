@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorNombre, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
+import { buscaClientePorNombre, getAllClientes, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
 import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './estilos.css';
 
 function FormRemito({ tipo }) {
-
+    //estado nomb apell
+    const [nombreApellido, setNombreApellido] = useState('');
     const traeCliente = useSelector(state => state.cliente);
     const numUltimoRemito = useSelector(state => state.ultimoRemito);
     const productos = useSelector(state => state.productos);
-    const [nombreApellido, setNombreApellido] = useState('');    
+    const clientes = useSelector(state => state.clientes);
     //estados para el manejo del cliente  
     const [cliente, setCliente] = useState();
     const [clienteExiste, setClienteExiste] = useState(true);
-    const [haBuscadoCliente, setHaBuscadoCliente] = useState(false); 
+    const [haBuscadoCliente, setHaBuscadoCliente] = useState(false);
     // Estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
     // Estados item
@@ -73,7 +74,6 @@ function FormRemito({ tipo }) {
         setImporte(tot);
         return tot;
     };
-    
     // Función calc tot del pedido
     const calculaTotPedido = () => {
         let tot = 0;
@@ -146,6 +146,11 @@ function FormRemito({ tipo }) {
         }
     }, [traeCliente, haBuscadoCliente, dispatch]);
 
+    //para la lista de clientes
+    useEffect(()=>{
+        dispatch(getAllClientes());       
+    },[dispatch]);
+
     useEffect(() => {
         dispatch(getAllProds());
         dispatch(traeUltimoRemito());
@@ -154,13 +159,14 @@ function FormRemito({ tipo }) {
     useEffect(() => {
         if (detalle) {
             const prod = productos.find(p => p.nombre === detalle);
-            setUnidadMedida(prod.unidadMedida);
+            setUnidadMedida(prod?.unidadMedida);
             setCantidad(prod?.envase);
             setCosto(prod?.costo);
             setUnitario(prod?.precioKg);
             setImporte(totItem(prod?.envase, prod?.precioKg));
         }
     }, [detalle, productos]);
+
 
     return (
         <div className='cont-pedido'>
@@ -172,9 +178,18 @@ function FormRemito({ tipo }) {
                     type='text' 
                     id='nombreApellido' 
                     value={nombreApellido} 
-                    onChange={(e) => {handleOnChangeNA(e)}} 
+                    onChange={(e) => {handleOnChangeNA(e)}}
+                    list="lista-clientes" 
                     className='input-cuit-remito'
                 />
+                {/* lista q aparecerá en el input */}
+                <datalist id="lista-clientes">
+                    {
+                        clientes?.map(c => (
+                            <option key={c._id} value={c.nombreApellido} />
+                        ))
+                    }
+                </datalist>
                 <button 
                     onClick={(e) => {handleClickCargaClienteRemito(e)}} 
                     className='btn-carga-data-cliente-remito'
@@ -221,7 +236,8 @@ function FormRemito({ tipo }) {
                     <div className='cont-item-cantidad'>
                         <label className='label-formulario'>Cantidad:</label>
                         <input 
-                            type='number' 
+                            type='number'
+                            step="any"  /* para especificar q es decimal */
                             id='cantidad' 
                             value={cantidad} 
                             onChange={(e) => handleChangeCantidad(e)} 
