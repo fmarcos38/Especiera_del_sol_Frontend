@@ -26,7 +26,7 @@ function FiltraDebePago({ operacion, handleOnClick }) {
                     }
                 </button>
                 <button 
-                    id='ambos' 
+                    id='todos' 
                     onClick={(e) => { handleOnClick(e) }} 
                     className='btn-filtros'
                 >

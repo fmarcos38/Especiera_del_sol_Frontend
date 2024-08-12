@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { creaProveedor, getAllProveedores } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import FormularioCliente from '../FormularioCliente';
+import axios from 'axios';
+import { actual } from '../../URLs';
 
 
 function FomularioProveedorAlta() {
@@ -18,9 +18,6 @@ function FomularioProveedorAlta() {
         cuit: '',
     });
     const [errors, setErrors] = useState({});
-    const allProveedores = useSelector(state => state.proveedores);
-    const dispatch = useDispatch();
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -31,14 +28,6 @@ function FomularioProveedorAlta() {
             delete errores[name];
             setErrors(errores);
         }
-    };
-
-    //funcion verifica si ya existe un cliente con mismo CUIT
-    const verifCliente = () => {
-        let buscoCliente = {};
-        buscoCliente = allProveedores.find(c => c.cuit === formData.cuit);
-        if (buscoCliente) { return buscoCliente; }
-        return buscoCliente = { nombre: "" };
     };
 
     //funcion valida inputs
@@ -60,36 +49,46 @@ function FomularioProveedorAlta() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        let existeCliente = verifCliente();
-        if (existeCliente.nombre === "") {
-            if (validate()) {
-                dispatch(creaProveedor(formData));
-                Swal.fire({
-                    title: "OK",
-                    text: "Cliente creado con exito",
-                    icon: "success"
-                });
-                setFormData({
-                    nombre: '',
-                    apellido: '',
-                    razonSocial: '',
-                    telefono: '',
-                    email: '',
-                    ciudad: '',
-                    direccion: '',
-                    iva: '',
-                    cuit: '',
-                });
-                dispatch(getAllProveedores());
+        
+        if(validate()){
+            try {
+                const response = await axios.post(`${actual}/proveedores`, formData);
+        
+                if (response.status === 201) {
+                    Swal.fire({
+                        title: "OK",
+                        text: "Proveedor creado con éxito",
+                        icon: "success"
+                    });
+                    setFormData({
+                        nombre: '',
+                        apellido: '',
+                        razonSocial: '',
+                        telefono: '',
+                        email: '',
+                        ciudad: '',
+                        direccion: '',
+                        cuit: '',
+                        iva: ''
+                    });
+                }
+            }catch(error){
+                if (error.response && error.response.status === 400) {
+                    Swal.fire({
+                        title: "Error",
+                        text: error.response.data.message,
+                        icon: "error"
+                    });
+                }else{
+                    Swal.fire({
+                        title: "Error",
+                        text: "Ocurrió un error al intentar crear el proveedor",
+                        icon: "error"
+                    });
+                }
             }
-        } else {
-            Swal.fire({
-                title: "Ya existe un Cliente",
-                text: "Prueba con otro CUIT",
-                icon: "error"
-            });
         }
 
     };

@@ -126,6 +126,7 @@ export function eliminaProducto(_id){
         dispatch({type: ELIMINA_PRODUCTO, payload: resp.data});
     }
 }
+
 //--proveedores-----------------------------------------------------
 //trae proveedores
 export function getAllProveedores() { 
@@ -171,7 +172,7 @@ export function eliminaProveedor(_id){
 //--remitos ventas-----------------------------------------------------
 //trae remitos
 export function getAllRemitos(estado, fechaDesde, fechaHasta){
-    return async function(dispatch){
+    return async function(dispatch){ 
         const resp = await axios.get(`${actual}/remitos?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS, payload: resp.data});
     }
@@ -202,9 +203,9 @@ export function creaRemito(data){
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit, {estado}){
-    return async function(dispatch){  
-        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}`);       
+export function getRemitosCliente(cuit, estado, fechaDesde, fechaHasta){
+    return async function(dispatch){
+        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
@@ -255,6 +256,7 @@ export function eliminaEntrega(idRemito, idEntrega){
         await axios.delete(`${actual}/remitos/eliminaEntrega/${idRemito}/entrega/${idEntrega}`);
     }
 }
+
 //----actions remitos COMPRAS-----------------------------------------------------------
 export function getAllCompras(detalle, fechaDesde, fechaHasta) {
     return async function(dispatch){
@@ -321,6 +323,7 @@ export function resetRemito(){
         dispatch({type: RESET_REMITO});
     }
 }
+
 //--REPORTES y GASTOS----------------------------------------
 //crea gasto
 export function creaGasto(data){

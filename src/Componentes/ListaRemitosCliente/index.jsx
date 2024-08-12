@@ -17,7 +17,7 @@ import './estilos.css';
 
 function ListaRemitosCliente() {
 
-    const {cuit} = useParams(); 
+    const {cuit} = useParams();
     const remitosCliente = useSelector(state => state.remitos);
     //estado para el estado del remito
     const [estado, setEstado] = useState("todos");
@@ -26,8 +26,6 @@ function ListaRemitosCliente() {
     const [fechaHasta, setFechaHasta] = useState('');
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
-    
-
 
     const handleClick = () => {
         contexto.setModalRemito(true);
@@ -40,11 +38,11 @@ function ListaRemitosCliente() {
         switch (e.target.id) {
             case 'debe':
                 setEstado("Debe");
-                dispatch(getRemitosCliente(cuit, estado));
+                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
                 break;
             case 'pagado':
                 setEstado("Pagado");
-                dispatch(getRemitosCliente(cuit, estado));
+                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
@@ -52,9 +50,15 @@ function ListaRemitosCliente() {
             case 'fechaMin':
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
+            case 'mesActual':
+                setEstado("todos");
+                setFechaDesde('');
+                setFechaHasta('');
+                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+                break;
             case 'todos':
                 setEstado("todos");
-                dispatch(getRemitosCliente(cuit, estado));
+                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
@@ -143,11 +147,11 @@ function ListaRemitosCliente() {
 
     
     useEffect(()=>{
-        dispatch(getRemitosCliente(cuit, estado));
+        dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
         dispatch(buscaClientePorCuit(cuit));
 
         return () => {dispatch(resetCliente())};
-    },[cuit, dispatch, estado]);
+    },[cuit, dispatch, estado, fechaDesde, fechaHasta]);
 
 
     return (
@@ -157,6 +161,7 @@ function ListaRemitosCliente() {
                 <div className='cont-filtros-lista-remitos-proveedor'>
                     <FiltraDebePago 
                         handleOnClick={handleOnClick}
+                        operacion={'venta'}
                     />
                     <FiltrosComprasVentasFecha  
                         handleOnSubFechas={handleOnSubFechas} 

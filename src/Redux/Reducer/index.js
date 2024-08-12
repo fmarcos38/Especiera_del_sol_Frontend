@@ -117,12 +117,12 @@ export default function rootReducer(state = initialState, action){
                 remito: action.payload
             }
         case ORDENA_FECHA:
-            let remitosOrdenados = [...state.remitosVentas]; 
+            let remitosOrdenados = [...state.remitos];
             remitosOrdenados = remitosOrdenados.sort((a, b) => {
                 let fechaA = new Date(a.fecha);
                 let fechaB = new Date(b.fecha);
 
-                if (action.payload === 'fechaMax') {
+                if (action.payload === 'fechaMax') { 
                     return fechaB - fechaA;  
                 } else if (action.payload === 'fechaMin') {
                     return fechaA - fechaB; 
@@ -132,7 +132,7 @@ export default function rootReducer(state = initialState, action){
             });
             return{
                 ...state,
-                remitosVentas: remitosOrdenados
+                remitos: remitosOrdenados
             }
         case FILTRA_FECHAS_REMITOS:
             let remitosFiltrar = [...state.remitosVentas];
