@@ -1,12 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllClientes, getAllProds } from '../../Redux/Actions';
 import BotonWhatsApp from '../../Componentes/BotonWhastApp';
+import { AppContexto } from '../../Contexto';
 import './estilos.css';
+
 
 function Home() {
 
     const dispatch = useDispatch();
+    const contexto = useContext(AppContexto);
 
     useEffect(() => {
         dispatch(getAllClientes());
@@ -20,9 +23,12 @@ function Home() {
                 <h1 className='texto-home'>Bienvenid@ a Especiera del Sol</h1>
                 <h2 className='texto-home'>Especias + Frutas Secas</h2>
             </div>
-            <div className='whatsapp-button '>
-                <BotonWhatsApp />
-            </div>
+            {
+                !contexto.isAuthenticated && 
+                <div className='whatsapp-button '>
+                    <BotonWhatsApp />
+                </div>
+            }
         </div>
     )
 }

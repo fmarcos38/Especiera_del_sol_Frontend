@@ -7,6 +7,8 @@
     align-items: center;
     color: rgb(10, 188, 232);
     background-image: url('../../Imagenes/frutos2.jpg');
+    background-repeat : no-repeat;
+    background-size : cover;
 }
 .cont-msj-home{
     display: flex;
@@ -21,7 +23,6 @@
 .texto-home {
     color: #fff;
 }
-
 .whatsapp-button {
     position: fixed;
     width: 40px;

@@ -87,7 +87,9 @@ const Navbar = () => {
             <div className='cont-izq'>
                 <Link to='/' className='cont-izq'>
                     <img src={logo} alt='' className='logo'/>
-                    <img src={textLogo} alt='' className='texto-logo'/>
+                    {
+                        !contexto.isAuthenticated && <img src={textLogo} alt='' className='texto-logo'/>
+                    }
                 </Link>
             </div>
             {/* items barra ADMIN*/}
@@ -244,7 +246,7 @@ const Navbar = () => {
                     <div className='cont-der'>
                         <p className='nombre-userLog'>Hola {contexto.nombre}</p>
                         <button onClick={()=>handleLogOut()} className='btn-logout'>
-                            <LogoutIcon/>
+                            <LogoutIcon className='icono-logout'/>
                         </button>
                     </div>
                 )

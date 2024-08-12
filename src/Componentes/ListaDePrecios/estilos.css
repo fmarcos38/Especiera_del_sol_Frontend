@@ -1,6 +1,8 @@
 .cont-padre-lista-precios{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .cont-gral-listaDePrecios {
     width: 210mm; /* Ancho de una hoja A4 */
