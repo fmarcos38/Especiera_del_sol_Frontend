@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import { createCliente, getAllClientes } from '../../Redux/Actions';
+import { actual } from '../../URLs';
 import FormularioCliente from '../FormularioCliente';
 
 
@@ -19,8 +19,6 @@ const FormClienteAlta = () => {
         cuit: '',
     }); 
     const [errors, setErrors] = useState({});
-    const allClientes = useSelector(state => state.clientes);
-    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,42 +32,15 @@ const FormClienteAlta = () => {
         }
     };
 
-    //funcion verifica si ya existe un cliente con mismo CUIT
-    const verifCliente = () => {
-        let buscoCliente = {};
-        buscoCliente = allClientes.find(c => c.cuit === formData.cuit);
-        if(buscoCliente){ return buscoCliente; }
-        return buscoCliente = {nombre: ""};
-    };
-
-    //funcion valida inputs
-    const validate = () => {
-        const newErrors = {};
-
-        if (!formData.nombre) newErrors.nombre = 'Nombre es requerido';
-        if (!formData.apellido) newErrors.apellido = 'Apellido es requerido';
-        if (!formData.razonSocial) newErrors.razonSocial = 'Razón Social es requerida';
-        if (!formData.telefono) newErrors.telefono = 'Telefono es requerido';
-        if (!formData.email) newErrors.email = 'Email es requerido';
-        if (!formData.ciudad) newErrors.ciudad = 'Ciudad es requerida';
-        if (!formData.direccion) newErrors.direccion = 'Dirección es requerida';
-        if (!formData.iva) newErrors.iva = 'IVA es requerido';
-        if (!formData.cuit) newErrors.cuit = 'CUIT es requerido';
-
-        setErrors(newErrors);
-
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let existeCliente = verifCliente(); 
-        if(existeCliente.nombre === ""){
-            if (validate()) {
-                dispatch(createCliente(formData));
+    const handleSubmit = async (e) => {
+        e.preventDefault();    
+        try {
+            const response = await axios.post(`${actual}/clientes`, formData);
+    
+            if (response.status === 201) {
                 Swal.fire({
                     title: "OK",
-                    text: "Cliente creado con exito",
+                    text: "Cliente creado con éxito",
                     icon: "success"
                 });
                 setFormData({
@@ -81,19 +52,25 @@ const FormClienteAlta = () => {
                     ciudad: '',
                     direccion: '',
                     cuit: '',
+                    iva: ''
                 });
-                dispatch(getAllClientes());
-            }            
-        }else{
-            Swal.fire({
-                title: "Ya existe un Cliente",
-                text: "Prueba con otro CUIT",
-                icon: "error"
-            });
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                Swal.fire({
+                    title: "Error",
+                    text: error.response.data.message,
+                    icon: "error"
+                });
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "Ocurrió un error al intentar crear el cliente",
+                    icon: "error"
+                });
+            }
         }
-        
     };
-
     
     return (
         <FormularioCliente 
