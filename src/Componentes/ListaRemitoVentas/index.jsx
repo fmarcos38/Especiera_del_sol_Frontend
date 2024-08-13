@@ -11,7 +11,7 @@ import './estilos.css';
 function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
-    const [estado, setEstado] = useState("todas");
+    const [estado, setEstado] = useState("todos");
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
@@ -125,11 +125,11 @@ function ListaRemitosVentas() {
         switch (e.target.id) {
             case 'debe':
                 setEstado("Debe");
-                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+                dispatch(getAllRemitos("Debe", fechaDesde, fechaHasta));
                 break;
             case 'pagado':
                 setEstado("Pagado");
-                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+                dispatch(getAllRemitos("Pagado", fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
@@ -137,17 +137,15 @@ function ListaRemitosVentas() {
             case 'fechaMin':
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
-            case 'ambos':
-                setEstado("todas");
+            case 'todos':
+                setEstado("todos");
                 dispatch(getAllRemitos( estado, fechaDesde, fechaHasta));
                 break;
             case 'mesActual':
-                setEstado("todas");
+                setFechaDesde('');
+                setFechaHasta('');
+                setEstado("todos");
                 dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
-                break;
-            case 'borraFechas':
-                setFechaDesde("");
-                setFechaHasta("");
                 break;
             default:
                 break; 
@@ -158,8 +156,7 @@ function ListaRemitosVentas() {
     useEffect(() => {
         dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
         dispatch(getAllProds());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, estado]);
+    }, [dispatch, estado, fechaDesde, fechaHasta]);
 
 
     return (

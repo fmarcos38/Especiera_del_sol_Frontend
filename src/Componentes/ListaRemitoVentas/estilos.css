@@ -1,8 +1,9 @@
 .cont-lista-remitos-ventass{
     width: 95%;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin-bottom: 50px;
 }
