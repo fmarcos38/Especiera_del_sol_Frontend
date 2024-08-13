@@ -55,7 +55,7 @@ function App() {
             <Route path='/modifProd/:_id' element={<ModifProducto />} />
             <Route path='/creaProveedor' element={<CreaProveedor />} />
             <Route path='/proveedores' element={<ListaProveedoresPage />} />
-            <Route path='/remitosProveedor/:nombre/:apellido' element={<ListaRemitosProveedorPage />} />
+            <Route path='/remitosProveedor/:cuit' element={<ListaRemitosProveedorPage />} />
             <Route path='/creaVenta' element={<CreaRemitoVentaPage />} />
             <Route path='/detalleRemito/:_id' element={<DetalleRemitoPage />} />
             <Route path='/detalleRemitoVenta/:_id' element={<DetalleRemitoVenta />} />{/* nuevo */}

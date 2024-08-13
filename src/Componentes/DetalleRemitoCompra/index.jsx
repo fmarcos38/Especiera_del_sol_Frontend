@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { buscaProveedorPorCuit, getRemitoCompra, } from '../../Redux/Actions';
 import RemitoMuestraCompra from '../RemitoMuestraCompra';
-
+import './estilos.css';
 
 function DetalleRemitoCompra() {
     const {_id} = useParams(); 
@@ -27,8 +27,9 @@ function DetalleRemitoCompra() {
 
     const [r, setR] = useState();
     const [p, setP] = useState(); 
+
     return (
-        <div>            
+        <div className='cont-detalle-remito-compra'>            
             <RemitoMuestraCompra 
                 proveedor={p}
                 remito={r}

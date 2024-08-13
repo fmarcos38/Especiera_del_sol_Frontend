@@ -72,7 +72,7 @@ function ListaProveedores() {
                                 <td>{p.cuit}</td>
                                 <td>{p.iva}</td>
                                 <td style={{width: '50px'}}>
-                                    <Link to={`/remitosProveedor/${p.nombre}/${p.apellido}`}>
+                                    <Link to={`/remitosProveedor/${p.cuit}`}>
                                         <button>REMITOS</button> 
                                     </Link>
                                 </td>                                

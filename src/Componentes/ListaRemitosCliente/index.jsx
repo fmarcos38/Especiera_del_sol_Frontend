@@ -95,8 +95,8 @@ function ListaRemitosCliente() {
         if(estado === "Pagado"){
             return totPedido;
         }else{
-            if(entregas.length !== 0){
-                entregas.map(e => {
+            if(entregas?.length !== 0){
+                entregas?.map(e => {
                     return tot += e.entrega; 
                 });
             }
@@ -136,8 +136,8 @@ function ListaRemitosCliente() {
     //funcion calc el tot de entregas
     const totEntregas = () => {
         let tot = 0;
-        remitosCliente.map(r => {
-            r.entrego.map(e => {
+        remitosCliente?.map(r => {
+            r.entrego?.map(e => {
                 return tot += e.entrega;
             });
             return tot;
@@ -176,6 +176,8 @@ function ListaRemitosCliente() {
                 </div>
             </div>
 
+            {/* titulo */}
+            <h2 className='titulo-lista-prov'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             {/* TABLA */}
             {
                 remitosCliente ? (

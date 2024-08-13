@@ -12,9 +12,8 @@ import './estilos.css';
 
 
 function ListaRemitosProveedor() {
-    const compras = useSelector(state => state.remitos); 
-    const {nombre, apellido} = useParams();
-    const proveedor = nombre+" "+apellido;
+    const {cuit} = useParams();
+    const compras = useSelector(state => state.remitos);
     const dispatch = useDispatch();
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
@@ -24,10 +23,10 @@ function ListaRemitosProveedor() {
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
-                dispatch(getRemitosProveedor(proveedor, "Debo"));
+                dispatch(getRemitosProveedor(cuit, "Compra", "Debo", fechaDesde, fechaHasta));
                 break;
             case 'pagado':
-                dispatch(getRemitosProveedor(proveedor, "Pago"));
+                dispatch(getRemitosProveedor(cuit, "Anticipo", "Pago", fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
@@ -35,8 +34,13 @@ function ListaRemitosProveedor() {
             case 'fechaMin':
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
-            case 'todos':
-                dispatch(getRemitosProveedor(proveedor));
+            case 'mesActual':
+                setFechaDesde('');
+                setFechaHasta('');
+                dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
+                break;
+            case 'todos':                
+                dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
@@ -67,13 +71,13 @@ function ListaRemitosProveedor() {
     };
 
     useEffect(()=>{
-        dispatch(getRemitosProveedor(proveedor));
-    },[dispatch, proveedor]);
+        dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
+    },[dispatch, fechaDesde, fechaHasta, cuit]);
 
 
     return (
         <div className='cont-lista-remitos-proveedor'>
-            <h1 className='titulo-cont-lista-remitos-proveedor'>Compras realizadas al proveedor {proveedor}</h1>
+            {/* <h1 className='titulo-cont-lista-remitos-proveedor'>Compras realizadas al proveedor {proveedor}</h1> */}
             <div className="cont-filtros-btnTeset-lista-remitos-proveedor">
                 <div className='cont-filtros-lista-remitos-proveedor'>
                     <FiltrosComprasVentasFecha  
@@ -88,7 +92,9 @@ function ListaRemitosProveedor() {
                 <div className='cont-btnReset-lista-remitos-proveedor'>
                     <BotonResetFiltros handleOnClick={handleOnClick}/>
                 </div>
-            </div>                         
+            </div>    
+            {/* titulo */}
+            <h2 className='titulo-lista-prov'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>                     
             <TablaCompras compras={compras} />
         </div>
     )

@@ -1,6 +1,8 @@
 import React from 'react'
 import ListaRemitosProveedor from '../../Componentes/ListaRemitosProveedor'
 import { userLogData } from '../../LocalStorage'
+import './estilos.css';
+
 
 function ListaRemitosProveedorPage() {
 
@@ -8,7 +10,7 @@ function ListaRemitosProveedorPage() {
 
     if(userLog){
         return (
-            <div style={{width:'100%'}}>
+            <div className='cont-page-listaProv'>
                 <ListaRemitosProveedor />
             </div>
         )

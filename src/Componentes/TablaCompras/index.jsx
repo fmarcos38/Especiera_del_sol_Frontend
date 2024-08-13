@@ -15,7 +15,7 @@ function TablaCompras({ compras }) {
             if (r.estado === 'Debo') {
                 saldo -= r.total;
             } else if (r.estado === 'Pago') {
-                saldo = saldo + r.total;
+                saldo += r.total;
             }
             return {
                 ...r,
@@ -54,7 +54,6 @@ function TablaCompras({ compras }) {
                     arrayMovimientos?.map(r => (
                         <tr key={r._id}>
                             <td>{fechaArg(r.fecha)}</td>
-                            {/* <td>{r.envio}</td> */}
                             <td>{r.numCompra}</td>
                             <td>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

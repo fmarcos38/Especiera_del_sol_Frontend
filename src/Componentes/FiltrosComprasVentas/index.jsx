@@ -34,15 +34,15 @@ function FiltrosComprasVentasFecha({
                     />
                 </div>
                 <div className='cont-btn-aplicar-fechas'>
-                    <button type='submit' className='btn-aplicar-fechas'>Aplicar fechas</button>
-                    <button 
+                    {/* <button type='submit' className='btn-aplicar-fechas'>Aplicar fechas</button> */}
+                    {/* <button 
                         type='button' 
                         id='borraFechas'
                         onClick={(e) => { handleOnClick(e) }}
                         className='btn-aplicar-fechas'
                     >
                         Borra fechas
-                    </button>
+                    </button> */}
                 </div>
             </form>
         </div>
