@@ -65,11 +65,13 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                                 </td>
                                 <td style={{ width: '50px' }}>
                                     <div style={{ display: 'flex' }} key={r._id}>
+                                        {/* btn edita */}
                                         <Link to={`/editaRemito/${r._id}`}>
                                             <button>
                                                 <EditIcon />
                                             </button>
                                         </Link>
+                                        {/* btn elim */}
                                         <BotonEliminaRemitoVenta _id={r._id} />
                                     </div>
                                 </td>

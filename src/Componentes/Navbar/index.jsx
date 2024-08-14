@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetLogin, } from '../../Redux/Actions';
-import logo from '../../Imagenes/logo.png';
+import logo from '../../Imagenes/logoNuevo.jpg';
 import textLogo from '../../Imagenes/texto-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
@@ -87,9 +87,9 @@ const Navbar = () => {
             <div className='cont-izq'>
                 <Link to='/' className='cont-izq'>
                     <img src={logo} alt='' className='logo'/>
-                    {
+                    {/* {
                         !contexto.isAuthenticated && <img src={textLogo} alt='' className='texto-logo'/>
-                    }
+                    } */}
                 </Link>
             </div>
             {/* items barra ADMIN*/}

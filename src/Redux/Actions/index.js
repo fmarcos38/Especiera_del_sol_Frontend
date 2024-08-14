@@ -203,8 +203,8 @@ export function creaRemito(data){
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit, estado, fechaDesde, fechaHasta){
-    return async function(dispatch){
+export function getRemitosCliente(cuit, estado, fechaDesde='', fechaHasta=''){
+    return async function(dispatch){ 
         const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }

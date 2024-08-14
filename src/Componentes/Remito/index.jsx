@@ -315,7 +315,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                     id='condicion_pago'
                                     value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
                                     onChange={operacion === "venta" ? handleOnChange : null}
-                                    className={!data.condicion_pago ? 'input-remito-SinCondicionPago' : 'input-remito-condicionPago'}
+                                    className={operacion === 'venta' && !data.condicion_pago ? 'input-remito-SinCondicionPago' : 'input-remito-condicionPago'}
                                 />
                             </div>
                             {/* estado */}

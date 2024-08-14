@@ -40,10 +40,10 @@ const handleSavePDF = () => {
         <div className='cont-principal-detalleR'>
             <div id='imp-remitos' className='cont-remitos-detalleR'>
                 <Remito
-                    operacion={"muestra"}
-                    numUltimoRemito={remito.numRemito}
+                    operacion={"muestra"}                    
                     cliente={cliente}
                     clienteExiste={true}
+                    numUltimoRemito={remito.numRemito}
                     items={remito.items}
                     totPedido={remito.totPedido}
                     bultos={remito.bultos}

@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;  
     align-items: center;
-    background-color: var(--background-color-navBar-oscuro);
+    background-color: rgb(74, 41, 41);
 }
 .cont-footer {
     width: 85%;

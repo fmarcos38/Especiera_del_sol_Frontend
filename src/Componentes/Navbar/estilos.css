@@ -12,11 +12,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-color-navBar-oscuro);
+    background-color: rgb(74, 42, 42);
 }
 .logo {
-    width: 60px;
-    height: 60px;
+    width: 250px;
+    height: 70px;
     margin: 3px 10px 3px 0;
 }
 /* cont der */
@@ -29,7 +29,7 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color-navBar-claro);
+    background-color: rgb(74, 41, 41);
 }
 .navbar-item, 
 .navbar-item-cliente {
@@ -38,7 +38,7 @@
     font-size:x-large;
     font-weight: 600;
     margin-left: 30px;
-    color: rgb(20, 20, 20);
+    color: rgb(247, 243, 243);
     cursor: pointer;
 }
 .navbar-item:hover {
@@ -75,7 +75,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(111, 201, 201);
+    background-color: rgb(74, 41, 41);
 }
 .btn-logout{
     margin-left: 5px;

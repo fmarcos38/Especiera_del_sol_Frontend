@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { 
-    getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, 
-    filtraFechasRemitos, resetCliente 
-} from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, resetCliente } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import {fechaArg, formatMoney} from '../../Helpers/index.js';
@@ -11,7 +8,6 @@ import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
 import EditIcon from '@mui/icons-material/Edit';
-import Swal from 'sweetalert2';
 import './estilos.css';
 
 
@@ -19,15 +15,13 @@ function ListaRemitosCliente() {
 
     const {cuit} = useParams();
     const remitosCliente = useSelector(state => state.remitos);
-    //estado para el estado del remito
-    const [estado, setEstado] = useState("todos");
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
     const contexto = useContext(AppContexto);
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const handleClickDetalle = () => {
         contexto.setModalRemito(true);
     };
     const handleClickEditar = () => {
@@ -37,12 +31,10 @@ function ListaRemitosCliente() {
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
-                setEstado("Debe");
-                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+                dispatch(getRemitosCliente(cuit, "Debe", fechaDesde, fechaHasta));
                 break;
             case 'pagado':
-                setEstado("Pagado");
-                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+                dispatch(getRemitosCliente(cuit, "Pagado", fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
@@ -51,14 +43,12 @@ function ListaRemitosCliente() {
                 dispatch(ordenaPorFecha("fechaMin"));
                 break;
             case 'mesActual':
-                setEstado("todos");
                 setFechaDesde('');
                 setFechaHasta('');
-                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+                dispatch(getRemitosCliente(cuit, "todos", fechaDesde, fechaHasta));
                 break;
             case 'todos':
-                setEstado("todos");
-                dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+                dispatch(getRemitosCliente(cuit, "todos", fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
@@ -70,22 +60,6 @@ function ListaRemitosCliente() {
     };
     const handleOnChFechaHasta = (e) => {
         setFechaHasta(e.target.value);        
-    };
-    const handleOnSubFechas = (e) => {
-        e.preventDefault();
-        if(!fechaDesde && !fechaHasta){
-            Swal.fire({
-                text: "Ingrese ambas fechas",
-                icon: "error"
-            });
-        }
-        
-        const fechas = {
-            fechaDesde: fechaDesde, 
-            fechaHasta: fechaHasta
-        }
-        
-        dispatch(filtraFechasRemitos(fechas));
     };
 
     //funcion calc el tot de las entregas
@@ -147,11 +121,14 @@ function ListaRemitosCliente() {
 
     
     useEffect(()=>{
-        dispatch(getRemitosCliente(cuit, estado, fechaDesde, fechaHasta));
+        dispatch(getRemitosCliente(cuit, "todos", fechaDesde, fechaHasta));
+    },[cuit, dispatch, fechaDesde, fechaHasta]);
+
+    useEffect(()=>{
         dispatch(buscaClientePorCuit(cuit));
 
         return () => {dispatch(resetCliente())};
-    },[cuit, dispatch, estado, fechaDesde, fechaHasta]);
+    },[cuit, dispatch]);
 
 
     return (
@@ -163,8 +140,7 @@ function ListaRemitosCliente() {
                         handleOnClick={handleOnClick}
                         operacion={'venta'}
                     />
-                    <FiltrosComprasVentasFecha  
-                        handleOnSubFechas={handleOnSubFechas} 
+                    <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
@@ -211,8 +187,13 @@ function ListaRemitosCliente() {
                                             <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>                                            
                                             <td>
                                                 {
-                                                    <Link to={`/detalleRemito/${r._id}`}>
-                                                        <button onClick={() => { handleClick() }}>Detalle</button>
+                                                    <Link to={`/detalleRemitoVenta/${r._id}`}>
+                                                        <button 
+                                                            type='button' 
+                                                            onClick={() => { handleClickDetalle() }}
+                                                        >
+                                                            Detalle
+                                                        </button>
                                                     </Link>
                                                 }
                                             </td>                                            
