@@ -200,6 +200,7 @@ function EditaRemitoCompra() {
                         </div>
                     ) : (
                         <div className='cont-form-modif-anticipo'>
+                            <h1>Modifica Compra</h1>
                             <FormularioCompra
                                 tipoOperacion={tipoOperacion}
                                 handleOnSubmit={handleOnSubmitModifica}

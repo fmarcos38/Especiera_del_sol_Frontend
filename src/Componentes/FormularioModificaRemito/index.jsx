@@ -121,8 +121,7 @@ function FormularioModificaRemito() {
 
     return (
         <div className='cont-pedido'>
-            <h1>Modificar Remito</h1>
-            <h2>Eliminar Items existentes y añadir nuevos</h2>
+            <h1 className='titulo-modif-remito'>Modificar Remito</h1>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
                     {/* detalle */}
@@ -230,13 +229,14 @@ function FormularioModificaRemito() {
                         <td></td>
                         <td></td>
                         <td>{calculaTotPedido()}</td>
+                        <td></td>
                     </tfoot>
                 </table>
             </div>
 
 
             {/* Remito */}
-            <div style={{marginTop: '30px', backgroundColor: 'antiquewhite'}}>
+            <div>
                 <RemitoModifica 
                     operacion={"editar"}
                     cliente={cliente}

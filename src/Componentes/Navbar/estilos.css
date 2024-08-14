@@ -1,27 +1,37 @@
 .navbar {
     width: 100%;
-    height: 70px;
+    height: 70px;   
     display: flex;
-    justify-content: center;
+    justify-content: center; 
+    background-color: rgba(59, 30, 30, 0.914);
+}
+.cont-log-items-log{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 /* cont-izq */
 .cont-izq {
-    width: 30%;
+    width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(74, 42, 42);
 }
 .logo {
     width: 250px;
     height: 70px;
     margin: 3px 10px 3px 0;
 }
-/* cont der */
+/* cont centro */
+.cont-menu-cliente{
+    width: 70%;
+    height: 100%;
+}
 .navbar-menu {
-    width: 60%;
+    width: 100%;
     height: 100%;
     list-style: none;
     display: flex;
@@ -29,7 +39,6 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    background-color: rgb(74, 41, 41);
 }
 .navbar-item, 
 .navbar-item-cliente {
@@ -75,29 +84,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(74, 41, 41);
+}
+.nombre-userLog{
+    margin-right: 3px;
+    color: #fff;
 }
 .btn-logout{
-    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
-    background-color: rgb(111, 201, 201);
+    border-radius: 20px;
+    background-color: rgb(74, 42, 42);
 }
 
 /* responsive */
-@media (min-width: 750px) and (max-width: 1024px) {
+@media (min-width: 800px) and (max-width: 1024px) {
+    .cont-log-items-log{
+        width: 100%;
+    }
+    /* cont-izq */
     .cont-izq {
-        width: 10%;
-        background-color: var(--background-color-navBar-claro);
-        border: none;
+        width: 30%;
     }
     .logo{
-        width: 50px;
+        width: 200px;
         height: 50px;
         margin: 0;
         padding: 3px;
-    }
-    .texto-logo{
-        display: none;
     }
     .navbar-menu {
         width: 100%;
@@ -119,64 +133,50 @@
         display: none;
     }
 }
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 799px) {
+    .cont-log-items-log{
+        width: 100%;
+    }
+    /* cont-izq */
     .cont-izq {
-        width: 10%;
-        background-color: var(--background-color-navBar-claro);
-        border: none;
+        width: 30%;
     }
     .logo{
-        width: 50px;
+        width: 180px;
         height: 50px;
-        margin: 0;
-        padding: 3px;
     }
-    .texto-logo{
-        display: none;
+    /* cont centro */
+        .cont-menu-cliente {
+            width: 60%;
+            height: 100%;
+        }
+        .navbar-item, 
+        .navbar-item-cliente {
+            font-size: 17px;
+        }
     }
-    .navbar-menu {
-        width: 100%;
-        justify-content: center;
-        border: none;
-        margin: 0;
-        padding: 0;
-    }
-    .navbar-item{
-        font-size: 12px;
-        margin-left: 5px;
-    }
-    .cont-der {
-        width: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .nombre-userLog{
-        display: none;
-    }
-}
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 640px) {
     .navbar {
         width: 100%;
         height: 50px;
     }
+    .cont-log-items-log{
+        width: 100%;
+        height: 100%;
+    }
     .cont-izq {
-        width: 30%;
+        width: 50%;
     }
     .logo {
-        width: 40px;
-        height: 40px;
-        margin: 3px 10px 3px 0;
-    }
-    .texto-logo{
-        display: none;
+        width: 150px;
+        height: 50px;
     }
     .navbar-menu {
-        width: 70%;
+        width: 100%;
     }
     .navbar-item-cliente {
         text-align: center;
-        font-size:15px;
+        font-size: 14px;
     }
     /* cont-izq */
     .cont-der {

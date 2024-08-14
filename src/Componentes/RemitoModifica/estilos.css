@@ -1,0 +1,26 @@
+.cont-tabla-transporte{
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;      /* Centra verticalmente */
+    width: 100%;
+    height: 100%;
+}
+.inputs-transp-bultos{
+    width: 200px;
+    text-align: center;
+    margin-bottom: 3px;
+    box-sizing: border-box; /* Para asegurarse de que el padding no afecte el ancho total */
+    border: none;
+    font-size: 17px;
+}
+.cont-btns-modif-remito{
+    width: 580px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.boton-imprimir-modif-remito{
+    width: 260px;
+    font-size: 20px;
+}

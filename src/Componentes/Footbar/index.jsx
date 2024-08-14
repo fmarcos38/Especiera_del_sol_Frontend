@@ -2,20 +2,12 @@ import React from 'react';
 import './styles.css';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import logo from '../../Imagenes/logo.png';
 import { Link } from 'react-router-dom';
 
 function Footbar() {
     return (
         <footer className='contFooter'>
-            <div className="cont-footer">
-                <div className='divF'>
-                    {/* logo */}
-                    <div className='col-logo'>
-                        <a href='/home'>
-                            <img src={logo} alt='' className='logo-footbar' />
-                        </a>
-                    </div>
+            <div className="cont-footer">                
                     <div className='cont-items'>
                         {/* Contactanos */}
                         <div className='col-1'>
@@ -50,7 +42,7 @@ function Footbar() {
                             </div>
                         </div>
                     </div>
-                </div>
+                
             </div>         
         </footer>
 

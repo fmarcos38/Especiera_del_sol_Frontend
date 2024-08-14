@@ -8,9 +8,9 @@ import { modificaRemito } from '../../Redux/Actions';
 import { formatDate, formatMoney } from '../../Helpers';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import './estilos.css';
 
-
-function RemitoModifica({operacion, cliente, remito, items, totPedido}) { 
+function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
 
     const [condicion_pago, setCondicion_pago] = useState();
     const [estado, setEstado] = useState();
@@ -24,16 +24,22 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
         const input = document.getElementById('pdf-content');
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            const pdf = new jsPDF('landscape', 'mm', 'a4');
+            //const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            // Ajustamos el tamaño de la imagen para que ocupe todo el alto de la hoja
+            const imgHeight = pdfHeight; // Ocupa todo el alto
+            const imgWidth = (canvas.width * imgHeight) / canvas.height;
+
+            // Posicionamos la imagen a la izquierda
+            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
             pdf.save('remito.pdf');
         });
     };
+
     const handleOnChangeCondicion = (e) => {
-            setCondicion_pago(e.target.value);
+        setCondicion_pago(e.target.value);
     };
     const handleOnChangeEstado = (e) => {
         setEstado(e.target.value);
@@ -61,14 +67,14 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                 icon: 'error'
             });
         }
-        if(bultosActual === 0){
+        if (bultosActual === 0) {
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
         }
-        if(transporteActual === ''){
+        if (transporteActual === '') {
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Transporte",
@@ -118,19 +124,19 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
         return rows;
     };
 
-    useEffect(()=>{
-        if(remito){
+    useEffect(() => {
+        if (remito) {
             setCondicion_pago(remito.condicion_pago);
             setEstado(remito.estado);
             setBultos(remito.bultos);
             setTransporte(remito.transporte);
         }
-    },[remito]);
+    }, [remito]);
 
 
     return (
-        <div className='cont-gralRemito'>
-            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito'>
+        <div className='cont-remito-modif'>
+            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito-modif'>
                 <div className='cont-remito' id='pdf-content'>
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
@@ -149,7 +155,7 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                                     <p>info@especieradelsol.com</p>
                                     <p>www.especieradelsol.com</p>
                                     <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
-                                </div>                                
+                                </div>
                             </div>
                             {/* cont X */}
                             <div className='cont-remito-sup-info-X'>
@@ -256,8 +262,8 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                                 <input
                                     type='text'
                                     id='condicion_pago'
-                                    value={ condicion_pago }
-                                    onChange={ (e) => { handleOnChangeCondicion(e) }}
+                                    value={condicion_pago}
+                                    onChange={(e) => { handleOnChangeCondicion(e) }}
                                     className='input-remito-condicionPago'
                                 />
                             </div>
@@ -267,7 +273,7 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                                 <select id='estado' onChange={(e) => { handleOnChangeEstado(e) }} className='input-remito-condicionPago'>
                                     <option>Estado actual:{estado}</option>
                                     <option value={'Debe'}>Debe</option>
-                                    <option value={'Pagado'}>Pagado</option>                                    
+                                    <option value={'Pagado'}>Pagado</option>
                                 </select>
                             </div>
                         </div>
@@ -290,32 +296,25 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                                 {renderRows()}
                                 <tr>
                                     <td></td>
-                                    <td 
-                                        style={{
-                                            display:'flex', 
-                                            justifyContent:'center', 
-                                            alignItems:'center', 
-                                            padding:'0', 
-                                            border:'none',
-                                        }}
-                                    >
-                                        <label style={{marginRight:'5px'}}>Transp:</label>
-                                        {
-                                            operacion === 'editar' ? 
-                                            <input 
-                                            type='text' 
-                                            id='trasporte' 
-                                            value={transporteActual} 
-                                            onChange={(e) => handleChangeTransporte(e)} 
-                                            placeholder='Ingresar Aquí'
-                                            className='input-transporte'
-                                        /> :
-                                        <p 
-                                            style={{margin:'0', padding:'5px'}}
-                                        >
-                                            {remito.transporte}
-                                        </p>
-                                        }
+                                    <td>
+                                        <div className='cont-tabla-transporte'>
+                                            <label style={{ marginRight: '5px', fontSize: '15px' }}>Transp:</label>
+                                            {
+                                                operacion === 'editar' ?
+                                                    <input
+                                                        type='text'
+                                                        id='trasporte'
+                                                        value={transporteActual}
+                                                        onChange={(e) => handleChangeTransporte(e)}
+                                                        className='inputs-transp-bultos'
+                                                    /> :
+                                                    <p
+                                                        style={{ margin: '0', padding: '5px' }}
+                                                    >
+                                                        {remito.transporte}
+                                                    </p>
+                                            }
+                                        </div>
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -324,23 +323,21 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td>{caclTotKgs()}</td>
-                                    <td className='pie-tabla-palabra'>
-                                        <label 
-                                            style={{marginRight:'5px', fontSize:'15px'}}
-                                        >
-                                            Cant Bultos:
-                                        </label>
-                                        {
-                                            operacion === 'editar' ? 
-                                            <input 
-                                            type='number' 
-                                            id='bultos' 
-                                            value={bultosActual} 
-                                            onChange={(e) => handleChangeBulto(e)} 
-                                            className='input-bultos'
-                                        /> :
-                                        remito.bultos
-                                        } 
+                                    <td>
+                                        <div className='cont-tabla-transporte'>
+                                            <label style={{ marginRight: '5px', fontSize: '15px' }}>Bultos: </label>
+                                            {
+                                                operacion === 'editar' ?
+                                                    <input
+                                                        type='number'
+                                                        id='bultos'
+                                                        value={bultosActual}
+                                                        onChange={(e) => handleChangeBulto(e)}
+                                                        className='inputs-transp-bultos'
+                                                    /> :
+                                                    remito.bultos
+                                            }
+                                        </div>
                                     </td>
                                     <td></td>
                                     <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>
@@ -350,12 +347,14 @@ function RemitoModifica({operacion, cliente, remito, items, totPedido}) {
                     </div>
                 </div>
 
-                {/* btn crea pedido */}
-                    <button type='onSubmit' className='boton-imprimir'>Modificar Remito</button>
-                
-                {/* botón imprimir */}
-                <button onClick={handleSavePDF} className='boton-imprimir'>Guardar como PDF</button>
-            </form>            
+                <div className='cont-btns-modif-remito'>
+                    {/* btn crea pedido */}
+                    <button type='onSubmit' className='boton-imprimir-modif-remito'>Modificar Remito</button>
+
+                    {/* botón imprimir */}
+                    <button type='button' onClick={handleSavePDF} className='boton-imprimir-modif-remito'>Guardar como PDF</button>
+                </div>
+            </form>
         </div>
     )
 }

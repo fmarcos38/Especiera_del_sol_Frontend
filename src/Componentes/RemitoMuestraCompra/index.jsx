@@ -14,14 +14,21 @@ function RemitoMuestraCompra({ proveedor, remito }) {
         const input = document.getElementById('remito');
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            const pdf = new jsPDF('landscape', 'mm', 'a4');
+            //const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+    
+            // Ajustamos el tamaño de la imagen para que ocupe todo el alto de la hoja
+            const imgHeight = pdfHeight; // Ocupa todo el alto
+            const imgWidth = (canvas.width * imgHeight) / canvas.height;
+    
+            // Posicionamos la imagen a la izquierda
+            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
             pdf.save('remito.pdf');
         });
     };
+    
+    
     //calc tot kgs vendidos
     const caclTotKgs = () => {
         let tot = 0;

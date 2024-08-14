@@ -5,57 +5,42 @@
     /* left: 0; */
     width: 100%;  
     display: flex;
-    flex-direction: column;
-    justify-content: center;  
+    flex-direction: column;  
     align-items: center;
-    background-color: rgb(74, 41, 41);
+    background-color: var(--background-color-navBar-oscuro);
 }
 .cont-footer {
-    width: 85%;
+    width: 90%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px;
 }
-.divF{
-    width: 100%;
+.cont-items {
+    width: 90%;
+    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-.col-logo{
-    width: 15%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-.logo-footbar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-}
-.cont-items {
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
 }
 .col-1,
 .col-2,
 .col-3 {
-    width: 35%;
+    width: 30%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: start; /* alineo EJE X */
 }
 /* color linea sup */
 .h2-foot{
     width: 80%; /* largo de la linea */
-    display: block;
     border-bottom: 1px solid #fff;
     margin: 0;
 }
 .titulo-col {
+    color: #fff;
     font-size: 20px;
     margin: 0 0 3px 0;
 }
@@ -94,33 +79,12 @@
     }
 }
 @media screen and (max-width: 650px) {
-    .cont-footer{
-        padding: 0;
-    }
-    .divF {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-    .col-logo{
-        width: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 10px 0;
-    }
-    .logo-footbar {
-        width: 90px;
-        height: 90px;
-    }
     .cont-items { 
         width: 90%;
+        height: 100%;
         flex-direction: column;
         border-radius: 10px;
-        background-color: #bd3b3b;
-        margin-bottom: 8px;
+        margin-bottom: 13px;
     }
     .col-1,
     .col-2,
