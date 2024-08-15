@@ -13,8 +13,8 @@ function FormularioAnticipo() {
         detalle: "Anticipo",
         total: 0,
         detallePago: "",
-        estado: "Pago"
-    }); 
+        cuit: ""
+    });
     const dispatch = useDispatch();
 
     const handleOnChange = (e) => {
@@ -38,7 +38,7 @@ function FormularioAnticipo() {
                 detalle: "Anticipo",
                 total: 0,
                 detallePago: "",
-                estado: "Pago"
+                cuit: ""
             })
         }
     };
@@ -46,6 +46,16 @@ function FormularioAnticipo() {
     useEffect(()=>{
         dispatch(getAllProveedores());
     },[dispatch]);
+
+    useEffect(()=>{
+        if(items.proveedor){
+            const dataProv = proveedores.find(p => p.nombreApe === items.proveedor);
+            if(dataProv){
+                setItems({...items, cuit: dataProv.cuit});
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[items.proveedor]);//solo cuando cambie items.proveedor
 
     return (
         <form onSubmit={(e) => { handleOnSubmit(e)}} className='cont-formulario-anticipo'>

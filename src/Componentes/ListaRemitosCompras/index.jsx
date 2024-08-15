@@ -60,6 +60,7 @@ function ListaRemitos() {
     return (
         <div className='cont-listaRemitosCompra-componente'>
             <h1 className='titulo-lista-compras'>Lista de compras</h1>
+            {/* filtros */}
             <div className='cont-filtros-btnReset-lista-remitos-ventas'>
                 <div className='cont-filtros-lista-remitos-ventas'>
                     <FiltrosComprasVentasFecha 

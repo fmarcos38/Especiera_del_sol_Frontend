@@ -9,12 +9,12 @@ import './estilos.css';
 function TablaCompras({ compras }) {
 
     //funcion calcula saldo
-    const calculateSaldo = (remitos) => {
+    const calculaSaldo = (remitos) => {
         let saldo = 0;
         return remitos?.map(r => {
-            if (r.estado === 'Debo') {
+            if (r.detalle === 'Compra') {
                 saldo -= r.total;
-            } else if (r.estado === 'Pago') {
+            } else if (r.detalle === 'Anticipo') {
                 saldo += r.total;
             }
             return {
@@ -25,7 +25,7 @@ function TablaCompras({ compras }) {
         });
     };
     //ejecuto funcion - retorna un nuevo array
-    const arrayMovimientos = calculateSaldo(compras); //console.log("nuevoArr:", arrayMovimientos)
+    const arrayMovimientos = calculaSaldo(compras); //console.log("nuevoArr:", arrayMovimientos)
 
     return (
         <table className="client-table tabla-listaCompras">
@@ -71,8 +71,8 @@ function TablaCompras({ compras }) {
                             <td>{r.producto}</td>
                             <td>{r.cantidad}</td>
                             <td>{r.unitario}</td>
-                            <td>{r.estado === 'Debo' ? r.total : ' '}</td>
-                            <td>{r.estado === 'Pago' ? r.total : ' '}</td>
+                            <td>{r.detalle === 'Compra' ? r.total : ' '}</td>
+                            <td>{r.detalle === 'Anticipo' ? r.total : ' '}</td>
                             <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
                             <td>{r.saldoText}</td>
                             <td>{r.detallePago}</td>
