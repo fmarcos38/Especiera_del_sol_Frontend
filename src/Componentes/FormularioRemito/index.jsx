@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buscaClientePorNombre, getAllClientes, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
+import { buscaClientePorNombre, calcSaldoAnterior, getAllClientes, getAllProds, resetCliente, traeUltimoRemito } from '../../Redux/Actions';
 import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,6 +10,7 @@ function FormRemito({ tipo }) {
     //estado nomb apell
     const [nombreApellido, setNombreApellido] = useState('');
     const traeCliente = useSelector(state => state.cliente);
+    const saldoAnt = useSelector(state => state.saldoAnterior);
     const numUltimoRemito = useSelector(state => state.ultimoRemito);
     const productos = useSelector(state => state.productos);
     const clientes = useSelector(state => state.clientes);
@@ -167,6 +168,12 @@ function FormRemito({ tipo }) {
         }
     }, [detalle, productos]);
 
+    //para traer el saldo anterior
+    useEffect(()=>{
+        if(cliente?.cuit){
+            dispatch(calcSaldoAnterior(cliente?.cuit));
+        }
+    },[cliente?.cuit, dispatch]);
 
     return (
         <div className='cont-pedido'>
@@ -324,6 +331,7 @@ function FormRemito({ tipo }) {
                     cliente={cliente} 
                     clienteExiste={clienteExiste}
                     items={pedido}
+                    saldoAnt={saldoAnt.saldoAnt}
                     totPedido={calculaTotPedido()}
                 />
             </div>

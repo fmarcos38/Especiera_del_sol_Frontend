@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte }) { 
+function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, saldoAnt = 0, totPedido, bultos, transporte }) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -27,7 +27,6 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     const [bultosActual, setBultos] = useState(bultos || '');
     const [transporteActual, setTransporte] = useState(transporte || '');    
     const remitoAmostrar = useSelector(state => state.remito);
-    const remitosCliente = useSelector(state => state.remitos);
     const dispatch = useDispatch();
 
 
@@ -51,21 +50,6 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             return tot += item.cantidad;
         });
         return tot;
-    };
-    //funcion calc Saldo anterior
-    const calcSaldoAnterior = () => {
-        let saldo = 0;
-        remitosCliente?.map(r => {
-            let totP = r.totPedido;
-            r.entrego?.map(e => {
-                return totP -= e.entrega;  
-            });
-            if(totP > 0){
-                saldo += totP;
-            }
-            return saldo;
-        });
-        return saldo;
     };
     //crea el Remito/Venta
     const handleOnSubmit = (e) => {
@@ -162,6 +146,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     useEffect(()=>{
         return()=>{dispatch(resetCliente())}    
     },[dispatch]); //nuevo
+
 
     return (
         <div className='cont-gralRemito'>
@@ -361,7 +346,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                     <td></td>
                                     <td>Saldo anterior</td>
                                     <td></td>
-                                    <td>${formatMoney(calcSaldoAnterior())}</td>
+                                    <td>${formatMoney(saldoAnt)}</td>
                                 </tr>
                                 <tr> {/* fila tranporte */}
                                     <td></td>
@@ -412,7 +397,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                         } 
                                     </td>
                                     <td></td>
-                                    <td className='celda-total-cifra'>${formatMoney(totPedido + calcSaldoAnterior())}</td>
+                                    <td className='celda-total-cifra'>${formatMoney(totPedido + saldoAnt)}</td>
                                 </tr>
                             </tfoot>
                         </table>

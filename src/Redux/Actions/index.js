@@ -8,6 +8,7 @@ import {
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
     EDITA_ENTREGA,
+    CALC_SALDO_ANTERIOR,
 } from './actionType';
 import { actual } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -236,13 +237,20 @@ export function eliminaRemitoVentas(_id){
         await axios.delete(`${actual}/remitos/elimina/${_id}`);
     }
 }
+//calc saldo anterior de un cliente
+export function calcSaldoAnterior(cuit){
+    return async function(dispatch) {
+        const resp = await axios.get(`${actual}/remitos/calcSaldo/${cuit}`);
+        dispatch({type: CALC_SALDO_ANTERIOR, payload: resp.data});
+    }
+} 
+//-------ENTREGAS-------
 //inserta una entrega
 export function agregaEntrega(_id, data){
     return async function(){ 
         await axios.post(`${actual}/remitos/entrega/${_id}`, data);
     }
 }
-//-------ENTREGAS----
 //edita entrega
 export function editaEntrega(idRemito, idEntrega, entrega, metodoPago){
     return async function(dispatch) {
