@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import logoRemito from '../../Imagenes/logo.png';
-import textoLogo from '../../Imagenes/texto-logo.png';
+import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
 import { formatDate, formatMoney } from '../../Helpers';
@@ -142,20 +141,17 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
                             {/* cont info empresa */}
-                            <div className='cont-remito-sup-info-empresa'>
-                                {/* cont logo */}
-                                <div className='cont-remito-sup-logo'>
-                                    <img src={logoRemito} alt='' className='logo-remito' />
-                                </div>
+                            <div className='cont-remito-sup-info-empresa'>                                
                                 <div className='cont-info-empresa'>
-                                    <img src={textoLogo} alt='' className='texto-logo' />
+                                    {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
+                                    <img src={logoRemito} alt='' className='logo-remito' />
                                     <p>De Gustavo Matusovsky</p>
                                     <p>11 4199 7200</p>
                                     <p>11 5951 0493</p>
                                     <p>info@especieradelsol.com</p>
                                     <p>www.especieradelsol.com</p>
                                     <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
-                                </div>
+                                </div>                                
                             </div>
                             {/* cont X */}
                             <div className='cont-remito-sup-info-X'>

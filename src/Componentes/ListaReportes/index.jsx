@@ -82,7 +82,7 @@ function ListaReportes() {
     arr?.map(mes => {
       return tot += mes.totKgs;
     });
-    return tot;
+    return Math.floor(tot);
   };
 
   const generoReporteMes = () => {
@@ -127,37 +127,47 @@ function ListaReportes() {
   return (
     <div className='cont-reportes'>
       <h1 className='titulo-reportes'>Reportes</h1>
+      {/* mes y año*/}
       <div className='cont-reporte-mes'>
-        <input
-          type='month'
-          id='mes'
-          value={mes}
-          onChange={(e) => { handleOnchangeMes(e) }}
-          placeholder='ingrese año ejem: 2024'
-          className='input-año'
-        />
-        <button
-          onClick={() => { handleClikMostrarMes() }}
-          className='btn-muestraReporte'
-        >
-          Mostrar resultados por Mes
-        </button>
-      </div>
-      <div>
-        <input
-          type='number'
-          id='año'
-          value={año}
-          onChange={(e) => { handleOnchangeAño(e) }}
-          placeholder='ingrese año ejem: 2024'
-          className='input-año'
-        />
-        <button
-          onClick={() => { handleClikMostrarAño() }}
-          className='btn-muestraReporte'
-        >
-          Mostrar resultados por Año
-        </button>
+        <div className='cont-divLabelInput-btnMopstrar'>
+          <div className='cont-label-input'>
+            <label className='label-año'>Elija un mes: </label>
+            <input
+              type='month'
+              id='mes'
+              value={mes}
+              onChange={(e) => { handleOnchangeMes(e) }}
+              placeholder='ingrese año ejem: 2024'
+              className='input-año'
+            />
+          </div>
+          <button
+            onClick={() => { handleClikMostrarMes() }}
+            className='btn-muestraReporte'
+          >
+            Mostrar resultados
+          </button>
+        </div>
+
+        <div className='cont-divLabelInput-btnMopstrar'>
+          <div className='cont-label-input'>
+            <label className='label-año'>Elija un año: </label>
+            <input
+              type='number'
+              id='año'
+              value={año}
+              onChange={(e) => { handleOnchangeAño(e) }}
+              placeholder='Ejem: 2024'
+              className='input-año'
+            />
+          </div>
+          <button
+            onClick={() => { handleClikMostrarAño() }}
+            className='btn-muestraReporte'
+          >
+            Mostrar resultados
+          </button>
+        </div>
       </div>
 
       {/* tablas por día */}

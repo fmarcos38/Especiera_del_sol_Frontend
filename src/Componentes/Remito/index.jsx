@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logoRemito from '../../Imagenes/logo.png';
-import textoLogo from '../../Imagenes/texto-logo.png';
+import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito, getRemitosCliente, resetCliente } from '../../Redux/Actions';
 import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
@@ -156,13 +155,10 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
                             {/* cont info empresa */}
-                            <div className='cont-remito-sup-info-empresa'>
-                                {/* cont logo */}
-                                <div className='cont-remito-sup-logo'>
-                                    <img src={logoRemito} alt='' className='logo-remito' />
-                                </div>
+                            <div className='cont-remito-sup-info-empresa'>                                
                                 <div className='cont-info-empresa'>
-                                    <img src={textoLogo} alt='' className='texto-logo' />
+                                    {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
+                                    <img src={logoRemito} alt='' className='logo-remito' />
                                     <p>De Gustavo Matusovsky</p>
                                     <p>11 4199 7200</p>
                                     <p>11 5951 0493</p>

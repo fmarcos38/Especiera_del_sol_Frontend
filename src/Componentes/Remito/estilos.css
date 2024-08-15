@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgb(208, 162, 162);
+    border: 1px solid black;
     background-color: #fff;
 }
 /* estilos contenedor sup */
@@ -35,12 +35,13 @@
     width: 100%;
     height: 180px;
     display: flex;
+    border-bottom: 1px solid black; /* agregada */
 }
 .cont-remito-sup-izq{
     width: 60%;
     height: 180px;
     display: flex;
-    background-color: var(--background-color-remito);
+    /* background-color: var(--background-color-remito); */
 }
 .cont-remito-sup-info-empresa{
     width: 80%;
@@ -48,7 +49,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #050505; 
 }
 .cont-remito-sup-logo{
     width: 20%;
@@ -59,8 +60,8 @@
     margin-top: 20px;
 }
 .logo-remito{
-    width: 60px;
-    height: 60px;
+    width: 220px;
+    height: 55px;
     margin-left: 5px;
 }
 .cont-info-empresa{
@@ -85,9 +86,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-left: 2px solid white; 
-    border-right: 2px solid white;
-    color: #fff;
+    border-left: 1px solid black; 
+    border-right: 1px solid black;
+    color: black;
 }
 .cont-letra-x{
     width: 100%;
@@ -130,12 +131,12 @@
 .fecha-remito {
     margin: 5px;
     font-size: 17px;
-    color: brown;
+    color: black;
 }
 .cont-remito-derecho-INF {
     display: flex;
     height: 50%;
-    color: brown;
+    color: black;
 }
 .cont-remito-derecho-INF-izq,
 .cont-remito-derecho-INF-der {
@@ -189,6 +190,7 @@
 .lable-remito{
     margin-right: 5px;
     font-size: 18px;
+    color: black
 }
 .input-remito-nombre,
 .input-remito-domicilio,
@@ -198,7 +200,7 @@
 .input-remito-cuit {
     width: 90%;
     border: none; 
-    border-bottom: 2px solid brown;
+    /* border-bottom: 2px solid brown; */
     font-size: 18px;
     padding: 2px; 
 }
@@ -224,9 +226,9 @@
 }
 .lable-remito-condicion{
     width: auto;
-    color: #fff;
+    color: black;
     font-size: 20px;    
-    background-color: rgba(132, 73, 73, 0.718);
+    /* background-color: rgba(132, 73, 73, 0.718); */
 }
 .input-remito-condicionPago,
 .input-remito-estado,
@@ -240,6 +242,7 @@
 .input-remito-sinEstado {
     background-color: red;
 }
+
 /* estilos para la tablas de items */
 .cont-remito-items{
     width: 90%;
@@ -250,11 +253,10 @@
     margin: 20px 0;
 }
 .pedido-tabla th {
-    background-color: var(--background-color-remito);
-    color: white;
+    /* background-color: var(--background-color-remito); */
+    color: black;
     padding: 5px;
-    border-left: 2px solid white;
-    border-right: 2px solid white;
+    border: 1px solid black;
 }
 /* estilos encabezados tabla */
 .encabezado-cantidad,
@@ -268,20 +270,20 @@
 .pedido-tabla td {
     padding: 5px;
     text-align: center;
-    border-left: 2px solid var(--background-color-remito);
-    border-right: 2px solid var(--background-color-remito);
-    border-top: 1px dotted var(--background-color-remito);
-    border-bottom: 1px dotted var(--background-color-remito);
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px dotted black;
+    border-bottom: 1px dotted black;
 }
 .pedido-tabla tr:last-child td {
     border-bottom: none;
 }
-.pedido-tabla tbody tr:nth-child(odd) td {
+/* .pedido-tabla tbody tr:nth-child(odd) td {
     background-color: white;
 }
 .pedido-tabla tbody tr:nth-child(even) td {
     background-color: white;
-}
+} */
 .input-bultos,
 .input-transporte {
     border-radius: 10px;
@@ -290,7 +292,7 @@
     margin-left: 5px;
     text-align: center;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
 }
 .pie-tabla-palabra {
     width: 90%;
@@ -306,8 +308,8 @@
     padding: 10px;
 }
 .celda-total-cifra{
-    border-top: 1px solid var(--background-color-remito);
-    border-bottom: 1px solid var(--background-color-remito);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 /* botón imp */
 .btn-crea-pedido {
