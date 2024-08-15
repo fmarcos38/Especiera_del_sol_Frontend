@@ -12,7 +12,7 @@ function ListaReportes() {
   const reporteMes = useSelector(state => state.reporteMes);
   const [muestraTablaMes, setMuestraTablaMes] = useState(false); 
   let newReporteMes;
-  const [mes, setMes] = useState(""); console.log("mes:", mes)
+  const [mes, setMes] = useState("");
   const [año, setAño] = useState("");
   const month = "";
   let meses = true;
