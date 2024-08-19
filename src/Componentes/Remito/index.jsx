@@ -53,28 +53,31 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     //crea el Remito/Venta
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (!data.condicion_pago || !data.estado) {
+        if (!data.condicion_pago) {
             Swal.fire({
                 title: 'Faltan datos !!',
-                text: "Ingrese Cond.venta y Estado",
+                text: "Ingrese Cond.venta",
                 icon: 'error'
             });
-        }
-        if(bultosActual === 0){
+        }else if(!data.estado){
+            Swal.fire({
+                title: 'Faltan datos !!',
+                text: "Ingrese Estado",
+                icon: 'error'
+            });
+        }else if(bultosActual === 0){
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
-        }
-        if(transporteActual === ''){
+        }else if(transporteActual === ''){
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Transporte",
                 icon: 'error'
             });
-        } 
-        if(data.condicion_pago && data.estado && bultosActual !== 0 && transporteActual !== ''){
+        }else{        
             let fecha = new Date();             
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
@@ -378,7 +381,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                         <label 
                                             style={{marginRight:'5px', fontSize:'15px'}}
                                         >
-                                            Cant Bultos:
+                                            Bultos:
                                         </label>
                                         {
                                             operacion === 'venta' ? 

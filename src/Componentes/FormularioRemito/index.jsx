@@ -39,7 +39,7 @@ function FormRemito({ tipo }) {
         }
         setCliente(null);
         setHaBuscadoCliente(true); // Indicar que se ha buscado un cliente
-        let separo = nombreApellido.split(' '); 
+        let separo = nombreApellido.split(' ');
         const data = {
             nombre: separo[0], 
             apellido: separo[1]
@@ -128,6 +128,7 @@ function FormRemito({ tipo }) {
         const newPedido = pedido.filter((item,i) => i !== index);
         setPedido(newPedido);
     };
+
     // Para cliente cuando busca por CUIT
     useEffect(() => {
         if (haBuscadoCliente) {

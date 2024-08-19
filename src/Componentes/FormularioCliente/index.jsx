@@ -93,7 +93,7 @@ const FormularioCliente = ({formData, errors, handleChange, handleSubmit}) => {
                 <div className="form-group">
                     <label>CUIT</label>
                     <input
-                        type="text"
+                        type="number"
                         name="cuit"
                         value={formData.cuit}
                         onChange={handleChange}

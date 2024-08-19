@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProds, getProductoById } from '../../Redux/Actions';
+import { getAllProds, getProductoById, modifProd } from '../../Redux/Actions';
 import FormularioProducto from '../FormularioProducto';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
@@ -15,23 +15,11 @@ function FormularioModifProducto() {
     const productos = useSelector(state => state.productos);
     const [listaProd, setListaProd] = useState([]);
     const dispatch = useDispatch();
-
-    const previewFile = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreviewSource(reader.result);
-        };
-    };
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "imagen") {
-            setInput({ ...input, imagen: e.target.files[0] });
-            previewFile(e.target.files[0]);
-        } else {
-            setInput({ ...input, [name]: value });
-        }
+        setInput({ ...input, [name]: value });
 
         if (value) {
             const errores = { ...errors };
@@ -43,27 +31,29 @@ function FormularioModifProducto() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let formData = new FormData();
-            formData.append("nombre", input.nombre);
-            formData.append("unidadMedida", input.unidadMedida);
-            formData.append("precioKg", input.precioKg);
-            formData.append("envase", input.envase);
-            formData.append("posicionLista", input.posicionLista);
-            formData.append("costo", input.costo);
-            formData.append("imagen", input.imagen);
-
-            await fetch(`http://localhost:3001/productos/${_id}`, {
-                method: "PUT",
-                body: formData,
-            });
-            Swal.fire({
-                title: "OK",
-                text: "Producto modificado con exito",
-                icon: "success"
-            });
-            dispatch(getAllProds());
-            setPreviewSource('');
-            window.location.reload();
+            const resp = dispatch(modifProd(_id, input));
+            if(resp){
+                Swal.fire({
+                    title: "OK",
+                    text: "Producto modificado con exito",
+                    icon: "success"
+                });
+                setInput({
+                    nombre: '',
+                    unidadMedida: null,
+                    precioKg: '',
+                    costo: '',
+                    envase: '',
+                    posicionLista: '',
+                });
+                dispatch(getAllProds());
+                navigate('/productos');
+            }else {
+                Swal.fire({
+                    text: 'Algo salió mal!!',
+                    icon: 'error'
+                });
+            }
         } catch (error) {
             console.log(error);
         }

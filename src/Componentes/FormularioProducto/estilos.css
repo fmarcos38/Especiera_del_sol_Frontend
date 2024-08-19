@@ -11,7 +11,7 @@
     height: auto;
     padding: 10px;
     border-radius: 10px;
-    background-color: var(--background-color-navBar-oscuro);
+    background-color: rgba(75, 74, 73, 0.807);
 }
 .cont-lista-prods{
     width: 35%;

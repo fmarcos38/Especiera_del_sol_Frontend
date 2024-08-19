@@ -25,8 +25,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
             pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
             pdf.save('remito.pdf');
         });
-    };
-    
+    };    
     
     //calc tot kgs vendidos
     const caclTotKgs = () => {
@@ -67,6 +66,7 @@ function RemitoMuestraCompra({ proveedor, remito }) {
         }
         return rows;
     };
+
 
     return (
         <div className='cont-gralRemito'>            

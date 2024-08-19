@@ -36,7 +36,7 @@ function FormularioCompras() {
         detallePago: "",
         items: [], 
         cuit: "",       
-    });  console.log("compra:", compra)
+    });  
     const dispatch = useDispatch();
 
     const handleOnChangeItems = (e) => {
@@ -89,6 +89,20 @@ function FormularioCompras() {
             Swal.fire({
                 text: "Creado con exito!!",
                 icon: "success"
+            });
+            setCompra({
+                numCompra: numComp,
+                numRemitoProveedor: "",
+                transporte: "",
+                proveedor: "",
+                detalle: 'Compra',
+                producto: "",
+                cantidad: "",
+                unitario: "",
+                total: "",
+                detallePago: "",
+                items: [], 
+                cuit: "",       
             });
         }
     };

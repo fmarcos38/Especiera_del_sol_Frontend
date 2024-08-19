@@ -6,6 +6,7 @@ import {
     ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
     CALC_SALDO_ANTERIOR,
+    RESET_PROV,
 } from "../Actions/actionType";
 
 const initialState = {
@@ -97,6 +98,11 @@ export default function rootReducer(state = initialState, action){
             return {
                 ...state,
                 proveedores: [action.payload]
+            }
+        case RESET_PROV:
+            return{
+                ...state,
+                proveedor: {}
             }
         case GET_ALL_REMITOS:
             return{
