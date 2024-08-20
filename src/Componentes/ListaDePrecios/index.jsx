@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import logo from '../../Imagenes/logoYtexto.jpg';
 import WhatsAppButton from '../BotonWhastApp';
+import { formatDate } from '../../Helpers';
 import './estilos.css';
 
 
@@ -42,6 +43,9 @@ function ListaDePrecios() {
                         <div className='cont-logo-datos'>
                             <div className='cont-logo'>
                                 <img src={logo} alt='not found' className='logo-lista-precio' />
+                            </div>
+                            <div>
+                                <p>Fecha: {formatDate(new Date())}</p>
                             </div>
                         </div>
                         {/* titulo */}

@@ -27,7 +27,7 @@ function ListaRemitos() {
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
-                dispatch(getAllCompras("Compra", "Debo", fechaDesde, fechaHasta)); //detalle, estado
+                dispatch(getAllCompras("Compra", "todos", fechaDesde, fechaHasta)); //detalle, estado
                 break;
             case 'pagado':
                 dispatch(getAllCompras("Anticipo", "Pago", fechaDesde, fechaHasta)); 
