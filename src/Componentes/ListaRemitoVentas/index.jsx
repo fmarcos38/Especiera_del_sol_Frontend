@@ -17,7 +17,7 @@ function ListaRemitosVentas() {
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
-    //funcion calc el tot de las entregas
+    //funcion calc el tot de las entregas    
     const calcEntregas = (entregas, estado, totPedido) => {
         let tot=0;
 
@@ -196,6 +196,9 @@ function ListaRemitosVentas() {
                 totEntregas={totEntregas}
                 totSaldos={totSaldos}
                 calcTotGanancias={calcTotGanancias}
+                estado={estado}
+                fechaDesde={fechaDesde}
+                fechaHasta={fechaHasta}
             />
         </div>
     )

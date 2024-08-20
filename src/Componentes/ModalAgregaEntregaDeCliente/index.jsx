@@ -74,7 +74,8 @@ function ModalAgregaEntregaCliente({ id }) {
                     if (saldoRestante === 0) {
                         dispatch(modificaRemito(id, { estado: "Pagado" }));
                     }
-                    dispatch(getRemitoById(id));//window.location.reload();
+                    dispatch(getRemitoById(id));
+                    window.location.reload();
                 });
             } else {
                 // Crea una nueva entrega
@@ -83,7 +84,8 @@ function ModalAgregaEntregaCliente({ id }) {
                     if (saldoRestante === 0) {
                         dispatch(modificaRemito(id, { estado: "Pagado" }));
                     }
-                    dispatch(getRemitoById(id));//window.location.reload();
+                    dispatch(getRemitoById(id));
+                    window.location.reload();
                 });
                 setData({
                     monto: "",
@@ -160,53 +162,62 @@ function ModalAgregaEntregaCliente({ id }) {
 
                 {/* Tabla muestra entregas */}
                 <div className="table-container">
-                    <table className="client-table entregaMonto">
-                        <thead>
-                            <tr>
-                                <th>Fecha Entrega</th>
-                                <th>Monto</th>
-                                <th>Metodo Pago</th>
-                                <th style={{ width: '100px' }}>Edita/Elimina</th>
-                            </tr>
-                        </thead>
-                        <tbody style={{ color: "#fff", fontSize: "23px" }}>
-                            {
-                                remito.entrego?.map(e => {
-                                    return (
-                                        <tr key={e.fechaEntrega}>
-                                            <td>{fechaArg(e.fechaEntrega)}</td>
-                                            <td>${formatMoney(e.entrega)}</td>
-                                            <td>{e.metodoPago}</td>
-                                            <td>
-                                                <div className='cont-btne-entrega'>
-                                                <button 
-                                                    className='btns-edit-elim-entrega' 
-                                                    onClick={() => { handleClickModif(e.id) }}
-                                                >
-                                                    <EditIcon sx={{ 'font-size': '18px' }} />
-                                                </button>
-                                                <button 
-                                                    className='btns-edit-elim-entrega'
-                                                    onClick={()=>{handleClickElimina(e.id)}}
-                                                >
-                                                    <DeleteForeverIcon sx={{ 'font-size': '18px' }} />
-                                                </button>
-                                                </div>
-                                            </td>
+                    {
+                        remito.estado === 'Pagado' ? (
+                            <></>
+                        ) : (
+                            <>
+                                <table className="client-table entregaMonto">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha Entrega</th>
+                                            <th>Monto</th>
+                                            <th>Metodo Pago</th>
+                                            <th style={{ width: '100px' }}>Edita/Elimina</th>
                                         </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td style={{ color: 'white', fontSize: '23px' }}>Restan</td>
-                                <td style={{ color: 'white', fontSize: '23px' }}>${formatMoney(calcSaldoRestante())}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                    </thead>
+                                    <tbody style={{ color: "#fff", fontSize: "23px" }}>
+                                        {
+                                            remito.entrego?.map(e => {
+                                                return (
+                                                    <tr key={e.fechaEntrega}>
+                                                        <td>{fechaArg(e.fechaEntrega)}</td>
+                                                        <td>${formatMoney(e.entrega)}</td>
+                                                        <td>{e.metodoPago}</td>
+                                                        <td>
+                                                            <div className='cont-btne-entrega'>
+                                                                <button
+                                                                    className='btns-edit-elim-entrega'
+                                                                    onClick={() => { handleClickModif(e.id) }}
+                                                                >
+                                                                    <EditIcon sx={{ 'font-size': '18px' }} />
+                                                                </button>
+                                                                <button
+                                                                    className='btns-edit-elim-entrega'
+                                                                    onClick={() => { handleClickElimina(e.id) }}
+                                                                >
+                                                                    <DeleteForeverIcon sx={{ 'font-size': '18px' }} />
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style={{ color: 'white', fontSize: '23px' }}>Restan</td>
+                                            <td style={{ color: 'white', fontSize: '23px' }}>${formatMoney(calcSaldoRestante())}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </>
+                        )
+
+                    }
                 </div>
             </div>
         </div>
