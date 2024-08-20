@@ -23,7 +23,7 @@ function ListaRemitosProveedor() {
     const handleOnClick = (e) => {
         switch (e.target.id) {
             case 'debe':
-                dispatch(getRemitosProveedor(cuit, "Compra", "Debo", fechaDesde, fechaHasta));
+                dispatch(getRemitosProveedor(cuit, "Compra", "todos", fechaDesde, fechaHasta));
                 break;
             case 'pagado':
                 dispatch(getRemitosProveedor(cuit, "Anticipo", "Pago", fechaDesde, fechaHasta));
