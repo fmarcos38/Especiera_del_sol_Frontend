@@ -216,7 +216,6 @@ function ModalAgregaEntregaCliente({ id }) {
                                 </table>
                             </>
                         )
-
                     }
                 </div>
             </div>

@@ -17,7 +17,6 @@ function ListaRemitosVentas() {
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
-    //funcion calc el tot de las entregas    
     const calcEntregas = (entregas, estado, totPedido) => {
         let tot=0;
 
@@ -79,8 +78,7 @@ function ListaRemitosVentas() {
             }            
         });
         return total;
-    }
-    //calcula ganacia por remito
+    };
     const calcGanancia = (items) => {
         let totGanancia = 0;
 
@@ -100,7 +98,6 @@ function ListaRemitosVentas() {
         });
         return tot;
     };
-
     //para filtro de fechas 
     const handleOnChFechaDesde = (e) => {
         setFechaDesde(e.target.value);
