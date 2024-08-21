@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRemitoCompra, getAllProds, modificaAnticipoCompra, } from '../../Redux/Actions';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FormularioCompra from '../FormularioCompra';
 import TablaItemsRemitoCompra from '../TablaItemsRemitoCompra';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ function EditaRemitoCompra() {
     const remito = useSelector(state => state.remito); 
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     //estado para compra
     const [compra, setCompra] = useState({});
     //estado para Anticipo
@@ -78,6 +79,7 @@ function EditaRemitoCompra() {
                 text: "Modificado con exito!!",
                 icon: "success"
             });
+            navigate('/listaRemitosCompras')
         }
     };
     //funcion calc total compra (NO items)
