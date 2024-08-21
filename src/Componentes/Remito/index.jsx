@@ -22,9 +22,9 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     const [data, setData] = useState({        
         condicion_pago: "",
         estado: "",
-    });
-    const [bultosActual, setBultos] = useState(bultos || '');
-    const [transporteActual, setTransporte] = useState(transporte || '');    
+    }); 
+    const [bultosActual, setBultos] = useState(bultos || ''); console.log("B:", bultos)
+    const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
     const dispatch = useDispatch();
 
@@ -360,7 +360,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                                         value={transporteActual}
                                                         onChange={(e) => handleChangeTransporte(e)}
                                                         placeholder='Ingresar Aquí'
-                                                        className='input-transporte'
+                                                        className={operacion === 'venta' && !transporteActual ? 'sin-transporte' : 'input-transporte'}
                                                     /> :
                                                     <p
                                                         style={{ margin: '0', padding: '5px' }}
@@ -390,7 +390,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                             id='bultos' 
                                             value={bultosActual} 
                                             onChange={(e) => handleChangeBulto(e)} 
-                                            className='input-bultos'
+                                            className={operacion === 'venta' && !bultosActual ? 'input-sin-bultos' : 'input-remito-bultos'}
                                         /> :
                                         bultos
                                         } 

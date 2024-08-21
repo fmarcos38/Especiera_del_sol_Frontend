@@ -34,7 +34,7 @@ function FormularioProducto({ productos, handleSubmit, input, handleChange, erro
                 </div>
                 {/* precio publico */}
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Precio Público {input.unidadMedida}: </label>
+                    <label className='label-form-modif-prod'>Precio Público: </label>
                     <input
                         type="number"
                         name="precioKg"
@@ -46,7 +46,7 @@ function FormularioProducto({ productos, handleSubmit, input, handleChange, erro
                 </div>
                 {/* envase */}
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Envase {input.unidadMedida}: </label>
+                    <label className='label-form-modif-prod'>Envase: </label>
                     <input
                         type="number"
                         name="envase"
@@ -58,7 +58,7 @@ function FormularioProducto({ productos, handleSubmit, input, handleChange, erro
                 </div>
                 {/* costo */}
                 <div className="cont-form-item-nombre">
-                    <label className='label-form-modif-prod'>Costo {input.unidadMedida}: </label>
+                    <label className='label-form-modif-prod'>Costo: </label>
                     <input
                         type="number"
                         name="costo"

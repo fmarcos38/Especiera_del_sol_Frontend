@@ -94,22 +94,14 @@ function FormRemito({ tipo }) {
             });
         } else {
             // Creo un obj para añadir al array de pedido
-            let newItem = {};
-            if(unidadMedida === 'Unidad'){
-                newItem = {
-                    cantidad: 0,
-                    detalle,
-                    unitario,
-                    importe,
-                    costo,
-                }
-            }
+            let newItem = {};            
             newItem = {
                 cantidad,
                 detalle,
                 unitario,
                 importe,
                 costo,
+                unidadMedida
             }
 
             setPedido([...pedido, newItem]);
