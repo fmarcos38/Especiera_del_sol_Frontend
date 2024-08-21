@@ -6,7 +6,7 @@
     align-items: center;
 }
 .cont-form-creaGasto{
-    width: 100%;
+    width: 90%;
     height: auto;
     display: flex;
     flex-direction: column;

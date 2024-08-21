@@ -142,6 +142,7 @@ function CreaGasto() {
                         <td>TOTAL</td>
                         <td></td>
                         <td>${calcTotGastos()}</td>
+                        <td></td>
                     </tfoot>
                 </table>
             </div>

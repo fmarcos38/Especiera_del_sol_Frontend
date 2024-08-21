@@ -86,7 +86,7 @@ function ModalModifGasto({gasto}) {
             >
                 X
             </button>
-            <h1>Crea gasto y muestra los gastos actuales</h1>
+            <h1>Modifica gasto</h1>
             <form onSubmit={(e) => { handleSub(e) }} className='cont-form-creaGasto'>
                 <div className='cont-form-datos'>
                     <div className='cont-dato-gasto'>
@@ -100,7 +100,7 @@ function ModalModifGasto({gasto}) {
                         {error.monto && (<p className="error">{error.monto}</p>)}
                     </div>
                 </div>
-                <button type='onSubmit' className='btn-creaGasto'>Crear gasto</button>
+                <button type='onSubmit' className='btn-creaGasto'>Modificar gasto</button>
             </form>
         </div>
     )
