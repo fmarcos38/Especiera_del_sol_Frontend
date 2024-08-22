@@ -107,7 +107,6 @@ function FormularioAnticipo() {
                 </div>
             </div>
             <button type='onSubmit' className='btn-crea-pedido anticipo'>Crear</button>
-            
         </form>
     )
 }

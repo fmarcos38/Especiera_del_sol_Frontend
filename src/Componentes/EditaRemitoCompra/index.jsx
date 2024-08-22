@@ -17,13 +17,7 @@ function EditaRemitoCompra() {
     //estado para compra
     const [compra, setCompra] = useState({});
     //estado para Anticipo
-    const [anticipo, setAnticipo] = useState({
-        proveedor: remito.proveedor,
-        detalle: remito.detalle,
-        total: remito.total,
-        detallePago: remito.detallePago,
-        estado: remito.estado
-    }); 
+    const [anticipo, setAnticipo] = useState({}); 
     //estado para los items que se compran
     const [items, setItems] = useState({
         cantidad: "",
@@ -100,6 +94,11 @@ function EditaRemitoCompra() {
             })
         }else{
             dispatch(modificaAnticipoCompra(_id, anticipo));
+            Swal.fire({
+                text: 'Modificado con exito',
+                icon: 'success'
+            });
+            navigate('/listaRemitosCompras');
         }
     };
     //elimnina item
@@ -124,9 +123,12 @@ function EditaRemitoCompra() {
     },[_id, dispatch]);
 
     useEffect(()=>{
-        if(remito){
+        //siempre q se quiera llenar un form con la data q ya se tiene "en caso de q sea para modif" HACERLO dsd un USEEFFECT
+        if(remito?.detalle === 'Compra'){
             setCompra(remito);
             setPedido(remito.items);
+        }else{
+            setAnticipo(remito)
         }
     }, [remito]);
 
