@@ -84,6 +84,7 @@ function FormRemito({ tipo }) {
         }
         return tot;
     };
+    //agrega producto
     const handelSubmit = (e) => {
         e.preventDefault();
         if (!cantidad || !detalle || !unitario) {
@@ -103,7 +104,6 @@ function FormRemito({ tipo }) {
                 costo,
                 unidadMedida
             }
-
             setPedido([...pedido, newItem]);
             resetForm();
         }

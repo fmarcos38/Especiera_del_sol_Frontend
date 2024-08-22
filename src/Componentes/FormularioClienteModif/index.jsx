@@ -19,7 +19,7 @@ const FormModificaCliente = ({c, setClienteAeditar }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         Swal.fire({
-            title: "Está segur@ de realizar los cambios?",
+            title: "Está seguro de realizar los cambios?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",

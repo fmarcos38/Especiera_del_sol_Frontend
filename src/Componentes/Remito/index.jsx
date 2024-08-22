@@ -5,6 +5,7 @@ import { creaRemito, getRemitosCliente, resetCliente } from '../../Redux/Actions
 import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
 import Swal from 'sweetalert2';
 import './estilos.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, saldoAnt = 0, totPedido, bultos, transporte }) { 
@@ -27,7 +28,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     const handleOnChange = (e) => {
         if (e.target.id === 'estado') {
@@ -99,7 +100,9 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             Swal.fire({
                 title: 'Creado con exito !!',
                 icon: 'success'
-            }, window.location.reload());
+            }, navigate('/listaRemitosVentas'));            
+            //window.location.reload()
+            
         }
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias
