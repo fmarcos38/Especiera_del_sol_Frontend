@@ -43,10 +43,13 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     const handleChangeTransporte = (e) => {
         setTransporte(e.target.value)
     }
-    //calc tot kgs vendidos
+    //calc tot kgs vendidos OJO con Bomob de higo
     const caclTotKgs = () => {
         let tot = 0;
         items?.map(item => {
+            if(item.unidadMedida === 'unidad'){
+                return tot;
+            }
             return tot += item.cantidad;
         });
         return tot;
