@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './estilos.css';
 
+//componente que crea y a su ves modif
 function ModalAgregaEntregaCliente({ id }) {
 
     const contexto = useContext(AppContexto);
@@ -63,8 +64,8 @@ function ModalAgregaEntregaCliente({ id }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            if (modif) {
-                // Modifica la entrega existente
+            // Modifica la entrega existente
+            if (modif) {                
                 const entregaModificada = {
                     monto: data.monto,
                     metodoPago: data.metodoPago
@@ -100,7 +101,9 @@ function ModalAgregaEntregaCliente({ id }) {
         dispatch(eliminaEntrega(remito._id, idEntrega))
         .then(() => {
             dispatch(getRemitoById(id));
+            window.location.reload();
         });
+        
     }; 
 
     useEffect(() => {

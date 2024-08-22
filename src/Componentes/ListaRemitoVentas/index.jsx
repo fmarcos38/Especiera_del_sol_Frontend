@@ -153,7 +153,7 @@ function ListaRemitosVentas() {
     useEffect(() => {
         dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
         dispatch(getAllProds());
-    }, [dispatch, estado, fechaDesde, fechaHasta]);
+    }, [dispatch, estado, fechaDesde, fechaHasta,]);
 
 
     return (
