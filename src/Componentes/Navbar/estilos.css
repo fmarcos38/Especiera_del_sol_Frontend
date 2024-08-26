@@ -3,7 +3,7 @@
     height: 70px;   
     display: flex;
     justify-content: center; 
-    background-color: rgba(59, 30, 30, 0.914);
+    background-color: var(--background-color-navBar-oscuro);
 }
 .cont-log-items-log{
     width: 90%;
