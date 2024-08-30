@@ -1,5 +1,5 @@
 import React from 'react'
-import ListaDePrecios from '../../Componentes/ListaDePrecios'
+import ListaDePrecios from '../../Componentes/ListaDePreciosPrincipal'
 import './estilos.css';
 
 function ListaDePreciosPage() {

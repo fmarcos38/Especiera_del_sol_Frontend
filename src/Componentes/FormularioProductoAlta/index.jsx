@@ -13,8 +13,10 @@ function FormularioProductoAlta({operacion}) {
         nombre: "",
         unidadMedida: null,
         precioKg: "",
+        precioKgContado: "",
         costo: "",
         envase: "",
+        envaseEspecial: "",
         posicionLista: ""
     }); //estado inical inputs 
     const [errors, setErrors] = useState({}); //manejo de errore

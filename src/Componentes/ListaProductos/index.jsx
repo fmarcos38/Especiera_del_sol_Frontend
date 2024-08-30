@@ -53,6 +53,8 @@ function ListaProductos() {
                                 <th>Descripción</th>
                                 <th>Precio (x Kg)</th>
                                 <th>Envase (kg.)</th>
+                                <th>Precio Contado(x Kg)</th>
+                                <th>Envase Oferta(kg.)</th>
                                 <th style={{ width: 'auto' }}>Editar/Eliminar</th>
                             </tr>
                         </thead>
@@ -63,6 +65,8 @@ function ListaProductos() {
                                         <td>{p.nombre}</td>
                                         <td className="centered">{p.precioKg}</td>
                                         <td className="centered">{p.envase}</td>
+                                        <td className="centered">{p.precioKgContado}</td>
+                                        <td className="centered">{p.envaseEspecial}</td>
                                         <td className="centered">
                                             <Link to={`/modifProd/${p._id}`}>
                                                 <button className='btn-edita-cliente'>

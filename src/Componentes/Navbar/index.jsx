@@ -218,16 +218,19 @@ const Navbar = () => {
                             </li>
                         </ul>
                     ) : (
-                            <div className='cont-menu-cliente'>
-                                <ul className="navbar-menu">
-                                    <Link to="/listaDePrecios" className='link-menu'>
-                                        <li className="navbar-item-cliente">Lista de precios</li>
-                                    </Link>
-                                    <Link to="/quienesSomos" className='link-menu'>
-                                        <li className="navbar-item-cliente">Quienes somos</li>
-                                    </Link>
-                                </ul>
-                            </div>
+                        <div className='cont-menu-cliente'>
+                            <ul className="navbar-menu">
+                                <Link to="/listaDePrecios" className='link-menu'>
+                                    <li className="navbar-item-cliente">Lista Mayorista</li>
+                                </Link>
+                                <Link to="/ofertas" className='link-menu'>
+                                    <li className="navbar-item-cliente">Lista Especial</li>
+                                </Link>
+                                <Link to="/quienesSomos" className='link-menu'>
+                                    <li className="navbar-item-cliente">Quienes somos</li>
+                                </Link>
+                            </ul>
+                        </div>
                     )
                 }
 

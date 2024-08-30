@@ -29,7 +29,9 @@ import ListaDePreciosPage from './Pages/ListaDePrecios';
 import Footbar from './Componentes/Footbar';
 import ModifProducto from './Pages/ModifProducto';
 import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
+import ListaDePreciosEspecialPage from './Pages/ListaDePreciosEspecial';
 import './App.css';
+
 
 
 function App() {
@@ -70,6 +72,7 @@ function App() {
             <Route path='/listaReportes' element={<ListaReportesPage />} />
             <Route path='/listaDePrecios' element={<ListaDePreciosPage />} />
             <Route path='/quienesSomos' element={<QuienesSomosPage />} />
+            <Route path='/ofertas' element={<ListaDePreciosEspecialPage/>} />
             {/* rutas para el desarrollador */}
             <Route path='/remito' element={<Remito />} />
           </Routes>

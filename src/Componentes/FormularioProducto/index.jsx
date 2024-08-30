@@ -44,6 +44,18 @@ function FormularioProducto({ productos, handleSubmit, input, handleChange, erro
                     />
                     {errors.precioKg && <span className="error">{errors.precioKg}</span>}
                 </div>
+                {/* precio contado publico */}
+                <div className="cont-form-item-nombre">
+                    <label className='label-form-modif-prod'>Precio Contado Público: </label>
+                    <input
+                        type="number"
+                        name="precioKgContado"
+                        value={input.precioKgContado || ''}
+                        onChange={handleChange}
+                        className='input-form-prod'
+                    />
+                    {/* {errors.precioKg && <span className="error">{errors.precioKg}</span>} */}
+                </div>
                 {/* envase */}
                 <div className="cont-form-item-nombre">
                     <label className='label-form-modif-prod'>Envase: </label>
@@ -51,6 +63,18 @@ function FormularioProducto({ productos, handleSubmit, input, handleChange, erro
                         type="number"
                         name="envase"
                         value={input.envase || ''}
+                        onChange={handleChange}
+                        className='input-form-prod'
+                    />
+                    {errors.envase && <span className="error">{errors.envase}</span>}
+                </div>
+                {/* envase oferta contado*/}
+                <div className="cont-form-item-nombre">
+                    <label className='label-form-modif-prod'>Envase Oferta: </label>
+                    <input
+                        type="number"
+                        name="envaseEspecial"
+                        value={input.envaseEspecial || ''}
                         onChange={handleChange}
                         className='input-form-prod'
                     />
