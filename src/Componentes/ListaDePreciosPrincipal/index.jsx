@@ -61,7 +61,7 @@ function ListaDePrecios() {
                                         <tr>
                                             <th>Descripción</th>
                                             <th>Precio (x Kg)</th>
-                                            <th>Envace (Kg)</th>
+                                            <th>Envase (Kg)</th>
                                         </tr>
                                     </thead>
                                     <tbody>

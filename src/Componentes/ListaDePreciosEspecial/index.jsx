@@ -63,7 +63,7 @@ function ListaDePreciosEspecial() {
                       <th>Descripción</th>
                       <th>Precio x 50Kg</th>
                       <th>x 100Kg</th>
-                      <th>Envace (Kg)</th>
+                      <th>Envase (Kg)</th>
                     </tr>
                   </thead>
                   <tbody>
