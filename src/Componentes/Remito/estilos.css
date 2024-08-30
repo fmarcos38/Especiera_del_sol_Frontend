@@ -33,23 +33,24 @@
 /* estilos contenedor sup */
 .cont-remito-sup{
     width: 100%;
-    height: 180px;
+    height: 200px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid black; /* agregada */
 }
 .cont-remito-sup-izq{
     width: 60%;
-    height: 180px;
+    height: 100%;
     display: flex;
-    /* background-color: var(--background-color-remito); */
+    justify-content: center;
 }
 .cont-remito-sup-info-empresa{
     width: 80%;
-    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #050505; 
+    color: #050505;
 }
 .cont-remito-sup-logo{
     width: 20%;
@@ -118,6 +119,7 @@
 .cont-remito-derecho{
     width: 40%;
     display: flex;
+    padding: 10px;
     flex-direction: column;
 }
 .cont-remito-derecho-SUP {
@@ -238,11 +240,26 @@
     font-size: 18px;
     margin-left: 2px;
 }
+.input-remito-condicionPago,
+.input-remito-estado{
+    border: none;
+}
 .input-remito-SinCondicionPago,
 .input-remito-sinEstado {
     background-color: red;
 }
-
+/* estilos para vista etiquetas p Cond pago y Estado */
+.cont-p-cond-pago-y-estado{
+    width: 100%;
+    height: 40px;
+}
+.cont-condicion-pago-p{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 /* estilos para la tablas de items */
 .cont-remito-items{
     width: 90%;

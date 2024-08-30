@@ -194,10 +194,13 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <p className='fecha-remito'>Fecha: 
-                                    {operacion === 'venta' && formatDate(fechaActual)}
-                                    {operacion === 'muestra' && formatDate(fecha)}
-                                </p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p className='fecha-remito'>Fecha: </p>
+                                    <p>
+                                        {operacion === 'venta' && formatDate(fechaActual)}
+                                        {operacion === 'muestra' && formatDate(fecha)}
+                                    </p>
+                                </div>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -298,39 +301,53 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                         </div>
                         {/* cond pago y Estado */}
                         <div className='cont-remito-datos-cliente-Item-CondicionPago'>
-                            <div className='cont-condicion-pago'>
-                                <label className='lable-remito-condicion'>Condición de pago:</label>
-                                <input
-                                    type='text'defaultValue
-                                    id='condicion_pago'
-                                    value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
-                                    onChange={operacion === "venta" ? handleOnChange : null}
-                                    className={operacion === 'venta' && !data.condicion_pago ? 'input-remito-SinCondicionPago' : 'input-remito-condicionPago'}
-                                />
-                            </div>
-                            {/* estado */}
-                            <div className='cont-estado'>
-                                <label className='lable-remito-condicion'>Estado:</label>
-                                <select 
-                                    id='estado' 
-                                    onChange={handleOnChange} 
-                                    className={operacion === 'venta' && !data.estado ? 'input-remito-sinEstado' : 'input-remito-estado'}>
-                                    {
-                                        operacion === "venta" ?
-                                            (
-                                                <>
-                                                    <option>Elija estado</option>
-                                                    <option value={'Debe'}>Deudor</option>
-                                                    <option value={'Pagado'}>Pagado</option>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <option>{remitoAmostrar.estado}</option>
-                                                </>
-                                            )
-                                    }
-                                </select>
-                            </div>
+                            {
+                                operacion === 'venta' ? (
+                                    <>
+                                        <div className='cont-condicion-pago'>
+                                            <label className='lable-remito-condicion'>Condición de pago:</label>
+                                            <input
+                                                type='text'
+                                                defaultValue
+                                                id='condicion_pago'
+                                                value={operacion === "venta" ? data.condicion_pago : remitoAmostrar.condicion_pago}
+                                                onChange={operacion === "venta" ? handleOnChange : null}
+                                                className={operacion === 'venta' && !data.condicion_pago ? 'input-remito-SinCondicionPago' : 'input-remito-condicionPago'}
+                                            />
+                                        </div>
+                                        {/* estado */}
+                                        <div className='cont-estado'>
+                                            <label className='lable-remito-condicion'>Estado:</label>
+                                            <select
+                                                id='estado'
+                                                onChange={handleOnChange}
+                                                className={operacion === 'venta' && !data.estado ? 'input-remito-sinEstado' : 'input-remito-estado'}>
+                                                {
+                                                    operacion === "venta" ?
+                                                        (
+                                                            <>
+                                                                <option>Elija estado</option>
+                                                                <option value={'Debe'}>Deudor</option>
+                                                                <option value={'Pagado'}>Pagado</option>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <option>{remitoAmostrar.estado}</option>
+                                                            </>
+                                                        )
+                                                }
+                                            </select>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className='cont-p-cond-pago-y-estado'>
+                                        <div className='cont-condicion-pago-p'>
+                                            <p className='lable-remito-condicion'>Condicion de pago: {remitoAmostrar.condicion_pago}</p>
+                                            <p className='lable-remito-condicion'>Estado: {remitoAmostrar.estado}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
 
