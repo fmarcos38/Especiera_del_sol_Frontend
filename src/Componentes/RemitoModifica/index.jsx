@@ -267,7 +267,7 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                             <div className='cont-condicion-pago'>
                                 <label className='lable-remito-condicion'>Estado:</label>
                                 <select id='estado' onChange={(e) => { handleOnChangeEstado(e) }} className='input-remito-condicionPago'>
-                                    <option>Estado actual:{estado}</option>
+                                    <option>{estado}</option>
                                     <option value={'Debe'}>Debe</option>
                                     <option value={'Pagado'}>Pagado</option>
                                 </select>
