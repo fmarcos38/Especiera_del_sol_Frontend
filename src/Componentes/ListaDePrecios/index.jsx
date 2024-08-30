@@ -44,8 +44,9 @@ function ListaDePrecios() {
                             <div className='cont-logo'>
                                 <img src={logo} alt='not found' className='logo-lista-precio' />
                             </div>
+                            {/* fecha */}
                             <div>
-                                <p>Fecha: {formatDate(new Date())}</p>
+                                <p>{formatDate(new Date())}</p>
                             </div>
                         </div>
                         {/* titulo */}
