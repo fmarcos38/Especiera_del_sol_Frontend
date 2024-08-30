@@ -42,10 +42,11 @@ function FormularioModifProducto() {
                     nombre: '',
                     unidadMedida: null,
                     precioKg: '',
+                    precio50: '',
+                    precio100: '',
                     precioKgContado: '',
                     costo: '',
                     envase: '',
-                    envaseEspecial: '',
                     posicionLista: '',
                 });
                 dispatch(getAllProds());
@@ -72,11 +73,12 @@ function FormularioModifProducto() {
                 nombre: prod.nombre,
                 unidadMedida: prod.unidadMedida,
                 precioKg: prod.precioKg,
+                precio50: prod.precio50,
+                precio100: prod.precio100,
                 envase: prod.envase,
                 costo: prod.costo,
                 posicionLista: prod.posicionLista,
                 precioKgContado: prod.precioKgContado,
-                envaseEspecial: prod.envaseEspecial,
             });
             setPreviewSource('');
         }

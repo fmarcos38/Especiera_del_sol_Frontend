@@ -29,17 +29,17 @@
 }
 .linea-1 {
     left: 10px;
-    width: 3px;
+    width: 1.5px;
     background-color: rgb(246, 179, 120);
 }
 .linea-2 {
     left: 20px;
-    width: 4px;
+    width: 2px;
     background-color: rgb(241, 128, 54);
 }
 .linea-3 {
     left: 30px;
-    width: 4px;
+    width: 2px;
     background-color: rgb(217, 143, 7);
 }
 .cont-informacion{
@@ -69,6 +69,7 @@
 .titulo-lista-precio{
     margin: 0;
 }
+/* tabla */
 .cont-tabla-listaPrecio{
     width: 100%;
     margin-left: 10px;
@@ -92,7 +93,10 @@
     font-size: 17px;
     font-weight: 500;
 }
-.tabla-precios td:nth-child(2) {
+.tabla-precios td:nth-child(2),
+.tabla-precios td:nth-child(3),
+.tabla-precios td:nth-child(4),
+.tabla-precios td:nth-child(5) {
     border-left: 1px solid #000;
     border-right: 1px solid #000;
 }
