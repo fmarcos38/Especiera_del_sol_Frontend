@@ -227,7 +227,7 @@ const Navbar = () => {
                                     <li className="navbar-item-cliente">Lista Especial</li>
                                 </Link>
                                 <Link to="/quienesSomos" className='link-menu'>
-                                    <li className="navbar-item-cliente">Quienes somos</li>
+                                    <li className="navbar-item-cliente quienesSomos">Quienes somos</li>
                                 </Link>
                             </ul>
                         </div>

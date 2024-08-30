@@ -59,7 +59,7 @@ function ListaDePrecios() {
                                 <table className='tabla-precios'>
                                     <thead>
                                         <tr>
-                                            <th>Descripción</th>
+                                            <th><p className='Descripcion'>Descripción</p></th>
                                             <th>Precio (x Kg)</th>
                                             <th>Envase (Kg)</th>
                                         </tr>

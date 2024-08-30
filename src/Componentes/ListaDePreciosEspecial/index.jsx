@@ -53,17 +53,23 @@ function ListaDePreciosEspecial() {
               </div>
               {/* titulo */}
               <div className='cont-titulo-lista-precio'>
-                <h2 className='titulo-lista-precio'>LISTA DE PRECIOS MAYORISTA</h2>
+                <h2 className='titulo-lista-precio'>LISTA DE PRECIOS ESPECIAL</h2>
               </div>
               {/* tabla */}
               <div className='cont-tabla-listaPrecio'>
                 <table className='tabla-precios'>
                   <thead>
                     <tr>
-                      <th>Descripción</th>
-                      <th>Precio x 50Kg</th>
-                      <th>x 100Kg</th>
-                      <th>Envase (Kg)</th>
+                    <th><p className='Descripcion'>Descripción</p></th>
+                      <th style={{width:'100px',textAlign:'center',}}>
+                        <p style={{fontSize:'13px'}}>Precio x 50Kg</p>
+                      </th>
+                      <th style={{width:'90px',textAlign:'center',}}>
+                        <p style={{fontSize:'13px'}}>x 100Kg</p>
+                      </th>
+                      <th style={{width:'90px',textAlign:'center',}}>
+                        <p style={{fontSize:'13px'}}>Envase (Kg)</p>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
