@@ -25,7 +25,7 @@ function BotonEliminaRemitoVenta({_id}) {
                     icon: "success"
                 });
                 dispatch(eliminaRemitoVentas(_id));
-                window.location.reload();
+                window.location.reload(); //cambiar
             }
         });
     };

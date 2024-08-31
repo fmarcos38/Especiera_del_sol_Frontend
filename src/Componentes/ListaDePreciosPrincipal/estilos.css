@@ -177,18 +177,11 @@
 }
 
 /* Media query para pantallas pequeñas (teléfonos) */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     .tabla-precios th:first-child::before {
         content: 'Prods';
     }    
     .tabla-precios th:first-child p {
         display: none;
     }
-    /* .tabla-precios td:nth-child(1),
-    .tabla-precios td:nth-child(2),
-    .tabla-precios td:nth-child(3),
-    .tabla-precios td:nth-child(4),
-    .tabla-precios td:nth-child(5) {
-        border-bottom: 1px solid #989696;
-    } */
-}
+} */

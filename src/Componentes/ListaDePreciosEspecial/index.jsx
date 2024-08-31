@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import WhatsAppButton from '../BotonWhastApp';
 import logo from '../../Imagenes/logoYtexto.jpg';
-import { formatDate } from '../../Helpers';
+import { formatDate, formatMoney } from '../../Helpers';
 
 
 function ListaDePreciosEspecial() {
@@ -60,15 +60,17 @@ function ListaDePreciosEspecial() {
                 <table className='tabla-precios'>
                   <thead>
                     <tr>
-                    <th><p className='Descripcion'>Descripción</p></th>
-                      <th style={{width:'100px',textAlign:'center',}}>
-                        <p style={{fontSize:'13px'}}>Precio x 50Kg</p>
+                      <th>
+                        <p className='Descripcion'>Descripción</p>
                       </th>
-                      <th style={{width:'90px',textAlign:'center',}}>
-                        <p style={{fontSize:'13px'}}>x 100Kg</p>
+                      <th style={{ width: '70px', textAlign: 'center', }}>
+                        <p style={{ fontSize: '13px' }}>x 50Kg</p>
                       </th>
-                      <th style={{width:'90px',textAlign:'center',}}>
-                        <p style={{fontSize:'13px'}}>Envase (Kg)</p>
+                      <th style={{ width: '70px', textAlign: 'center', }}>
+                        <p style={{ fontSize: '13px' }}>x 100Kg</p>
+                      </th>
+                      <th style={{ width: '70px', textAlign: 'center', }}>
+                        <p style={{ fontSize: '13px' }}>Envase (Kg)</p>
                       </th>
                     </tr>
                   </thead>
@@ -78,9 +80,9 @@ function ListaDePreciosEspecial() {
                         return (
                           <tr key={i}>
                             <td>{p.nombre}</td>
-                            <td style={{ textAlign: 'center' }}>{p.precio50}</td>
-                            <td style={{ textAlign: 'center' }}>{p.precio100}</td>
-                            <td style={{ textAlign: 'center' }}>{p.envase}</td>
+                            <td style={{ textAlign: 'center' }}>${formatMoney(p.precio50)}</td>
+                            <td style={{ textAlign: 'center' }}>${formatMoney(p.precio100)}</td>
+                            <td style={{ textAlign: 'center' }}>${formatMoney(p.envase)}</td>
                           </tr>
                         )
                       })

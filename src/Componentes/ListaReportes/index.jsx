@@ -84,12 +84,18 @@ function ListaReportes() {
     });
     return Math.floor(tot);
   };
-
+  //func genera reporte
   const generoReporteMes = () => {
+    // Verificar que reporteMes.ventas, reporteMes.compras y reporteMes.gastos sean arrays
+    const ventas = Array.isArray(reporteMes?.ventas) ? reporteMes.ventas : [];
+    const compras = Array.isArray(reporteMes?.compras) ? reporteMes.compras : [];
+    const gastos = Array.isArray(reporteMes?.gastos) ? reporteMes.gastos : [];
+  
     // Función para obtener la cantidad de días en un mes específico
     const getDaysInMonth = (month, year) => {
       return new Date(year, month, 0).getDate();
     };
+  
     // Inicializar un array con los días del mes, con ventas, compras y gastos en 0
     const dividoFecha = mes.split('-');
     const añoNumber = dividoFecha[0];
@@ -102,9 +108,10 @@ function ListaReportes() {
       gastos: 0,
       totKgs: 0,
     }));
+  
     // Actualizar los valores del array inicial con los datos reales
-    const updateData = (initialData, reporteMes, type, weightField = null) => {
-      reporteMes?.forEach(item => {
+    const updateData = (initialData, data, type, weightField = null) => {
+      data.forEach(item => {
         const date = new Date(item.fecha);
         const day = date.getDate();
         initialData[day - 1][type] += item.total || item.monto || item.totPedido || 0;
@@ -116,12 +123,13 @@ function ListaReportes() {
     };
   
     // Actualizar datos con ventas, compras, gastos y totKgs
-    let updatedData = updateData([...initialData], reporteMes.ventas, 'ventas', 'totKgs');
-    updatedData = updateData([...updatedData], reporteMes.compras, 'compras');
-    updatedData = updateData([...updatedData], reporteMes.gastos, 'gastos');
-
+    let updatedData = updateData([...initialData], ventas, 'ventas', 'totKgs');
+    updatedData = updateData([...updatedData], compras, 'compras');
+    updatedData = updateData([...updatedData], gastos, 'gastos');
+  
     return updatedData;
-  }
+  };
+  
   newReporteMes = generoReporteMes();
 
   return (

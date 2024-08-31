@@ -50,6 +50,7 @@ function cortaPalabra(prod){
     let newProd = prod.split("(");
     return newProd[0];
 }
+
 export {
     fechaArg,
     formatMoney,

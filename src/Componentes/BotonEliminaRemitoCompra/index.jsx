@@ -24,7 +24,7 @@ function BotonEliminaRemitoCompra({_id}) {
                     icon: "success"
                 });
                 dispatch(elimnimaRemitoCompra(_id));
-                window.location.reload();
+                window.location.reload(); //cambiar
             }
         });
         
