@@ -48,7 +48,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             if(item.unidadMedida === 'unidad'){
                 return tot;
             }
-            return tot += item.cantidad;
+            return tot += Number(item.cantidad);
         });
         return tot;
     };

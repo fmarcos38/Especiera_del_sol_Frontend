@@ -286,8 +286,8 @@ function FormRemito({ tipo }) {
                                 return (
                                     <tr key={item.index}>
                                         {
-                                            item.detalle === "Bombones de Higo con nuez" ?
-                                            <td>{item.cantidad}unid</td> :
+                                            item.unidadMedida === "unidad" ?
+                                            <td>{item.cantidad}u</td> :
                                             <td>{item.cantidad}kg</td>
                                         }
                                         <td>{item.detalle}</td>
