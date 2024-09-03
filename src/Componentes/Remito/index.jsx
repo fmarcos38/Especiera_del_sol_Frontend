@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaRemito, getRemitosCliente, resetCliente } from '../../Redux/Actions';
+import { creaRemito, getAllRemitos, getRemitosCliente, resetCliente } from '../../Redux/Actions';
 import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
 import Swal from 'sweetalert2';
 import './estilos.css';
-import { useNavigate } from 'react-router-dom';
 
 
 function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, saldoAnt = 0, totPedido, bultos, transporte }) { 
@@ -24,11 +23,10 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
         condicion_pago: "",
         estado: "",
     }); 
-    const [bultosActual, setBultos] = useState(bultos || ''); console.log("B:", bultos)
+    const [bultosActual, setBultos] = useState(bultos || '');
     const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleOnChange = (e) => {
         if (e.target.id === 'estado') {
@@ -94,7 +92,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                 estado: data.estado,
                 bultos: bultosActual,
                 transporte: transporteActual,
-            };
+            }; 
             dispatch(creaRemito(dataBack));
             setData({        
                 condicion_pago: "",
@@ -103,9 +101,11 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             Swal.fire({
                 title: 'Creado con exito !!',
                 icon: 'success'
-            }, navigate('/listaRemitosVentas'));            
-            //window.location.reload()
-            
+            });
+            setTransporte("");
+            setBultos("");
+            dispatch(getAllRemitos());
+
         }
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias

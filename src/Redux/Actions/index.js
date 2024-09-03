@@ -51,9 +51,9 @@ export function resetCliente(){
     }
 }
 //trae por nombre y apellido
-export function buscaClientePorNombre(data){
+export function buscaClientePorNombre(nombreApellido){
     return async function(dispatch){
-        const resp = await axios.get(`${actual}/clientes/buscaPorNombre?nombre=${data.nombre}&apellido=${data.apellido}`);
+        const resp = await axios.get(`${actual}/clientes/buscaPorNombre?nombreApellido=${nombreApellido}`);
         dispatch({type: BUSCA_CLIENTE_POR_NOMBRE_APELLIDO, payload:resp.data}); 
     }
 };
