@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import WhatsAppButton from '../BotonWhastApp';
 import logo from '../../Imagenes/logoYtexto.jpg';
 import { formatDate } from '../../Helpers';
+import { formatMoney } from '../../Helpers';
 import './estilos.css';
 
 
@@ -70,7 +71,7 @@ function ListaDePrecios() {
                                                 return (
                                                     <tr key={i}>
                                                         <td>{p.nombre}</td>
-                                                        <td style={{ textAlign: 'center' }}>{p.precioKg}</td>
+                                                        <td style={{ textAlign: 'center' }}>${formatMoney(p.precioKg)}</td>
                                                         <td style={{ textAlign: 'center' }}>{p.envase}</td>
                                                     </tr>
                                                 )

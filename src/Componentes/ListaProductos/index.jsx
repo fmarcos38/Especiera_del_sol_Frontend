@@ -5,8 +5,10 @@ import { getAllProds } from '../../Redux/Actions';
 import { AppContexto } from '../../Contexto';
 import SearchBar from '../SearchBar';
 import EditIcon from '@mui/icons-material/Edit';
-import './estilos.css';
 import { Link } from 'react-router-dom';
+import { formatMoney } from '../../Helpers';
+import './estilos.css';
+
 
 
 function ListaProductos() {
@@ -64,9 +66,9 @@ function ListaProductos() {
                                 filteredProductos?.map((p) => (
                                     <tr key={p._id}>
                                         <td>{p.nombre}</td>
-                                        <td className="centered">{p.precioKg}</td>                                        
-                                        <td className="centered">{p.precio50}</td>
-                                        <td className="centered">{p.precio100}</td>
+                                        <td className="centered">${formatMoney(p.precioKg)}</td>  
+                                        <td className="centered">${formatMoney(p.precio50)}</td>
+                                        <td className="centered">${formatMoney(p.precio100)}</td>
                                         <td className="centered">{p.envase}</td>
                                         <td className="centered">
                                             <Link to={`/modifProd/${p._id}`}>
