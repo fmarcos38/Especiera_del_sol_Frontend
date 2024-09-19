@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaRemito, getAllRemitos, getRemitosCliente, resetCliente } from '../../Redux/Actions';
+import { creaRemito, getAllRemitos, calcSaldoAnterior, resetCliente } from '../../Redux/Actions';
 import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
 
-function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, saldoAnt = 0, totPedido, bultos, transporte }) { 
+function Remito({ 
+    operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte, /* saldoAnt */ 
+}) { 
 
     let nuevoNumeroRemito = 0; 
     let fechaActual = Date(); 
@@ -26,6 +28,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
     const [bultosActual, setBultos] = useState(bultos || '');
     const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
+    const {saldoAnt} = useSelector(state => state.saldoAnterior); 
     const dispatch = useDispatch();
 
     const handleOnChange = (e) => {
@@ -136,7 +139,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
 
     useEffect(()=>{
         if(cliente?.cuit){
-            dispatch(getRemitosCliente(cliente?.cuit, {estado: "Debe"}));
+            dispatch(calcSaldoAnterior(cliente?.cuit));  
         }
     },[cliente?.cuit, dispatch]);
 
@@ -421,7 +424,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
                                         } 
                                     </td>
                                     <td></td>
-                                    <td className='celda-total-cifra'>${formatMoney(totPedido + saldoAnt)}</td>
+                                    <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>
                                 </tr>
                             </tfoot>
                         </table>

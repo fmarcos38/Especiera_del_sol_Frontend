@@ -12,7 +12,8 @@ function DetalleRemito() {
     const {_id} = useParams(); 
     const dispatch = useDispatch();
     const remito = useSelector(state => state.remito); 
-    const cliente = useSelector(state => state.cliente); 
+    const cliente = useSelector(state => state.cliente);
+    
 
     // Función para guardar PDF en hoja horizontal A4
     const handleSavePDF = () => {
@@ -32,7 +33,6 @@ function DetalleRemito() {
     useEffect(() => {
         dispatch(getRemitoById(_id));
     }, [_id, dispatch]);
-
 
     return (
         <div className='cont-principal-detalleR'>

@@ -256,8 +256,8 @@ export function eliminaRemitoVentas(_id){
 }
 //calc saldo anterior de un cliente
 export function calcSaldoAnterior(cuit){
-    return async function(dispatch) {
-        const resp = await axios.get(`${actual}/remitos/calcSaldo/${cuit}`);
+    return async function(dispatch) { 
+        const resp = await axios.get(`${actual}/remitos/calcSaldo/${cuit}`); 
         dispatch({type: CALC_SALDO_ANTERIOR, payload: resp.data});
     }
 } 

@@ -5,7 +5,6 @@ import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './estilos.css';
-import { formatMoney } from '../../Helpers';
 
 function FormRemito({ tipo }) {
     
@@ -78,7 +77,7 @@ function FormRemito({ tipo }) {
     // Función calcula tot import item
     const totItem = (cantidad, unitario) => {
         const tot =  cantidad * unitario;
-        setImporte(formatMoney(tot));
+        setImporte(tot);
         return tot;
     };
     // Función calc tot del pedido
