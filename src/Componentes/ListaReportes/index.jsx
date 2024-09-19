@@ -86,6 +86,10 @@ function ListaReportes() {
   };
   //func genera reporte
   const generoReporteMes = () => {
+    // Verificar si reporteMes existe y tiene la estructura correcta
+    if (!reporteMes || !reporteMes.ventas || !reporteMes.compras || !reporteMes.gastos) {
+      return [];
+    }
     // Verificar que reporteMes.ventas, reporteMes.compras y reporteMes.gastos sean arrays
     const ventas = Array.isArray(reporteMes?.ventas) ? reporteMes.ventas : [];
     const compras = Array.isArray(reporteMes?.compras) ? reporteMes.compras : [];

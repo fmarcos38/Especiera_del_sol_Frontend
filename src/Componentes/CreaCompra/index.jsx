@@ -15,10 +15,10 @@ function FormularioCompras() {
     const [numComp, setNumComp] = useState();
     //estado para los items que se compran
     const [items, setItems] = useState({
-        cantidad: "",
+        cantidad: 0,
         detalle: "",
-        unitario: "",
-        importe: ""
+        unitario: 0,
+        importe: 0
     });
     //estado para la conmposicion del pedido
     const [pedido, setPedido] = useState([]);    
@@ -30,9 +30,9 @@ function FormularioCompras() {
         proveedor: "",
         detalle: 'Compra',
         producto: "",
-        cantidad: "",
-        unitario: "",
-        total: "",
+        cantidad: 0,
+        unitario: 0,
+        total: 0,
         detallePago: "",
         items: [], 
         cuit: "",       
@@ -97,9 +97,9 @@ function FormularioCompras() {
                 proveedor: "",
                 detalle: 'Compra',
                 producto: "",
-                cantidad: "",
-                unitario: "",
-                total: "",
+                cantidad: 0,
+                unitario: 0,
+                total: 0,
                 detallePago: "",
                 items: [], 
                 cuit: "",       
