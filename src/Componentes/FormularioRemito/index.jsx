@@ -5,6 +5,7 @@ import Remito from '../Remito';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './estilos.css';
+import { formatMoney } from '../../Helpers';
 
 function FormRemito({ tipo }) {
     
@@ -24,11 +25,11 @@ function FormRemito({ tipo }) {
     const [pedido, setPedido] = useState([]); 
     // Estados item
     const [unidadMedida, setUnidadMedida] = useState("");
-    const [cantidad, setCantidad] = useState("");
+    const [cantidad, setCantidad] = useState(); 
     const [detalle, setDetalle] = useState("");
-    const [unitario, setUnitario] = useState("");
-    const [costo, setCosto] = useState("");
-    const [importe, setImporte] = useState("");
+    const [unitario, setUnitario] = useState();
+    const [costo, setCosto] = useState();
+    const [importe, setImporte] = useState();
     const dispatch = useDispatch();
 
     const handleOnChangeNA = (e) => {
@@ -44,8 +45,16 @@ function FormRemito({ tipo }) {
         dispatch(buscaClientePorNombre(nombreApellido)); //cambiar a busca cliente por _id
     };
     const handleChangeCantidad = (e) => {
-        const cant = e.target.value;
-        setCantidad(cant);
+        const datoCantidad = e.target.value;
+        let cant = 0;
+
+        if(datoCantidad.includes('.' || ',')){
+            cant = parseFloat(datoCantidad);
+            setCantidad(cant);
+        }else{
+            cant = parseInt(datoCantidad);
+            setCantidad(cant);
+        }
         totItem(cant, unitario);
     };
     const handleChangeDetalle = (e) => {
@@ -68,8 +77,8 @@ function FormRemito({ tipo }) {
     };
     // Función calcula tot import item
     const totItem = (cantidad, unitario) => {
-        const tot = cantidad * unitario;
-        setImporte(tot);
+        const tot =  cantidad * unitario;
+        setImporte(formatMoney(tot));
         return tot;
     };
     // Función calc tot del pedido
@@ -141,7 +150,7 @@ function FormRemito({ tipo }) {
     useEffect(()=>{
         dispatch(getAllClientes());       
     },[dispatch]);
-
+    //para productos y último remito
     useEffect(() => {
         dispatch(getAllProds());
         dispatch(traeUltimoRemito());

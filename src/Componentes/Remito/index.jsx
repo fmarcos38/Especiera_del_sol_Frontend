@@ -50,7 +50,7 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             }
             return tot += Number(item.cantidad);
         });
-        return tot;
+        return tot.toFixed(2); //limita a 2 decimales
     };
     //crea el Remito/Venta
     const handleOnSubmit = (e) => {
@@ -105,7 +105,9 @@ function Remito({ operacion, fecha, numUltimoRemito, cliente, clienteExiste, ite
             setTransporte("");
             setBultos("");
             dispatch(getAllRemitos());
-
+            //dispatch(traeUltimoRemito());
+            //dispatch(resetCliente());
+            window.location.reload();
         }
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias

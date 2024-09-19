@@ -53,7 +53,10 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
     const caclTotKgs = () => {
         let tot = 0;
         items?.map(item => {
-            return tot += item.cantidad;
+            if(item.unidadMedida === 'unidad'){
+                return tot;
+            }
+            return tot += Number(item.cantidad);
         });
         return tot;
     };
