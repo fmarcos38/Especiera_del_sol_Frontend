@@ -12,11 +12,11 @@ function FormularioProductoAlta({operacion}) {
     const [input, setInput] = useState({
         nombre: "",
         unidadMedida: null,
-        precioKg: "",
-        precioKgContado: "",
-        costo: "",
-        envase: "",
-        envaseEspecial: "",
+        precioKg: 0,
+        precioKgContado: 0,
+        costo: 0,
+        envase: 0,
+        envaseEspecial: 0,
         posicionLista: ""
     }); //estado inical inputs 
     const [errors, setErrors] = useState({}); //manejo de errore
@@ -76,12 +76,14 @@ function FormularioProductoAlta({operacion}) {
                             icon: "success"
                         });
                         setInput({
-                            nombre: '',
+                            nombre: "",
                             unidadMedida: null,
-                            precioKg: '',
-                            costo: '',
-                            envase: '',
-                            posicionLista: '',
+                            precioKg: 0,
+                            precioKgContado: 0,
+                            costo: 0,
+                            envase: 0,
+                            envaseEspecial: 0,
+                            posicionLista: ""
                         });
                         dispatch(getAllProds());
                         navigate('/productos');
