@@ -1,5 +1,5 @@
 //funcion normaliza fecha
-const fechaArg = (fecha) => {
+const fechaArg = (fecha) => { console.log("fechaF:", fecha);
     let dia;
     let mes;
     let año;
@@ -11,7 +11,7 @@ const fechaArg = (fecha) => {
     mes = fechaCompleta[1];
     año = fechaCompleta[0];
 
-    return dia+"-"+mes+"-"+año;
+    return dia+"/"+mes+"/"+año;
 };
 //console.log("f:", fechaArg('2024-06-27T14:22:35.861Z'));
 

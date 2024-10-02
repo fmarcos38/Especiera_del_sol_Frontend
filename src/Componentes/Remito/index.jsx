@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaRemito, getAllRemitos, calcSaldoAnterior, resetCliente } from '../../Redux/Actions';
-import { formatDate, formatMoney, cortaPalabra } from '../../Helpers';
+import { formatMoney, cortaPalabra, fechaArg } from '../../Helpers';
 import Swal from 'sweetalert2';
 import './estilos.css';
 
@@ -12,7 +12,14 @@ function Remito({
 }) { 
 
     let nuevoNumeroRemito = 0; 
-    let fechaActual = Date(); 
+    let fechaAct;
+    //manejo fecha
+    if(fecha === undefined){
+        fechaAct = Date();
+    }else{
+        fechaAct = fecha
+    }
+    //manejo del num del remito
     if (operacion === "venta" && !numUltimoRemito.ultimoRemito) {
         nuevoNumeroRemito = 1;
     } else if (operacion === "venta") {
@@ -28,7 +35,7 @@ function Remito({
     const [bultosActual, setBultos] = useState(bultos || '');
     const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
-    const {saldoAnt} = useSelector(state => state.saldoAnterior); 
+    //const {saldoAnt} = useSelector(state => state.saldoAnterior); 
     const dispatch = useDispatch();
 
     const handleOnChange = (e) => {
@@ -41,9 +48,9 @@ function Remito({
     const handleChangeBulto = (e) => {
         setBultos(e.target.value)
     }
-    const handleChangeTransporte = (e) => {
+    /* const handleChangeTransporte = (e) => {
         setTransporte(e.target.value)
-    }
+    } */
     //calc tot kgs vendidos OJO con Bomob de higo
     const caclTotKgs = () => {
         let tot = 0;
@@ -83,11 +90,10 @@ function Remito({
                 icon: 'error'
             });
         }else{        
-            let fecha = new Date();             
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
                 items,
-                fecha: fecha,
+                fecha: fechaAct,
                 totPedido,
                 cuit: cliente.cuit,
                 cliente: cliente.nombre + " " + cliente.apellido,
@@ -124,7 +130,7 @@ function Remito({
             </tr>
         ));
 
-        for (let i = rows?.length; i < 7; i++) {
+        for (let i = rows?.length; i < 8; i++) {
             rows.push(
                 <tr key={`empty-${i}`}>
                     <td>&nbsp;</td>
@@ -201,10 +207,7 @@ function Remito({
                                 <p className='num-remito'>N° {nuevoNumeroRemito}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <p className='fecha-remito'>Fecha: </p>
-                                    <p>
-                                        {operacion === 'venta' && formatDate(fechaActual)}
-                                        {operacion === 'muestra' && formatDate(fecha)}
-                                    </p>
+                                    <p>{fechaArg(fechaAct)}</p>
                                 </div>
                             </div>
                             <div className='cont-remito-derecho-INF'>
@@ -369,13 +372,15 @@ function Remito({
                             </thead>
                             <tbody>
                                 {renderRows()}
-                                <tr> {/* fila saldo anterior */}
+                                {/* fila saldo anterior */}
+                                {/* <tr> 
                                     <td></td>
                                     <td>Saldo anterior</td>
                                     <td></td>
                                     <td>${formatMoney(saldoAnt)}</td>
-                                </tr>
-                                <tr> {/* fila tranporte */}
+                                </tr> */}
+                                {/* fila tranporte */}
+                                {/* <tr> 
                                     <td></td>
                                     <td>
                                         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -400,28 +405,30 @@ function Remito({
                                     </td>
                                     <td></td>
                                     <td></td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                             <tfoot className='celda-total-cifra'>
                                 <tr className="total-row">
                                     <td>{caclTotKgs()}</td>
                                     <td >
-                                        <label 
-                                            style={{marginRight:'5px', fontSize:'15px'}}
-                                        >
-                                            Bultos:
-                                        </label>
-                                        {
-                                            operacion === 'venta' ? 
-                                            <input 
-                                            type='number' 
-                                            id='bultos' 
-                                            value={bultosActual} 
-                                            onChange={(e) => handleChangeBulto(e)} 
-                                            className={operacion === 'venta' && !bultosActual ? 'input-sin-bultos' : 'input-remito-bultos'}
-                                        /> :
-                                        bultos
-                                        } 
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <label
+                                                style={{ marginRight: '5px', fontSize: '15px' }}
+                                            >
+                                                Bultos:
+                                            </label>
+                                            {
+                                                operacion === 'venta' ?
+                                                    <input
+                                                        type='number'
+                                                        id='bultos'
+                                                        value={bultosActual}
+                                                        onChange={(e) => handleChangeBulto(e)}
+                                                        className={operacion === 'venta' && !bultosActual ? 'input-sin-bultos' : 'input-remito-bultos'}
+                                                    /> :
+                                                    bultos
+                                            }
+                                        </div>
                                     </td>
                                     <td></td>
                                     <td className='celda-total-cifra'>${formatMoney(totPedido)}</td>

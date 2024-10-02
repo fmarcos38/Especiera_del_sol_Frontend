@@ -48,7 +48,12 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         ${formatMoney(calcEntregas(r.entrego, r.estado, r.totPedido))}
-                                        <button onClick={() => { handleClickModal(r._id) }}>ver</button>
+                                        <button 
+                                            onClick={() => { handleClickModal(r._id) }}
+                                            style={{fontSize:'12px'}}
+                                        >
+                                            Ingresar
+                                        </button>
                                     </div>
                                 </td>
                                 <td

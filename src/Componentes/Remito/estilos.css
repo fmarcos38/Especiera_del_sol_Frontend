@@ -212,8 +212,13 @@
 .cont-CUIT {
     width: 50%;
 }
+.input-remito-nombre,
+.input-remito-domicilio {
+    font-weight: 600;
+}
 .input-remito-localidad{
     width: 80%;
+    font-weight: 600;
 }
 .input-remito-telefono{
     width: 90%;

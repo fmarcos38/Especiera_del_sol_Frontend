@@ -20,6 +20,8 @@ function FormRemito({ tipo }) {
     const [cliente, setCliente] = useState();
     const [clienteExiste, setClienteExiste] = useState(true);
     const [haBuscadoCliente, setHaBuscadoCliente] = useState(false);
+    //estado fecha creacion remito
+    const [fechaCreacion, setFechaCreacion] = useState('');
     // Estado arreglo pedido
     const [pedido, setPedido] = useState([]); 
     // Estados item
@@ -31,8 +33,20 @@ function FormRemito({ tipo }) {
     const [importe, setImporte] = useState();
     const dispatch = useDispatch();
 
+    // Función para formatear la fecha a 'YYYY-MM-DD'
+    const obtenerFechaActual = () => {
+        const fecha = new Date();
+        const year = fecha.getFullYear();
+        const month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Añade 0 si es necesario
+        const day = ('0' + fecha.getDate()).slice(-2); // Añade 0 si es necesario
+        return `${year}-${month}-${day}`;
+    };
+
     const handleOnChangeNA = (e) => {
         setNombreApellido(e.target.value);
+    };    
+    const handleOnChangeFechaCreacion = (e) => {
+        setFechaCreacion(e.target.value);
     };
     const handleClickCargaClienteRemito = (e) => {
         if (!nombreApellido) {
@@ -145,10 +159,13 @@ function FormRemito({ tipo }) {
         }
     }, [traeCliente, haBuscadoCliente, dispatch]);
 
-    //para la lista de clientes
+    //para la lista de clientes E inicia la fecha actual
     useEffect(()=>{
-        dispatch(getAllClientes());       
+        dispatch(getAllClientes());
+        
+        setFechaCreacion(obtenerFechaActual());
     },[dispatch]);
+
     //para productos y último remito
     useEffect(() => {
         dispatch(getAllProds());
@@ -201,6 +218,25 @@ function FormRemito({ tipo }) {
                 >
                     Cargar datos del Cliente al Remito
                 </button>
+            </div>
+
+            {/* elije la fecha para el remito */}
+            <h2>Elija fecha de creación del Remito</h2>
+            <div className='dato-cliente-cuit'>
+                <label className='label-cuit-remito'>Fecha: </label>
+                <input 
+                    type='date' 
+                    id='fechaCreacionRemito' 
+                    value={fechaCreacion} 
+                    onChange={(e) => {handleOnChangeFechaCreacion(e)}}
+                    className='input-cuit-remito'
+                />
+                {/* <button 
+                    onClick={(e) => {handleClickCargaClienteRemito(e)}} 
+                    className='btn-carga-data-cliente-remito'
+                >
+                    Cargar datos del Cliente al Remito
+                </button> */}
             </div>
 
             <h2>Carga de items para la {tipo} y creación del Remito</h2>
@@ -325,6 +361,7 @@ function FormRemito({ tipo }) {
             <div className='cont-remito-pedido'>
                 <Remito 
                     operacion={"venta"} 
+                    fecha={fechaCreacion}
                     numUltimoRemito={numUltimoRemito} 
                     cliente={cliente} 
                     clienteExiste={clienteExiste}
