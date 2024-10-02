@@ -231,12 +231,6 @@ function FormRemito({ tipo }) {
                     onChange={(e) => {handleOnChangeFechaCreacion(e)}}
                     className='input-cuit-remito'
                 />
-                {/* <button 
-                    onClick={(e) => {handleClickCargaClienteRemito(e)}} 
-                    className='btn-carga-data-cliente-remito'
-                >
-                    Cargar datos del Cliente al Remito
-                </button> */}
             </div>
 
             <h2>Carga de items para la {tipo} y creación del Remito</h2>

@@ -8,7 +8,7 @@ import './estilos.css';
 
 
 function Remito({ 
-    operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, transporte, /* saldoAnt */ 
+    operacion, fecha, numUltimoRemito, cliente, clienteExiste, items, totPedido, bultos, /* transporte ,*/ /* saldoAnt */ 
 }) { 
 
     let nuevoNumeroRemito = 0; 
@@ -33,7 +33,7 @@ function Remito({
         estado: "",
     }); 
     const [bultosActual, setBultos] = useState(bultos || '');
-    const [transporteActual, setTransporte] = useState(transporte || '');  
+    //const [transporteActual, setTransporte] = useState(transporte || '');  
     const remitoAmostrar = useSelector(state => state.remito);
     //const {saldoAnt} = useSelector(state => state.saldoAnterior); 
     const dispatch = useDispatch();
@@ -83,12 +83,6 @@ function Remito({
                 text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
-        }else if(transporteActual === ''){
-            Swal.fire({
-                title: 'Faltan datos !!',
-                text: "Ingrese Transporte",
-                icon: 'error'
-            });
         }else{        
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
@@ -100,7 +94,7 @@ function Remito({
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
                 bultos: bultosActual,
-                transporte: transporteActual,
+                //transporte: transporteActual,
             }; 
             dispatch(creaRemito(dataBack));
             setData({        
@@ -111,7 +105,7 @@ function Remito({
                 title: 'Creado con exito !!',
                 icon: 'success'
             });
-            setTransporte("");
+            //setTransporte("");
             setBultos("");
             dispatch(getAllRemitos());
             //dispatch(traeUltimoRemito());

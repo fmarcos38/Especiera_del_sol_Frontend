@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { buscaClientePorCuit, getRemitoById, getAllProds} from '../../Redux/Actions';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemitoModifica from '../RemitoModifica';
-import { useParams } from 'react-router-dom';
-
 
 
 function FormularioModificaRemito() {
@@ -14,6 +13,8 @@ function FormularioModificaRemito() {
     const remito = useSelector(state => state.remito); 
     const cliente = useSelector(state => state.cliente);    
 
+    //estado fechaRemito
+    const [fechaRemito, setFechaRemito] = useState(''); console.log("fecha:", fechaRemito)
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]);     
     //estado item
@@ -25,6 +26,18 @@ function FormularioModificaRemito() {
     const productos = useSelector(state => state.productos);
     const dispatch = useDispatch();
 
+    // Función para formatear la fecha a 'YYYY-MM-DD'
+    const obtenerFechaActual = (fechaISO) => {
+        const fecha = new Date(fechaISO); // Convertir la fecha ISO a un objeto Date
+        const year = fecha.getFullYear();
+        const month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Añadir 0 si es necesario
+        const day = ('0' + fecha.getDate()).slice(-2); // Añadir 0 si es necesario
+        return `${year}-${month}-${day}`;
+    };
+    
+    const handleOnChangeFechaRemito = (e) => {
+        setFechaRemito(e.target.value);
+    };
     const handleChangeCantidad = (e) => {
         const cant = e.target.value;
         setCantidad(cant);
@@ -95,6 +108,11 @@ function FormularioModificaRemito() {
         setPedido(newPedido);
     };
 
+    //efecto para la fecha 
+    useEffect(()=>{
+        setFechaRemito(obtenerFechaActual(remito.fecha));
+    },[remito.fecha]);
+
     useEffect(()=>{
         dispatch(getAllProds());
         dispatch(getRemitoById(_id)); 
@@ -122,6 +140,17 @@ function FormularioModificaRemito() {
     return (
         <div className='cont-pedido'>
             <h1 className='titulo-modif-remito'>Modificar Remito</h1>
+            {/* elije la fecha para el remito */}
+            <div className='dato-cliente-cuit'>
+                <h2 style={{marginRight:'10px'}}>Modificar fecha del Remito: </h2>
+                <input 
+                    type='date' 
+                    id='fechaCreacionRemito' 
+                    value={fechaRemito} 
+                    onChange={(e) => {handleOnChangeFechaRemito(e)}}
+                    className='input-cuit-remito'
+                />
+            </div>
             <form onSubmit={(e) => handelSubmit(e)} className='formulario'>
                 <div className='cont-items-form'>
                     {/* detalle */}
@@ -239,6 +268,7 @@ function FormularioModificaRemito() {
             <div>
                 <RemitoModifica 
                     operacion={"editar"}
+                    fechaRemito={fechaRemito}
                     cliente={cliente}
                     remito={remito} 
                     items={pedido} 

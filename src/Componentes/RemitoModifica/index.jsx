@@ -4,17 +4,16 @@ import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
-import { formatDate, formatMoney } from '../../Helpers';
+import { fechaArg, formatMoney } from '../../Helpers';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './estilos.css';
 
-function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
+function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPedido }) {
 
     const [condicion_pago, setCondicion_pago] = useState();
     const [estado, setEstado] = useState();
     const [bultosActual, setBultos] = useState();
-    const [transporteActual, setTransporte] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -46,9 +45,9 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
     const handleChangeBulto = (e) => {
         setBultos(e.target.value)
     }
-    const handleChangeTransporte = (e) => {
+    /* const handleChangeTransporte = (e) => {
         setTransporte(e.target.value)
-    }
+    } */
     //calc tot kgs vendidos
     const caclTotKgs = () => {
         let tot = 0;
@@ -76,15 +75,9 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                 icon: 'error'
             });
         }
-        if (transporteActual === '') {
-            Swal.fire({
-                title: 'Faltan datos !!',
-                text: "Ingrese Transporte",
-                icon: 'error'
-            });
-        }
-        if (condicion_pago && estado && bultosActual !== 0 && transporteActual !== '') {
+        if (condicion_pago && estado && bultosActual !== 0) {
             const dataBack = {
+                fecha: fechaRemito,
                 numRemito: remito.numRemito,
                 items,
                 totPedido,
@@ -92,7 +85,6 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                 condicion_pago: condicion_pago,
                 estado: estado,
                 bultos: bultosActual,
-                transporte: transporteActual,
             }
             dispatch(modificaRemito(remito._id, dataBack));
             Swal.fire({
@@ -131,7 +123,7 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
             setCondicion_pago(remito.condicion_pago);
             setEstado(remito.estado);
             setBultos(remito.bultos);
-            setTransporte(remito.transporte);
+            /* setTransporte(remito.transporte); */
         }
     }, [remito]);
 
@@ -174,7 +166,7 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {remito.numRemito}</p>
-                                <p className='fecha-remito'>Fecha: {formatDate(remito.fecha)}</p>
+                                <p className='fecha-remito'>Fecha: {fechaArg(fechaRemito)}</p>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -276,8 +268,6 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                                 </select>
                             </div>
                         </div>
-
-
                     </div>
 
                     {/* tabla items */}
@@ -295,7 +285,7 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                                 {renderRows()}
                                 <tr>
                                     <td></td>
-                                    <td>
+                                    {/* <td>
                                         <div className='cont-tabla-transporte'>
                                             <label style={{ marginRight: '5px', fontSize: '15px' }}>Transp:</label>
                                             {
@@ -314,7 +304,7 @@ function RemitoModifica({ operacion, cliente, remito, items, totPedido }) {
                                                     </p>
                                             }
                                         </div>
-                                    </td>
+                                    </td> */}
                                     <td></td>
                                     <td></td>
                                 </tr>
