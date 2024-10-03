@@ -1,15 +1,15 @@
 .cont-gastos{
     width: 80%;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 .cont-form-creaGasto{
     width: 90%;
     height: auto;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -17,17 +17,19 @@
     color: #fff;
     background-color: var(--background-color-navBar-oscuro);
 }
-.cont-form-datos{
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.cont-dato-gasto{
+.cont-inputs-gasto{
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.cont-dato-gasto{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }
 .label-gasto{
     font-size: 23px;
@@ -35,17 +37,13 @@
     margin-right: 5px;
     margin-bottom: 5px;
 }
-.input-dato-gasto-descrip,
-.input-dato-gasto-monto {
+.input-gasto-fecha,
+.input-gasto-descripcion,
+.input-gasto-monto {
+    width: 98%;
     font-size: 23px;
     font-weight: 500;
     border-radius: 10px;
-}
-.input-dato-gasto-descrip {
-    width: 500px;
-}
-.input-dato-gasto-monto {
-    width: 300px;
 }
 .btn-creaGasto{
     width: 50%;

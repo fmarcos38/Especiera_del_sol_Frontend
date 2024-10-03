@@ -5,6 +5,7 @@ function FormularioCompra({
     tipoOperacion, handleOnSubmit, handleOnChangeDatosCompra, proveedores, numUltRemito, compra, 
     calcTotCompra, items, handleOnChangeItems, productos, handleOnClickAgregaItem
 }) {
+    
     return (
         <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
             {/* dato compra */}

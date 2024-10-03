@@ -353,8 +353,8 @@ export function resetRemito(){
 //crea gasto
 export function creaGasto(data){
     return async function(){
-        const resp = await axios.post(`${actual}/gastos`, data);
-        if(resp.data === "Creado con exito"){
+        /* const resp = */ await axios.post(`${actual}/gastos`, data);
+        /* if(resp.data === "Creado con exito"){
             Swal.fire({
                 text: 'Creado con exito!!',
                 icon: 'success'
@@ -364,7 +364,7 @@ export function creaGasto(data){
                 text: 'Algo salió mal!!',
                 icon: 'error'
             });
-        }
+        } */
     }
 }
 //trae gasto por ID
@@ -387,7 +387,6 @@ export function modifGasto(_id, data){
         await axios.put(`${actual}/gastos/modifGasto/${_id}`, data);        
     }
 }
-
 //elimina un Gasto
 export function eliminaGasto(_id) {
     return async function(){

@@ -86,11 +86,12 @@ function ListaReportes() {
   };
   //func genera reporte
   const generoReporteMes = () => {
-    // Verificar si reporteMes existe y tiene la estructura correcta
-    if (!reporteMes || !reporteMes.ventas || !reporteMes.compras || !reporteMes.gastos) {
+    // Verificar si reporteMes existe
+    if (!reporteMes || typeof reporteMes !== 'object') {
       return [];
     }
-    // Verificar que reporteMes.ventas, reporteMes.compras y reporteMes.gastos sean arrays
+  
+    // Verificar que las propiedades ventas, compras y gastos sean arrays válidos
     const ventas = Array.isArray(reporteMes?.ventas) ? reporteMes.ventas : [];
     const compras = Array.isArray(reporteMes?.compras) ? reporteMes.compras : [];
     const gastos = Array.isArray(reporteMes?.gastos) ? reporteMes.gastos : [];
@@ -100,11 +101,15 @@ function ListaReportes() {
       return new Date(year, month, 0).getDate();
     };
   
-    // Inicializar un array con los días del mes, con ventas, compras y gastos en 0
+    // Verificar si el mes es válido antes de dividir la fecha
+    if (!mes) return [];
+  
     const dividoFecha = mes.split('-');
     const añoNumber = dividoFecha[0];
     const mesNumber = dividoFecha[1];
     const daysInMonth = getDaysInMonth(mesNumber, añoNumber);
+  
+    // Inicializar un array con los días del mes, con ventas, compras y gastos en 0
     const initialData = Array.from({ length: daysInMonth }, (_, i) => ({
       day: i + 1,
       ventas: 0,
@@ -113,7 +118,7 @@ function ListaReportes() {
       totKgs: 0,
     }));
   
-    // Actualizar los valores del array inicial con los datos reales
+    // Función para actualizar los datos
     const updateData = (initialData, data, type, weightField = null) => {
       data.forEach(item => {
         const date = new Date(item.fecha);
@@ -132,8 +137,7 @@ function ListaReportes() {
     updatedData = updateData([...updatedData], gastos, 'gastos');
   
     return updatedData;
-  };
-  
+  };  
   newReporteMes = generoReporteMes();
 
   return (
