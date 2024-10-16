@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import logoRemito from '../../Imagenes/logoYtexto.jpg';
 import { useDispatch } from 'react-redux';
 import { modificaRemito } from '../../Redux/Actions';
-import { fechaArg, formatMoney } from '../../Helpers';
+import { formatDate, formatMoney } from '../../Helpers';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './estilos.css';
@@ -166,7 +166,7 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
                             <div className='cont-remito-derecho-SUP'>
                                 <p className='derecho-SUP-titulo'>REMITO</p>
                                 <p className='num-remito'>N° {remito.numRemito}</p>
-                                <p className='fecha-remito'>Fecha: {fechaArg(fechaRemito)}</p>
+                                <p className='fecha-remito'>Fecha: {formatDate(fechaRemito)}</p> {/* cambie la funcion */}
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>

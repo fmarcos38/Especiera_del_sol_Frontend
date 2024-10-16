@@ -168,7 +168,7 @@ function FormRemito({ tipo }) {
 
     //para productos y último remito
     useEffect(() => {
-        dispatch(getAllProds());
+        dispatch(getAllProds("todos", '', ''));
         dispatch(traeUltimoRemito());
     }, [dispatch]);
 

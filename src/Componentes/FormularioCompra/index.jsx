@@ -13,7 +13,7 @@ function FormularioCompra({
                 <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
                 {/* num remito - prov - detalle */}
                 <div className='cont-compra-detalle-proveed'>
-                    {/* si es tipoOperacio es compra Proveedor -> un select | SI es  modifica -> un input*/}
+                    {/* si tipoOperacio es compra Proveedor -> un select | SI es  modifica -> un input*/}
                     {
                         tipoOperacion === 'compra' ? (
                             <div className='cont-item'>
@@ -21,7 +21,7 @@ function FormularioCompra({
                                 <select
                                     id="proveedor"
                                     onChange={(e) => handleOnChangeDatosCompra(e)}
-                                    className='input-pedido'
+                                    className='input-pedido nombre-proveedor-compra'
                                 >
                                     <option>Seleccione prov</option>
                                     {
@@ -49,17 +49,6 @@ function FormularioCompra({
                             </div>
                         )
                     }
-                    {/* CUIT del proveedor */}
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>CUIT:</label>
-                        <input
-                            type={'number'}
-                            id='cuit'
-                            value={compra.cuit}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
-                        />
-                    </div>
                     {/* num compra */}
                     <div className='cont-item'>
                         <label className='label-crea-compra'>N° Compra:</label>
@@ -81,19 +70,9 @@ function FormularioCompra({
                             className='input-pedido numRemitoProveedor'
                         />
                     </div>
-                    {/* transporte */}
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Transporte:</label>
-                        <input
-                            type={'text'}
-                            id='transporte'
-                            value={compra.transporte}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido numRemitoProveedor'
-                        />
-                    </div>
                 </div>
-                {/* producto - kg comprados - precio unitario - tot compra */}
+
+                {/* producto - kg comprados - precio unitario - tot compra - detalle compra*/}
                 <div className='cont-compra-detalle-proveed'>
                     <div className='cont-item'>
                         <label className='label-crea-compra'>Producto:</label>
@@ -135,9 +114,6 @@ function FormularioCompra({
                             className='input-pedido'
                         />
                     </div>
-                </div>
-                {/* detalle pago y observaciones*/}
-                <div className='cont-compra-detalle-proveed'>
                     <div className='cont-item'>
                         <label className='label-crea-compra'>Detalle Pago:</label>
                         <input
@@ -149,71 +125,74 @@ function FormularioCompra({
                         />
                     </div>
                 </div>
-            </div>
 
-            {/* items compra */}
-            <div className='cont-items-form-compra'>
-                <h2 className='titulos-form-compra'>Carga items de la compra</h2>
-                <div className='cont-items-compra'>
-                    {/* cantidad */}
-                    <div className='cont-item-cantidad'>
-                        <label className='label-crea-compra'>Cantidad:</label>
-                        <input
-                            type='number'
-                            id='cantidad'
-                            value={items.cantidad}
-                            onChange={(e) => handleOnChangeItems(e)}
-                            className='input-cant-formulario'
-                        />
+                {/* items compra */}
+                <div className='cont-items-form-compra'>
+                    <h2 className='titulos-form-compra'>Carga items de la compra</h2>
+                    <div className='cont-items-compras'>
+                        {/* detalle */}
+                        <div className='cont-item-producto'>
+                            <label className='label-crea-compra'>Nombre del Producto:</label>
+                            <input
+                                type="text"
+                                id='detalle'
+                                value={items.detalle}
+                                onChange={(e) => { handleOnChangeItems(e) }}
+                                list="product-list"
+                                className='input-item-detalle-compra input-pedido'
+                            />
+                            {/* lista q aparecerá en el input */}
+                            <datalist id="product-list">
+                                {
+                                    productos.map(p => (
+                                        <option key={p._id} value={p.nombre} />
+                                    ))
+                                }
+                            </datalist>
+                        </div>
+                        <div className='cont-cant-precio-impo'>
+                            {/* cantidad */}
+                        <div className='cont-item-cantidad'>
+                            <label className='label-crea-compra'>Cantidad:</label>
+                            <input
+                                type='number'
+                                id='cantidad'
+                                value={items.cantidad}
+                                onChange={(e) => handleOnChangeItems(e)}
+                                className='input-item-compra-cantidad input-pedido'
+                            />
+                        </div>
+                        {/* Precio unitario */}
+                        <div className='cont-item-unitario'>
+                            <label className='label-crea-compra'>Precio Unitario:</label>
+                            <input
+                                type='number'
+                                id='unitario'
+                                value={items.unitario}
+                                onChange={(e) => handleOnChangeItems(e)}
+                                className='input-item-compra-precio input-pedido'
+                            />
+                        </div>
+                        {/* importe */}
+                        <div className='cont-item-importe'>
+                            <label className='label-crea-compra'>Importe:</label>
+                            <input
+                                type='number'
+                                id='importe'
+                                value={items.importe}
+                                className='input-item-compra-importe input-pedido'
+                            />
+                        </div>
+                        </div>
                     </div>
-                    {/* detalle */}
-                    <div className='cont-item-producto'>
-                        <label className='label-crea-compra'>Nombre del Producto:</label>
-                        <input
-                            type="text"
-                            id='detalle'
-                            value={items.detalle}
-                            onChange={(e) => { handleOnChangeItems(e) }}
-                            list="product-list"
-                            className='input-producto-formulario'
-                        />
-                        {/* lista q aparecerá en el input */}
-                        <datalist id="product-list">
-                            {
-                                productos.map(p => (
-                                    <option key={p._id} value={p.nombre} />
-                                ))
-                            }
-                        </datalist>
-                    </div>
-                    {/* Precio unitario */}
-                    <div className='cont-item-unitario'>
-                        <label className='label-crea-compra'>Precio Unitario:</label>
-                        <input
-                            type='number'
-                            id='unitario'
-                            value={items.unitario}
-                            onChange={(e) => handleOnChangeItems(e)}
-                            className='input-unitario-formulario'
-                        />
-                    </div>
-                    <div className='cont-item-importe'>
-                        <label className='label-crea-compra'>Importe:</label>
-                        <input
-                            type='number'
-                            id='importe'
-                            value={items.importe}
-                            className='input-importe-formulario'
-                        />
-                    </div>
+                    <button
+                        type='button'
+                        onClick={(e) => handleOnClickAgregaItem(e)}
+                        className='btn-cargarProd btnCompra'
+                    >
+                        Cargar producto
+                    </button>
                 </div>
-                <button
-                    type='button'
-                    onClick={(e) => handleOnClickAgregaItem(e)}
-                    className='btn-cargarProd btnCompra'
-                >
-                    Cargar producto
-                </button>
             </div>
 
             {/* botón crea compra */}
@@ -227,3 +206,4 @@ function FormularioCompra({
 }
 
 export default FormularioCompra;
+

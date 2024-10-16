@@ -86,10 +86,6 @@ function FormularioCompras() {
                 estado: "Debo",
             };
             dispatch(creaAnticipo(objetoCompra));            
-            Swal.fire({
-                text: "Creado con exito!!",
-                icon: "success"
-            });
             setCompra({
                 numCompra: numComp,
                 numRemitoProveedor: "",
@@ -103,6 +99,12 @@ function FormularioCompras() {
                 detallePago: "",
                 items: [], 
                 cuit: "",       
+            });
+            setItems([]);
+            setPedido([]);
+            Swal.fire({
+                text: "Creado con exito!!",
+                icon: "success"
             });
         }
     };

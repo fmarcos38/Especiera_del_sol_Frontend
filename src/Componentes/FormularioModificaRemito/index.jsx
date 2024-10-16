@@ -14,7 +14,7 @@ function FormularioModificaRemito() {
     const cliente = useSelector(state => state.cliente);    
 
     //estado fechaRemito
-    const [fechaRemito, setFechaRemito] = useState(''); console.log("fecha:", fechaRemito)
+    const [fechaRemito, setFechaRemito] = useState('');
     //estado arreglo pedido
     const [pedido, setPedido] = useState([]);     
     //estado item
@@ -24,16 +24,7 @@ function FormularioModificaRemito() {
     const [importe, setImporte] = useState("");
     const [costo, setCosto] = useState("");   
     const productos = useSelector(state => state.productos);
-    const dispatch = useDispatch();
-
-    // Función para formatear la fecha a 'YYYY-MM-DD'
-    const obtenerFechaActual = (fechaISO) => {
-        const fecha = new Date(fechaISO); // Convertir la fecha ISO a un objeto Date
-        const year = fecha.getFullYear();
-        const month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Añadir 0 si es necesario
-        const day = ('0' + fecha.getDate()).slice(-2); // Añadir 0 si es necesario
-        return `${year}-${month}-${day}`;
-    };
+    const dispatch = useDispatch();    
     
     const handleOnChangeFechaRemito = (e) => {
         setFechaRemito(e.target.value);
@@ -110,7 +101,7 @@ function FormularioModificaRemito() {
 
     //efecto para la fecha 
     useEffect(()=>{
-        setFechaRemito(obtenerFechaActual(remito.fecha));
+        setFechaRemito(remito.fecha);
     },[remito.fecha]);
 
     useEffect(()=>{

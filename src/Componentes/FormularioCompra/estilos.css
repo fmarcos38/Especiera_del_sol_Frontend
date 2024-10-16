@@ -14,7 +14,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    border: 2px solid salmon;
     padding: 5px;
     margin-top: 10px;
 }
@@ -53,17 +52,68 @@
     font-size: 23px;
 }
 .input-pedido {
-    width: 220px;
+    width: 170px;
     font-size: 23px;
     margin-right: 20px;
     margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
 }
-.numCompra{
-    width: 120px;
+.nombre-proveedor-compra{
+    width: 300px;
 }
-
+.numCompra,
+.numRemitoProveedor {
+    width: 210px;
+}
 .compra{
     width: 80%;
     margin-top: 30px;
     margin-bottom: 20px;
+}
+.cont-items-form-compra{
+    width: 90%;
+}
+.cont-items-compras{
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cont-item-producto{
+    width: 50%;
+}
+.input-item-detalle-compra{
+    width: 90%;
+}
+.cont-cant-precio-impo{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-item-cantidad,
+.cont-item-unitario,
+.cont-item-importe {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    text-align: start;
+}
+
+.cont-item-cantidad{
+    width: 20%;
+    margin-right: 10px;
+}
+.input-item-compra-cantidad{
+    width: 90px;
+}
+.cont-item-unitario{
+    width: 40%;
+}
+.input-item-compra-precio{
+    width: 150px;
+}
+.cont-item-importe{
+    width: 40%;
 }
