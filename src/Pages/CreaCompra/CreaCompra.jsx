@@ -9,8 +9,7 @@ function CreaCompra() {
 
     if(userLog){
         return (
-            <div className='cont-crea-compra'>        
-                <h1>Carga datos de una compra</h1>
+            <div className='cont-crea-compra'>
                 <FormularioCompras />
             </div>
         )

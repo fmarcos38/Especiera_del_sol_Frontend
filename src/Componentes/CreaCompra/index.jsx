@@ -37,7 +37,18 @@ function FormularioCompras() {
         items: [], 
         cuit: "",       
     });  
+    //estado fecha creacion remito
+    const [fechaCreacion, setFechaCreacion] = useState('');
     const dispatch = useDispatch();
+
+    // Función para formatear la fecha a 'YYYY-MM-DD'
+    const obtenerFechaActual = () => {
+        const fecha = new Date();
+        const year = fecha.getFullYear();
+        const month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Añade 0 si es necesario
+        const day = ('0' + fecha.getDate()).slice(-2); // Añade 0 si es necesario
+        return `${year}-${month}-${day}`;
+    };
 
     const handleOnChangeItems = (e) => {
         setItems({...items, [e.target.id]: e.target.value});
@@ -70,6 +81,9 @@ function FormularioCompras() {
             [id]: id === 'proveedor' ? updatedValue.proveedor : value,
             cuit: id === 'proveedor' ? updatedValue.cuit : prevCompra.cuit,
         }));
+    };
+    const handleOnChangeFechaCreacion = (e) => {
+        setFechaCreacion(e.target.value);
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -129,7 +143,9 @@ function FormularioCompras() {
 
     useEffect(()=>{
         dispatch(getAllProds());
-        dispatch(getAllProveedores());      
+        dispatch(getAllProveedores());
+        //actualiza a la fecha actual
+        setFechaCreacion(obtenerFechaActual());
     },[compra, dispatch]);
     //para el ultimo num remito
     useEffect(()=>{
@@ -185,6 +201,8 @@ function FormularioCompras() {
                 handleOnChangeItems={handleOnChangeItems}
                 productos={productos}
                 handleOnClickAgregaItem={handleOnClickAgregaItem}
+                fechaCreacion={fechaCreacion}
+                handleOnChangeFechaCreacion={handleOnChangeFechaCreacion}
             />
 
             {/* muestra pedido TABLA */}

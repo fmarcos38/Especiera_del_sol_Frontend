@@ -1,5 +1,6 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
+import { formatMoney } from '../../Helpers';
 
 
 function TablaItemsRemitoCompra({pedido, handleElimnimaItem, calculaTotPedido}) {
@@ -21,8 +22,8 @@ function TablaItemsRemitoCompra({pedido, handleElimnimaItem, calculaTotPedido}) 
                             <tr key={item.detalle}>
                                 <td>{item.cantidad}</td>
                                 <td>{item.detalle}</td>
-                                <td>{item.unitario}</td>
-                                <td>{item.importe}</td>
+                                <td>${formatMoney(item.unitario)}</td>
+                                <td>${formatMoney(item.importe)}</td>
                                 <td style={{ display: 'flex', justifyContent: 'center' }}>
                                     <button onClick={() => { handleElimnimaItem(item.detalle) }} className='btn-elimina-item-pedido'>
                                         <DeleteIcon className='icono-elimina-item' />
@@ -38,7 +39,7 @@ function TablaItemsRemitoCompra({pedido, handleElimnimaItem, calculaTotPedido}) 
                 <td>TOTAL</td>
                 <td></td>
                 <td></td>
-                <td>{calculaTotPedido()}</td>
+                <td>${formatMoney(calculaTotPedido())}</td>
             </tfoot>
         </table>
     )

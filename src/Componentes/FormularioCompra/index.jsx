@@ -3,7 +3,7 @@ import './estilos.css';
 
 function FormularioCompra({
     tipoOperacion, handleOnSubmit, handleOnChangeDatosCompra, proveedores, numUltRemito, compra, 
-    calcTotCompra, items, handleOnChangeItems, productos, handleOnClickAgregaItem
+    calcTotCompra, items, handleOnChangeItems, productos, handleOnClickAgregaItem, fechaCreacion, handleOnChangeFechaCreacion
 }) {
     
     return (
@@ -11,6 +11,17 @@ function FormularioCompra({
             {/* dato compra */}
             <div className='cont-items-pedido'>
                 <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
+                {/* elije la fecha para el remito */}
+                <div className='cont-fecha-compra'>
+                        <label className='label-fecha-compra'>Fecha: </label>
+                        <input
+                            type='date'
+                            id='fechaCreacionRemito'
+                            value={fechaCreacion}
+                            onChange={(e) => { handleOnChangeFechaCreacion(e) }}
+                            className='input-cuit-remito'
+                        />
+                </div>
                 {/* num remito - prov - detalle */}
                 <div className='cont-compra-detalle-proveed'>
                     {/* si tipoOperacio es compra Proveedor -> un select | SI es  modifica -> un input*/}
@@ -68,60 +79,6 @@ function FormularioCompra({
                             value={compra.numRemitoProveedor}
                             onChange={(e) => { handleOnChangeDatosCompra(e) }}
                             className='input-pedido numRemitoProveedor'
-                        />
-                    </div>
-                </div>
-
-                {/* producto - kg comprados - precio unitario - tot compra - detalle compra*/}
-                <div className='cont-compra-detalle-proveed'>
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Producto:</label>
-                        <input
-                            type={'text'}
-                            id='producto'
-                            value={compra.producto}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
-                        />
-                    </div>
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Cant Kg:</label>
-                        <input
-                            type={'number'}
-                            id='cantidad'
-                            value={compra.cantidad}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
-                        />
-                    </div>
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Unitario:</label>
-                        <input
-                            type={'text'}
-                            id='unitario'
-                            value={compra.unitario}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
-                        />
-                    </div>
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Total:</label>
-                        <input
-                            type={'number'}
-                            id='total'
-                            value={calcTotCompra()}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
-                        />
-                    </div>
-                    <div className='cont-item'>
-                        <label className='label-crea-compra'>Detalle Pago:</label>
-                        <input
-                            type={'text'}
-                            id='detallePago'
-                            value={compra.detallePago}
-                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
-                            className='input-pedido'
                         />
                     </div>
                 </div>

@@ -48,7 +48,8 @@
     display: flex;
     flex-direction: column;
 }
-.label-crea-compra {
+.label-crea-compra,
+.label-fecha-compra {
     font-size: 23px;
 }
 .input-pedido {
