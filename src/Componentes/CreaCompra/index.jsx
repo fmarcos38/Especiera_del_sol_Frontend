@@ -21,7 +21,7 @@ function FormularioCompras() {
         importe: 0
     });
     //estado para la conmposicion del pedido
-    const [pedido, setPedido] = useState([]);    
+    const [pedido, setPedido] = useState([]);
     //estado para detalle, unitario y total PERO de la compra Acordada con el provvedor
     const [compra, setCompra] = useState({
         numCompra: numComp,
@@ -29,14 +29,11 @@ function FormularioCompras() {
         transporte: "",
         proveedor: "",
         detalle: 'Compra',
-        producto: "",
-        cantidad: 0,
-        unitario: 0,
         total: 0,
         detallePago: "",
         items: [], 
         cuit: "",       
-    });  
+    });
     //estado fecha creacion remito
     const [fechaCreacion, setFechaCreacion] = useState('');
     const dispatch = useDispatch();
@@ -50,6 +47,9 @@ function FormularioCompras() {
         return `${year}-${month}-${day}`;
     };
 
+    const handleOnChangeNumCompra = (e) => {
+        setNumComp(e.target.value)
+    };
     const handleOnChangeItems = (e) => {
         setItems({...items, [e.target.id]: e.target.value});
     };
@@ -85,9 +85,33 @@ function FormularioCompras() {
     const handleOnChangeFechaCreacion = (e) => {
         setFechaCreacion(e.target.value);
     };
+    
+    //funcion calc total compra (recorrer el arreglo items)
+    const calcTotCompra = () => {        
+        let tot = 0;
+        pedido?.map(item => {
+            return tot += item.importe;
+        });
+        return tot;
+    }; 
+    //elimnina item
+    const handleElimnimaItem = (detalle) => {
+        const newPedido = pedido.filter(item => item.detalle !== detalle);
+        setPedido(newPedido);
+    };
+    //func calc tot pedido(items)
+    const calculaTotPedido = () => {
+        let tot = 0;
+        pedido?.map(item => {
+            tot = tot + item.importe;
+            return tot;
+        });
+        return tot;
+    };
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(!compra.unitario){
+        if(!compra.proveedor){
             Swal.fire({
                 text:"faltan datos",
                 icon:"error"
@@ -106,9 +130,6 @@ function FormularioCompras() {
                 transporte: "",
                 proveedor: "",
                 detalle: 'Compra',
-                producto: "",
-                cantidad: 0,
-                unitario: 0,
                 total: 0,
                 detallePago: "",
                 items: [], 
@@ -121,24 +142,6 @@ function FormularioCompras() {
                 icon: "success"
             });
         }
-    };
-    //funcion calc total compra (NO items)
-    const calcTotCompra = () => {        
-        return compra.cantidad * compra.unitario;
-    };
-    //elimnina item
-    const handleElimnimaItem = (detalle) => {
-        const newPedido = pedido.filter(item => item.detalle !== detalle);
-        setPedido(newPedido);
-    };
-    //func calc tot pedido(items)
-    const calculaTotPedido = () => {
-        let tot = 0;
-        pedido?.map(item => {
-            tot = tot + item.importe;
-            return tot;
-        });
-        return tot;
     };
 
     useEffect(()=>{
@@ -190,6 +193,7 @@ function FormularioCompras() {
     return (
         <div className='cont-vista-compra'>          
             <FormularioCompra
+                handleOnChangeNumCompra={handleOnChangeNumCompra}
                 tipoOperacion={tipoOperacion}
                 handleOnSubmit={handleOnSubmit} 
                 handleOnChangeDatosCompra={handleOnChangeDatosCompra}

@@ -2,10 +2,9 @@ import React from 'react';
 import './estilos.css';
 
 function FormularioCompra({
-    tipoOperacion, handleOnSubmit, handleOnChangeDatosCompra, proveedores, numUltRemito, compra, 
+    handleOnChangeNumCompra, tipoOperacion, handleOnSubmit, handleOnChangeDatosCompra, proveedores, numUltRemito, compra, 
     calcTotCompra, items, handleOnChangeItems, productos, handleOnClickAgregaItem, fechaCreacion, handleOnChangeFechaCreacion
-}) {
-    
+}) {    
     return (
         <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
             {/* dato compra */}
@@ -67,6 +66,7 @@ function FormularioCompra({
                             type={'number'}
                             id='numCompra'
                             value={numUltRemito}
+                            onChange={(e) => {handleOnChangeNumCompra(e)}}
                             className='input-pedido numCompra'
                         />
                     </div>

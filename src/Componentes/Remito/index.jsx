@@ -124,7 +124,7 @@ function Remito({
             </tr>
         ));
 
-        for (let i = rows?.length; i < 8; i++) {
+        for (let i = rows?.length; i < 9; i++) {
             rows.push(
                 <tr key={`empty-${i}`}>
                     <td>&nbsp;</td>

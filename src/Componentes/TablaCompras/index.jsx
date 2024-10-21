@@ -37,9 +37,6 @@ function TablaCompras({ compras }) {
                     <th>n° Remito</th>
                     <th>Detalle</th>
                     <th>Proveedor</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Unitario</th>
                     <th>Debe</th>
                     <th>Haber</th>
                     <th>Saldo</th>
@@ -68,9 +65,6 @@ function TablaCompras({ compras }) {
                             </td>
                             <td>{r.detalle}</td>
                             <td>{r.proveedor}</td>
-                            <td>{r.producto}</td>
-                            <td>{r.cantidad}</td>
-                            <td>{r.unitario}</td>
                             <td>{r.detalle === 'Compra' ? r.total : ' '}</td>
                             <td>{r.detalle === 'Anticipo' ? r.total : ' '}</td>
                             <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
