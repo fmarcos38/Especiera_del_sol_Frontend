@@ -163,11 +163,11 @@ const Navbar = () => {
                                 {
                                     muestraMenuCompras && (
                                         <ul className="dropdown-menu">
-                                            {/* <Link to="/creaAnticipo" className='link-menu'>
-                                                <li className="dropdown-item">Crear anticipo</li>
-                                            </Link> */}
                                             <Link to='/creaCompra' className='link-menu'>
-                                                <li className="dropdown-item">Crear remito Compra</li>
+                                                <li className="dropdown-item">Crear Compra</li>
+                                            </Link>
+                                            <Link to="/creaPago" className='link-menu'>
+                                                <li className="dropdown-item">Crear Pago</li>
                                             </Link>
                                             <Link to='/listaRemitosCompras' className='link-menu'>
                                                 <li className="dropdown-item">Lista remitos Compra</li>

@@ -1,5 +1,6 @@
 .cont-formulario-anticipo{
     width: 80%;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,10 +14,13 @@
     justify-content: space-around;
     align-items: center;
 }
-.input-detalle-anticipo,
+.input-proveedor-anticipo,
 .input-montoPagar-anticipo,
 .input-detallePago-anticipo {
     font-size: 23px;
+}
+.input-proveedor-anticipo{
+    width: 400px;
 }
 .anticipo{
     width: 50%;

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './estilos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { creaAnticipo, getAllProveedores } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
+import './estilos.css';
 
-
-function FormularioAnticipo() {
+function FormularioPago() {
 
     const proveedores = useSelector(state => state.proveedores);
     const [items, setItems] = useState({
         proveedor: "",
-        detalle: "Anticipo",
+        detalle: "Pago",
         total: 0,
         detallePago: "",
         cuit: ""
@@ -60,12 +59,13 @@ function FormularioAnticipo() {
     return (
         <form onSubmit={(e) => { handleOnSubmit(e)}} className='cont-formulario-anticipo'>
             <div className='cont-inputs-anticipo'>
+                {/* Proveedor */}
                 <div className='cont-item'>
                     <label>Proveedor</label>
                     <select 
                         id='proveedor' 
                         onChange={(e) => handleOnChange(e)} 
-                        className='input-detalle-anticipo'
+                        className='input-proveedor-anticipo'
                     >
                     <option>Seleccione uno</option>
                         {
@@ -76,15 +76,7 @@ function FormularioAnticipo() {
                         }
                     </select>
                 </div>
-                <div className='cont-item'>
-                    <label className='label-crea-compra'>Detalle:</label>
-                    <input 
-                        type={'text'} 
-                        value={items.detalle} 
-                        onChange={(e) => { handleOnChange(e) }} 
-                        className='input-detalle-anticipo' 
-                    />
-                </div>
+                {/* Monto */}
                 <div className='cont-item'>
                     <label className='label-crea-compra'>Monto a pagar:</label>
                     <input 
@@ -95,6 +87,7 @@ function FormularioAnticipo() {
                         className='input-montoPagar-anticipo' 
                     />
                 </div>
+                {/* Forma de pago */}
                 <div className='cont-item'>
                     <label className='label-crea-compra'>Detalle de pago:</label>
                     <input 
@@ -106,9 +99,9 @@ function FormularioAnticipo() {
                     />
                 </div>
             </div>
-            <button type='onSubmit' className='btn-crea-pedido anticipo'>Crear</button>
+            <button type='onSubmit' className='btn-crea-pedido anticipo'>Crear Pago</button>
         </form>
     )
 }
 
-export default FormularioAnticipo
+export default FormularioPago;
