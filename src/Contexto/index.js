@@ -39,7 +39,7 @@ export const AppProvider = ({children}) => {
     const logout = () => {
         setIsAuthenticated(false);
     };
-
+    /* efecto para el loguin */
     useEffect(()=>{
         const userLogin = userLogData(); 
         if(userLogin){

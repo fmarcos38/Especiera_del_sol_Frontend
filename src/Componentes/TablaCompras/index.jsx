@@ -7,7 +7,7 @@ import './estilos.css';
 
 
 function TablaCompras({ compras }) {
-
+console.log("compras:", compras);
     //funcion calcula saldo
     const calculaSaldo = (remitos) => {
         let saldo = 0;
@@ -53,7 +53,6 @@ function TablaCompras({ compras }) {
                     <th>Saldo</th>
                     <th>Observ</th>
                     <th>Pago</th>
-                    <th>Transp</th>
                     <th>Edit/Elim</th>
                 </tr>
             </thead>
@@ -81,7 +80,6 @@ function TablaCompras({ compras }) {
                             <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>{r.saldo}</td>
                             <td>{r.saldoText}</td>
                             <td>{r.detallePago}</td>
-                            <td>{r.transporte}</td>
                             <td style={{width: '50px'}}>
                                 <div style={{display: 'flex'}} key={r._id}>
                                     <Link to={`/editaRemitoCompra/${r._id}`}>
@@ -105,7 +103,6 @@ function TablaCompras({ compras }) {
                     <td></td>
                     <td>${formatMoney(calculaSaldos("Compra"))}</td>
                     <td>${formatMoney(calculaSaldos("Pago"))}</td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

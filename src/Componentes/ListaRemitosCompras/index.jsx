@@ -5,6 +5,7 @@ import TablaCompras from '../TablaCompras';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
+import SearchOperacionesProveedor from '../SearchOperacionesProveedor';
 import './estilos.css';
 
 
@@ -15,7 +16,15 @@ function ListaRemitos() {
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
+    //estado proveedor
+    const [proveedor, setProveedor] = useState('');
+    //estado para remitos de un prov
+    const [remitosProv, setRemitosProv] = useState(remitos);
 
+    // Manejo del cambio en el input del proveedor
+    const handleOnChangeProveedor = (e) => {
+        setProveedor(e.target.value);
+    };
     //para filtro de fechas 
     const handleOnChFechaDesde = (e) => {
         setFechaDesde(e.target.value);
@@ -30,7 +39,7 @@ function ListaRemitos() {
                 dispatch(getAllCompras("Compra", "todos", fechaDesde, fechaHasta)); //detalle, estado
                 break;
             case 'pagado':
-                dispatch(getAllCompras("Anticipo", "Pago", fechaDesde, fechaHasta)); 
+                dispatch(getAllCompras("Pago", "Pago", fechaDesde, fechaHasta)); 
                 break;
             case 'fechaMax':
                 dispatch(ordenaFechaCompras("fechaMax"));
@@ -51,6 +60,20 @@ function ListaRemitos() {
             
         }
     };
+
+    // Efecto para filtrar remitos por proveedor en tiempo real
+    useEffect(() => {
+        if (proveedor.trim() !== '') {
+            // Filtrar remitos que coincidan con el nombre del proveedor
+            const remitosFiltrados = remitos.filter(r => 
+                r.proveedor.toLowerCase().includes(proveedor.toLowerCase())
+            );
+            setRemitosProv(remitosFiltrados);
+        } else {
+            // Si no hay proveedor seleccionado, mostrar todos los remitos
+            setRemitosProv(remitos);
+        }
+    }, [proveedor, remitos]);
 
     useEffect(()=>{
         dispatch(getAllCompras("todos", "todos", fechaDesde, fechaHasta));
@@ -84,7 +107,13 @@ function ListaRemitos() {
             >
                 SI NO SE UTILIZA EL FILTRO POR FECHA, SE MUESTRAN LOS MOVIMIENTOS DEL MES ACTUAL
             </h3>
-            <TablaCompras compras={remitos}/>
+
+            {/* search */}
+            <SearchOperacionesProveedor 
+                proveedor={proveedor} 
+                handleOnChangeProveedor={handleOnChangeProveedor} 
+            />
+            <TablaCompras compras={proveedor ? remitosProv : remitos}/>
         </div>
     )
 }

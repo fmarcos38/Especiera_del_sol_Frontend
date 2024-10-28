@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { creaAnticipo, getAllProds, getAllProveedores, getUlimoRemitoCompra, resetUltimoRemitocompra } from '../../Redux/Actions';
 import TablaItemsRemitoCompra from '../TablaItemsRemitoCompra';
 import Swal from 'sweetalert2';
-import FormularioCompra from '../FormularioCompra';
+//import FormularioCompra from '../FormularioCompra';
 
 function FormularioCompras() {
     const tipoOperacion = 'compra';
     const productos = useSelector(state => state.productos);
     const proveedores = useSelector(state => state.proveedores);   
     const remito =  useSelector(state => state.ultimoRemito); 
+    //estado fecha creacion remito
+    const [fechaCreacion, setFechaCreacion] = useState('');  
     //estado para el num de compra
-    const [numComp, setNumComp] = useState();
+    const [numComp, setNumComp] = useState(0);
     //estado para los items que se compran
     const [items, setItems] = useState({
         cantidad: 0,
@@ -33,9 +35,7 @@ function FormularioCompras() {
         detallePago: "",
         items: [], 
         cuit: "",       
-    });
-    //estado fecha creacion remito
-    const [fechaCreacion, setFechaCreacion] = useState('');
+    }); 
     const dispatch = useDispatch();
 
     // Función para formatear la fecha a 'YYYY-MM-DD'
@@ -64,23 +64,23 @@ function FormularioCompras() {
     };    
     const handleOnChangeDatosCompra = (e) => {
         const { id, value } = e.target;
-        let updatedValue = value;
+        //let updatedValue = value;
 
         if (id === 'proveedor') {
             const selectedProveedor = proveedores.find(p => `${p.nombre} ${p.apellido}` === value);
             if (selectedProveedor) {
-                updatedValue = {
+                setCompra(prevCompra => ({
+                    ...prevCompra,
                     proveedor: value,
-                    cuit: selectedProveedor.cuit,
-                };
+                    cuit: selectedProveedor.cuit
+                }));
             }
+        } else {
+            setCompra(prevCompra => ({
+                ...prevCompra,
+                [id]: value
+            }));
         }
-        
-        setCompra(prevCompra => ({
-            ...prevCompra,
-            [id]: id === 'proveedor' ? updatedValue.proveedor : value,
-            cuit: id === 'proveedor' ? updatedValue.cuit : prevCompra.cuit,
-        }));
     };
     const handleOnChangeFechaCreacion = (e) => {
         setFechaCreacion(e.target.value);
@@ -119,6 +119,7 @@ function FormularioCompras() {
         }else{
             const objetoCompra = {
                 ...compra,
+                fecha: fechaCreacion,
                 total: calcTotCompra(),
                 items: pedido,
                 estado: "Debo",
@@ -135,6 +136,7 @@ function FormularioCompras() {
                 items: [], 
                 cuit: "",       
             });
+            setFechaCreacion('');
             setItems([]);
             setPedido([]);
             Swal.fire({
@@ -143,12 +145,14 @@ function FormularioCompras() {
             });
         }
     };
-
+    
+    //actualiza a la fecha actual
+    useEffect(()=>{
+        setFechaCreacion(obtenerFechaActual());
+    }, []);
     useEffect(()=>{
         dispatch(getAllProds());
         dispatch(getAllProveedores());
-        //actualiza a la fecha actual
-        setFechaCreacion(obtenerFechaActual());
     },[compra, dispatch]);
     //para el ultimo num remito
     useEffect(()=>{
@@ -192,7 +196,7 @@ function FormularioCompras() {
 
     return (
         <div className='cont-vista-compra'>          
-            <FormularioCompra
+            {/* <FormularioCompra
                 handleOnChangeNumCompra={handleOnChangeNumCompra}
                 tipoOperacion={tipoOperacion}
                 handleOnSubmit={handleOnSubmit} 
@@ -207,7 +211,162 @@ function FormularioCompras() {
                 handleOnClickAgregaItem={handleOnClickAgregaItem}
                 fechaCreacion={fechaCreacion}
                 handleOnChangeFechaCreacion={handleOnChangeFechaCreacion}
-            />
+            /> */}
+            
+            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-compra'>
+            {/* dato compra */}
+            <div className='cont-items-pedido'>
+                <h2 className='titulos-form-compra'>Carga datos de la compra</h2>
+                {/* elije la fecha para el remito */}
+                <div className='cont-fecha-compra'>
+                        <label className='label-fecha-compra'>Fecha: </label>
+                        <input
+                            type='date'
+                            id='fechaCreacionRemito'
+                            value={fechaCreacion}
+                            onChange={(e) => { handleOnChangeFechaCreacion(e) }}
+                            className='input-cuit-remito'
+                        />
+                </div>
+                {/* num remito - prov - detalle */}
+                <div className='cont-compra-detalle-proveed'>
+                    {/* si tipoOperacio es compra Proveedor -> un select | SI es  modifica -> un input*/}
+                    {
+                        tipoOperacion === 'compra' ? (
+                            <div className='cont-item'>
+                                <label className='label-crea-compra'>Proveedor:</label>
+                                <select
+                                    id="proveedor"
+                                    onChange={(e) => handleOnChangeDatosCompra(e)}
+                                    className='input-pedido nombre-proveedor-compra'
+                                >
+                                    <option>Seleccione prov</option>
+                                    {
+                                        proveedores?.map(p => {
+                                            return (
+                                                <option
+                                                    key={p._id}
+                                                    value={p.nombre + " " + p.apellido}
+                                                >
+                                                    {p.nombre + " " + p.apellido}
+                                                </option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        ) : (
+                            <div className='cont-item'>
+                                <label className='label-crea-compra'>Proveedor</label>
+                                <input
+                                    type={'text'}
+                                    value={compra.proveedor}
+                                    className='input-pedido'
+                                />
+                            </div>
+                        )
+                    }
+                    {/* num compra */}
+                    <div className='cont-item'>
+                        <label className='label-crea-compra'>N° Compra:</label>
+                        <input
+                            type={'number'}
+                            id='numCompra'
+                            value={numComp}
+                            onChange={(e) => {handleOnChangeNumCompra(e)}}
+                            className='input-pedido numCompra'
+                        />
+                    </div>
+                    {/* num remito proveedor */}
+                    <div className='cont-item'>
+                        <label className='label-crea-compra'>N° Remito Proveedor:</label>
+                        <input
+                            type={'number'}
+                            id='numRemitoProveedor'
+                            value={compra.numRemitoProveedor}
+                            onChange={(e) => { handleOnChangeDatosCompra(e) }}
+                            className='input-pedido numRemitoProveedor'
+                        />
+                    </div>
+                </div>
+
+                {/* items compra */}
+                <div className='cont-items-form-compra'>
+                    <h2 className='titulos-form-compra'>Carga items de la compra</h2>
+                    <div className='cont-items-compras'>
+                        {/* detalle */}
+                        <div className='cont-item-producto'>
+                            <label className='label-crea-compra'>Nombre del Producto:</label>
+                            <input
+                                type="text"
+                                id='detalle'
+                                value={items.detalle}
+                                onChange={(e) => { handleOnChangeItems(e) }}
+                                list="product-list"
+                                className='input-item-detalle-compra input-pedido'
+                            />
+                            {/* lista q aparecerá en el input */}
+                            <datalist id="product-list">
+                                {
+                                    productos.map(p => (
+                                        <option key={p._id} value={p.nombre} />
+                                    ))
+                                }
+                            </datalist>
+                        </div>
+                        <div className='cont-cant-precio-impo'>
+                            {/* cantidad */}
+                        <div className='cont-item-cantidad'>
+                            <label className='label-crea-compra'>Cantidad:</label>
+                            <input
+                                type='number'
+                                id='cantidad'
+                                value={items.cantidad}
+                                onChange={(e) => handleOnChangeItems(e)}
+                                className='input-item-compra-cantidad input-pedido'
+                            />
+                        </div>
+                        {/* Precio unitario */}
+                        <div className='cont-item-unitario'>
+                            <label className='label-crea-compra'>Precio Unitario:</label>
+                            <input
+                                type='number'
+                                id='unitario'
+                                value={items.unitario}
+                                onChange={(e) => handleOnChangeItems(e)}
+                                className='input-item-compra-precio input-pedido'
+                            />
+                        </div>
+                        {/* importe */}
+                        <div className='cont-item-importe'>
+                            <label className='label-crea-compra'>Importe:</label>
+                            <input
+                                type='number'
+                                id='importe'
+                                value={items.importe}
+                                className='input-item-compra-importe input-pedido'
+                            />
+                        </div>
+                        </div>
+                    </div>
+                    <button
+                        type='button'
+                        onClick={(e) => handleOnClickAgregaItem(e)}
+                        className='btn-cargarProd btnCompra'
+                    >
+                        Cargar producto
+                    </button>
+                </div>
+            </div>
+
+            {/* botón crea compra */}
+            <button type='onSubmit' className='btn-crea-pedido compra'>
+                {
+                    tipoOperacion === 'compra' ? "Crear compra" : "Modifica compra"
+                }
+            </button>
+        </form>
+
 
             {/* muestra pedido TABLA */}
             <h2>Items pedido</h2>

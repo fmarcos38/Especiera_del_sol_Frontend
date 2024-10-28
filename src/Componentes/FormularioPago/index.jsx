@@ -7,15 +7,30 @@ import './estilos.css';
 function FormularioPago() {
 
     const proveedores = useSelector(state => state.proveedores);
+    //estado fecha creacion remito
+    const [fechaCreacion, setFechaCreacion] = useState(''); 
     const [items, setItems] = useState({
+        fecha: '',
         proveedor: "",
         detalle: "Pago",
         total: 0,
+        estado: "Pago",
         detallePago: "",
         cuit: ""
     });
     const dispatch = useDispatch();
 
+    // Función para formatear la fecha a 'YYYY-MM-DD'
+    const obtenerFechaActual = () => {
+        const fecha = new Date();
+        const year = fecha.getFullYear();
+        const month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Añade 0 si es necesario
+        const day = ('0' + fecha.getDate()).slice(-2); // Añade 0 si es necesario
+        return `${year}-${month}-${day}`;
+    };
+    const handleOnChangeFechaCreacion = (e) => {
+        setFechaCreacion(e.target.value);
+    };
     const handleOnChange = (e) => {
         if(e.target.id === 'proveedor'){
             setItems({...items, proveedor: e.target.value});
@@ -31,17 +46,30 @@ function FormularioPago() {
                 icon: "error"
             })
         }else{
-            dispatch(creaAnticipo(items));
+            const data = {
+                ...items,
+                fecha: fechaCreacion,
+            }
+            dispatch(creaAnticipo(data));
             setItems({
+                fecha: '',
                 proveedor: "",
-                detalle: "Anticipo",
                 total: 0,
                 detallePago: "",
                 cuit: ""
-            })
+            });
+            setFechaCreacion(obtenerFechaActual()); // Restablecer la fecha a la actual
+            Swal.fire({
+                text: "Creado con exito!!",
+                icon: "success"
+            });
         }
     };
 
+    //actualiza a la fecha actual
+    useEffect(()=>{
+        setFechaCreacion(obtenerFechaActual());
+    }, []);
     useEffect(()=>{
         dispatch(getAllProveedores());
     },[dispatch]);
@@ -58,44 +86,57 @@ function FormularioPago() {
 
     return (
         <form onSubmit={(e) => { handleOnSubmit(e)}} className='cont-formulario-anticipo'>
-            <div className='cont-inputs-anticipo'>
+            <div className='cont-data-pago'>
+                {/* elije la fecha para el remito */}
+                <div className='cont-item'>
+                    <label className='label-fecha-compra'>Fecha: </label>
+                    <input
+                        type='date'
+                        id='fechaCreacionRemito'
+                        value={fechaCreacion}
+                        onChange={(e) => { handleOnChangeFechaCreacion(e) }}
+                        className='input-fecha-pago'
+                    />
+                </div>
                 {/* Proveedor */}
                 <div className='cont-item'>
-                    <label>Proveedor</label>
-                    <select 
-                        id='proveedor' 
-                        onChange={(e) => handleOnChange(e)} 
+                    <label className='label-crea-compra'>Proveedor</label>
+                    <select
+                        id='proveedor'
+                        value={items.proveedor} // Asegúrate de que se reinicie el select
+                        onChange={(e) => handleOnChange(e)}
                         className='input-proveedor-anticipo'
                     >
-                    <option>Seleccione uno</option>
+                        <option value="">Seleccione uno</option> {/* Opción predeterminada */}
                         {
                             proveedores?.map(p => {
                                 return (
-                                <option key={p._id} value={p.nombre+" "+p.apellido}>{p.nombre+" "+p.apellido}</option>
-                            )})
+                                    <option key={p._id} value={p.nombre + " " + p.apellido}>{p.nombre + " " + p.apellido}</option>
+                                );
+                            })
                         }
                     </select>
                 </div>
                 {/* Monto */}
                 <div className='cont-item'>
                     <label className='label-crea-compra'>Monto a pagar:</label>
-                    <input 
-                        type={'number'} 
+                    <input
+                        type={'number'}
                         id='total'
-                        value={items.total} 
-                        onChange={(e) => { handleOnChange(e) }} 
-                        className='input-montoPagar-anticipo' 
+                        value={items.total}
+                        onChange={(e) => { handleOnChange(e) }}
+                        className='input-montoPagar-anticipo'
                     />
                 </div>
                 {/* Forma de pago */}
                 <div className='cont-item'>
                     <label className='label-crea-compra'>Detalle de pago:</label>
-                    <input 
-                        type={'text'} 
+                    <input
+                        type={'text'}
                         id='detallePago'
-                        value={items.detallePago} 
-                        onChange={(e) => { handleOnChange(e) }} 
-                        className='input-detallePago-anticipo' 
+                        value={items.detallePago}
+                        onChange={(e) => { handleOnChange(e) }}
+                        className='input-detallePago-anticipo'
                     />
                 </div>
             </div>

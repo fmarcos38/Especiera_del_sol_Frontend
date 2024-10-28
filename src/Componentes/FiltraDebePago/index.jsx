@@ -13,7 +13,7 @@ function FiltraDebePago({ operacion, handleOnClick }) {
                     className='btn-filtros'
                 >
                     {
-                        operacion === 'venta' ? "Debe" : "Compra"
+                        operacion === 'venta' ? "Debe" : "Compras"
                     }
                 </button>
                 <button 
@@ -22,7 +22,7 @@ function FiltraDebePago({ operacion, handleOnClick }) {
                     className='btn-filtros'
                 >
                     {
-                        operacion === "venta" ? "Pagado" : "Anticipo" 
+                        operacion === "venta" ? "Pagado" : "Pagos" 
                     }
                 </button>
                 <button 
