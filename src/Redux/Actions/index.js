@@ -241,7 +241,7 @@ export function modificaRemito(_id, data){
     }
 }
 //ordena x fecha Mayor a Menor o viceversa
-export function ordenaPorFecha(fecha){
+export function ordenaPorFecha(fecha){ 
     return {type: ORDENA_FECHA, payload: fecha};
 }
 //filtra fechas

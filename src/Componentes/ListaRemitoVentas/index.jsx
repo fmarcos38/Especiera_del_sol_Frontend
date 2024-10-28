@@ -5,7 +5,6 @@ import TablaVentas from '../TablaVentas';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
-import Swal from 'sweetalert2';
 import './estilos.css';
 
 function ListaRemitosVentas() {
@@ -105,18 +104,7 @@ function ListaRemitosVentas() {
     const handleOnChFechaHasta = (e) => {
         setFechaHasta(e.target.value);        
     };
-    const handleOnSubFechas = (e) => {
-        e.preventDefault();
-        if(!fechaDesde && !fechaHasta){
-            Swal.fire({
-                text: "Ingrese ambas fechas",
-                icon: "error"
-            });
-        }        
-        dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
-        /* setFechaDesde("");
-        setFechaHasta(""); */
-    };
+    
     //para botones debe pagado fecha mas, fecha menos
     const handleOnClick = (e) => {
         switch (e.target.id) {
@@ -162,8 +150,7 @@ function ListaRemitosVentas() {
             {/* filtros */}
             <div className='cont-filtros-btnReset-lista-remitos-ventas'>
                 <div className='cont-filtros-lista-remitos-ventas'>
-                    <FiltrosComprasVentasFecha 
-                        handleOnSubFechas={handleOnSubFechas}
+                    <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}

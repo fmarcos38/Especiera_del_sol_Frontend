@@ -130,7 +130,7 @@ export default function rootReducer(state = initialState, action){
                 saldoAnterior: action.payload
             }
         case ORDENA_FECHA:
-            let remitosOrdenados = [...state.remitos];
+            let remitosOrdenados = [...state.remitosVentas]; 
             remitosOrdenados = remitosOrdenados.sort((a, b) => {
                 let fechaA = new Date(a.fecha);
                 let fechaB = new Date(b.fecha);
@@ -145,7 +145,7 @@ export default function rootReducer(state = initialState, action){
             });
             return{
                 ...state,
-                remitos: remitosOrdenados
+                remitosVentas: remitosOrdenados
             }
         case FILTRA_FECHAS_REMITOS:
             let remitosFiltrar = [...state.remitosVentas];
