@@ -11,15 +11,13 @@ import './estilos.css';
 
 function ListaRemitos() {
 
-    const remitos = useSelector(state => state.remitosCompras);
+    const compras = useSelector(state => state.remitosCompras);
+    const [remitos, setRemitos] = useState([]);
+    const [proveedor, setProveedor] = useState('');
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
-    const dispatch = useDispatch();
-    //estado proveedor
-    const [proveedor, setProveedor] = useState('');
-    //estado para remitos de un prov
-    const [remitosProv, setRemitosProv] = useState(remitos);
+    const dispatch = useDispatch();  
 
     // Manejo del cambio en el input del proveedor
     const handleOnChangeProveedor = (e) => {
@@ -31,7 +29,7 @@ function ListaRemitos() {
     };
     const handleOnChFechaHasta = (e) => {
         setFechaHasta(e.target.value);        
-    };
+    };  
     //para botones debe pagado fecha mas, fecha menos, reset
     const handleOnClick = (e) => {
         switch (e.target.id) {
@@ -65,15 +63,12 @@ function ListaRemitos() {
     useEffect(() => {
         if (proveedor.trim() !== '') {
             // Filtrar remitos que coincidan con el nombre del proveedor
-            const remitosFiltrados = remitos.filter(r => 
-                r.proveedor.toLowerCase().includes(proveedor.toLowerCase())
-            );
-            setRemitosProv(remitosFiltrados);
+            setRemitos(compras.filter(r => r.proveedor.toLowerCase().includes(proveedor.toLowerCase())));
         } else {
             // Si no hay proveedor seleccionado, mostrar todos los remitos
-            setRemitosProv(remitos);
+            setRemitos(compras);
         }
-    }, [proveedor, remitos]);
+    }, [proveedor, compras]);
 
     useEffect(()=>{
         dispatch(getAllCompras("todos", "todos", fechaDesde, fechaHasta));
@@ -113,7 +108,7 @@ function ListaRemitos() {
                 proveedor={proveedor} 
                 handleOnChangeProveedor={handleOnChangeProveedor} 
             />
-            <TablaCompras compras={proveedor ? remitosProv : remitos}/>
+            <TablaCompras compras={remitos}/>
         </div>
     )
 }

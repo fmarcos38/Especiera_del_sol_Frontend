@@ -5,12 +5,15 @@ import TablaVentas from '../TablaVentas';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
+import SearchOperacionesCliente from '../SearchOperacionesCliente';
 import './estilos.css';
 
 function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
+    const [remitos, setremitos] = useState([]);
     const [estado, setEstado] = useState("todos");
+    const [cliente, setCliente] = useState('');
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
@@ -50,7 +53,7 @@ function ListaRemitosVentas() {
     //calcula el total de todos los remitos
     const totRemitos = () => {
         let tot = 0;
-        ventas.map(r => {
+        remitos?.map(r => {
             tot = tot + r.totPedido;
             return tot;
         });
@@ -59,7 +62,7 @@ function ListaRemitosVentas() {
     //funcion calc el tot de los saldos 
     const totSaldos = () => {
         let tot = 0; 
-        ventas.map(r => {
+        remitos?.map(r => {
             return tot += calculaSaldo(r.totPedido, r.entrego, r.estado); 
         });
         return tot;
@@ -67,7 +70,7 @@ function ListaRemitosVentas() {
     //funcion calc el tot de entregas por remito
     const totEntregas = () => {
         let total = 0;
-        ventas.forEach(r => {
+        remitos?.forEach(r => {
             if(r.estado === "Pagado"){
                 total += r.totPedido;
             }else{
@@ -91,7 +94,7 @@ function ListaRemitosVentas() {
     //calc tot Ganacias
     const calcTotGanancias = () => {
         let tot = 0;
-        ventas.map(v => {
+        remitos?.map(v => {
             tot += calcGanancia(v.items);
             return tot;
         });
@@ -103,8 +106,7 @@ function ListaRemitosVentas() {
     };
     const handleOnChFechaHasta = (e) => {
         setFechaHasta(e.target.value);        
-    };
-    
+    };    
     //para botones debe pagado fecha mas, fecha menos
     const handleOnClick = (e) => {
         switch (e.target.id) {
@@ -137,7 +139,20 @@ function ListaRemitosVentas() {
             
         }
     };
+    //actualizo estado cliente -> para luego en el useEffect utilizarlo
+    const onChangeCliente =  (e) => {
+        setCliente(e.target.value);
+    };
 
+    //efecto para la busqda de remitos de un cliente
+    useEffect(()=>{
+        if(cliente){
+            setremitos(ventas.filter(r => r.cliente.toLowerCase().includes(cliente.toLowerCase())));
+        }else{
+            setremitos(ventas);
+        }
+    },[cliente, ventas]);
+    
     useEffect(() => {
         dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
         dispatch(getAllProds());
@@ -171,8 +186,9 @@ function ListaRemitosVentas() {
             >
                 SI NO SE UTILIZA EL FILTRO POR FECHA, SE MUESTRAN LOS MOVIMIENTOS DEL MES ACTUAL
             </h3>
+            <SearchOperacionesCliente cliente={cliente} onChangeCliente={onChangeCliente} />
             <TablaVentas 
-                ventas={ventas}
+                ventas={remitos}
                 calcGanancia={calcGanancia}
                 calcEntregas={calcEntregas}
                 calculaSaldo={calculaSaldo}

@@ -1,5 +1,6 @@
 //funcion normaliza fecha
 const fechaArg = (fecha) => { 
+
     let dia;
     let mes;
     let año;
