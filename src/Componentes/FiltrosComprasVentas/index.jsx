@@ -12,10 +12,9 @@ function FiltrosComprasVentasFecha({
 
 
     return (
-        <div className='cont-filtros-fecha'>
+        <div className='cont-filtros-fecha'>            
+            <form className='form-busca-por-fecha'>
             <p className='p-titulo-fecha-filtro'>Buscar por Fecha</p>
-            <form /* onSubmit={(e) => handleOnSubFechas(e)} */>
-                <div>
                     <label className='lable-fecha-filtro'>Desde</label>
                     <input 
                         type='date' 
@@ -31,8 +30,7 @@ function FiltrosComprasVentasFecha({
                         value={fechaHasta} 
                         onChange={(e) => handleOnChFechaHasta(e)} 
                         className='input-fecha-filtro' 
-                    />
-                </div>
+                    />                
             </form>
         </div>
     )

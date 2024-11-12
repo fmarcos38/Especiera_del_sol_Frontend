@@ -1,23 +1,33 @@
 .cont-filtros-fecha{
-    width: 45%;
-    height: 100px;
+    width: 40%;
+    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
     border-radius: 20px;
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background-color: var(--background-color-navBar-claro);
+}
+.form-busca-por-fecha{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 .p-titulo-fecha-filtro{
-    font-size: 20px;
-    font-weight: 500;
-    text-align: center;
-    margin: 0;
-    margin-bottom: 5px;
+    position: absolute;
+    top: -34px;
+    left: 0;
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: #fff;
 }
 .lable-fecha-filtro,
 .input-fecha-filtro {

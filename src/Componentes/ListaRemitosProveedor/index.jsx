@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosProveedor, filtraFechasRemitos, ordenaPorFecha } from '../../Redux/Actions';
+import { getRemitosProveedor, ordenaPorFecha, buscaProveedorPorCuit, resetProv } from '../../Redux/Actions';
 import { useParams } from 'react-router-dom';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
 import BotonResetFiltros from '../BotonResetFiltros';
 import TablaCompras from '../TablaCompras';
-import Swal from 'sweetalert2';
 import './estilos.css';
 
 
@@ -14,6 +13,7 @@ import './estilos.css';
 function ListaRemitosProveedor() {
     const {cuit} = useParams();
     const compras = useSelector(state => state.remitos);
+    const proveedor = useSelector(state => state.proveedor);
     const dispatch = useDispatch();
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
@@ -53,48 +53,41 @@ function ListaRemitosProveedor() {
     const handleOnChFechaHasta = (e) => {
         setFechaHasta(e.target.value);        
     };
-    const handleOnSubFechas = (e) => {
-        e.preventDefault();
-        if(!fechaDesde && !fechaHasta){
-            Swal.fire({
-                text: "Ingrese ambas fechas",
-                icon: "error"
-            });
-        }
-        
-        const fechas = {
-            fechaDesde: fechaDesde, 
-            fechaHasta: fechaHasta
-        }
-        
-        dispatch(filtraFechasRemitos(fechas));
-    };
 
     useEffect(()=>{
         dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
     },[dispatch, fechaDesde, fechaHasta, cuit]);
 
+    useEffect(()=>{
+        dispatch(buscaProveedorPorCuit(cuit));
+
+        return () => {dispatch(resetProv())};
+    },[cuit, dispatch]);
 
     return (
         <div className='cont-lista-remitos-proveedor'>
-            {/* <h1 className='titulo-cont-lista-remitos-proveedor'>Compras realizadas al proveedor {proveedor}</h1> */}
-            <div className="cont-filtros-btnTeset-lista-remitos-proveedor">
-                <div className='cont-filtros-lista-remitos-proveedor'>
-                    <FiltrosComprasVentasFecha  
-                        handleOnSubFechas={handleOnSubFechas} 
+            {/* filtros */}
+            <div className="cont-filtros-lista-remitos-cliente">
+                <div className='subCont-filtros-lista-remitos-cliente'>
+                    <FiltraDebePago 
+                        handleOnClick={handleOnClick}
+                        operacion={'venta'}
+                    />
+                    <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
                     />
-                    <FiltraDebePago handleOnClick={handleOnClick}/>
                 </div>
-                <div className='cont-btnReset-lista-remitos-proveedor'>
-                    <BotonResetFiltros handleOnClick={handleOnClick}/>
+                <div className='cont-btnReset-lista-remitos-cliente'>
+                    <BotonResetFiltros handleOnClick={handleOnClick} />
                 </div>
+                <h2 className='mensj-mes-actual'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             </div>    
-            {/* titulo */}
-            <h2 className='titulo-lista-prov'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>                     
+            {/* Nombre del cliente */}
+            <h2>Proveedor: {proveedor.nombre} {proveedor.apellido}</h2> 
+            {/* Tabla */}                    
             <TablaCompras compras={compras} />
         </div>
     )

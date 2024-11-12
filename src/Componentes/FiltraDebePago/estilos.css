@@ -1,31 +1,52 @@
 .cont-btns-debePago-fechaMas-ffechaMenos{
-    width: 35%;
-    height: 100px;
+    width: 60%;
+    height: 60px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
     border-radius: 20px;
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background-color: var(--background-color-navBar-claro);
 }
 .cont-btns-debe-pagado{
-    width: 100%;
-    height: 50%;
+    position: relative;
+    width: 60%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
+    margin-right: 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.p-titulo-filtros-estado{
+    position: absolute;
+    top: -34px;
+    left: 0;
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: #fff;
 }
 .cont-btns-fecha-max-min{
-    width: 100%;
-    height: 50%;
+    position: relative;
+    width: 40%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.p-titulo-ordena-fechas{
+    position: absolute;
+    top: -34px;
+    left: 0;
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: #fff;
 }
 .debe{
     color: red;

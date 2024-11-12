@@ -5,12 +5,32 @@
     flex-direction: column;
     align-items: center;
 }
-.cont-btns-filtros-btns-fecha{
-    width: 35%;
+.cont-filtros-lista-remitos-cliente{
+    width: 90%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 5px;
+    background-color: rgb(230, 230, 227);
+}
+.subCont-filtros-lista-remitos-cliente{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.cont-btnReset-lista-remitos-cliente{
+    width: 60%;
+    display: flex;
     justify-content: center;
     align-items: center;
+}
+.mensj-mes-actual{
+    font-size: 15px;
+    background-color: yellow;
 }
 .cont-segundo{
     width: 100%;

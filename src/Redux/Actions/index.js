@@ -7,9 +7,7 @@ import {
     GET_REMITOS_PROVEEDOR, GET_REMITO_COMPRA_BY_ID,  MODIFICA_ANTICIPO_COMPRA, ULTIMO_REMITO_COMPRA,
     RESET_ULTIMO_REMITO_COMPRA, GET_GASTOS_MES, GET_REPORTES_MES_AÑO, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_REPORTE_MES, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
-    EDITA_ENTREGA,
-    CALC_SALDO_ANTERIOR,
-    RESET_PROV,
+    EDITA_ENTREGA, ORDENA_FECHA_REMITO, CALC_SALDO_ANTERIOR, RESET_PROV,
 } from './actionType';
 import { actual } from '../../URLs';
 import Swal from 'sweetalert2';
@@ -243,6 +241,10 @@ export function modificaRemito(_id, data){
 //ordena x fecha Mayor a Menor o viceversa
 export function ordenaPorFecha(fecha){ 
     return {type: ORDENA_FECHA, payload: fecha};
+}
+//------------ordena por fecha remitos (solo la propiedad REMITO del reducer)-----------------
+export function ordenaPorFechaRemitos(fecha){
+    return {type: ORDENA_FECHA_REMITO, payload: fecha};
 }
 //filtra fechas
 export function filtraFechasRemitos(fechas){

@@ -7,6 +7,7 @@ function FiltraDebePago({ operacion, handleOnClick }) {
         <div className='cont-btns-debePago-fechaMas-ffechaMenos'>
             {/* botnes estado */}
             <div className='cont-btns-debe-pagado'>
+                <p className='p-titulo-filtros-estado'>Filtrar por estado</p>
                 <button 
                     id='debe' 
                     onClick={(e) => { handleOnClick(e) }} 
@@ -35,6 +36,7 @@ function FiltraDebePago({ operacion, handleOnClick }) {
             </div>
             {/* btns y fecha Max Min */}
             <div className='cont-btns-fecha-max-min'>
+            <p className='p-titulo-ordena-fechas'>Ordena por fecha</p>
                 <button id='fechaMax' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬆</button>
                 <button id='fechaMin' onClick={(e) => { handleOnClick(e) }} className='btn-filtros'>Fecha ⬇</button>
             </div>

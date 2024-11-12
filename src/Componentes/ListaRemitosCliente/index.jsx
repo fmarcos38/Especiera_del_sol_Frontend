@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosCliente, buscaClientePorCuit, ordenaPorFecha, resetCliente } from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, resetCliente, ordenaPorFechaRemitos } from '../../Redux/Actions';
 import { Link, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import {fechaArg, formatMoney} from '../../Helpers/index.js';
@@ -15,6 +15,7 @@ function ListaRemitosCliente() {
 
     const {cuit} = useParams();
     const remitosCliente = useSelector(state => state.remitos);
+    const cliente = useSelector(state => state.cliente);
     //estado para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
@@ -37,10 +38,10 @@ function ListaRemitosCliente() {
                 dispatch(getRemitosCliente(cuit, "Pagado", fechaDesde, fechaHasta));
                 break;
             case 'fechaMax':
-                dispatch(ordenaPorFecha("fechaMax"));
+                dispatch(ordenaPorFechaRemitos("fechaMax"));
                 break;
             case 'fechaMin':
-                dispatch(ordenaPorFecha("fechaMin"));
+                dispatch(ordenaPorFechaRemitos("fechaMin"));
                 break;
             case 'mesActual':
                 setFechaDesde('');
@@ -134,8 +135,8 @@ function ListaRemitosCliente() {
     return (
         <div className="cont-listaRemitosCliente">
             {/* filtros */}
-            <div className="cont-filtros-btnTeset-lista-remitos-proveedor">
-                <div className='cont-filtros-lista-remitos-proveedor'>
+            <div className="cont-filtros-lista-remitos-cliente">
+                <div className='subCont-filtros-lista-remitos-cliente'>
                     <FiltraDebePago 
                         handleOnClick={handleOnClick}
                         operacion={'venta'}
@@ -147,13 +148,14 @@ function ListaRemitosCliente() {
                         handleOnChFechaHasta={handleOnChFechaHasta}
                     />
                 </div>
-                <div className='cont-btnReset-lista-remitos-proveedor'>
+                <div className='cont-btnReset-lista-remitos-cliente'>
                     <BotonResetFiltros handleOnClick={handleOnClick} />
                 </div>
+                <h2 className='mensj-mes-actual'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             </div>
 
-            {/* titulo */}
-            <h2 className='titulo-lista-prov'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
+            {/* Nombre del cliente */}
+            <h2>Cliente: {cliente.nombreApellido}</h2>
             {/* TABLA */}
             {
                 remitosCliente ? (

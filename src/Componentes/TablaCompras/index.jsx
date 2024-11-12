@@ -7,7 +7,7 @@ import './estilos.css';
 
 
 function TablaCompras({ compras }) {
-console.log("compras:", compras);
+
     //funcion calcula saldo
     const calculaSaldo = (remitos) => {
         let saldo = 0;

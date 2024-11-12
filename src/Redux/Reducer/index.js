@@ -5,7 +5,7 @@ import {
     GET_REMITO_COMPRA_BY_ID, GET_REMITOS_CLIENTE, GET_REMITOS_PROVEEDOR, GET_REPORTES_MES_AÑO, GET_REPORTE_MES,
     ORDENA_FECHA, RESET_CLIENTE, RESET_ULTIMO_REMITO_COMPRA, ULTIMO_REMITO, ULTIMO_REMITO_COMPRA, BUSCA_PROVEEDOR_POR_CUIT,
     ORDENA_FECHA_REMITO_COMPRA, GET_GASTOS_BY_ID, GET_PRODUCTO_BY_ID, RESET_REMITO, LOGIN, RESET_LOGIN,
-    CALC_SALDO_ANTERIOR,
+    CALC_SALDO_ANTERIOR, ORDENA_FECHA_REMITO,
     RESET_PROV,
 } from "../Actions/actionType";
 
@@ -146,6 +146,24 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 remitosVentas: remitosOrdenados
+            }
+        case ORDENA_FECHA_REMITO:
+            let remitosOrd = [...state.remitos]; 
+            remitosOrd = remitosOrd.sort((a, b) => {
+                let fechaA = new Date(a.fecha);
+                let fechaB = new Date(b.fecha);
+
+                if (action.payload === 'fechaMax') { 
+                    return fechaB - fechaA;  
+                } else if (action.payload === 'fechaMin') {
+                    return fechaA - fechaB; 
+                } else {
+                    throw new Error('Criterio no válido. Usa "fechaMax" o "fechaMin".');
+                }
+            });
+            return{
+                ...state,
+                remitos: remitosOrd
             }
         case FILTRA_FECHAS_REMITOS:
             let remitosFiltrar = [...state.remitosVentas];
