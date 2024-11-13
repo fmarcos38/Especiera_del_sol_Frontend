@@ -7,7 +7,7 @@ function SearchOperacionesCliente({cliente, onChangeCliente}) {
     return (
         <div className='cont-searchBar'>
             <form>
-                <label className='label-searchP'>Buscar Compras - Pagos por cliente:</label>
+                <label className='label-searchP'>Pagos por cliente:</label>
                 <input 
                     type='text' 
                     value={cliente}

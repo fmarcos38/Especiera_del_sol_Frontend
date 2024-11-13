@@ -79,29 +79,24 @@ function ListaRemitos() {
         <div className='cont-listaRemitosCompra-componente'>
             <h1 className='titulo-lista-compras'>Lista de compras</h1>
             {/* filtros */}
-            <div className='cont-filtros-btnReset-lista-remitos-ventas'>
-                <div className='cont-filtros-lista-remitos-ventas'>
-                    <FiltrosComprasVentasFecha 
+            <div className="cont-filtros-lista-remitos-cliente">
+                <div className='subCont-filtros-lista-remitos-cliente'>
+                    <FiltraDebePago 
+                        handleOnClick={handleOnClick}
+                        operacion={'venta'}
+                    />
+                    <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
-                        handleOnClick={handleOnClick}
-                    />
-                    <FiltraDebePago 
-                        operacion={"compra"}
-                        handleOnClick={handleOnClick}
                     />
                 </div>
-                <BotonResetFiltros 
-                    handleOnClick={handleOnClick}
-                />
+                <div className='cont-btnReset-lista-remitos-cliente'>
+                    <BotonResetFiltros handleOnClick={handleOnClick} />
+                </div>
+                <h2 className='mensj-mes-actual'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             </div>
-            <h3 
-                style={{margin:'5px', background:'yellow'}}
-            >
-                SI NO SE UTILIZA EL FILTRO POR FECHA, SE MUESTRAN LOS MOVIMIENTOS DEL MES ACTUAL
-            </h3>
 
             {/* search */}
             <SearchOperacionesProveedor 

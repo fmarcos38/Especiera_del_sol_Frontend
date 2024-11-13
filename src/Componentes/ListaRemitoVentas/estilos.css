@@ -7,6 +7,9 @@
     align-items: center;
     margin-bottom: 50px;
 }
+.titulo-pagina-ventas {
+    margin: 0;
+}
 .cont-filtros-btnReset-lista-remitos-ventas{
     width: 80%;
     display: flex;

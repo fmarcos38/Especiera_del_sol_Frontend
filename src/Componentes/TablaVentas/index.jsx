@@ -31,7 +31,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                         <th>Tot.venta</th>
                         <th>Pagos</th>
                         <th>Saldo</th>
-                        <th>Ganancia</th>
+                        {/* <th>Ganancia</th> */}
                         <th>Estado</th>
                         <th>Detalle</th>
                         <th>Edita/Elim</th>
@@ -61,7 +61,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                                 >
                                     ${formatMoney(calculaSaldo(r.totPedido, r.entrego, r.estado))}
                                 </td>
-                                <td>${formatMoney(calcGanancia(r.items))}</td>
+                                {/* <td>${formatMoney(calcGanancia(r.items))}</td> */}
                                 <td className={r.estado === 'Debe' ? 'debe' : 'pagado'}>{r.estado}</td>
                                 <td>
                                     <Link to={`/detalleRemitoVenta/${r._id}`}>
@@ -92,7 +92,7 @@ function TablaVentas({ ventas, calcGanancia, calcEntregas, calculaSaldo, totRemi
                     <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totRemitos())}</th>
                     <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totEntregas())}</th>
                     <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(totSaldos())}</th>
-                    <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(calcTotGanancias())}</th>
+                    {/* <th style={{ color: 'white', fontSize: '23px', fontWeight: '600' }}>${formatMoney(calcTotGanancias())}</th> */}
                     <th></th>
                     <th></th>
                     <th></th>

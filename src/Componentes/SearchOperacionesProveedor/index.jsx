@@ -7,7 +7,7 @@ function SearchOperacionesProveedor({proveedor, handleOnChangeProveedor}) {
     return (
         <div className='cont-searchBar'>
             <form>
-                <label className='label-searchP'>Buscar Compras - Pagos por proveedor:</label>
+                <label className='label-searchP'>Pagos por proveedor:</label>
                 <input 
                     type='text' 
                     value={proveedor}

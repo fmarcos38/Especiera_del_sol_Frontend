@@ -161,32 +161,29 @@ function ListaRemitosVentas() {
 
     return (
         <div className='cont-lista-remitos-ventass'>
-            <h1>Lista de Ventas</h1>
+            <h1 className='titulo-pagina-ventas'>Lista de Ventas</h1>
             {/* filtros */}
-            <div className='cont-filtros-btnReset-lista-remitos-ventas'>
-                <div className='cont-filtros-lista-remitos-ventas'>
+            <div className="cont-filtros-lista-remitos-cliente">
+                <div className='subCont-filtros-lista-remitos-cliente'>
+                    <FiltraDebePago 
+                        handleOnClick={handleOnClick}
+                        operacion={'venta'}
+                    />
                     <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}
                         handleOnChFechaDesde={handleOnChFechaDesde}
                         fechaHasta={fechaHasta}
                         handleOnChFechaHasta={handleOnChFechaHasta}
-                        handleOnClick={handleOnClick}
-                    />
-                    <FiltraDebePago
-                        operacion={"venta"}
-                        handleOnClick={handleOnClick}
                     />
                 </div>
-                <BotonResetFiltros 
-                    handleOnClick={handleOnClick}
-                />
+                <div className='cont-btnReset-lista-remitos-cliente'>
+                    <BotonResetFiltros handleOnClick={handleOnClick} />
+                </div>
+                <h2 className='mensj-mes-actual'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             </div>
-            <h3 
-                style={{margin:'5px', background:'yellow'}}
-            >
-                SI NO SE UTILIZA EL FILTRO POR FECHA, SE MUESTRAN LOS MOVIMIENTOS DEL MES ACTUAL
-            </h3>
+            {/* searchbar */}
             <SearchOperacionesCliente cliente={cliente} onChangeCliente={onChangeCliente} />
+            {/* lista ventas */}
             <TablaVentas 
                 ventas={remitos}
                 calcGanancia={calcGanancia}
