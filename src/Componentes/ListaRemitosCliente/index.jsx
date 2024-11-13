@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRemitosCliente, buscaClientePorCuit, resetCliente, ordenaPorFechaRemitos } from '../../Redux/Actions';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { AppContexto } from '../../Contexto';
 import {fechaArg, formatMoney} from '../../Helpers/index.js';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
@@ -154,8 +154,14 @@ function ListaRemitosCliente() {
                 <h2 className='mensj-mes-actual'>Si no se filtra por Fecha, muestra el mes Actual !!</h2>
             </div>
 
-            {/* Nombre del cliente */}
-            <h2>Cliente: {cliente.nombreApellido}</h2>
+            {/* Nombre del cliente  y acceso a su c/c*/}
+            <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'center'}}>
+                <h2 style={{'marginRight':'10px'}}>Cliente: {cliente.nombreApellido}</h2>
+                <NavLink to={`/cuentaCorrienteCliente/${cuit}`}>
+                    <button className='btn-cc'>Ver Cuenta Corriente</button>
+                </NavLink>
+            </div>
+            
             {/* TABLA */}
             {
                 remitosCliente ? (

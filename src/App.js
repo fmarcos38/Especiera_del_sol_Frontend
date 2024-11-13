@@ -30,9 +30,8 @@ import Footbar from './Componentes/Footbar';
 import ModifProducto from './Pages/ModifProducto';
 import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
 import ListaDePreciosEspecialPage from './Pages/ListaDePreciosEspecial';
+import CuentaCorrienteClientePage from './Pages/CuentaCorrienteClientePage';
 import './App.css';
-
-
 
 function App() {
 
@@ -73,6 +72,8 @@ function App() {
             <Route path='/listaDePrecios' element={<ListaDePreciosPage />} />
             <Route path='/quienesSomos' element={<QuienesSomosPage />} />
             <Route path='/ofertas' element={<ListaDePreciosEspecialPage/>} />
+            <Route path='/cuentaCorrienteCliente/:cuit' element={<CuentaCorrienteClientePage />} />
+
             {/* rutas para el desarrollador */}
             <Route path='/remito' element={<Remito />} />
           </Routes>

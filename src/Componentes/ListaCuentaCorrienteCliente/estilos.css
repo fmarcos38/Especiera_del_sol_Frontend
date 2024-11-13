@@ -1,0 +1,39 @@
+.cuenta-corriente-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cuenta-corriente-table {
+    width: 80%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.cuenta-corriente-table th, .cuenta-corriente-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.cuenta-corriente-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cuenta-corriente-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.cuenta-corriente-table tr:hover {
+    background-color: #ddd;
+}
+
+.cuenta-corriente-table td {
+    color: #333;
+}
+
+.cuenta-corriente-table td:nth-child(4), .cuenta-corriente-table td:nth-child(5) {
+    font-weight: bold;
+}
