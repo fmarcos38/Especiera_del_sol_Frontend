@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
-import { buscaClientePorCuit, getRemitosCliente, ordenaPorFechaRemitos,  } from '../../Redux/Actions';
+import { buscaClientePorCuit, getRemitosCliente, } from '../../Redux/Actions';
 import ListaCuentaCorrienteCliente from '../ListaCuentaCorrienteCliente';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
-import FiltraDebePago from '../FiltraDebePago';
-import BotonResetFiltros from '../BotonResetFiltros';
 import './estilos.css';
 
 function CuentaCorrienteCliente() {
