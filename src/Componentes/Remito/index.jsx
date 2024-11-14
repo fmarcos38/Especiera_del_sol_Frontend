@@ -345,7 +345,7 @@ function Remito({
                                     <div className='cont-p-cond-pago-y-estado'>
                                         <div className='cont-condicion-pago-p'>
                                             <p className='lable-remito-condicion'>Condicion de pago: {remitoAmostrar.condicion_pago}</p>
-                                            <p className='lable-remito-condicion'>Estado: {remitoAmostrar.estado}</p>
+                                            {/* <p className='lable-remito-condicion'>Estado: {remitoAmostrar.estado}</p> */}
                                         </div>
                                     </div>
                                 )

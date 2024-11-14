@@ -1,0 +1,44 @@
+.cont-principal-detalleRVenta{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-remitos-detalleRVenta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+        /* Ocultar todo el contenido del cuerpo */
+    }
+
+    #imp-remitos,
+    #imp-remitos * {
+        visibility: visible;
+        /* Mostrar solo el contenido del div con id 'imp-remitos' */
+    }
+
+    #imp-remitos {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 297mm;
+        /* Ancho de una hoja A4 en orientación horizontal */
+        height: 210mm;
+        /* Alto de una hoja A4 en orientación horizontal */
+        page-break-inside: avoid;
+        page-break-after: always;
+    }
+
+    @page {
+        size: A4 landscape;
+        /* Tamaño de la página A4 en orientación horizontal */
+        margin: 0;
+        /* Márgenes de la página */
+    }
+}
