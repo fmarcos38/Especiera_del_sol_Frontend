@@ -352,7 +352,7 @@ function FormRemito({ tipo }) {
             </div>
 
             {/* Remito */}
-            <div className='cont-remito-pedido'>
+            <div className='cont-remito-pedido-ventas'>
                 <Remito 
                     operacion={"venta"} 
                     fecha={fechaCreacion}
