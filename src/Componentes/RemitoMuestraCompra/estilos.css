@@ -1,12 +1,90 @@
-.input-remito-condicionPagoo{
-    width: 150px;
-    text-align: center;
-    font-size: 19px;
+.cont-gralRemito{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.input-remito-estadoo{
-    width: 100px;
-    text-align: center;
+.cont-remito-proveedor{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+.cont-remito-datos-proveedor{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cont-remito-datos-compra{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+/* contenedor nombre y fecha */
+.cont-remito-datos-compra-Item-Nombre {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.cont-remito-datos-compra-Item-fecha {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.lable-remito-nombre-proveedor,
+.lable-remito-direcc-prov,
+.lable-remito-localidad{
     font-size: 20px;
+    margin-right: 3px;
+}
+.input-remito-nombre-proveedor, 
+.input-remito-direcc-prov {
+    width: 350px;
+    height: 100%;
+    font-size: 20px;
+}
+/* cont direcc */
+.cont-remito-datos-proveedor-Item-Direccion,
+.cont-remito-datos-prov-Item-Localidad-Telef {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.lable-remito-direcc-prov {
+    margin-right: 9px;
+}
+.input-remito-direcc-prov {
+    margin-top: 5px;
+}
+/* cont localida y tel */
+.cont-remito-datos-prov-Item-Localidad-Telef {
+    margin-top: 10px;
+}
+.cont-localidad,
+.cont-telefono {
+    width: 50%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.input-remito-localidad-prov {
+    width: 200px;
+    height: 100%;
+    font-size: 20px;
+    margin-left: 4px;
 }
 /* tabla */
 .encabezado-cantidad-compra,
@@ -28,3 +106,38 @@
     background-color: #fff;
     border: none;
 }
+
+/* Estilos para impresión */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #remitoProv, #remitoProv * {
+        visibility: visible;
+    }
+
+        #remitoProv {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 210mm;
+            /* Ancho de una hoja A4 en orientación vertical */
+            height: 297mm;
+            /* Alto de una hoja A4 en orientación vertical */
+            overflow: hidden;
+        }
+
+    /* Opcional: ajustar tamaños de fuentes y espacios */
+    .cont-remito, .cont-remito * {
+        font-size: 12px; /* Ajusta según sea necesario */
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Ocultar botones en la impresión */
+    .boton-imprimir {
+        display: none;
+    }
+}
+

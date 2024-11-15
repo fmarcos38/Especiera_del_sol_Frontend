@@ -46,6 +46,16 @@
     height: auto;
     z-index: 1;
 }
+.btn-cc{
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    border: solid 1px black;
+    padding: 8px 15px;
+    border-radius: 10px;
+    color: black;
+    background-color: #fff;
+}
 
 
 

@@ -19,6 +19,7 @@ function DetalleRemitoCompra() {
 
         return ()=>{dispatch(resetProv())}
     },[dispatch, remito.cuit]);
+    
     useEffect(() => {
         dispatch(getRemitoCompra(_id));
 
