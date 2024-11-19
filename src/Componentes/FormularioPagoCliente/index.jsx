@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { creaAnticipo, getAllProveedores } from '../../Redux/Actions';
+import { creaRemito, getAllClientes, } from '../../Redux/Actions';
 import Swal from 'sweetalert2';
-import './estilos.css';
 
-function FormularioPago() {
+function FormularioPagoCliente() {
 
-    const proveedores = useSelector(state => state.proveedores);
+    const clientes = useSelector(state => state.clientes);
     //estado fecha creacion remito
-    const [fechaCreacion, setFechaCreacion] = useState(''); 
+    const [,setFechaCreacion] = useState(''); 
     const [items, setItems] = useState({
         fecha: '',
-        proveedor: "",
-        detalle: "Pago",
-        total: 0,
-        estado: "Pago",
-        detallePago: "",
-        cuit: ""
+        cliente: "",
+        cuit: 0,
+        tipoRemito: "Pago",
+        totPedido: 0,
+        detallePago: "",        
     });
     const dispatch = useDispatch();
 
@@ -28,37 +26,34 @@ function FormularioPago() {
         const day = ('0' + fecha.getDate()).slice(-2); // Añade 0 si es necesario
         return `${year}-${month}-${day}`;
     };
-    const handleOnChangeFechaCreacion = (e) => {
-        setFechaCreacion(e.target.value);
-    };
     const handleOnChange = (e) => {
-        if(e.target.id === 'proveedor'){
-            setItems({...items, proveedor: e.target.value});
-        }else{
-            setItems({...items, [e.target.id]: e.target.value});
-        }
+        setItems({...items, [e.target.id]: e.target.value});        
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(!items.total || !items.detallePago){
+        if(!items.totPedido){
             Swal.fire({
-                text: "Faltan items!!",
+                text: "Faltan datos!!",
                 icon: "error"
             })
-        }else{
-            const data = {
-                ...items,
-                fecha: fechaCreacion,
+        } else {
+            const dataBack = {
+                fecha: items.fecha,
+                totPedido: items.totPedido,
+                cuit: items.cuit,
+                cliente: items.cliente,
+                tipoRemito: 'Venta',
             }
-            dispatch(creaAnticipo(data));
+            dispatch(creaRemito(dataBack));
+            setFechaCreacion(obtenerFechaActual()); // Restablecer la fecha a la actual
             setItems({
                 fecha: '',
-                proveedor: "",
-                total: 0,
-                detallePago: "",
-                cuit: ""
+                cliente: "",
+                cuit: 0,
+                tipoRemito: "Pago",
+                totPedido: 0,
+                detallePago: "",        
             });
-            setFechaCreacion(obtenerFechaActual()); // Restablecer la fecha a la actual
             Swal.fire({
                 text: "Creado con exito!!",
                 icon: "success"
@@ -66,23 +61,27 @@ function FormularioPago() {
         }
     };
 
-    //actualiza a la fecha actual
-    useEffect(()=>{
-        setFechaCreacion(obtenerFechaActual());
+    // Actualiza la fecha inicial del formulario al montar el componente
+    useEffect(() => {
+        setItems((prevState) => ({
+            ...prevState,
+            fecha: obtenerFechaActual(),
+        }));
     }, []);
+    //trae clientes
     useEffect(()=>{
-        dispatch(getAllProveedores());
+        dispatch(getAllClientes());
     },[dispatch]);
-
+    //busco el cliente
     useEffect(()=>{
-        if(items.proveedor){
-            const dataProv = proveedores.find(p => p.nombreApe === items.proveedor);
-            if(dataProv){
-                setItems({...items, cuit: dataProv.cuit});
+        if(items.cliente){
+            const dataCliente = clientes.find(c => c.nombreApellido === items.cliente);
+            if(dataCliente){
+                setItems({...items, cuit: dataCliente.cuit});
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[items.proveedor]);//solo cuando cambie items.proveedor
+    },[items.cliente]);//solo cuando cambie items.proveedor
 
     return (
         <form onSubmit={(e) => { handleOnSubmit(e)}} className='cont-formulario-anticipo'>
@@ -92,26 +91,26 @@ function FormularioPago() {
                     <label className='label-fecha-compra'>Fecha: </label>
                     <input
                         type='date'
-                        id='fechaCreacionRemito'
-                        value={fechaCreacion}
-                        onChange={(e) => { handleOnChangeFechaCreacion(e) }}
+                        id='fecha'
+                        value={items.fecha}
+                        onChange={(e) => { handleOnChange(e) }}
                         className='input-fecha-pago'
                     />
                 </div>
-                {/* Proveedor */}
+                {/* Cliente */}
                 <div className='cont-item'>
-                    <label className='label-crea-compra'>Proveedor</label>
+                    <label className='label-crea-compra'>Cliente</label>
                     <select
-                        id='proveedor'
-                        value={items.proveedor} // Asegúrate de que se reinicie el select
+                        id='cliente'
+                        value={items.cliente} // Asegúrate de que se reinicie el select
                         onChange={(e) => handleOnChange(e)}
                         className='input-proveedor-anticipo'
                     >
                         <option value="">Seleccione uno</option> {/* Opción predeterminada */}
                         {
-                            proveedores?.map(p => {
+                            clientes?.map(p => {
                                 return (
-                                    <option key={p._id} value={p.nombre + " " + p.apellido}>{p.nombre + " " + p.apellido}</option>
+                                    <option key={p._id} value={p.nombreApellido}>{p.nombreApellido}</option>
                                 );
                             })
                         }
@@ -122,8 +121,8 @@ function FormularioPago() {
                     <label className='label-crea-compra'>Monto a pagar:</label>
                     <input
                         type={'number'}
-                        id='total'
-                        value={items.total}
+                        id='totPedido'
+                        value={items.totPedido}
                         onChange={(e) => { handleOnChange(e) }}
                         className='input-montoPagar-anticipo'
                     />
@@ -145,4 +144,4 @@ function FormularioPago() {
     )
 }
 
-export default FormularioPago;
+export default FormularioPagoCliente;

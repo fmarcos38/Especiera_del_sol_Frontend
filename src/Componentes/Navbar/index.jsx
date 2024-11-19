@@ -170,7 +170,7 @@ const Navbar = () => {
                                                 <li className="dropdown-item">Crear Pago</li>
                                             </Link>
                                             <Link to='/listaRemitosCompras' className='link-menu'>
-                                                <li className="dropdown-item">Lista remitos Compra</li>
+                                                <li className="dropdown-item">Lista remitos</li>
                                             </Link>
                                         </ul>
                                     )
@@ -187,10 +187,13 @@ const Navbar = () => {
                                     muestraMenuVentas && (
                                         <ul className="dropdown-menu">
                                             <Link to="/creaVenta" className='link-menu'>
-                                                <li className="dropdown-item">Crear remito Venta</li>
+                                                <li className="dropdown-item">Crear remito</li>
+                                            </Link>
+                                            <Link to="/creaPagoCliente" className='link-menu'>
+                                                <li className="dropdown-item">Crear Pago</li>
                                             </Link>
                                             <Link to="/listaRemitosVentas" className='link-menu'>
-                                                <li className="dropdown-item">Lista remitos Venta</li>
+                                                <li className="dropdown-item">Lista remitos</li>
                                             </Link>
                                         </ul>
                                     )

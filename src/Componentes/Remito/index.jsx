@@ -30,7 +30,7 @@ function Remito({
     
     const [data, setData] = useState({        
         condicion_pago: "",
-        estado: "",
+        estado: "Debe",
     }); 
     const [bultosActual, setBultos] = useState(bultos || '');
     //const [transporteActual, setTransporte] = useState(transporte || '');  
@@ -71,19 +71,26 @@ function Remito({
                 text: "Ingrese Cond.venta",
                 icon: 'error'
             });
-        }else if(!data.estado){
+        }/* else if(!data.estado){
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Estado",
                 icon: 'error'
             });
-        }else if(bultosActual === 0){
+        } */else if(!bultosActual){
             Swal.fire({
                 title: 'Faltan datos !!',
                 text: "Ingrese Cant de Bultos",
                 icon: 'error'
             });
-        }else{        
+        }else if(!cliente.cuit){
+            Swal.fire({
+                title: 'Faltan cargar datos del cliente!!',
+                text: "Ingrese datos del cliente",
+                icon: 'error'
+            });
+        }
+        else{        
             const dataBack = {
                 numRemito: nuevoNumeroRemito,
                 items,
@@ -94,6 +101,7 @@ function Remito({
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
                 bultos: bultosActual,
+                tipoRemito: 'Venta',
                 //transporte: transporteActual,
             }; 
             dispatch(creaRemito(dataBack));
@@ -102,15 +110,15 @@ function Remito({
                 estado: "",
             });
             Swal.fire({
-                title: 'Creado con exito !!',
+                title: 'Creado con éxito !!',
                 icon: 'success'
+            }).then(() => {
+                // Recargar la página después de presionar "OK"
+                window.location.reload();
             });
             //setTransporte("");
             setBultos("");
             dispatch(getAllRemitos());
-            //dispatch(traeUltimoRemito());
-            //dispatch(resetCliente());
-            window.location.reload();
         }
     };
     //función crea las filas de la tabla 8 y llena las q sean necesarias
@@ -318,7 +326,7 @@ function Remito({
                                             />
                                         </div>
                                         {/* estado */}
-                                        <div className='cont-estado'>
+                                        {/* <div className='cont-estado'>
                                             <label className='lable-remito-condicion'>Estado:</label>
                                             <select
                                                 id='estado'
@@ -339,7 +347,7 @@ function Remito({
                                                         )
                                                 }
                                             </select>
-                                        </div>
+                                        </div> */}
                                     </>
                                 ) : (
                                     <div className='cont-p-cond-pago-y-estado'>

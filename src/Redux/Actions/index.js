@@ -10,7 +10,6 @@ import {
     EDITA_ENTREGA, ORDENA_FECHA_REMITO, CALC_SALDO_ANTERIOR, RESET_PROV,
 } from './actionType';
 import { actual } from '../../URLs';
-import Swal from 'sweetalert2';
 
 
 //---LOGIN--------------------------------------------------------
@@ -205,17 +204,6 @@ export function creaRemito(data){
     return async function(dispatch){
         const resp = await axios.post(`${actual}/remitos`, data); 
         dispatch({type: CREA_REMITO, payload: resp.data});
-        if(resp.data.numRemito){
-            Swal.fire({
-                title: 'Creado con exito !!',
-                icon: 'success'
-            })
-        }else{
-            Swal.fire({
-                title: 'Algo salió mal !!',
-                icon: 'error'
-            })
-        }
     }
 }
 //trae remitos de un cliente

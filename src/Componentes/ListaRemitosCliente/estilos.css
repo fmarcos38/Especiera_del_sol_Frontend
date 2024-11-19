@@ -46,7 +46,7 @@
     height: auto;
     z-index: 1;
 }
-.btn-cc{
+.btn-imp-pdf-remitoCliente{
     width: auto;
     height: auto;
     font-size: 18px;
@@ -57,6 +57,39 @@
     background-color: #fff;
 }
 
+/* Estilos para impresión */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #cont-segundo, #cont-segundo * {
+        visibility: visible;
+    }
+
+        #cont-segundo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 210mm;
+            /* Ancho de una hoja A4 en orientación vertical */
+            height: 297mm;
+            /* Alto de una hoja A4 en orientación vertical */
+            overflow: hidden;
+        }
+
+    /* Opcional: ajustar tamaños de fuentes y espacios */
+    .cont-remito, .cont-remito * {
+        font-size: 12px; /* Ajusta según sea necesario */
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Ocultar botones en la impresión */
+    .cont-btns-remitosCliente {
+        display: none;
+    }
+}
 
 
 

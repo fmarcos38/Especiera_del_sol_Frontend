@@ -19,87 +19,7 @@ function ListaRemitosVentas() {
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
-    const calcEntregas = (entregas, estado, totPedido) => {
-        let tot=0;
-
-        if(estado === "Pagado"){
-            return totPedido;
-        }else{
-            if(entregas.length !== 0){
-                entregas.map(e => {
-                    return tot += e.entrega; 
-                });
-            }
-        }
-
-        return tot;
-    };
-    //funcion calcula las entregas y resta del saldo
-    const calculaSaldo = (tot, entregas, estado) =>{
-        let saldo = 0;
-
-        if(estado === "Pagado"){
-            return saldo;
-        }else{
-            if (entregas.length !== 0) {
-                const totEntregas = calcEntregas(entregas);
-                saldo = tot - totEntregas;
-                return saldo;
-            }else{
-                return tot;
-            }
-        }
-    };
-    //calcula el total de todos los remitos
-    const totRemitos = () => {
-        let tot = 0;
-        remitos?.map(r => {
-            tot = tot + r.totPedido;
-            return tot;
-        });
-        return tot;
-    };
-    //funcion calc el tot de los saldos 
-    const totSaldos = () => {
-        let tot = 0; 
-        remitos?.map(r => {
-            return tot += calculaSaldo(r.totPedido, r.entrego, r.estado); 
-        });
-        return tot;
-    };
-    //funcion calc el tot de entregas por remito
-    const totEntregas = () => {
-        let total = 0;
-        remitos?.forEach(r => {
-            if(r.estado === "Pagado"){
-                total += r.totPedido;
-            }else{
-                r.entrego.forEach(entrega => {
-                    total += entrega.entrega;
-                });
-            }            
-        });
-        return total;
-    };
-    const calcGanancia = (items) => {
-        let totGanancia = 0;
-
-        items?.map(item => {
-            //let producto = productos.find(p => p.nombre === item.detalle); //console.log("prod:",producto)
-            totGanancia += (item.unitario * item.cantidad) - (item.costo * item.cantidad);//q producto es?
-            return totGanancia;
-        });
-        return totGanancia;
-    };
-    //calc tot Ganacias
-    const calcTotGanancias = () => {
-        let tot = 0;
-        remitos?.map(v => {
-            tot += calcGanancia(v.items);
-            return tot;
-        });
-        return tot;
-    };
+    
     //para filtro de fechas 
     const handleOnChFechaDesde = (e) => {
         setFechaDesde(e.target.value);
@@ -186,16 +106,6 @@ function ListaRemitosVentas() {
             {/* lista ventas */}
             <TablaVentas 
                 ventas={remitos}
-                calcGanancia={calcGanancia}
-                calcEntregas={calcEntregas}
-                calculaSaldo={calculaSaldo}
-                totRemitos={totRemitos}
-                totEntregas={totEntregas}
-                totSaldos={totSaldos}
-                calcTotGanancias={calcTotGanancias}
-                estado={estado}
-                fechaDesde={fechaDesde}
-                fechaHasta={fechaHasta}
             />
         </div>
     )

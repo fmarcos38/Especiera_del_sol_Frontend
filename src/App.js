@@ -17,7 +17,7 @@ import DetalleRemitoPage from './Pages/DetalleRemitoPage';
 import DetalleRemitoCompraPage from './Pages/DetalleRemitoCompraPage';
 import EditaRemitoPage from './Pages/EditaRemito';
 import CreaCompra from './Pages/CreaCompra/CreaCompra';
-import CreaPago from './Pages/CreaPago';
+import CreaPagoProveedor from './Pages/CreaPagoProveedor';
 import ListaProveedoresPage from './Pages/ListaProveedores';
 import ListaRemitosProveedorPage from './Pages/ListaRemitosProveedor';
 import EditaRemitoCompraPage from './Pages/EditaRemitoCompra';
@@ -31,7 +31,9 @@ import ModifProducto from './Pages/ModifProducto';
 import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
 import ListaDePreciosEspecialPage from './Pages/ListaDePreciosEspecial';
 import CuentaCorrienteClientePage from './Pages/CuentaCorrienteClientePage';
+import CreaPagoCliente from './Pages/CreaPagoCliente';
 import './App.css';
+
 
 function App() {
 
@@ -62,7 +64,8 @@ function App() {
             <Route path='/detalleRemitoVenta/:_id' element={<DetalleRemitoVenta />} />{/* nuevo */}
             <Route path='/detalleRemitoCompra/:_id' element={<DetalleRemitoCompraPage />} />
             <Route path='/editaRemito/:_id' element={<EditaRemitoPage />} />
-            <Route path='/creaPago' element={<CreaPago />} />
+            <Route path='/creaPago' element={<CreaPagoProveedor />} />
+            <Route path='/creaPagoCliente' element={<CreaPagoCliente/>} />
             <Route path='/creaCompra' element={<CreaCompra />} />
             <Route path='/listaRemitosCompras' element={<ListaRemitosComprasPage />} />
             <Route path='/editaRemitoCompra/:_id' element={<EditaRemitoCompraPage />} />

@@ -71,7 +71,7 @@ function ListaRemitosProveedor() {
                 <div className='subCont-filtros-lista-remitos-cliente'>
                     <FiltraDebePago 
                         handleOnClick={handleOnClick}
-                        operacion={'venta'}
+                        operacion={'proveedor'}
                     />
                     <FiltrosComprasVentasFecha
                         fechaDesde={fechaDesde}

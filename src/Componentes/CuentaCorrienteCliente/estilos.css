@@ -16,3 +16,35 @@
 .btn-imprimir{
     margin-bottom: 50px;
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+        /* Ocultar todo el contenido del cuerpo */
+    }
+
+    #tablaCCC,
+    #tablaCCC * {
+        visibility: visible;
+        /* Mostrar solo el contenido del div con id 'tablaCCC' */
+    }
+
+    #tablaCCC {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm;
+        /* Ancho de una hoja A4 en orientación vertical */
+        height: 297mm;
+        /* Alto de una hoja A4 en orientación vertical */
+        overflow: hidden;
+        /* Ocultar cualquier contenido que se desborde */
+    }
+
+    @page {
+        size: A4 portrait;
+        /* Tamaño de la página A4 en orientación vertical */
+        margin: 0;
+        /* Márgenes de la página */
+    }
+}

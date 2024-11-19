@@ -39,7 +39,7 @@ function TablaCompras({ compras }) {
     const arrayMovimientos = calculaSaldo(compras); //console.log("nuevoArr:", arrayMovimientos)
 
     return (
-        <table className="client-table tabla-listaCompras">
+        <table className="client-table">
             <thead>
                 <tr>
                     <th>Fecha</th>
