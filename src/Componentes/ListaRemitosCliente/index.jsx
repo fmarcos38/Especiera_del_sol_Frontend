@@ -17,8 +17,6 @@ function ListaRemitosCliente() {
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
-    
-
     const handleOnClick = (e) => {
         // Filtrado por estado o fecha
         switch (e.target.id) {
@@ -107,11 +105,14 @@ function ListaRemitosCliente() {
                     <BotonResetFiltros handleOnClick={handleOnClick} />
                 </div>
             </div>
-
             {/* Tabla */}
             {remitosCliente ? (
                 <div className="cont-segundo" id='cont-segundo'>
-                    <TablaVentas ventas={remitosCliente} id='tablaMovCliente' />
+                    <TablaVentas 
+                        ventas={remitosCliente}
+                        cuit={cuit} 
+                        id='tablaMovCliente' 
+                    />
                 </div>
             ) : (
                 <h1>No remitos para dicho cliente!!</h1>

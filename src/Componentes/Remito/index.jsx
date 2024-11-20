@@ -96,12 +96,12 @@ function Remito({
                 items,
                 fecha: fechaAct,
                 totPedido,
+                tipoRemito: 'Venta',
                 cuit: cliente.cuit,
                 cliente: cliente.nombre + " " + cliente.apellido,
                 condicion_pago: data.condicion_pago,
                 estado: data.estado,
                 bultos: bultosActual,
-                tipoRemito: 'Venta',
                 //transporte: transporteActual,
             }; 
             dispatch(creaRemito(dataBack));

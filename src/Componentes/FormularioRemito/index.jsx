@@ -347,6 +347,7 @@ function FormRemito({ tipo }) {
                         <td></td>
                         <td></td>
                         <td>{calculaTotPedido()}</td>
+                        <td></td>
                     </tfoot>
                 </table>
             </div>

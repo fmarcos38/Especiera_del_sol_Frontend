@@ -32,6 +32,7 @@ import DetalleRemitoVenta from './Componentes/DetalleRemitoVenta';
 import ListaDePreciosEspecialPage from './Pages/ListaDePreciosEspecial';
 import CuentaCorrienteClientePage from './Pages/CuentaCorrienteClientePage';
 import CreaPagoCliente from './Pages/CreaPagoCliente';
+import EditaPagoRemito from './Pages/EditaPagoRemito';
 import './App.css';
 
 
@@ -76,6 +77,7 @@ function App() {
             <Route path='/quienesSomos' element={<QuienesSomosPage />} />
             <Route path='/ofertas' element={<ListaDePreciosEspecialPage/>} />
             <Route path='/cuentaCorrienteCliente/:cuit' element={<CuentaCorrienteClientePage />} />
+            <Route path='/editaPagoRemito/:_id' element={<EditaPagoRemito/>} />
 
             {/* rutas para el desarrollador */}
             <Route path='/remito' element={<Remito />} />

@@ -201,7 +201,7 @@ export function traeUltimoRemito(){
 }
 //crea remito
 export function creaRemito(data){
-    return async function(dispatch){
+    return async function(dispatch){ console.log("dataAction:", data);
         const resp = await axios.post(`${actual}/remitos`, data); 
         dispatch({type: CREA_REMITO, payload: resp.data});
     }
