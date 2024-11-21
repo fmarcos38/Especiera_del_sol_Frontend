@@ -186,9 +186,9 @@ export function resetProv(){
 }
 //--remitos ventas-----------------------------------------------------
 //trae remitos
-export function getAllRemitos(estado, fechaDesde, fechaHasta){
+export function getAllRemitos(tipoRemito, fechaDesde, fechaHasta){
     return async function(dispatch){ 
-        const resp = await axios.get(`${actual}/remitos?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/remitos?tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS, payload: resp.data});
     }
 }
@@ -207,9 +207,9 @@ export function creaRemito(data){
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit, estado, fechaDesde='', fechaHasta=''){
+export function getRemitosCliente(cuit, tipoRemito, fechaDesde='', fechaHasta=''){
     return async function(dispatch){ 
-        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
+        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
@@ -273,9 +273,9 @@ export function eliminaEntrega(idRemito, idEntrega){
 }
 
 //----actions remitos COMPRAS-----------------------------------------------------------
-export function getAllCompras(detalle, estado, fechaDesde, fechaHasta) {
+export function getAllCompras(detalle, tipoRemito, fechaDesde, fechaHasta) {
     return async function(dispatch){
-        const resp = await axios.get(`${actual}/compras?detalle=${detalle}&estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/compras?detalle=${detalle}&tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS_COMPRA, payload: resp.data});
     }
 }
@@ -286,9 +286,9 @@ export function creaAnticipo(data){
     }
 }
 //trae remitos de un prov
-export function getRemitosProveedor(cuit, detalle, estado, fechaDesde, fechaHasta){
+export function getRemitosProveedor(cuit, detalle, tipoRemito, fechaDesde, fechaHasta){
     return async function(dispatch){   
-        const resp = await axios.get(`${actual}/compras/remitosProveedor/${cuit}?detalle=${detalle}&estado=${estado}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/compras/remitosProveedor/${cuit}?detalle=${detalle}&tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_REMITOS_PROVEEDOR, payload: resp.data});
     }
 }

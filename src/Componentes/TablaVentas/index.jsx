@@ -4,13 +4,13 @@ import { NavLink } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import BotonEliminaRemitoVenta from '../BotonEliminaRemitoVenta';
 import './estilos.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { buscaClientePorCuit } from '../../Redux/Actions';
 
 function TablaVentas({ ventas, cuit }) {
 
     const dispatch = useDispatch();
-    const cliente = useSelector(state => state.cliente);
+    //const cliente = useSelector(state => state.cliente);
     // Función para calcular el saldo
     const calculaSaldo = (remitos) => {
         let saldo = 0; // Saldo inicial
@@ -49,80 +49,79 @@ function TablaVentas({ ventas, cuit }) {
     },[cuit, dispatch]);
 
     return (
-        <div className='cont-tabla-remitosCliente'>
-            <h2>Cliente: {cliente.nombreApellido}</h2>
-            <table className="client-table ">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>N° Remito</th>
-                        <th>Detalle</th>
-                        <th>Debe</th>
-                        <th>Haber</th>
-                        <th>Saldo</th>
-                        <th>Detalle Saldo</th>
-                        <th>Cond. de Pago</th>
-                        <th>Ver</th>
-                        <th>Edita/Elim</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {arrayMovimientos?.map((r) => (
-                        <tr key={r._id}>
-                            <td className='colTablaVentas'>{fechaArg(r.fecha)}</td>
-                            <td >{r.numRemito}</td>
-                            <td >{r.tipoRemito}</td>
-                            <td >{r.debe > 0 ? formatMoney(r.debe) : '-'}</td>
-                            <td >{r.haber > 0 ? formatMoney(r.haber) : '-'}</td>
-                            <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>
-                                {formatMoney(r.saldo)}
-                            </td>
-                            <td >{r.saldoText}</td>
-                            <td >{r.condicion_pago}</td>
-                            <td>
-                                <NavLink to={`/detalleRemitoVenta/${r._id}`}>
-                                    <button>Ver</button>
-                                </NavLink>
-                            </td>
-                            <td style={{ width: '50px' }}>
-                                    <div style={{ display: 'flex' }} key={r._id}>
-                                        {/* btn edita */}
-                                        {
-                                            r.tipoRemito === 'Venta' ? (
-                                                <NavLink to={`/editaRemito/${r._id}`}>
-                                                    <button>
-                                                        <EditIcon />
-                                                    </button>
-                                                </NavLink>
-                                            ) : (
-                                                <NavLink to={`/editaPagoRemito/${r._id}`}>
-                                                    <button>
-                                                        <EditIcon />
-                                                    </button>
-                                                </NavLink>
-                                            )
-                                            
-                                        }
-                                        {/* btn elim */}
-                                        <BotonEliminaRemitoVenta _id={r._id} />
-                                    </div>
-                                </td>
-                        </tr>
-                    ))}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan="3">Totales</td>
-                        <td>${formatMoney(totalDebe)}</td>
-                        <td>${formatMoney(totalHaber)}</td>
-                        <td className={totalSaldo}>
-                            ${formatMoney(totalSaldo)}
+        <table className="client-table ">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>N° Remito</th>
+                    <th>Operación</th>
+                    <th>Cliente</th>
+                    <th>Debe</th>
+                    <th>Haber</th>
+                    <th>Saldo</th>
+                    <th>Detalle Saldo</th>
+                    <th>Cond. de Pago</th>
+                    <th>Ver</th>
+                    <th>Edita/Elim</th>
+                </tr>
+            </thead>
+            <tbody>
+                {arrayMovimientos?.map((r) => (
+                    <tr key={r._id}>
+                        <td className='colTablaVentas'>{fechaArg(r.fecha)}</td>
+                        <td>{r.numRemito}</td>
+                        <td>{r.tipoRemito}</td>
+                        <td>{r.cliente}</td>
+                        <td>{r.debe > 0 ? formatMoney(r.debe) : '-'}</td>
+                        <td>{r.haber > 0 ? formatMoney(r.haber) : '-'}</td>
+                        <td className={r.saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo'}>
+                            {formatMoney(r.saldo)}
                         </td>
-                        <td colSpan="4"></td>
+                        <td >{r.saldoText}</td>
+                        <td >{r.condicion_pago}</td>
+                        <td>
+                            <NavLink to={`/detalleRemitoVenta/${r._id}`}>
+                                <button>Ver</button>
+                            </NavLink>
+                        </td>
+                        <td style={{ width: '50px' }}>
+                            <div style={{ display: 'flex' }} key={r._id}>
+                                {/* btn edita */}
+                                {
+                                    r.tipoRemito === 'Venta' ? (
+                                        <NavLink to={`/editaRemito/${r._id}`}>
+                                            <button>
+                                                <EditIcon />
+                                            </button>
+                                        </NavLink>
+                                    ) : (
+                                        <NavLink to={`/editaPagoRemito/${r._id}`}>
+                                            <button>
+                                                <EditIcon />
+                                            </button>
+                                        </NavLink>
+                                    )
+
+                                }
+                                {/* btn elim */}
+                                <BotonEliminaRemitoVenta _id={r._id} />
+                            </div>
+                        </td>
                     </tr>
-                </tfoot>
-            </table>
-        </div>
+                ))}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan="4">Totales</td>
+                    <td>${formatMoney(totalDebe)}</td>
+                    <td>${formatMoney(totalHaber)}</td>
+                    <td className={totalSaldo}>
+                        ${formatMoney(totalSaldo)}
+                    </td>
+                    <td colSpan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
     );
 }
 

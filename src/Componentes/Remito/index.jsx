@@ -176,18 +176,15 @@ function Remito({
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
-                            {/* cont info empresa */}
-                            <div className='cont-remito-sup-info-empresa'>                                
-                                <div className='cont-info-empresa'>
-                                    {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
-                                    <img src={logoRemito} alt='' className='logo-remito' />
-                                    <p>De Gustavo Matusovsky</p>
-                                    <p>11 4199 7200</p>
-                                    <p>11 5951 0493</p>
-                                    <p>info@especieradelsol.com</p>
-                                    <p>www.especieradelsol.com</p>
-                                    <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
-                                </div>                                
+                            <div className='cont-info-empresa'>
+                                {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
+                                <img src={logoRemito} alt='' className='logo-remito' />
+                                <p>De Gustavo Matusovsky</p>
+                                <p>11 4199 7200</p>
+                                <p>11 5951 0493</p>
+                                <p>info@especieradelsol.com</p>
+                                <p>www.especieradelsol.com</p>
+                                <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
                             </div>
                             {/* cont X */}
                             <div className='cont-remito-sup-info-X'>
@@ -203,11 +200,13 @@ function Remito({
                             </div>
                         </div>
                         {/* cont sup Derecho */}
-                        <div className='cont-remito-derecho'>
+                        <div className='cont-remito-sup-derecho'>
                             <div className='cont-remito-derecho-SUP'>
-                                <p className='derecho-SUP-titulo'>REMITO</p>
-                                <p className='num-remito'>N° {nuevoNumeroRemito}</p>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ width: '90%',display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p className='derecho-SUP-titulo'>REMITO</p>
+                                    <p className='num-remito'>N° {nuevoNumeroRemito}</p>
+                                </div>
+                                <div style={{ width: '90%',display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <p className='fecha-remito'>Fecha: </p>
                                     <p>{fechaArg(fechaAct)}</p>
                                 </div>

@@ -1,5 +1,6 @@
 .cont-principal-detalleRVenta{
     width: 100%;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,38 +8,29 @@
 }
 .cont-remitos-detalleRVenta{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 20px;
 }
 
 @media print {
     body * {
-        visibility: hidden;
-        /* Ocultar todo el contenido del cuerpo */
+        visibility: hidden; /* Ocultar todo el contenido del cuerpo */
     }
 
-    #imp-remitos,
-    #imp-remitos * {
-        visibility: visible;
-        /* Mostrar solo el contenido del div con id 'imp-remitos' */
+    #imp-remitos, #imp-remitos * {
+        visibility: visible; /* Mostrar solo el contenido del div con id 'imp-remitos' */
     }
 
     #imp-remitos {
         position: absolute;
         left: 0;
         top: 0;
-        width: 297mm;
-        /* Ancho de una hoja A4 en orientación horizontal */
-        height: 210mm;
-        /* Alto de una hoja A4 en orientación horizontal */
-        page-break-inside: avoid;
-        page-break-after: always;
+        width: 297mm; /* Ancho de una hoja A4 en orientación horizontal */
+        height: 210mm; /* Alto de una hoja A4 en orientación horizontal */
+        overflow: hidden; /* Ocultar cualquier contenido que se desborde */
     }
 
     @page {
-        size: A4 landscape;
-        /* Tamaño de la página A4 en orientación horizontal */
-        margin: 0;
-        /* Márgenes de la página */
+        size: A4 landscape; /* Tamaño de la página A4 en orientación horizontal */
+        margin: 0; /* Márgenes de la página */
     }
 }

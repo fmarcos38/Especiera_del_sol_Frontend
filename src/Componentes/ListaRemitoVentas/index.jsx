@@ -12,9 +12,9 @@ function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
     const [remitos, setremitos] = useState([]);
-    const [estado, setEstado] = useState("todos");
+    const [tipoRemito, setEstado] = useState("todos");
     const [cliente, setCliente] = useState('');
-    //estado para las fechas
+    //tipoRemito para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
@@ -46,20 +46,20 @@ function ListaRemitosVentas() {
                 break;
             case 'todos':
                 setEstado("todos");
-                dispatch(getAllRemitos( estado, fechaDesde, fechaHasta));
+                dispatch(getAllRemitos( tipoRemito, fechaDesde, fechaHasta));
                 break;
             case 'mesActual':
                 setFechaDesde('');
                 setFechaHasta('');
                 setEstado("todos");
-                dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+                dispatch(getAllRemitos(tipoRemito, fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
             
         }
     };
-    //actualizo estado cliente -> para luego en el useEffect utilizarlo
+    //actualizo tipoRemito cliente -> para luego en el useEffect utilizarlo
     const onChangeCliente =  (e) => {
         setCliente(e.target.value);
     };
@@ -74,9 +74,9 @@ function ListaRemitosVentas() {
     },[cliente, ventas]);
     
     useEffect(() => {
-        dispatch(getAllRemitos(estado, fechaDesde, fechaHasta));
+        dispatch(getAllRemitos(tipoRemito, fechaDesde, fechaHasta));
         dispatch(getAllProds());
-    }, [dispatch, estado, fechaDesde, fechaHasta,]);
+    }, [dispatch, tipoRemito, fechaDesde, fechaHasta,]);
 
 
     return (

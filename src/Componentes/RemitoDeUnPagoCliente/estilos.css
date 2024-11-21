@@ -1,0 +1,48 @@
+.remito-pago-cliente {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin: 16px;
+    transition: box-shadow 0.3s ease;
+}
+
+.remito-pago-cliente:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.remito-pago-cliente > p {
+    font-size: 1.5em;
+    color: #333;
+}
+
+
+@media print {
+    body * {
+        visibility: hidden; /* Ocultar todo el contenido del cuerpo */
+    }
+
+    #remito-pago-cliente, #remito-pago-cliente * {
+        visibility: visible; /* Mostrar solo el contenido del div con id 'imp-remitos' */
+    }
+
+    #remito-pago-cliente {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm; /* Ancho de una hoja A4 en orientación vertical */
+        height: 297mm; /* Alto de una hoja A4 en orientación vertical */
+        overflow: hidden; /* Ocultar cualquier contenido que se desborde */
+    }
+
+    @page {
+        size: A4 portrait; /* Tamaño de la página A4 en orientación vertical */
+        margin: 0; /* Márgenes de la página */
+    }
+}

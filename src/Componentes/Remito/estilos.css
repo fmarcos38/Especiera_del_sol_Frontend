@@ -5,63 +5,47 @@
     justify-content: center;
     align-items: center;
 }
-/* medida de hoja A4 en px */
+/* medida de mitad de hoja A4 en px */
 /*
     width: 148mm;
     height: 210mm;
  */
 .cont-form-remito{
-    width: 577px;
-    height: 817px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .cont-remito{
-    width: 577px;
-    height: 817px;
+    width: 148.5mm; /* La mitad del ancho de una hoja A4 en orientación horizontal */
+    height: 210mm;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid rgb(42, 42, 42);
-    background-color: #fff;
 }
 /* estilos contenedor sup */
 .cont-remito-sup{
     width: 100%;
     height: 200px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     border-bottom: 1px solid black; /* agregada */
 }
 .cont-remito-sup-izq{
-    width: 60%;
+    width: 55%;
     height: 100%;
     display: flex;
     justify-content: center;
 }
-.cont-remito-sup-info-empresa{
-    width: 80%;
+.cont-remito-sup-logo{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #050505;
-}
-.cont-remito-sup-logo{
-    width: 20%;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    margin-top: 20px;
 }
 .logo-remito{
     width: 220px;
     height: 55px;
-    margin-left: 5px;
 }
 .cont-info-empresa{
     width: 80%;
@@ -73,14 +57,13 @@
 .texto-logo{
     width: 180px;
     height: 40px;
-    margin-bottom: 8px;
 }
-.cont-remito-sup-info-empresa p{
+.cont-info-empresa > p{
     margin: 0;
     font-size: 14px;    
 }
 .cont-remito-sup-info-X{
-    width: 20%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,21 +93,18 @@
 }
 .p-cont-X{
     margin: 0;
-    font-size: 10px;
+    font-size: 9px;
 }
 /* estilos cont datos Remito + fecha + data empresa */
 /* estilos cont sup der */
-.cont-remito-derecho{
-    width: 40%;
-    display: flex;
-    padding: 10px;
-    flex-direction: column;
+.cont-remito-sup-derecho{
+    width: 45%;
 }
 .cont-remito-derecho-SUP {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    height: 50%;
+    justify-content: center;
+    align-items: center;
 } 
 .derecho-SUP-titulo,
 .num-remito,
@@ -134,9 +114,11 @@
     color: black;
 }
 .cont-remito-derecho-INF {
+    width: 90%;
     display: flex;
     height: 50%;
     color: black;
+    /* background-color: aquamarine; */
 }
 .cont-remito-derecho-INF-izq,
 .cont-remito-derecho-INF-der {
@@ -154,6 +136,7 @@
 }
 .cont-remito-derecho-INF-der{
     align-items: end;
+    /* background-color: aqua; */
 }
 .datos-empresa-afip-DER{
     margin-right: 2px;

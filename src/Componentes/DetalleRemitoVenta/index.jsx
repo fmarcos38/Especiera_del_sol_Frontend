@@ -6,6 +6,7 @@ import Remito from '../Remito';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import './estilos.css';
+import RemitoDeUnPagoCliente from '../RemitoDeUnPagoCliente';
 
 function DetalleRemitoVenta() {
     const { _id } = useParams(); 
@@ -38,8 +39,24 @@ function DetalleRemitoVenta() {
     };
     // Función para guardar PDF en hoja horizontal A4
     const handlePrint = () => {
+        const css = `
+            @page { size: A4 landscape; margin: 0; }
+            body * { visibility: hidden; }
+            #imp-remitos, #imp-remitos * { visibility: visible; }
+            #imp-remitos { position: absolute; left: 0; top: 0; width: 297mm; height: 210mm; }
+        `;
+    
+        const printStyle = document.createElement('style');
+        printStyle.textContent = css;
+        document.head.appendChild(printStyle);
+    
         window.print();
+    
+        // Limpiar estilos después de la impresión
+        setTimeout(() => document.head.removeChild(printStyle), 1000);
     };
+    
+    
 
     useEffect(() => {
         dispatch(getRemitoById(_id));
@@ -53,36 +70,40 @@ function DetalleRemitoVenta() {
 
     return (
         <div className='cont-principal-detalleRVenta'>
-            <div id='imp-remitos' className='cont-remitos-detalleRVenta'>
-                <Remito
-                    id='remito'
-                    operacion={"muestra"}
-                    cliente={cliente}
-                    clienteExiste={true}
-                    numUltimoRemito={remito.numRemito}
-                    items={remito.items}
-                    totPedido={remito.totPedido}
-                    bultos={remito.bultos}
-                    transporte={remito.transporte}
-                    fecha={remito.fecha}
-                />
-                {/* 2do remito */}
-                <Remito
-                    operacion={"muestra"}
-                    numUltimoRemito={remito.numRemito}
-                    cliente={cliente}
-                    clienteExiste={true}
-                    items={remito.items}
-                    totPedido={remito.totPedido}
-                    bultos={remito.bultos}
-                    transporte={remito.transporte}
-                    fecha={remito.fecha}
-                />
-            </div>
-            <div>
-                <button type='button' onClick={handlePrint} className='boton-imprimir'>Imprimir</button>
-                <button type='button' onClick={handleSavePDF} className='boton-imprimir'>Guardar en PDF</button>
-            </div>
+            {
+                remito.tipoRemito === 'Venta' ? (
+                    <>
+                        <div id='imp-remitos' className='cont-remitos-detalleRVenta'>
+                                <Remito
+                                    id='remito'
+                                    operacion={"muestra"}
+                                    cliente={cliente}
+                                    clienteExiste={true}
+                                    numUltimoRemito={remito.numRemito}
+                                    items={remito.items}
+                                    totPedido={remito.totPedido}
+                                    bultos={remito.bultos}
+                                    transporte={remito.transporte}
+                                    fecha={remito.fecha}
+                                />  
+                        </div>
+                        <div>
+                            <button type='button' onClick={handlePrint} className='boton-imprimir'>Imprimir</button>
+                            <button type='button' onClick={handleSavePDF} className='boton-imprimir'>Guardar en PDF</button>
+                        </div>
+                    </>
+                ) : (
+                    <div id='imp-remitos' className='cont-remitos-detalleRVenta'>
+                        <RemitoDeUnPagoCliente 
+                            cliente={cliente}
+                            totPedido={remito.totPedido} 
+                            fecha={remito.fecha} 
+                            condicion_pago={remito.condicion_pago}
+                        />
+                    </div>
+                )
+            }
+            
         </div>
     );
 }
