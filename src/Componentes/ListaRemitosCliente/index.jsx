@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRemitosCliente, buscaClientePorCuit, resetCliente } from '../../Redux/Actions';
+import { getRemitosCliente, buscaClientePorCuit, resetCliente, ordenaPorFechaRemitos,  } from '../../Redux/Actions';
 import { useParams } from 'react-router-dom';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
@@ -20,11 +20,11 @@ function ListaRemitosCliente() {
     const handleOnClick = (e) => {
         // Filtrado por estado o fecha
         switch (e.target.id) {
-            case 'debe':
-                dispatch(getRemitosCliente(cuit, "Debe", fechaDesde, fechaHasta));
+            case 'fechaMax':
+                dispatch(ordenaPorFechaRemitos("fechaMax"));
                 break;
-            case 'pagado':
-                dispatch(getRemitosCliente(cuit, "Pagado", fechaDesde, fechaHasta));
+            case 'fechaMin':
+                dispatch(ordenaPorFechaRemitos("fechaMin"));
                 break;
             case 'todos':
                 dispatch(getRemitosCliente(cuit, "todos", fechaDesde, fechaHasta));
@@ -93,13 +93,17 @@ function ListaRemitosCliente() {
             {/* Filtros */}
             <div className="cont-filtros-lista-remitos-cliente">
                 <div className='subCont-filtros-lista-remitos-cliente'>
-                    <FiltraDebePago handleOnClick={handleOnClick} operacion={'venta'} />
-                    <FiltrosComprasVentasFecha
-                        fechaDesde={fechaDesde}
-                        handleOnChFechaDesde={handleOnChFechaDesde}
-                        fechaHasta={fechaHasta}
-                        handleOnChFechaHasta={handleOnChFechaHasta}
-                    />
+                    <div style={{'width':'50%',}}>
+                        <FiltraDebePago handleOnClick={handleOnClick} operacion={'venta'} />
+                    </div>
+                    <div style={{'width':'50%', display:'flex', justifyContent:'center',}}>
+                        <FiltrosComprasVentasFecha
+                            fechaDesde={fechaDesde}
+                            handleOnChFechaDesde={handleOnChFechaDesde}
+                            fechaHasta={fechaHasta}
+                            handleOnChFechaHasta={handleOnChFechaHasta}
+                        />
+                    </div>
                 </div>
                 <div className='cont-btnReset-lista-remitos-cliente'>
                     <BotonResetFiltros handleOnClick={handleOnClick} />

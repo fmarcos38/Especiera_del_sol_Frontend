@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRemitosProveedor, ordenaPorFecha, buscaProveedorPorCuit, resetProv } from '../../Redux/Actions';
+import { getRemitosProveedor, buscaProveedorPorCuit, resetProv, ordenaPorFechaRemitos } from '../../Redux/Actions';
 import { useParams } from 'react-router-dom';
 import FiltrosComprasVentasFecha from '../FiltrosComprasVentas';
 import FiltraDebePago from '../FiltraDebePago';
@@ -22,24 +22,15 @@ function ListaRemitosProveedor() {
     //onClick para botones: debe, pagado, fecha+, fecha-, reset
     const handleOnClick = (e) => {
         switch (e.target.id) {
-            case 'debe':
-                dispatch(getRemitosProveedor(cuit, "Compra", "todos", fechaDesde, fechaHasta));
-                break;
-            case 'pagado':
-                dispatch(getRemitosProveedor(cuit, "Anticipo", "Pago", fechaDesde, fechaHasta));
-                break;
             case 'fechaMax':
-                dispatch(ordenaPorFecha("fechaMax"));
+                dispatch(ordenaPorFechaRemitos("fechaMax"));
                 break;
             case 'fechaMin':
-                dispatch(ordenaPorFecha("fechaMin"));
+                dispatch(ordenaPorFechaRemitos("fechaMin"));
                 break;
             case 'mesActual':
                 setFechaDesde('');
                 setFechaHasta('');
-                dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
-                break;
-            case 'todos':                
                 dispatch(getRemitosProveedor(cuit, "todos", "todos", fechaDesde, fechaHasta));
                 break;
             default:

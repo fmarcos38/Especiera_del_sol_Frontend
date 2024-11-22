@@ -19,7 +19,6 @@ function ListaRemitosVentas() {
     const [fechaHasta, setFechaHasta] = useState('');
     const dispatch = useDispatch();
 
-    
     //para filtro de fechas 
     const handleOnChFechaDesde = (e) => {
         setFechaDesde(e.target.value);
@@ -30,23 +29,11 @@ function ListaRemitosVentas() {
     //para botones debe pagado fecha mas, fecha menos
     const handleOnClick = (e) => {
         switch (e.target.id) {
-            case 'debe':
-                setEstado("Debe");
-                dispatch(getAllRemitos("Debe", fechaDesde, fechaHasta));
-                break;
-            case 'pagado':
-                setEstado("Pagado");
-                dispatch(getAllRemitos("Pagado", fechaDesde, fechaHasta));
-                break;
             case 'fechaMax':
                 dispatch(ordenaPorFecha("fechaMax"));
                 break;
             case 'fechaMin':
                 dispatch(ordenaPorFecha("fechaMin"));
-                break;
-            case 'todos':
-                setEstado("todos");
-                dispatch(getAllRemitos( tipoRemito, fechaDesde, fechaHasta));
                 break;
             case 'mesActual':
                 setFechaDesde('');

@@ -24,6 +24,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgb(42, 42, 42);
+    background-color: #fff;
 }
 /* estilos contenedor sup */
 .cont-remito-sup{

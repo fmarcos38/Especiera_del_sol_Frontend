@@ -59,59 +59,61 @@ function ListaReportes() {
 
   const generoReporteMes = () => {
     if (!reporteMes || typeof reporteMes !== 'object') return [];
-  
+
     const ventas = Array.isArray(reporteMes?.ventas) ? reporteMes.ventas : [];
     const compras = Array.isArray(reporteMes?.compras) ? reporteMes.compras : [];
     const gastos = Array.isArray(reporteMes?.gastos) ? reporteMes.gastos : [];
-  
+
     const getDaysInMonth = (month, year) => new Date(year, month, 0).getDate();
     if (!mes) return [];
-  
+
     const dividoFecha = mes.split('-');
-    const añoNumber = dividoFecha[0];
-    const mesNumber = dividoFecha[1];
+    const añoNumber = parseInt(dividoFecha[0], 10);
+    const mesNumber = parseInt(dividoFecha[1], 10);
     const daysInMonth = getDaysInMonth(mesNumber, añoNumber);
-  
+
     const initialData = Array.from({ length: daysInMonth }, (_, i) => ({
-      day: i + 1,
-      ventas: 0,
-      compras: 0,
-      gastos: 0,
-      ganancias: 0,
-      totKgs: 0,
+        day: i + 1,
+        ventas: 0,
+        compras: 0,
+        gastos: 0,
+        ganancias: 0,
+        totKgs: 0,
     }));
-  
+
     const updateData = (initialData, data, type, weightField = null, gainField = null) => {
-      data.forEach(item => {
-        const date = new Date(item.fecha);
-        const day = date.getDate();
-        initialData[day - 1][type] += item.total || item.monto || item.totPedido || 0;
-    
-        if (weightField && item[weightField]) {
-          initialData[day - 1]['totKgs'] += item[weightField];
-        }
-    
-        // Calcular ganancias de los items en cada venta
-        if (gainField && Array.isArray(item[gainField])) {
-          const totalGanancia = item[gainField].reduce((acc, subItem) => {
-            const unitario = parseFloat(subItem.unitario) || 0;
-            const costo = parseFloat(subItem.costo) || 0;
-            const cantidad = parseFloat(subItem.cantidad) || 0;
-            const ganancia = (unitario - costo) * cantidad;
-            return acc + ganancia;
-          }, 0);
-          initialData[day - 1]['ganancias'] += totalGanancia;
-        }
-      });
-      return initialData;
+        data.forEach(item => {
+            const date = new Date(item.fecha);
+            const day = date.getDate();
+            if (day > 0 && day <= daysInMonth) {
+                initialData[day - 1][type] += item.total || item.monto || item.totPedido || 0;
+
+                if (weightField && item[weightField]) {
+                    initialData[day - 1]['totKgs'] += item[weightField];
+                }
+
+                // Calcular ganancias de los items en cada venta
+                if (gainField && Array.isArray(item[gainField])) {
+                    const totalGanancia = item[gainField].reduce((acc, subItem) => {
+                        const unitario = parseFloat(subItem.unitario) || 0;
+                        const costo = parseFloat(subItem.costo) || 0;
+                        const cantidad = parseFloat(subItem.cantidad) || 0;
+                        const ganancia = (unitario - costo) * cantidad;
+                        return acc + ganancia;
+                    }, 0);
+                    initialData[day - 1]['ganancias'] += totalGanancia;
+                }
+            }
+        });
+        return initialData;
     };
-  
+
     let updatedData = updateData([...initialData], ventas, 'ventas', 'totKgs', 'items');
     updatedData = updateData([...updatedData], compras, 'compras');
     updatedData = updateData([...updatedData], gastos, 'gastos');
-  
+
     return updatedData;
-  };
+};
 
   newReporteMes = generoReporteMes();
 
@@ -185,7 +187,7 @@ function ListaReportes() {
             <tfoot>
               <tr>
                 <td></td>
-                <td>{calcuTotKgs(newReporteMes)}Kgs</td>
+                <td>{formatMoney(calcuTotKgs(newReporteMes))}Kgs</td>
                 <td>${formatMoney(calcTotVentasBruto(newReporteMes))}</td>
                 <td>${formatMoney(calcTotCompras(newReporteMes))}</td>
                 <td>${formatMoney(calcTotGanancias(newReporteMes))}</td>
