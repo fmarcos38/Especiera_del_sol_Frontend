@@ -1,4 +1,4 @@
-.cont-principal-detalleRVenta{
+.cont-principal-detalleRVenta {
     width: 100%;
     min-height: 90vh;
     display: flex;
@@ -6,13 +6,17 @@
     justify-content: center;
     align-items: center;
 }
-.cont-remitos-detalleRVenta{
-    display: flex;
-    margin-top: 20px;
+
+.cont-remitos-detalleRVenta {
+    width: 210mm; /* Ancho exacto de una hoja A4 en mm */
+    height: 320mm; /* Alto exacto de una hoja A4 en mm */
 }
 
 @media print {
+    
     body * {
+        margin: 0;
+        padding: 0;
         visibility: hidden; /* Ocultar todo el contenido del cuerpo */
     }
 
@@ -21,16 +25,15 @@
     }
 
     #imp-remitos {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 297mm; /* Ancho de una hoja A4 en orientación horizontal */
-        height: 210mm; /* Alto de una hoja A4 en orientación horizontal */
-        overflow: hidden; /* Ocultar cualquier contenido que se desborde */
+        transform: scale(1); /* Ajustar para ocupar la hoja completa */
+        width: 210mm; /* Ancho exacto de una hoja A4 en mm */
+        height: 297mm; /* Alto exacto de una hoja A4 en mm */
+        margin: 0;
+        padding: 0;
     }
 
     @page {
-        size: A4 landscape; /* Tamaño de la página A4 en orientación horizontal */
+        size: A4 portrait; /* Asegura el tamaño correcto de la página */
         margin: 0; /* Márgenes de la página */
     }
 }

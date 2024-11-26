@@ -22,15 +22,15 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
         const input = document.getElementById('pdf-content');
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('landscape', 'mm', 'a4');
-            //const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-
+            const pdf = new jsPDF('portrait', 'mm', 'a4'); // Orientación vertical A4
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            //const pdfHeight = pdf.internal.pageSize.getHeight();
+    
             // Ajustamos el tamaño de la imagen para que ocupe todo el alto de la hoja
-            const imgHeight = pdfHeight; // Ocupa todo el alto
-            const imgWidth = (canvas.width * imgHeight) / canvas.height;
-
-            // Posicionamos la imagen a la izquierda
+            const imgWidth = pdfWidth; // Ocupa todo el ancho
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    
+            // Posicionamos la imagen en la parte superior
             pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
             pdf.save('remito.pdf');
         });
@@ -38,9 +38,6 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
 
     const handleOnChangeCondicion = (e) => {
         setCondicion_pago(e.target.value);
-    };
-    const handleOnChangeEstado = (e) => {
-        setEstado(e.target.value);
     };
     const handleChangeBulto = (e) => {
         setBultos(e.target.value)
@@ -105,7 +102,7 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
             </tr>
         ));
 
-        for (let i = rows?.length; i < 8; i++) {
+        for (let i = rows?.length; i < 14; i++) {
             rows.push(
                 <tr key={`empty-${i}`}>
                     <td>&nbsp;</td>
@@ -129,24 +126,21 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
 
 
     return (
-        <div className='cont-remito-modif'>
-            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito-modif'>
+        <div className='cont-gralRemito'>
+            <form onSubmit={(e) => { handleOnSubmit(e) }} className='cont-form-remito'>
                 <div className='cont-remito' id='pdf-content'>
                     {/* cont info superior */}
                     <div className='cont-remito-sup'>
                         <div className='cont-remito-sup-izq'>
-                            {/* cont info empresa */}
-                            <div className='cont-remito-sup-info-empresa'>                                
-                                <div className='cont-info-empresa'>
-                                    {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
-                                    <img src={logoRemito} alt='' className='logo-remito' />
-                                    <p>De Gustavo Matusovsky</p>
-                                    <p>11 4199 7200</p>
-                                    <p>11 5951 0493</p>
-                                    <p>info@especieradelsol.com</p>
-                                    <p>www.especieradelsol.com</p>
-                                    <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
-                                </div>                                
+                            <div className='cont-info-empresa'>
+                                {/* <img src={textoLogo} alt='' className='texto-logo' /> */}
+                                <img src={logoRemito} alt='' className='logo-remito' />
+                                <p>De Gustavo Matusovsky</p>
+                                <p>11 4199 7200</p>
+                                <p>11 5951 0493</p>
+                                <p>info@especieradelsol.com</p>
+                                <p>www.especieradelsol.com</p>
+                                <p style={{ fontSize: '10px' }}>IVA RESPONSABLE INSCRIPTO</p>
                             </div>
                             {/* cont X */}
                             <div className='cont-remito-sup-info-X'>
@@ -162,11 +156,16 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
                             </div>
                         </div>
                         {/* cont sup Derecho */}
-                        <div className='cont-remito-derecho'>
+                        <div className='cont-remito-sup-derecho'>
                             <div className='cont-remito-derecho-SUP'>
-                                <p className='derecho-SUP-titulo'>REMITO</p>
-                                <p className='num-remito'>N° {remito.numRemito}</p>
-                                <p className='fecha-remito'>Fecha: {formatDate(fechaRemito)}</p> {/* cambie la funcion */}
+                                <div style={{ width: '90%',display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p className='derecho-SUP-titulo'>REMITO</p>
+                                    <p className='num-remito'>N° {remito.numRemito}</p>
+                                </div>
+                                <div style={{ width: '90%',display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p className='fecha-remito'>Fecha: </p>
+                                    <p>{formatDate(fechaRemito)}</p>
+                                </div>
                             </div>
                             <div className='cont-remito-derecho-INF'>
                                 <div className='cont-remito-derecho-INF-izq'>
@@ -258,15 +257,7 @@ function RemitoModifica({ operacion, fechaRemito, cliente, remito, items, totPed
                                     className='input-remito-condicionPago'
                                 />
                             </div>
-                            {/* Estado */}
-                            <div className='cont-condicion-pago'>
-                                <label className='lable-remito-condicion'>Estado:</label>
-                                <select id='estado' onChange={(e) => { handleOnChangeEstado(e) }} className='input-remito-condicionPago'>
-                                    <option>{estado}</option>
-                                    <option value={'Debe'}>Debe</option>
-                                    <option value={'Pagado'}>Pagado</option>
-                                </select>
-                            </div>
+                            
                         </div>
                     </div>
 

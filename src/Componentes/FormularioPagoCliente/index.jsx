@@ -11,6 +11,8 @@ function FormularioPagoCliente({ tipoR }) {
 
     const {_id} = useParams(); // ID del remito (si estás en modificar)
 
+    //estado para el nombre del cliente
+    const [nombreApellido, setNombreApellido] = useState('');
     const [items, setItems] = useState({
         fecha: '',
         cliente: '',
@@ -29,6 +31,10 @@ function FormularioPagoCliente({ tipoR }) {
         return `${year}-${month}-${day}`;
     };
 
+    // Función para manejar el cambio en el input de nombre y apellido
+    const handleOnChangeNA = (e) => {
+        setNombreApellido(e.target.value);
+    };
     const handleOnChange = (e) => {
         setItems({ ...items, [e.target.id]: e.target.value });
     };
@@ -45,7 +51,7 @@ function FormularioPagoCliente({ tipoR }) {
                 fecha: items.fecha,
                 totPedido: items.totPedido,
                 cuit: items.cuit,
-                cliente: items.cliente,
+                cliente: nombreApellido,
                 tipoRemito: items.tipoRemito,
                 condicion_pago: items.condicion_pago
             };
@@ -90,13 +96,13 @@ function FormularioPagoCliente({ tipoR }) {
 
     // Si cambia el cliente, actualiza el CUIT
     useEffect(() => {
-        if (items.cliente) {
+        if (nombreApellido) {
             const dataCliente = clientes.find((c) => c.nombreApellido === items.cliente);
             if (dataCliente) {
                 setItems({ ...items, cuit: dataCliente.cuit });
             }
         }
-    }, [items.cliente, clientes, items]);
+    }, [nombreApellido, clientes, items]);
 
     // Si estás en modo modificar, carga los datos del remito seleccionado en el estado local
     useEffect(() => {
@@ -104,12 +110,12 @@ function FormularioPagoCliente({ tipoR }) {
             dispatch(getRemitoById(_id));
         }
     }, [_id, dispatch, tipoR]);
-
+    //actualiza los datos del remito en el formulario, si es que se está modificando
     useEffect(() => {
         if (tipoR === 'Pago' && remitoPago._id) {
             setItems({
                 fecha: remitoPago.fecha || '',
-                cliente: remitoPago.cliente || '',
+                //cliente: remitoPago.cliente || '',
                 cuit: remitoPago.cuit || 0,
                 tipoRemito: remitoPago.tipoRemito || 'Pago',
                 totPedido: remitoPago.totPedido || 0,
@@ -117,6 +123,13 @@ function FormularioPagoCliente({ tipoR }) {
             });
         }
     }, [remitoPago, tipoR]);
+    //para actualizar el nombre del cliente, si es que se está modificando
+    useEffect(() => {
+        if (remitoPago.cliente && remitoPago.cliente !== nombreApellido) {
+            setNombreApellido(remitoPago.cliente);
+        }
+    }, [remitoPago.cliente, nombreApellido]);    
+
 
     return (
         <form onSubmit={handleOnSubmit} className="cont-formulario-anticipo">
@@ -136,19 +149,23 @@ function FormularioPagoCliente({ tipoR }) {
                 {/* Cliente */}
                 <div className="cont-item">
                     <label className="label-crea-compra">Cliente</label>
-                    <select
-                        id="cliente"
-                        value={items.cliente}
-                        onChange={handleOnChange}
-                        className="input-proveedor-anticipo"
-                    >
-                        <option value="">Seleccione uno</option>
-                        {clientes?.map((p) => (
-                            <option key={p._id} value={p.nombreApellido}>
-                                {p.nombreApellido}
-                            </option>
-                        ))}
-                    </select>
+                    <input
+                        type='text'
+                        id='nombreApellido'
+                        value={nombreApellido}
+                        onChange={(e) => { handleOnChangeNA(e) }}
+                        list="lista-clientes"
+                        className='input-proveedor-anticipo'
+                    />
+                    {/* lista q aparecerá en el input */}
+                    <datalist id="lista-clientes">
+                        {
+                            clientes?.map(c => (
+                                <option key={c._id} value={c.nombreApellido} />
+                            ))
+                        }
+                    </datalist>
+
                 </div>
 
                 {/* Monto */}

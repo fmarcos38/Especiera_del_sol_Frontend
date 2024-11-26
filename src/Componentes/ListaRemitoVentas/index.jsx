@@ -12,7 +12,7 @@ function ListaRemitosVentas() {
 
     const ventas = useSelector(state => state.remitosVentas);
     const [remitos, setremitos] = useState([]);
-    const [tipoRemito, setEstado] = useState("todos");
+    //const [tipoRemito, setEstado] = useState("todos");
     const [cliente, setCliente] = useState('');
     //tipoRemito para las fechas
     const [fechaDesde, setFechaDesde] = useState(''); 
@@ -38,8 +38,7 @@ function ListaRemitosVentas() {
             case 'mesActual':
                 setFechaDesde('');
                 setFechaHasta('');
-                setEstado("todos");
-                dispatch(getAllRemitos(tipoRemito, fechaDesde, fechaHasta));
+                dispatch(getAllRemitos(fechaDesde, fechaHasta));
                 break;
             default:
                 break; 
@@ -51,6 +50,11 @@ function ListaRemitosVentas() {
         setCliente(e.target.value);
     };
 
+    useEffect(() => {
+        dispatch(getAllRemitos(fechaDesde, fechaHasta));
+        dispatch(getAllProds());
+    }, [dispatch, fechaDesde, fechaHasta,]);
+
     //efecto para la busqda de remitos de un cliente
     useEffect(()=>{
         if(cliente){
@@ -59,11 +63,6 @@ function ListaRemitosVentas() {
             setremitos(ventas);
         }
     },[cliente, ventas]);
-    
-    useEffect(() => {
-        dispatch(getAllRemitos(tipoRemito, fechaDesde, fechaHasta));
-        dispatch(getAllProds());
-    }, [dispatch, tipoRemito, fechaDesde, fechaHasta,]);
 
 
     return (

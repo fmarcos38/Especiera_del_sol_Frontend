@@ -55,24 +55,10 @@ export function buscaClientePorNombre(nombreApellido){
     }
 };
 //trae cliente por CUIT
-export function buscaClientePorCuit(cuit){
-    return async function(dispatch){
+export function buscaClientePorCuit(cuit=0){
+    return async function(dispatch){ console.log("cuit:", cuit)
         const resp = await axios.get(`${actual}/clientes/cuit?cuit=${cuit}`);
         dispatch({type:BUSCA_CLIENTE_POR_CUIT, payload: resp.data}); 
-            /* if(resp.data?.nombre){            
-                Swal.fire({
-                    title: "Datos cargados!!",                
-                    icon: "success"
-                });
-            }
-            if(resp.data === "El cliente no existe"){                            
-                    Swal.fire({
-                        title: "Cliente no encontrado!!",
-                        text: "Se debe dar de alta el Cliente!!",                
-                        icon: "error"
-                    });
-                dispatch({type:resetCliente});
-            } */
     }
 }
 //crea cliente
@@ -186,9 +172,9 @@ export function resetProv(){
 }
 //--remitos ventas-----------------------------------------------------
 //trae remitos
-export function getAllRemitos(tipoRemito, fechaDesde, fechaHasta){
+export function getAllRemitos(fechaDesde, fechaHasta){
     return async function(dispatch){ 
-        const resp = await axios.get(`${actual}/remitos?tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+        const resp = await axios.get(`${actual}/remitos?fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
         dispatch({type: GET_ALL_REMITOS, payload: resp.data});
     }
 }
@@ -201,15 +187,15 @@ export function traeUltimoRemito(){
 }
 //crea remito
 export function creaRemito(data){
-    return async function(dispatch){ console.log("dataAction:", data);
+    return async function(dispatch){ 
         const resp = await axios.post(`${actual}/remitos`, data); 
         dispatch({type: CREA_REMITO, payload: resp.data});
     }
 }
 //trae remitos de un cliente
-export function getRemitosCliente(cuit, tipoRemito, fechaDesde='', fechaHasta=''){
+export function getRemitosCliente(cuit, fechaDesde='', fechaHasta=''){
     return async function(dispatch){ 
-        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?tipoRemito=${tipoRemito}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
+        const resp = await axios.get(`${actual}/remitos/remitosCliente/${cuit}?fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);       
         dispatch({type: GET_REMITOS_CLIENTE, payload:resp.data});
     }
 }
