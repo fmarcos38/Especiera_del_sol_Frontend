@@ -1,6 +1,6 @@
 .cont-gralRemito{
     width: 210mm; /* Ancho exacto de una hoja A4 en mm */
-        height: 297mm; /* Alto exacto de una hoja A4 en mm */
+    height: 297mm; /* Alto exacto de una hoja A4 en mm */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,8 +44,7 @@
     align-items: center;
 }
 .logo-remito{
-    width: 220px;
-    height: 55px;
+    height: 80px;
 }
 .cont-info-empresa{
     width: 80%;
@@ -60,7 +59,8 @@
 }
 .cont-info-empresa > p{
     margin: 0;
-    font-size: 14px;    
+    font-size: 16px;
+    margin-left: 47px;
 }
 .cont-remito-sup-info-X{
     width: 18%;
@@ -80,8 +80,10 @@
     align-items: center;
 }
 .letra-x{
-    font-size: 40px;
+    font-size: 60px;
+    font-weight: 400;
     height: 20px;
+    margin-top: 10px;
 }
 .cont-doc-no-valido{
     width: 100%;
@@ -93,7 +95,7 @@
 }
 .p-cont-X{
     margin: 0;
-    font-size: 9px;
+    font-size: 12px;
 }
 /* estilos cont datos Remito + fecha + data empresa */
 /* estilos cont sup der */
@@ -103,28 +105,40 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
-    margin-top: 20px;
+    align-items: center;
 }
 .cont-remito-derecho-SUP {
+    width: 90%;
+    height: 60%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+    align-items: start;
 } 
 .derecho-SUP-titulo,
 .num-remito,
 .fecha-remito {
-    margin: 5px;
-    font-size: 17px;
+    margin: 0;
     color: black;
+}
+.derecho-SUP-titulo {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.num-remito {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+.fecha-remito {
+    font-size: 18px;
 }
 .cont-remito-derecho-INF {
     width: 90%;
+    height: 40%;
     display: flex;
-    height: 50%;
     color: black;
-    /* background-color: aquamarine; */
+    margin-bottom: 5px;
 }
 .cont-remito-derecho-INF-izq,
 .cont-remito-derecho-INF-der {
